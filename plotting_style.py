@@ -19,7 +19,9 @@ COLORS = {
     "panel_alt": Flexoki.colors.base_100.hex,
     "grid": Flexoki.colors.base_200.hex,
     "muted": Flexoki.colors.base_300.hex,
+    "muted_light": Flexoki.colors.base_150.hex,
     "axis": Flexoki.colors.base_600.hex,
+    "axis_light": Flexoki.colors.base_500.hex,
     "text": Flexoki.colors.base_950.hex,
     "line_main": Flexoki.colors.cyan_400.hex,
     "line_compare": Flexoki.colors.orange_400.hex,
@@ -290,6 +292,63 @@ def direct_label_last(
         va="center",
         fontsize=fontsize,
         color=color,
+        fontweight="bold",
+        clip_on=False,
+        bbox={
+            "facecolor": COLORS["paper"],
+            "edgecolor": "none",
+            "alpha": 0.92,
+            "pad": 0.18,
+        },
+    )
+
+
+def add_callout(
+    ax,
+    *,
+    text: str,
+    xy,
+    dx: float = 10,
+    dy: float = 10,
+    color: str | None = None,
+    text_color: str | None = None,
+    fontsize: float = 9.4,
+    fontweight: str = "medium",
+    ha: str = "left",
+    va: str = "center",
+    with_connector: bool = True,
+):
+    connector_color = color or COLORS["axis_light"]
+    annotation_color = text_color or color or COLORS["axis"]
+    return ax.annotate(
+        text,
+        xy=xy,
+        xytext=(dx, dy),
+        textcoords="offset points",
+        ha=ha,
+        va=va,
+        fontsize=fontsize,
+        fontweight=fontweight,
+        color=annotation_color,
+        annotation_clip=False,
+        bbox={
+            "facecolor": COLORS["paper"],
+            "edgecolor": "none",
+            "alpha": 0.96,
+            "boxstyle": "round,pad=0.2,rounding_size=0.12",
+        },
+        arrowprops=(
+            {
+                "arrowstyle": "-",
+                "color": connector_color,
+                "lw": 0.9,
+                "alpha": 0.75,
+                "shrinkA": 0,
+                "shrinkB": 4,
+            }
+            if with_connector
+            else None
+        ),
     )
 
 

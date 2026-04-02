@@ -4,22 +4,56 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazilian]{babel}
 \usepackage{amsmath,amssymb,mathtools}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{needspace}
 \usepackage{hyperref}
+\usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{geometry}
 \usepackage{enumitem}
 \usepackage{xcolor}
-\geometry{margin=2.4cm}
+\geometry{margin=2.2cm}
 \hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black}
-\setlist[itemize]{topsep=4pt,itemsep=2pt}
-\setlength{\parskip}{0.5em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.5em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.7em}
+\setlength{\parskip}{0.35em}
 \setlength{\parindent}{0pt}
+\setlength{\abovedisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\belowdisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\abovedisplayshortskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayshortskip}{6pt plus 2pt minus 2pt}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\brokenpenalty=10000
+\raggedbottom
 \newcommand{\dd}{\mathrm{d}}
+\let\oldsection\section
+\RenewDocumentCommand{\section}{s o m}{%
+  \Needspace{12\baselineskip}%
+  \IfBooleanTF{#1}
+    {\oldsection*{#3}}
+    {\IfNoValueTF{#2}{\oldsection{#3}}{\oldsection[#2]{#3}}}%
+}
+\let\oldsubsection\subsection
+\RenewDocumentCommand{\subsection}{s o m}{%
+  \Needspace{9\baselineskip}%
+  \IfBooleanTF{#1}
+    {\oldsubsection*{#3}}
+    {\IfNoValueTF{#2}{\oldsubsection{#3}}{\oldsubsection[#2]{#3}}}%
+}
 
 \newtcolorbox{resultado}{
   colback=blue!4!white,
   colframe=blue!55!black,
   title=Resultado final,
+  before=\par\Needspace{9\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
   breakable
 }
 
@@ -27,6 +61,13 @@
   colback=green!4!white,
   colframe=green!45!black,
   title=Intui\c{c}\~ao econ\^omica,
+  before=\par\Needspace{8\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
   breakable
 }
 
@@ -34,10 +75,31 @@
   colback=gray!8!white,
   colframe=gray!55!black,
   title=Conven\c{c}\~oes desta nota,
+  before=\par\Needspace{8\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
   breakable
 }
 
-\title{Cap\'itulo 1 --- Deriva\c{c}\~oes do Modelo de Solow}
+\newtcolorbox{roteiro}{
+  colback=orange!5!white,
+  colframe=orange!65!black,
+  title=Mapa da deriva\c{c}\~ao,
+  before=\par\Needspace{10\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
+  breakable
+}
+
+\title{Cap\'itulo 1 --- Modelo de Solow: deriva\c{c}\~ao passo a passo}
 \author{romer-study}
 \date{\today}
 
@@ -49,76 +111,94 @@
 
 \section{Objetivo da nota}
 
-Esta nota deriva, passo a passo, as equa\c{c}\~oes centrais do Cap\'itulo 1 do
-Romer. O objetivo \'e sair da tecnologia agregada
+Esta nota reescreve o Cap\'itulo 1 do Romer em ritmo mais lento. A ideia n\~ao
+\'e apenas registrar as f\'ormulas finais, mas mostrar o caminho alg\'ebrico que
+leva de
 \[
 Y(t)=F\bigl(K(t),A(t)L(t)\bigr)
 \]
-e chegar \`a equa\c{c}\~ao em capital por trabalhador efetivo,
+\`a equa\c{c}\~ao central do modelo:
 \[
 \dot{k}(t)=s f\bigl(k(t)\bigr)-\bigl(n+g+\delta\bigr)k(t).
 \]
 
-Tamb\'em derivamos:
+Ao longo da nota, derivamos:
 \begin{itemize}
   \item a forma intensiva \(y=f(k)\);
+  \item a lei de movimento de \(k\);
   \item o estado estacion\'ario;
+  \item o crescimento balanceado;
   \item a solu\c{c}\~ao Cobb--Douglas;
   \item a Regra de Ouro;
-  \item a decomposi\c{c}\~ao de growth accounting.
+  \item a contabilidade do crescimento;
+  \item a l\'ogica de converg\^encia local.
 \end{itemize}
 
 \begin{convencao}
-A nota\c{c}\~ao coincide com a do reposit\'orio:
+A nota\c{c}\~ao segue o projeto:
 \[
 \alpha,\quad s,\quad n,\quad g,\quad \delta.
 \]
-No c\'odigo, esses objetos aparecem na classe
-\texttt{SolowModel} em \texttt{ch01\_solow/ch01\_solow.py}.
+No reposit\'orio, esses objetos aparecem em
+\texttt{ch01\_solow/ch01\_solow.py}, especialmente na classe
+\texttt{SolowModel}.
 \end{convencao}
+
+\begin{roteiro}
+O desenvolvimento do cap\'itulo pode ser lido em sete passos:
+\begin{enumerate}
+  \item usar retornos constantes de escala para trocar \((K,AL)\) por \(k=K/(AL)\);
+  \item derivar \(\dot{k}\) com a regra do quociente;
+  \item impor \(\dot{k}=0\) para encontrar o steady state;
+  \item especializar para Cobb--Douglas e obter solu\c{c}\~oes fechadas;
+  \item maximizar o consumo de steady state para obter a Regra de Ouro;
+  \item decompor o crescimento observado em capital, trabalho e PTF;
+  \item interpretar por que a economia converge para \(k^\ast\).
+\end{enumerate}
+\end{roteiro}
 
 \section{Hip\'oteses b\'asicas}
 
-Assumimos:
+As hip\'oteses do modelo s\~ao:
 \begin{itemize}
-  \item tecnologia com retornos constantes de escala;
-  \item taxa de poupan\c{c}a ex\'ogena \(s\);
+  \item tecnologia agregada com retornos constantes de escala;
+  \item taxa de poupan\c{c}a ex\'ogena \(s\in(0,1)\);
   \item crescimento populacional ex\'ogeno \(\dot L/L=n\);
   \item progresso t\'ecnico ex\'ogeno \(\dot A/A=g\);
-  \item deprecia\c{c}\~ao \(\delta>0\).
+  \item deprecia\c{c}\~ao proporcional do capital \(\delta>0\).
 \end{itemize}
 
-O produto agregado \'e
+A produ\c{c}\~ao agregada \'e
 \[
-Y=F(K,AL),
+Y=F(K,AL)
 \]
-e a acumula\c{c}\~ao do capital agregado \'e
+e o capital evolui segundo
 \[
 \dot K=sY-\delta K.
 \]
 
-\section{Da fun\c{c}\~ao agregada \`a forma intensiva}
+\section{Passo 1: da produ\c{c}\~ao agregada \`a forma intensiva}
 
 \subsection{Retornos constantes de escala}
 
-Por hip\'otese, para todo \(\lambda>0\),
+Retornos constantes de escala significam que, para qualquer \(\lambda>0\),
 \[
 F(\lambda K,\lambda AL)=\lambda F(K,AL).
 \]
-Escolhendo
+Agora escolhemos deliberadamente
 \[
-\lambda=\frac{1}{AL},
+\lambda=\frac{1}{AL}.
 \]
-obtemos
+Com isso,
 \[
 F\!\left(\frac{K}{AL},1\right)=\frac{1}{AL}F(K,AL).
 \]
-Multiplicando ambos os lados por \(AL\),
+Multiplicando os dois lados por \(AL\),
 \[
 F(K,AL)=AL\cdot F\!\left(\frac{K}{AL},1\right).
 \]
 
-Agora definimos
+Definimos ent\~ao:
 \[
 k\equiv \frac{K}{AL},
 \qquad
@@ -128,31 +208,64 @@ f(k)\equiv F(k,1).
 \]
 Logo,
 \[
-Y=AL\cdot f(k)
-\qquad \Longrightarrow \qquad
+Y=AL\cdot f(k).
+\]
+Dividindo ambos os lados por \(AL\),
+\[
+\frac{Y}{AL}=f(k),
+\]
+ou simplesmente
+\[
 y=f(k).
 \]
 
 \begin{resultado}
-Sob retornos constantes de escala,
+Sob retornos constantes de escala, o modelo agregado
 \[
-\frac{Y}{AL}=f\!\left(\frac{K}{AL}\right).
+Y=F(K,AL)
 \]
-Essa \'e a forma intensiva do modelo.
+pode ser reescrito como
+\[
+y=f(k),
+\qquad
+k=\frac{K}{AL},
+\qquad
+y=\frac{Y}{AL}.
+\]
 \end{resultado}
 
 \begin{intuicao}
-O modelo reduz a economia a uma rela\c{c}\~ao entre produto e capital por
-trabalhador efetivo. O tamanho absoluto da economia deixa de importar.
+O truque matem\'atico do Solow \'e normalizar a economia por trabalho
+\emph{efetivo}. Isso remove crescimento puramente demogr\'afico e tecnol\'ogico
+do problema e deixa apenas a din\^amica da intensidade de capital.
 \end{intuicao}
 
-\section{Deriva\c{c}\~ao da din\^amica de \(k\)}
+\subsection{Por que o trabalhador efetivo \'e a unidade certa?}
 
-Come\c{c}amos com
+Se escrev\^essemos apenas \(Y/L\), ainda misturar\'iamos duas coisas:
+\begin{itemize}
+  \item capital por trabalhador;
+  \item efici\^encia do trabalho, medida por \(A\).
+\end{itemize}
+Ao dividir por \(AL\), concentramos toda a din\^amica de longo prazo numa
+vari\'avel que pode ficar constante no steady state: o capital por trabalhador
+efetivo \(k\).
+
+\section{Passo 2: derivando a equa\c{c}\~ao de acumula\c{c}\~ao do capital por trabalhador efetivo}
+
+\subsection{Regra do quociente}
+
+Partimos de
 \[
 k=\frac{K}{AL}.
 \]
 Derivando no tempo,
+\[
+\dot{k}
+=
+\frac{\dot K\cdot AL-K\cdot \frac{\dd(AL)}{\dd t}}{(AL)^2}.
+\]
+Separando os termos,
 \[
 \dot{k}
 =
@@ -161,46 +274,65 @@ Derivando no tempo,
 \frac{K}{(AL)^2}\frac{\dd(AL)}{\dd t}.
 \]
 
+Agora calculamos \(\frac{\dd(AL)}{\dd t}\). Pela regra do produto,
+\[
+\frac{\dd(AL)}{\dd t}=A\dot L+L\dot A.
+\]
 Como
 \[
-\frac{\dot A}{A}=g
-\qquad \text{e} \qquad
-\frac{\dot L}{L}=n,
+\frac{\dot L}{L}=n
+\qquad\text{e}\qquad
+\frac{\dot A}{A}=g,
 \]
-segue que
+temos
 \[
-\frac{\dd(AL)}{\dd t}=A\dot L+L\dot A=AL(n+g).
+\dot L=nL,
+\qquad
+\dot A=gA.
 \]
+Portanto,
+\[
+\frac{\dd(AL)}{\dd t}=A(nL)+L(gA)=AL(n+g).
+\]
+
 Substituindo,
 \[
 \dot{k}
 =
 \frac{\dot K}{AL}
 -
-\frac{K}{AL}(n+g)
+\frac{K}{(AL)^2}AL(n+g)
 =
-\frac{\dot K}{AL}-(n+g)k.
+\frac{\dot K}{AL}-(n+g)\frac{K}{AL}.
+\]
+Como \(K/(AL)=k\),
+\[
+\dot{k}=\frac{\dot K}{AL}-(n+g)k.
 \]
 
-Da lei de movimento de \(K\),
+\subsection{Entrando com a lei de movimento do capital agregado}
+
+Pela acumula\c{c}\~ao agregada,
 \[
 \dot K=sY-\delta K.
 \]
-Dividindo por \(AL\),
+Dividindo tudo por \(AL\),
 \[
 \frac{\dot K}{AL}
 =
-s\frac{Y}{AL}-\delta \frac{K}{AL}
-=
-s f(k)-\delta k.
+s\frac{Y}{AL}-\delta\frac{K}{AL}.
 \]
-Portanto,
+Usando \(y=Y/(AL)=f(k)\) e \(k=K/(AL)\),
 \[
-\dot{k}
-=
-s f(k)-\delta k-(n+g)k
-=
-s f(k)-\bigl(n+g+\delta\bigr)k.
+\frac{\dot K}{AL}=sf(k)-\delta k.
+\]
+Substituindo na express\~ao anterior para \(\dot{k}\),
+\[
+\dot{k}=sf(k)-\delta k-(n+g)k.
+\]
+Agrupando,
+\[
+\dot{k}=sf(k)-\bigl(n+g+\delta\bigr)k.
 \]
 
 \begin{resultado}
@@ -211,17 +343,36 @@ efetivo \'e
 \]
 \end{resultado}
 
-\section{Estado estacion\'ario}
+\subsection{Leitura econ\^omica de cada termo}
 
-Um steady state em termos de \(k\) satisfaz
+Vale parar aqui e interpretar a equa\c{c}\~ao:
+\[
+\dot{k}=sf(k)-\bigl(n+g+\delta\bigr)k.
+\]
+
+\begin{itemize}
+  \item \(sf(k)\): investimento por trabalhador efetivo;
+  \item \(\delta k\): reposi\c{c}\~ao do capital depreciado;
+  \item \(nk\): capital extra necess\'ario para equipar novos trabalhadores;
+  \item \(gk\): capital extra necess\'ario para acompanhar o progresso t\'ecnico.
+\end{itemize}
+
+Por isso, \((n+g+\delta)k\) costuma ser lido como \emph{break-even investment}:
+o investimento necess\'ario para manter \(k\) constante.
+
+\section{Passo 3: estado estacion\'ario e sentido da converg\^encia}
+
+\subsection{Condi\c{c}\~ao de steady state}
+
+Um steady state em termos de \(k\) \'e um ponto em que \(k\) para de variar:
 \[
 \dot{k}=0.
 \]
 Logo,
 \[
-0=s f(k^\ast)-\bigl(n+g+\delta\bigr)k^\ast,
+0=s f(k^\ast)-\bigl(n+g+\delta\bigr)k^\ast
 \]
-ou
+e, portanto,
 \[
 s f(k^\ast)=\bigl(n+g+\delta\bigr)k^\ast.
 \]
@@ -233,14 +384,50 @@ s f(k^\ast)=\bigl(n+g+\delta\bigr)k^\ast.
 \]
 \end{resultado}
 
-Uma vez obtido \(k^\ast\), temos
+Uma vez conhecido \(k^\ast\), obtemos imediatamente:
 \[
 y^\ast=f(k^\ast),
 \qquad
-i^\ast=s f(k^\ast),
+i^\ast=sf(k^\ast),
 \qquad
 c^\ast=(1-s)f(k^\ast).
 \]
+
+\subsection{Por que h\'a converg\^encia?}
+
+A l\'ogica gr\'afica do modelo \'e simples:
+\begin{itemize}
+  \item se \(k<k^\ast\), ent\~ao \(sf(k)>(n+g+\delta)k\), logo \(\dot{k}>0\);
+  \item se \(k>k^\ast\), ent\~ao \(sf(k)<(n+g+\delta)k\), logo \(\dot{k}<0\).
+\end{itemize}
+
+Isto significa que o sistema empurra a economia em dire\c{c}\~ao ao ponto onde
+as duas curvas se cruzam.
+
+\subsection{Converg\^encia local em uma linha}
+
+Para enxergar isso algebricamente, defina o desvio em rela\c{c}\~ao ao steady
+state:
+\[
+\widetilde{k}=k-k^\ast.
+\]
+Fazendo uma aproxima\c{c}\~ao de primeira ordem em torno de \(k^\ast\),
+\[
+\dot{\widetilde{k}}
+\approx
+\left[sf'(k^\ast)-(n+g+\delta)\right]\widetilde{k}.
+\]
+Se esse coeficiente for negativo, pequenos desvios desaparecem ao longo do
+tempo.
+
+No caso usual com \(f''(k)<0\), a produtividade marginal do capital cai com
+\(k\), o que ajuda a garantir essa estabilidade local.
+
+\begin{intuicao}
+O modelo tem converg\^encia porque capital adicional rende muito quando \(k\) \'e
+baixo e rende pouco quando \(k\) \'e alto. Rendimentos decrescentes s\~ao o motor
+da volta ao steady state.
+\end{intuicao}
 
 \subsection{Crescimento balanceado}
 
@@ -252,12 +439,23 @@ Como \(Y=ALf(k)\) com \(k\) constante,
 \[
 \frac{\dot Y}{Y}=n+g.
 \]
-E o produto por trabalhador cresce \`a taxa do progresso t\'ecnico:
+J\'a o produto por trabalhador cresce \`a taxa do progresso t\'ecnico:
 \[
 \frac{\dot{(Y/L)}}{Y/L}=g.
 \]
 
-\section{Caso Cobb--Douglas}
+\begin{resultado}
+No caminho de crescimento balanceado:
+\[
+g_K=g_Y=n+g,
+\qquad
+g_{Y/L}=g.
+\]
+\end{resultado}
+
+\section{Passo 4: solu\c{c}\~ao fechada no caso Cobb--Douglas}
+
+\subsection{Obtendo a forma intensiva}
 
 Suponha
 \[
@@ -270,46 +468,62 @@ y
 =
 \frac{K^\alpha (AL)^{1-\alpha}}{AL}
 =
-\left(\frac{K}{AL}\right)^\alpha
+\frac{K^\alpha}{(AL)^\alpha}
 =
-k^\alpha.
+\left(\frac{K}{AL}\right)^\alpha.
 \]
-Assim,
+Logo,
 \[
 f(k)=k^\alpha.
 \]
 
-\subsection{Deriva\c{c}\~ao de \(k^\ast\)}
+\subsection{Resolvendo o capital de steady state}
 
 Partimos da condi\c{c}\~ao de steady state:
 \[
-s k^{\ast\alpha}=\bigl(n+g+\delta\bigr)k^\ast.
+sk^{\ast\alpha}=\bigl(n+g+\delta\bigr)k^\ast.
 \]
-Como \(k^\ast>0\), dividimos por \(k^\ast\):
+Como \(k^\ast>0\), dividimos ambos os lados por \(k^\ast\):
 \[
-s k^{\ast(\alpha-1)}=n+g+\delta.
+sk^{\ast(\alpha-1)}=n+g+\delta.
 \]
-Logo,
+Agora isolamos \(k^\ast\). Como \(\alpha-1=-(1-\alpha)\),
 \[
-k^\ast
+k^{\ast(\alpha-1)}=(k^\ast)^{-(1-\alpha)}
 =
+\frac{n+g+\delta}{s}.
+\]
+Invertendo,
+\[
+(k^\ast)^{1-\alpha}=\frac{s}{n+g+\delta}.
+\]
+Por fim,
+\[
+k^\ast=
 \left(\frac{s}{n+g+\delta}\right)^{\frac{1}{1-\alpha}}.
 \]
 
-\subsection{Deriva\c{c}\~ao de \(y^\ast\) e \(c^\ast\)}
+\subsection{Resolvendo produto, investimento e consumo de steady state}
 
-Como \(y^\ast=k^{\ast\alpha}\),
+Como \(y^\ast=f(k^\ast)=k^{\ast\alpha}\),
 \[
 y^\ast
 =
+\left[
+\left(\frac{s}{n+g+\delta}\right)^{\frac{1}{1-\alpha}}
+\right]^\alpha
+=
 \left(\frac{s}{n+g+\delta}\right)^{\frac{\alpha}{1-\alpha}}.
 \]
-E como \(c^\ast=(1-s)y^\ast\),
+
+O investimento de steady state \'e
 \[
-c^\ast
-=
-(1-s)
-\left(\frac{s}{n+g+\delta}\right)^{\frac{\alpha}{1-\alpha}}.
+i^\ast=sy^\ast.
+\]
+E o consumo de steady state \'e
+\[
+c^\ast=(1-s)y^\ast
+=(1-s)\left(\frac{s}{n+g+\delta}\right)^{\frac{\alpha}{1-\alpha}}.
 \]
 
 \begin{resultado}
@@ -323,19 +537,31 @@ c^\ast=(1-s)y^\ast.
 \]
 \end{resultado}
 
-\section{Regra de Ouro}
+\section{Passo 5: Regra de Ouro}
 
-A Regra de Ouro escolhe o capital que maximiza o consumo de steady state:
+\subsection{Problema da Regra de Ouro}
+
+A Regra de Ouro n\~ao escolhe a trajet\'oria inteira do modelo. Ela escolhe o
+estoque de capital de steady state que maximiza o consumo de steady state.
+
+Em steady state,
 \[
-c(k)=f(k)-\bigl(n+g+\delta\bigr)k.
+i=(n+g+\delta)k,
 \]
-A condi\c{c}\~ao de primeira ordem \'e
+logo o consumo associado a um dado \(k\) \'e
+\[
+c(k)=f(k)-(n+g+\delta)k.
+\]
+
+\subsection{Condi\c{c}\~ao de primeira ordem}
+
+Maximizamos \(c(k)\) em rela\c{c}\~ao a \(k\):
 \[
 \frac{\dd c(k)}{\dd k}
 =
-f'(k)-\bigl(n+g+\delta\bigr)=0.
+f'(k)-(n+g+\delta).
 \]
-Portanto,
+A condi\c{c}\~ao de primeira ordem \'e
 \[
 f'(k_{\text{gold}})=n+g+\delta.
 \]
@@ -347,25 +573,47 @@ f'(k_{\text{gold}})=n+g+\delta.
 \]
 \end{resultado}
 
+\subsection{Caso Cobb--Douglas}
+
 Se \(f(k)=k^\alpha\), ent\~ao
 \[
 f'(k)=\alpha k^{\alpha-1}.
 \]
-Logo,
+Substituindo na condi\c{c}\~ao da Regra de Ouro,
 \[
-\alpha k_{\text{gold}}^{\alpha-1}=n+g+\delta
-\qquad \Longrightarrow \qquad
-k_{\text{gold}}=
+\alpha k_{\text{gold}}^{\alpha-1}=n+g+\delta.
+\]
+Portanto,
+\[
+k_{\text{gold}}
+=
 \left(\frac{\alpha}{n+g+\delta}\right)^{\frac{1}{1-\alpha}}.
 \]
 
-Para obter a taxa de poupan\c{c}a correspondente, usamos
+Agora queremos a taxa de poupan\c{c}a que sustenta esse capital como steady
+state. Usamos a condi\c{c}\~ao de steady state:
 \[
 s_{\text{gold}}f(k_{\text{gold}})
 =
 \bigl(n+g+\delta\bigr)k_{\text{gold}}.
 \]
-Substituindo a condi\c{c}\~ao marginal, segue que
+Dividindo ambos os lados por \(f(k_{\text{gold}})=k_{\text{gold}}^\alpha\),
+\[
+s_{\text{gold}}
+=
+\bigl(n+g+\delta\bigr)k_{\text{gold}}^{1-\alpha}.
+\]
+Mas, pela condi\c{c}\~ao marginal,
+\[
+n+g+\delta=\alpha k_{\text{gold}}^{\alpha-1}.
+\]
+Multiplicando por \(k_{\text{gold}}^{1-\alpha}\),
+\[
+\bigl(n+g+\delta\bigr)k_{\text{gold}}^{1-\alpha}
+=
+\alpha.
+\]
+Logo,
 \[
 s_{\text{gold}}=\alpha.
 \]
@@ -380,29 +628,68 @@ s_{\text{gold}}=\alpha.
 \]
 \end{resultado}
 
-\section{Contabilidade do crescimento}
+\begin{intuicao}
+Se \(s<s_{\text{gold}}\), a economia poupa pouco e sacrifica consumo futuro.
+Se \(s>s_{\text{gold}}\), a economia acumula capital demais e sacrifica consumo
+presente sem ganhar consumo de steady state.
+\end{intuicao}
 
-Com Cobb--Douglas,
+\section{Passo 6: contabilidade do crescimento}
+
+\subsection{Vers\~ao geral}
+
+Considere a tecnologia agregada
 \[
-Y=K^\alpha (AL)^{1-\alpha}.
+Y=F(K,AL).
 \]
-Tomando logaritmos,
+Tomando diferenciais totais,
 \[
-\ln Y = \alpha \ln K + (1-\alpha)\ln L + (1-\alpha)\ln A.
+\dd Y = F_K\,\dd K + F_{AL}\,\dd(AL).
+\]
+Dividindo tudo por \(Y\),
+\[
+\frac{\dd Y}{Y}
+=
+\frac{F_K K}{Y}\frac{\dd K}{K}
++
+\frac{F_{AL}(AL)}{Y}\frac{\dd(AL)}{AL}.
+\]
+
+Com retornos constantes de escala e mercados competitivos, os termos
+\[
+\frac{F_K K}{Y}
+\quad\text{e}\quad
+\frac{F_{AL}(AL)}{Y}
+\]
+correspondem, respectivamente, \`as parcelas da renda do capital e do trabalho
+efetivo.
+
+\subsection{Especializa\c{c}\~ao Cobb--Douglas}
+
+Para
+\[
+Y=K^\alpha(AL)^{1-\alpha},
+\]
+tomamos logaritmos:
+\[
+\ln Y=\alpha \ln K + (1-\alpha)\ln A + (1-\alpha)\ln L.
 \]
 Derivando no tempo,
 \[
 \frac{\dot Y}{Y}
 =
-\alpha \frac{\dot K}{K}
+\alpha\frac{\dot K}{K}
 +
-(1-\alpha)\frac{\dot L}{L}
+(1-\alpha)\frac{\dot A}{A}
 +
-(1-\alpha)\frac{\dot A}{A}.
+(1-\alpha)\frac{\dot L}{L}.
+\]
+Usando \(g_A=\dot A/A\), \(g_K=\dot K/K\), \(g_L=\dot L/L\) e \(g_Y=\dot Y/Y\),
+\[
+g_Y=\alpha g_K+(1-\alpha)g_L+(1-\alpha)g_A.
 \]
 
-Na pr\'atica emp\'irica, o termo tecnol\'ogico costuma ser escrito como res\'iduo
-de PTF:
+Na pr\'atica, o termo tecnol\'ogico \'e obtido como res\'iduo:
 \[
 g_{\text{TFP}}
 \equiv
@@ -420,34 +707,70 @@ g_{\text{TFP}}=g_Y-\alpha g_K-(1-\alpha)g_L.
 \]
 \end{resultado}
 
+\subsection{Vers\~ao discreta usada em dados}
+
+Em dados anuais, a aproxima\c{c}\~ao natural \'e substituir derivadas por
+diferen\c{c}as logar\'itmicas:
+\[
+g_Y\approx \Delta\ln Y,
+\qquad
+g_K\approx \Delta\ln K,
+\qquad
+g_L\approx \Delta\ln L.
+\]
+Ent\~ao,
+\[
+\Delta\ln Y
+\approx
+\alpha\,\Delta\ln K+(1-\alpha)\,\Delta\ln L+\Delta\ln A.
+\]
 No reposit\'orio, isso aparece em
 \texttt{SolowModel.growth\_accounting(...)}.
 
-\section{Do livro para o c\'odigo}
+\begin{intuicao}
+Contabilidade do crescimento n\~ao \emph{explica} causalmente o crescimento; ela
+o \emph{decomp\~oe}. O res\'iduo de PTF mede tudo o que n\~ao foi explicado pelo
+crescimento observ\'avel de capital e trabalho ponderados por suas parcelas.
+\end{intuicao}
 
-As correspond\^encias principais s\~ao:
+\section{Passo 7: do modelo para o c\'odigo}
+
+As correspond\^encias principais com
+\texttt{ch01\_solow/ch01\_solow.py} s\~ao:
 \begin{itemize}
-  \item \(f(k)=k^\alpha\) \(\leftrightarrow\) \texttt{f(...)};
-  \item \(f'(k)=\alpha k^{\alpha-1}\) \(\leftrightarrow\) \texttt{f\_prime(...)};
-  \item \(\dot{k}=s f(k)-(n+g+\delta)k\) \(\leftrightarrow\) \texttt{k\_dot(...)};
-  \item \(k^\ast,y^\ast,c^\ast\) \(\leftrightarrow\) \texttt{steady\_state(...)};
-  \item \(k_{\text{gold}},s_{\text{gold}}\) \(\leftrightarrow\) \texttt{golden\_rule(...)}.
+  \item \(f(k)=k^\alpha\) \(\leftrightarrow\) \texttt{f(...)} ;
+  \item \(f'(k)=\alpha k^{\alpha-1}\) \(\leftrightarrow\) \texttt{f\_prime(...)} ;
+  \item \(\dot{k}=sf(k)-(n+g+\delta)k\) \(\leftrightarrow\) \texttt{k\_dot(...)} ;
+  \item \(k^\ast,y^\ast,c^\ast\) \(\leftrightarrow\) \texttt{steady\_state(...)} ;
+  \item \(k_{\text{gold}},s_{\text{gold}}\) \(\leftrightarrow\) \texttt{golden\_rule(...)} ;
+  \item growth accounting \(\leftrightarrow\) \texttt{growth\_accounting(...)}.
 \end{itemize}
 
-Em particular,
+No c\'odigo, o termo
 \[
 \texttt{self.dilution}=n+g+\delta
 \]
-\'e a tradu\c{c}\~ao direta do termo de reposi\c{c}\~ao e dilui\c{c}\~ao.
+\'e exatamente o \((n+g+\delta)\) que aparece na equa\c{c}\~ao fundamental.
 
 \section{Fechamento}
 
-O Cap\'itulo 1 do Romer concentra o crescimento de longo prazo numa \'unica
-equa\c{c}\~ao para \(k\):
-\[
-\dot{k}=s f(k)-\bigl(n+g+\delta\bigr)k.
-\]
-Uma vez derivada essa express\~ao, seguem de forma organizada o steady state,
-a Regra de Ouro, a converg\^encia e a contabilidade do crescimento.
+O ganho conceitual do Cap\'itulo 1 \'e que um problema agregado de crescimento
+vira uma \'unica equa\c{c}\~ao diferencial em \(k\). Uma vez entendido esse
+passo, o resto se organiza de forma sistem\'atica:
+\begin{enumerate}
+  \item encontrar o steady state;
+  \item estudar a trajet\'oria de converg\^encia;
+  \item comparar o steady state competitivo com a Regra de Ouro;
+  \item decompor o crescimento observado em capital, trabalho e PTF.
+\end{enumerate}
+
+Se esta nota for usada em conjunto com o c\'odigo do projeto, o caminho natural
+de estudo \'e:
+\begin{enumerate}
+  \item derivar a equa\c{c}\~ao de \(k\) \`a m\~ao;
+  \item conferir a implementa\c{c}\~ao em \texttt{ch01\_solow.py};
+  \item abrir os gr\'aficos em \texttt{ch01\_solow\_plots.py};
+  \item fechar com a extens\~ao emp\'irica em \texttt{ch01\_solow\_empirics.py}.
+\end{enumerate}
 
 \end{document}

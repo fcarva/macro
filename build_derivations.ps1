@@ -4,7 +4,8 @@ $repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $targets = @(
     (Join-Path $repoRoot "ch01_solow\notes\ch01_solow_derivations.tex"),
-    (Join-Path $repoRoot "ch02_rck_diamond\notes\ch02_rck_diamond_derivations.tex")
+    (Join-Path $repoRoot "ch02_rck_diamond\notes\ch02_rck_diamond_derivations.tex"),
+    (Join-Path $repoRoot "notes\guia_derivacoes_ch01_ch02.tex")
 )
 
 function Invoke-LatexBuild {

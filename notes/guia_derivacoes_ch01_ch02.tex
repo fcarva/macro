@@ -1,0 +1,346 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{needspace}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage[most]{tcolorbox}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\geometry{margin=2.2cm}
+\hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.5em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.7em}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{0pt}
+\setlength{\abovedisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\belowdisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\abovedisplayshortskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayshortskip}{6pt plus 2pt minus 2pt}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\brokenpenalty=10000
+\raggedbottom
+\newcommand{\dd}{\mathrm{d}}
+\let\oldsection\section
+\RenewDocumentCommand{\section}{s o m}{%
+  \Needspace{12\baselineskip}%
+  \IfBooleanTF{#1}
+    {\oldsection*{#3}}
+    {\IfNoValueTF{#2}{\oldsection{#3}}{\oldsection[#2]{#3}}}%
+}
+\let\oldsubsection\subsection
+\RenewDocumentCommand{\subsection}{s o m}{%
+  \Needspace{9\baselineskip}%
+  \IfBooleanTF{#1}
+    {\oldsubsection*{#3}}
+    {\IfNoValueTF{#2}{\oldsubsection{#3}}{\oldsubsection[#2]{#3}}}%
+}
+
+\newtcolorbox{resultado}{
+  colback=blue!4!white,
+  colframe=blue!55!black,
+  title=Resultado final,
+  before=\par\Needspace{9\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
+  breakable
+}
+
+\newtcolorbox{armadilha}{
+  colback=red!4!white,
+  colframe=red!55!black,
+  title=Erro comum,
+  before=\par\Needspace{8\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
+  breakable
+}
+
+\newtcolorbox{roteiro}{
+  colback=orange!5!white,
+  colframe=orange!65!black,
+  title=Roteiro de estudo,
+  before=\par\Needspace{10\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
+  breakable
+}
+
+\title{Guia de deriva\c{c}\~oes --- Cap\'itulos 1 e 2}
+\author{romer-study}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\bigskip
+
+\section{Objetivo deste guia}
+
+Este PDF n\~ao substitui as notas de cada cap\'itulo. Ele funciona como um
+guia de apoio para estudar as deriva\c{c}\~oes com menos atrito. A ideia \'e
+responder a tr\^es perguntas:
+\begin{enumerate}
+  \item o que sempre precisa ser definido antes da conta come\c{c}ar;
+  \item quais passos alg\'ebricos se repetem de Solow para RCK e Diamond;
+  \item onde os alunos costumam se perder.
+\end{enumerate}
+
+\begin{roteiro}
+Use este guia assim:
+\begin{enumerate}
+  \item leia primeiro a nota completa do cap\'itulo;
+  \item volte aqui para revisar o \emph{esqueleto} da deriva\c{c}\~ao;
+  \item refa\c{c}a as contas no papel sem olhar os passos intermedi\'arios;
+  \item por fim, compare com o c\'odigo do reposit\'orio.
+\end{enumerate}
+\end{roteiro}
+
+\section{Mapa de nota\c{c}\~ao}
+
+\subsection{Tr\^es n\'iveis de vari\'aveis}
+
+Ao longo dos Cap\'itulos 1 e 2, quase toda a confus\~ao vem de misturar tr\^es
+tipos de vari\'aveis:
+
+\begin{itemize}
+  \item \textbf{agregadas}: \(Y\), \(K\), \(C\), \(L\), \(AL\);
+  \item \textbf{por trabalhador}: \(Y/L\), \(C/L\);
+  \item \textbf{por trabalhador efetivo}: \(y=Y/(AL)\), \(c=C/(AL)\), \(k=K/(AL)\).
+\end{itemize}
+
+\begin{resultado}
+Antes de derivar qualquer equa\c{c}\~ao, pergunte:
+\begin{quote}
+``Esta vari\'avel est\'a em n\'ivel agregado, por trabalhador ou por trabalhador
+efetivo?''
+\end{quote}
+\end{resultado}
+
+\subsection{Correspond\^encias com o projeto}
+
+\begin{itemize}
+  \item Solow:
+  \begin{itemize}
+    \item \(f(k)\) \(\leftrightarrow\) \texttt{SolowModel.f(...)}
+    \item \(f'(k)\) \(\leftrightarrow\) \texttt{SolowModel.f\_prime(...)}
+    \item \(\dot{k}\) \(\leftrightarrow\) \texttt{SolowModel.k\_dot(...)}
+  \end{itemize}
+  \item RCK:
+  \begin{itemize}
+    \item \(\dot{k}\) \(\leftrightarrow\) \texttt{RCKModel.k\_dot(...)}
+    \item \(\dot{c}\) \(\leftrightarrow\) \texttt{RCKModel.c\_dot(...)}
+    \item saddle path \(\leftrightarrow\) \texttt{find\_saddle\_path(...)}
+  \end{itemize}
+\end{itemize}
+
+\section{Template 1: como reduzir um modelo agregado}
+
+\subsection{Passo geral}
+
+Quando o modelo come\c{c}a com
+\[
+Y=F(K,AL),
+\]
+o roteiro quase sempre \'e este:
+\begin{enumerate}
+  \item usar retornos constantes de escala;
+  \item definir \(k=K/(AL)\) e \(y=Y/(AL)\);
+  \item escrever \(Y=ALf(k)\);
+  \item derivar \(k\) no tempo com a regra do quociente.
+\end{enumerate}
+
+\subsection{A conta que mais se repete}
+
+Se
+\[
+k=\frac{K}{AL},
+\]
+ent\~ao
+\[
+\dot{k}
+=
+\frac{\dot K}{AL}
+-
+\frac{K}{(AL)^2}\frac{\dd(AL)}{\dd t}.
+\]
+Como
+\[
+\frac{\dd(AL)}{\dd t}=AL(n+g),
+\]
+obtemos
+\[
+\dot{k}=\frac{\dot K}{AL}-(n+g)k.
+\]
+
+\begin{resultado}
+Toda vez que voc\^e normaliza por \(AL\), aparecem automaticamente os termos
+de ``dilui\c{c}\~ao'' \(nk\) e \(gk\).
+\end{resultado}
+
+\begin{armadilha}
+Erro comum: esquecer que \(\dot{(AL)}/(AL)=n+g\), e n\~ao apenas \(g\) ou apenas \(n\).
+\end{armadilha}
+
+\section{Template 2: como obter a equa\c{c}\~ao de Euler}
+
+\subsection{Roteiro do RCK}
+
+No RCK, a sequ\^encia-padr\~ao \'e:
+\begin{enumerate}
+  \item escrever a restri\c{c}\~ao em \(k\) e \(c\);
+  \item normalizar a utilidade;
+  \item montar o Hamiltoniano;
+  \item tirar a FOC em \(c\);
+  \item usar a equa\c{c}\~ao do coestado;
+  \item eliminar \(\lambda\).
+\end{enumerate}
+
+\subsection{Conta essencial}
+
+Da FOC,
+\[
+\lambda=c^{-\theta}.
+\]
+Logo,
+\[
+\frac{\dot\lambda}{\lambda}=-\theta\frac{\dot c}{c}.
+\]
+Se a equa\c{c}\~ao do coestado entrega
+\[
+\frac{\dot\lambda}{\lambda}=\rho+\theta g+\delta-f'(k),
+\]
+ent\~ao basta igualar:
+\[
+-\theta\frac{\dot c}{c}
+=
+\rho+\theta g+\delta-f'(k).
+\]
+Portanto,
+\[
+\frac{\dot c}{c}
+=
+\frac{f'(k)-\delta-\rho-\theta g}{\theta}.
+\]
+
+\begin{armadilha}
+Erro comum: esquecer que, na conven\c{c}\~ao por trabalhador efetivo, aparece o
+termo \(\theta g\) na Euler equation.
+\end{armadilha}
+
+\section{Template 3: como transformar escolha de poupan\c{c}a em mapa din\^amico}
+
+\subsection{Roteiro do Diamond}
+
+No Diamond simples, a sequ\^encia \'e:
+\begin{enumerate}
+  \item escrever as duas restri\c{c}\~oes or\c{c}ament\'arias do jovem e do velho;
+  \item substituir na utilidade;
+  \item derivar a FOC em \(s_t\);
+  \item escrever o sal\'ario como fun\c{c}\~ao de \(k_t\);
+  \item dividir pela nova coorte para obter \(k_{t+1}\).
+\end{enumerate}
+
+\subsection{Conta essencial}
+
+Se
+\[
+s_t=\frac{\beta}{1+\beta}w_t
+\]
+e
+\[
+w_t=(1-\alpha)k_t^\alpha,
+\]
+ent\~ao
+\[
+k_{t+1}
+=
+\frac{s_t}{1+n}
+=
+\frac{\beta(1-\alpha)}{(1+\beta)(1+n)}k_t^\alpha.
+\]
+
+\begin{resultado}
+O Diamond simples sempre termina em um mapa discreto da forma
+\[
+k_{t+1}=\Phi(k_t),
+\]
+e n\~ao em uma equa\c{c}\~ao diferencial.
+\end{resultado}
+
+\begin{armadilha}
+Erro comum: usar a mesma intui\c{c}\~ao do Solow ou do RCK para o Diamond. No
+OLG, o problema \'e discreto e a demografia entra diretamente na passagem de
+poupan\c{c}a agregada para capital por jovem.
+\end{armadilha}
+
+\section{Checklist de boas pr\'aticas ao derivar}
+
+\begin{enumerate}
+  \item Declare as vari\'aveis e a unidade de medida antes de come\c{c}ar.
+  \item Escreva a restri\c{c}\~ao din\^amica antes da condi\c{c}\~ao de otimalidade.
+  \item N\~ao pule a etapa de dividir por \(AL\) ou por \(L\).
+  \item Quando aparecer um steady state, imponha explicitamente \(\dot{k}=0\),
+  \(\dot{c}=0\) ou \(k_{t+1}=k_t\).
+  \item Ao usar Cobb--Douglas, isole primeiro a pot\^encia de \(k\) e s\'o depois
+  resolva a express\~ao fechada.
+  \item Separe sempre o que \'e \textbf{conta alg\'ebrica} do que \'e
+  \textbf{interpreta\c{c}\~ao econ\^omica}.
+\end{enumerate}
+
+\section{Sequ\^encia sugerida de estudo}
+
+\begin{enumerate}
+  \item Solow:
+  \begin{itemize}
+    \item derive \(y=f(k)\);
+    \item derive \(\dot{k}\);
+    \item resolva \(k^\ast\) e a Regra de Ouro;
+    \item s\'o depois olhe o growth accounting.
+  \end{itemize}
+  \item RCK:
+  \begin{itemize}
+    \item derive a restri\c{c}\~ao normalizada;
+    \item monte o Hamiltoniano;
+    \item derive a Euler equation;
+    \item feche com o diagrama de fase.
+  \end{itemize}
+  \item Diamond:
+  \begin{itemize}
+    \item derive a regra de poupan\c{c}a;
+    \item derive o mapa \(k_{t+1}(k_t)\);
+    \item compare \(k^\ast\) com \(k_{\text{gold}}\).
+  \end{itemize}
+\end{enumerate}
+
+\section{Onde continuar no reposit\'orio}
+
+Depois de ler este guia, o caminho natural \'e abrir:
+\begin{itemize}
+  \item \texttt{ch01\_solow/notes/ch01\_solow\_derivations.pdf};
+  \item \texttt{ch02\_rck\_diamond/notes/ch02\_rck\_diamond\_derivations.pdf};
+  \item \texttt{ch01\_solow/ch01\_solow.py};
+  \item \texttt{ch02\_rck\_diamond/ch02\_rck.py}.
+\end{itemize}
+
+\end{document}

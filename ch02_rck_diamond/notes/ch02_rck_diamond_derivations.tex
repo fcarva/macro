@@ -4,23 +4,57 @@
 \usepackage[utf8]{inputenc}
 \usepackage[brazilian]{babel}
 \usepackage{amsmath,amssymb,mathtools}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage{needspace}
 \usepackage{hyperref}
+\usepackage{bookmark}
 \usepackage[most]{tcolorbox}
 \usepackage{geometry}
 \usepackage{enumitem}
 \usepackage{xcolor}
-\geometry{margin=2.4cm}
+\geometry{margin=2.2cm}
 \hypersetup{colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black}
-\setlist[itemize]{topsep=4pt,itemsep=2pt}
-\setlength{\parskip}{0.5em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.5em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.7em}
+\setlength{\parskip}{0.35em}
 \setlength{\parindent}{0pt}
+\setlength{\abovedisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\belowdisplayskip}{8pt plus 2pt minus 3pt}
+\setlength{\abovedisplayshortskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayshortskip}{6pt plus 2pt minus 2pt}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\brokenpenalty=10000
+\raggedbottom
 \newcommand{\dd}{\mathrm{d}}
 \newcommand{\E}{\mathrm{e}}
+\let\oldsection\section
+\RenewDocumentCommand{\section}{s o m}{%
+  \Needspace{12\baselineskip}%
+  \IfBooleanTF{#1}
+    {\oldsection*{#3}}
+    {\IfNoValueTF{#2}{\oldsection{#3}}{\oldsection[#2]{#3}}}%
+}
+\let\oldsubsection\subsection
+\RenewDocumentCommand{\subsection}{s o m}{%
+  \Needspace{9\baselineskip}%
+  \IfBooleanTF{#1}
+    {\oldsubsection*{#3}}
+    {\IfNoValueTF{#2}{\oldsubsection{#3}}{\oldsubsection[#2]{#3}}}%
+}
 
 \newtcolorbox{resultado}{
   colback=blue!4!white,
   colframe=blue!55!black,
   title=Resultado final,
+  before=\par\Needspace{9\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
   breakable
 }
 
@@ -28,6 +62,13 @@
   colback=green!4!white,
   colframe=green!45!black,
   title=Intui\c{c}\~ao econ\^omica,
+  before=\par\Needspace{8\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
   breakable
 }
 
@@ -35,10 +76,31 @@
   colback=gray!8!white,
   colframe=gray!55!black,
   title=Conven\c{c}\~oes desta nota,
+  before=\par\Needspace{8\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
   breakable
 }
 
-\title{Cap\'itulo 2 --- Deriva\c{c}\~oes do RCK e do Diamond}
+\newtcolorbox{roteiro}{
+  colback=orange!5!white,
+  colframe=orange!65!black,
+  title=Mapa da deriva\c{c}\~ao,
+  before=\par\Needspace{10\baselineskip}\medskip,
+  after=\medskip,
+  boxrule=0.7pt,
+  left=7pt,
+  right=7pt,
+  top=5pt,
+  bottom=5pt,
+  breakable
+}
+
+\title{Cap\'itulo 2 --- RCK e Diamond: deriva\c{c}\~ao passo a passo}
 \author{romer-study}
 \date{\today}
 
@@ -53,23 +115,45 @@
 Esta nota cobre o Cap\'itulo 2 do Romer em duas partes:
 \begin{itemize}
   \item o modelo de Ramsey--Cass--Koopmans (RCK), em tempo cont\'inuo;
-  \item o modelo de Diamond, com gera\c{c}\~oes sobrepostas (OLG), em tempo discreto.
+  \item o modelo de Diamond, com gera\c{c}\~oes sobrepostas, em tempo discreto.
 \end{itemize}
 
-O objetivo \'e mostrar a deriva\c{c}\~ao formal das equa\c{c}\~oes, ligar a
-nota\c{c}\~ao do livro \`a implementa\c{c}\~ao do reposit\'orio e deixar claro
-onde entram as condi\c{c}\~oes de steady state, as is\'oclinas e a discuss\~ao
-de inefici\^encia din\^amica.
+O foco aqui \'e desacelerar a deriva\c{c}\~ao. Em vez de apenas apresentar as
+f\'ormulas finais, vamos mostrar:
+\begin{itemize}
+  \item como a restri\c{c}\~ao agregada vira uma equa\c{c}\~ao em \(k\) e \(c\);
+  \item como o Hamiltoniano gera a equa\c{c}\~ao de Euler;
+  \item por que o steady state do RCK \'e uma sela;
+  \item como o Diamond transforma escolha de poupan\c{c}a em um mapa
+  \(k_{t+1}(k_t)\);
+  \item por que o Diamond abre a porta para inefici\^encia din\^amica.
+\end{itemize}
 
 \begin{convencao}
 \begin{itemize}
-  \item Na parte do RCK, usamos \(k\) e \(c\) como vari\'aveis por trabalhador efetivo.
-  \item O c\'odigo do projeto inclui \(\delta>0\) e um gasto do governo \(G\) por trabalhador efetivo.
-  \item Na parte do Diamond, usamos utilidade logar\'itmica com peso intertemporal \(\beta\).
+  \item Na parte do RCK, \(k\) e \(c\) s\~ao medidos por trabalhador efetivo.
+  \item O c\'odigo do projeto inclui deprecia\c{c}\~ao \(\delta\) e um gasto do governo \(G\) por trabalhador efetivo.
+  \item Na parte do Diamond, usamos utilidade logar\'itmica e deprecia\c{c}\~ao completa, exatamente como na vers\~ao simples do cap\'itulo.
 \end{itemize}
 \end{convencao}
 
-\section{Parte A --- Ramsey--Cass--Koopmans}
+\begin{roteiro}
+A leitura pode ser feita assim:
+\begin{enumerate}
+  \item derivar a restri\c{c}\~ao din\^amica do RCK em unidades por trabalhador efetivo;
+  \item normalizar a utilidade e montar o Hamiltoniano;
+  \item obter a equa\c{c}\~ao de Euler e o sistema \((k,c)\);
+  \item localizar is\'oclinas, steady state e a saddle path;
+  \item estudar o efeito de gasto do governo;
+  \item passar para o Diamond e derivar a regra de poupan\c{c}a;
+  \item transformar a poupan\c{c}a em um mapa de capital;
+  \item comparar o steady state competitivo com a Regra de Ouro.
+\end{enumerate}
+\end{roteiro}
+
+\section[Parte A: RCK]{Parte A: RCK}
+
+\textbf{Modelo de Ramsey, Cass e Koopmans.}
 
 \subsection{Ambiente econ\^omico}
 
@@ -79,7 +163,7 @@ Y(t)=F(K(t),A(t)L(t))=A(t)L(t)f(k(t)),
 \qquad
 k(t)\equiv \frac{K(t)}{A(t)L(t)}.
 \]
-As taxas de crescimento ex\'ogeno s\~ao
+As taxas ex\'ogenas s\~ao
 \[
 \frac{\dot L}{L}=n,
 \qquad
@@ -92,17 +176,18 @@ A restri\c{c}\~ao agregada de recursos \'e
 \]
 onde \(\mathcal G\) denota o gasto agregado do governo.
 
-\subsection{Normaliza\c{c}\~ao da restri\c{c}\~ao}
+\subsection{Passo 1: normalizando a restri\c{c}\~ao}
 
-Defina
+Defina as vari\'aveis por trabalhador efetivo:
 \[
+k\equiv \frac{K}{AL},
+\qquad
 c\equiv \frac{C}{AL},
 \qquad
-G\equiv \frac{\mathcal G}{AL},
-\qquad
-k\equiv \frac{K}{AL}.
+G\equiv \frac{\mathcal G}{AL}.
 \]
-Derivando \(k=K/(AL)\),
+
+Como no Solow, derivamos \(k=K/(AL)\):
 \[
 \dot k
 =
@@ -110,16 +195,26 @@ Derivando \(k=K/(AL)\),
 -
 \frac{K}{(AL)^2}\frac{\dd(AL)}{\dd t}.
 \]
-Como \(\dd(AL)/\dd t = AL(n+g)\), segue que
+Sabemos que
+\[
+\frac{\dd(AL)}{\dd t}=AL(n+g),
+\]
+logo
 \[
 \dot k=\frac{\dot K}{AL}-(n+g)k.
 \]
 
 Agora dividimos a restri\c{c}\~ao agregada por \(AL\):
 \[
+\frac{\dot K}{AL}
+=
+\frac{Y}{AL}-\frac{C}{AL}-\frac{\mathcal G}{AL}-\delta\frac{K}{AL}.
+\]
+Usando \(Y/(AL)=f(k)\), \(C/(AL)=c\), \(\mathcal G/(AL)=G\) e \(K/(AL)=k\),
+\[
 \frac{\dot K}{AL}=f(k)-c-G-\delta k.
 \]
-Substituindo,
+Substituindo de volta,
 \[
 \dot k=f(k)-c-G-\delta k-(n+g)k.
 \]
@@ -129,34 +224,35 @@ Portanto,
 \]
 
 \begin{resultado}
-No sistema usado no reposit\'orio,
+No sistema usado no projeto,
 \[
 \dot k=f(k)-c-G-(n+g+\delta)k.
 \]
 \end{resultado}
 
-\subsection{Normaliza\c{c}\~ao da utilidade}
+\subsection{Passo 2: normalizando a utilidade}
 
 A fam\'ilia representativa maximiza
 \[
 U=\int_0^\infty \E^{-\rho t}L(t)\frac{\widetilde c(t)^{1-\theta}}{1-\theta}\,\dd t,
 \]
-onde \(\widetilde c(t)\equiv C(t)/L(t)\) \'e o consumo por trabalhador.
+onde \(\widetilde c(t)=C(t)/L(t)\) \'e o consumo por trabalhador.
 
-Como \(\widetilde c = A c\), temos
+Como \(\widetilde c=A c\), segue que
 \[
 U
 =
 \int_0^\infty
 \E^{-\rho t}L(t)\frac{(A(t)c(t))^{1-\theta}}{1-\theta}\,\dd t.
 \]
-Usando
+
+Substituindo
 \[
 L(t)=L(0)\E^{nt},
 \qquad
 A(t)=A(0)\E^{gt},
 \]
-segue que
+temos
 \[
 U
 =
@@ -164,21 +260,27 @@ U
 \int_0^\infty
 \E^{-\rho t}\E^{nt}\E^{(1-\theta)gt}c(t)^{1-\theta}\,\dd t.
 \]
-Reagrupando os expoentes,
+Juntando os expoentes,
 \[
 U
 =
-\text{constante}
-\cdot
-\int_0^\infty \E^{-\eta t}\frac{c(t)^{1-\theta}}{1-\theta}\,\dd t,
+\text{constante}\cdot
+\int_0^\infty
+\E^{-[\rho-n-(1-\theta)g]t}
+\frac{c(t)^{1-\theta}}{1-\theta}\,\dd t.
 \]
-com
+Definimos
 \[
-\eta \equiv \rho - n - (1-\theta)g.
+\eta\equiv \rho-n-(1-\theta)g.
 \]
+Como o termo multiplicativo \'e constante, o problema equivalente \'e
+\[
+\max \int_0^\infty \E^{-\eta t}\frac{c(t)^{1-\theta}}{1-\theta}\,\dd t
+\]
+sujeito \`a din\^amica de \(k\).
 
 \begin{resultado}
-Depois da normaliza\c{c}\~ao por trabalho efetivo, o problema passa a ser
+Depois da normaliza\c{c}\~ao por trabalho efetivo, o problema do RCK fica
 \[
 \max \int_0^\infty \E^{-\eta t}\frac{c(t)^{1-\theta}}{1-\theta}\,\dd t,
 \qquad
@@ -187,18 +289,20 @@ Depois da normaliza\c{c}\~ao por trabalho efetivo, o problema passa a ser
 \end{resultado}
 
 \begin{intuicao}
-O ajuste da taxa de desconto aparece porque o problema original est\'a em n\'ivel
-agregado e precisa ser reescrito em unidades por trabalhador efetivo.
+O desconto efetivo muda porque a utilidade original est\'a em n\'ivel agregado.
+Ao normalizar por trabalho efetivo, a demografia e o progresso t\'ecnico entram
+no problema intertemporal.
 \end{intuicao}
 
-\subsection{Hamiltoniano e condi\c{c}\~oes de primeira ordem}
+\subsection{Passo 3: Hamiltoniano e condi\c{c}\~oes de primeira ordem}
 
-O Hamiltoniano em valor corrente pode ser escrito como
+Usando o Hamiltoniano em valor corrente,
 \[
 \mathcal H
 =
 \frac{c^{1-\theta}}{1-\theta}
-\lambda \left[f(k)-c-G-(n+g+\delta)k\right].
++
+\lambda\left[f(k)-c-G-(n+g+\delta)k\right].
 \]
 
 As condi\c{c}\~oes de primeira ordem s\~ao:
@@ -214,48 +318,65 @@ c^{-\theta}-\lambda=0
 
 \paragraph{Equa\c{c}\~ao do coestado.}
 \[
+\dot\lambda=\eta\lambda-\frac{\partial \mathcal H}{\partial k}.
+\]
+Como
+\[
+\frac{\partial \mathcal H}{\partial k}
+=
+\lambda\left[f'(k)-(n+g+\delta)\right],
+\]
+segue que
+\[
 \dot\lambda
 =
-\lambda\left[\eta-(f'(k)-(n+g+\delta))\right].
+\eta\lambda-\lambda\left[f'(k)-(n+g+\delta)\right].
 \]
-
+Fatorando \(\lambda\),
+\[
+\dot\lambda
+=
+\lambda\left[\eta-f'(k)+(n+g+\delta)\right].
+\]
 Substituindo \(\eta=\rho-n-(1-\theta)g\),
 \[
 \dot\lambda
 =
-\lambda\left[\rho+\delta+\theta g-f'(k)\right].
+\lambda\left[\rho+\theta g+\delta-f'(k)\right].
 \]
 
-\subsection{Deriva\c{c}\~ao da equa\c{c}\~ao de Euler}
+\subsection{Passo 4: derivando a equa\c{c}\~ao de Euler}
 
-Da FOC, \(\lambda=c^{-\theta}\). Derivando no tempo,
+Da FOC em \(c\), sabemos que
 \[
-\dot\lambda
-=
--\theta c^{-\theta-1}\dot c.
+\lambda=c^{-\theta}.
 \]
-Dividindo ambos os lados por \(\lambda=c^{-\theta}\),
+Derivando no tempo,
+\[
+\dot\lambda=-\theta c^{-\theta-1}\dot c.
+\]
+Dividindo por \(\lambda=c^{-\theta}\),
 \[
 \frac{\dot\lambda}{\lambda}
 =
--\theta \frac{\dot c}{c}.
+-\theta\frac{\dot c}{c}.
 \]
 
 Da equa\c{c}\~ao do coestado,
 \[
 \frac{\dot\lambda}{\lambda}
 =
-\rho+\delta+\theta g-f'(k).
+\rho+\theta g+\delta-f'(k).
 \]
 Igualando as duas express\~oes,
 \[
--\theta \frac{\dot c}{c}
+-\theta\frac{\dot c}{c}
 =
-\rho+\delta+\theta g-f'(k).
+\rho+\theta g+\delta-f'(k).
 \]
 Multiplicando por \(-1\),
 \[
-\theta \frac{\dot c}{c}
+\theta\frac{\dot c}{c}
 =
 f'(k)-\delta-\rho-\theta g.
 \]
@@ -275,9 +396,9 @@ A equa\c{c}\~ao de Euler do RCK, na conven\c{c}\~ao do projeto, \'e
 \]
 \end{resultado}
 
-\subsection{Sistema din\^amico bidimensional}
+\subsection{Passo 5: montando o sistema din\^amico}
 
-Juntando a restri\c{c}\~ao din\^amica e a equa\c{c}\~ao de Euler, obtemos
+Juntando a restri\c{c}\~ao din\^amica e a equa\c{c}\~ao de Euler,
 \[
 \dot k=f(k)-c-G-(n+g+\delta)k,
 \]
@@ -286,24 +407,37 @@ Juntando a restri\c{c}\~ao din\^amica e a equa\c{c}\~ao de Euler, obtemos
 c\cdot
 \frac{f'(k)-\delta-\rho-\theta g}{\theta}.
 \]
-Esse \'e um sistema bidimensional em \((k,c)\) porque tanto o estoque de
-capital quanto o consumo s\~ao vari\'aveis end\'ogenas de estado/controle na
-trajet\'oria de equil\'ibrio.
 
-\subsection{Is\'oclinas}
+O sistema \'e bidimensional porque:
+\begin{itemize}
+  \item \(k\) \'e a vari\'avel de estado;
+  \item \(c\) \'e a vari\'avel de controle;
+  \item o consumo escolhido hoje afeta a acumula\c{c}\~ao de capital e, portanto,
+  a trajet\'oria futura.
+\end{itemize}
+
+\subsection{Passo 6: is\'oclinas e sinais de movimento}
 
 \paragraph{\(\dot c=0\).}
-Como \(c>0\), temos
+Como \(c>0\),
 \[
 \dot c=0
 \qquad \Longleftrightarrow \qquad
 f'(k)=\delta+\rho+\theta g.
 \]
-Portanto, a is\'oclina \(\dot c=0\) \'e uma linha vertical em
+Essa condi\c{c}\~ao define uma linha vertical em
 \[
-k=k^{\ast\ast},
+k=k^{\ast\ast}.
 \]
-onde \(k^{\ast\ast}\) satisfaz essa igualdade.
+
+Se \(k<k^{\ast\ast}\), ent\~ao \(f'(k)\) \'e alto e
+\[
+\frac{\dot c}{c}>0.
+\]
+Se \(k>k^{\ast\ast}\), o produto marginal do capital cai e
+\[
+\frac{\dot c}{c}<0.
+\]
 
 \paragraph{\(\dot k=0\).}
 \[
@@ -311,12 +445,21 @@ onde \(k^{\ast\ast}\) satisfaz essa igualdade.
 \qquad \Longleftrightarrow \qquad
 c=f(k)-G-(n+g+\delta)k.
 \]
-Essa \'e uma curva decrescente em \(c\) para cada \(k\), e no c\'odigo aparece
-como a fun\c{c}\~ao \texttt{k\_locus(...)}.
+Essa \'e a curva de recursos constantes. Para um dado \(k\), se o consumo ficar
+acima dessa curva, a economia dissipa capital; se ficar abaixo, acumula capital.
 
-\subsection{Steady state}
+\begin{intuicao}
+O diagrama de fase do RCK organiza dois fatos ao mesmo tempo:
+\begin{itemize}
+  \item \(\dot{k}\) depende de quanto da produ\c{c}\~ao \'e desviado para consumo;
+  \item \(\dot{c}\) depende de qu\~ao alto \'e o retorno do capital em rela\c{c}\~ao
+  \`a taxa de impaci\^encia ajustada por crescimento.
+\end{itemize}
+\end{intuicao}
 
-No steady state, \(\dot k=0\) e \(\dot c=0\). Logo,
+\subsection{Passo 7: steady state}
+
+No steady state, \(\dot k=0\) e \(\dot c=0\). Portanto,
 \[
 f'(k^{\ast\ast})=\rho+\theta g+\delta,
 \]
@@ -331,142 +474,236 @@ f'(k^{\ast\ast})=\rho+\theta g+\delta.
 \]
 \end{resultado}
 
-No caso Cobb--Douglas, \(f(k)=k^\alpha\), logo
+Se \(f(k)=k^\alpha\), ent\~ao
 \[
 f'(k)=\alpha k^{\alpha-1}.
 \]
-Portanto,
+Logo,
 \[
-\alpha (k^{\ast\ast})^{\alpha-1}=\rho+\theta g+\delta
+\alpha(k^{\ast\ast})^{\alpha-1}=\rho+\theta g+\delta.
 \]
-e
+Isolando \(k^{\ast\ast}\),
 \[
 k^{\ast\ast}
 =
 \left(\frac{\alpha}{\rho+\theta g+\delta}\right)^{\frac{1}{1-\alpha}}.
 \]
 
-\subsection{Trajet\'oria de sela}
+\subsection{Passo 8: por que o steady state \'e uma sela?}
 
-O steady state do RCK n\~ao \'e um ponto atrator em duas dimens\~oes como no
-Solow unidimensional. A estabilidade ocorre ao longo de uma \emph{trajet\'oria
-de sela}: apenas um valor inicial de \(c(0)\) para cada \(k(0)\) coloca a
-economia no caminho convergente.
+Linearize o sistema em torno do steady state. O jacobiano \'e
+\[
+J(k,c)=
+\begin{pmatrix}
+f'(k)-(n+g+\delta) & -1 \\
+\dfrac{c}{\theta}f''(k) & \dfrac{f'(k)-\delta-\rho-\theta g}{\theta}
+\end{pmatrix}.
+\]
+No steady state, o termo inferior direito zera porque \(\dot c=0\). Assim,
+\[
+J^\ast=
+\begin{pmatrix}
+f'(k^{\ast\ast})-(n+g+\delta) & -1 \\
+\dfrac{c^{\ast\ast}}{\theta}f''(k^{\ast\ast}) & 0
+\end{pmatrix}.
+\]
 
-Se \(c(0)\) for alto demais, o capital colapsa. Se \(c(0)\) for baixo demais,
-o capital tende a divergir. O algoritmo de shooting em
-\texttt{ch02\_rck\_diamond/ch02\_rck.py} procura exatamente esse \(c(0)\)
-compat\'ivel com a trajet\'oria est\'avel.
+O determinante \'e
+\[
+\det(J^\ast)
+=
+\frac{c^{\ast\ast}}{\theta}f''(k^{\ast\ast}).
+\]
+Como \(c^{\ast\ast}>0\), \(\theta>0\) e \(f''(k^{\ast\ast})<0\),
+\[
+\det(J^\ast)<0.
+\]
+Determinante negativo implica dois autovalores de sinais opostos:
+\begin{itemize}
+  \item um autovalor positivo;
+  \item um autovalor negativo.
+\end{itemize}
+Isso caracteriza uma sela.
+
+\begin{resultado}
+O steady state do RCK \'e uma sela: h\'a exatamente uma dire\c{c}\~ao est\'avel e
+uma dire\c{c}\~ao inst\'avel.
+\end{resultado}
+
+\subsection{Saddle path e algoritmo de shooting}
+
+Para um dado \(k(0)\), apenas um \(c(0)\) coloca a economia na trajet\'oria
+que converge para \((k^{\ast\ast},c^{\ast\ast})\). Se o consumo inicial estiver:
+\begin{itemize}
+  \item alto demais, o capital \'e drenado e a economia colapsa;
+  \item baixo demais, a economia poupa demais e sai pela dire\c{c}\~ao inst\'avel.
+\end{itemize}
+
+No c\'odigo, \texttt{find\_saddle\_path(...)} faz exatamente essa busca. O
+algoritmo chuta \(c(0)\), integra o sistema para frente e ajusta o chute at\'e
+aproximar a dire\c{c}\~ao est\'avel.
 
 \begin{intuicao}
-O RCK endogeneiza a poupan\c{c}a. Por isso, o consumo inicial n\~ao pode ser
-escolhido arbitrariamente: ele precisa ser consistente com a trajet\'oria que
-satisfaz a condi\c{c}\~ao de transversalidade.
+Diferentemente do Solow, o consumo inicial n\~ao \'e dado. Ele precisa ser
+consistente com a trajet\'oria intertemporal \'otima. A saddle path \'e a
+sele\c{c}\~ao econ\^omica desse consumo inicial.
 \end{intuicao}
 
-\subsection{Condi\c{c}\~ao de transversalidade}
+\subsection{Passo 9: condi\c{c}\~ao de transversalidade}
 
 A condi\c{c}\~ao de transversalidade elimina trajet\'orias em que a fam\'ilia
-acumula ativos sem motivo econ\^omico. Em linguagem econ\^omica, ela impede
-que valor seja deixado infinitamente ``sobre a mesa'' no limite.
+acumula riqueza sem finalidade de consumo. Em linguagem simples, ela impede
+que a economia chegue ao infinito com um estoque de ativos valioso e n\~ao
+gasto.
 
-Na formula\c{c}\~ao normalizada, a ideia \'e que o valor sombra do capital,
-ponderado adequadamente, deve convergir a zero no infinito. Essa condi\c{c}\~ao
-\'e o crit\'erio conceitual por tr\'as da sele\c{c}\~ao da saddle path.
+Na formula\c{c}\~ao normalizada, a ideia \'e
+\[
+\lim_{t\to\infty}\lambda(t)k(t)\E^{-\eta t}=0,
+\]
+ou uma express\~ao equivalente dependendo da conven\c{c}\~ao do Hamiltoniano.
+
+Essa condi\c{c}\~ao n\~ao serve para gerar uma nova equa\c{c}\~ao de movimento;
+ela serve para escolher, entre todas as trajet\'orias matematicamente
+poss\'iveis, a que \'e economicamente \'otima.
+
+\subsection{Passo 10: efeito de gastos do governo}
+
+Considere um aumento permanente em \(G\). A equa\c{c}\~ao de Euler n\~ao muda:
+\[
+\frac{\dot c}{c}
+=
+\frac{f'(k)-\delta-\rho-\theta g}{\theta}.
+\]
+Logo, a is\'oclina \(\dot c=0\) n\~ao se desloca.
+
+J\'a a is\'oclina \(\dot k=0\) passa de
+\[
+c=f(k)-G-(n+g+\delta)k
+\]
+para uma curva mais baixa, porque o governo absorve mais recursos.
+
+Como \(k^{\ast\ast}\) \'e determinado por \(f'(k^{\ast\ast})=\rho+\theta g+\delta\),
+o capital de steady state n\~ao muda. O que cai \'e o consumo de steady state:
+\[
+c^{\ast\ast}_{novo}
+=
+f(k^{\ast\ast})-G_{novo}-(n+g+\delta)k^{\ast\ast}.
+\]
+
+\begin{resultado}
+Um aumento permanente em \(G\) desloca \(\dot k=0\) para baixo, n\~ao desloca
+\(\dot c=0\), mant\'em \(k^{\ast\ast}\) e reduz \(c^{\ast\ast}\).
+\end{resultado}
+
+Se a eleva\c{c}\~ao de \(G\) for tempor\'aria, a l\'ogica qualitativa muda:
+a economia reduz consumo e poupan\c{c}a no curto prazo, mas o retorno ao steady
+state de longo prazo \'e diferente do caso permanente.
 
 \subsection{Do livro para o c\'odigo}
 
-As correspond\^encias principais com \texttt{ch02\_rck\_diamond/ch02\_rck.py}
-s\~ao:
+As correspond\^encias principais com
+\texttt{ch02\_rck\_diamond/ch02\_rck.py} s\~ao:
 \begin{itemize}
-  \item \(f(k)\) \(\leftrightarrow\) \texttt{f(...)};
-  \item \(f'(k)\) \(\leftrightarrow\) \texttt{f\_prime(...)};
-  \item \(\dot k\) \(\leftrightarrow\) \texttt{k\_dot(...)};
-  \item \(\dot c\) \(\leftrightarrow\) \texttt{c\_dot(...)};
-  \item \(\dot k=0\) \(\leftrightarrow\) \texttt{k\_locus(...)};
-  \item \((k^{\ast\ast},c^{\ast\ast})\) \(\leftrightarrow\) \texttt{steady\_state(...)};
-  \item a trajet\'oria est\'avel \(\leftrightarrow\) \texttt{find\_saddle\_path(...)}.
+  \item \(f(k)\) \(\leftrightarrow\) \texttt{f(...)} ;
+  \item \(f'(k)\) \(\leftrightarrow\) \texttt{f\_prime(...)} ;
+  \item \(\dot k\) \(\leftrightarrow\) \texttt{k\_dot(...)} ;
+  \item \(\dot c\) \(\leftrightarrow\) \texttt{c\_dot(...)} ;
+  \item \(\dot k=0\) \(\leftrightarrow\) \texttt{k\_locus(...)} ;
+  \item \((k^{\ast\ast},c^{\ast\ast})\) \(\leftrightarrow\) \texttt{steady\_state(...)} ;
+  \item saddle path \(\leftrightarrow\) \texttt{find\_saddle\_path(...)}.
 \end{itemize}
 
 \section{Parte B --- O modelo de Diamond}
 
 \subsection{Estrutura b\'asica}
 
-No modelo de Diamond, os agentes vivem por dois per\'iodos:
+No modelo de Diamond, cada gera\c{c}\~ao vive dois per\'iodos:
 \begin{itemize}
-  \item quando jovens, trabalham, recebem sal\'ario e poupam;
-  \item quando velhos, n\~ao trabalham e consomem o retorno da poupan\c{c}a.
+  \item jovem: trabalha, recebe sal\'ario, decide consumo e poupan\c{c}a;
+  \item velha: n\~ao trabalha e consome o retorno da poupan\c{c}a.
 \end{itemize}
 
-Seja \(c_{1,t}\) o consumo quando jovem e \(c_{2,t+1}\) o consumo quando velho.
 A utilidade da gera\c{c}\~ao nascida em \(t\) \'e
 \[
-u_t=\ln(c_{1,t})+\beta \ln(c_{2,t+1}).
+u_t=\ln(c_{1,t})+\beta\ln(c_{2,t+1}),
 \]
+onde:
+\begin{itemize}
+  \item \(c_{1,t}\): consumo quando jovem;
+  \item \(c_{2,t+1}\): consumo quando velho;
+  \item \(\beta\): peso dado ao consumo futuro.
+\end{itemize}
 
-\subsection{Restri\c{c}\~oes or\c{c}ament\'arias}
+\subsection{Passo 1: restri\c{c}\~oes or\c{c}ament\'arias}
 
-Se \(w_t\) \'e o sal\'ario recebido quando jovem e \(s_t\) a poupan\c{c}a,
-ent\~ao
+Se \(w_t\) \'e o sal\'ario do jovem e \(s_t\) sua poupan\c{c}a, ent\~ao
 \[
 c_{1,t}+s_t=w_t.
 \]
-Quando velho,
+Quando velho, o consumo \'e financiado pela poupan\c{c}a capitalizada:
 \[
 c_{2,t+1}=(1+r_{t+1})s_t.
 \]
-Substituindo na utilidade,
+
+Substituindo essas restri\c{c}\~oes na utilidade,
 \[
-u_t
-=
-\ln(w_t-s_t)+\beta \ln\!\bigl((1+r_{t+1})s_t\bigr).
+u_t=\ln(w_t-s_t)+\beta\ln\!\bigl((1+r_{t+1})s_t\bigr).
 \]
 
-\subsection{Regra de poupan\c{c}a do jovem}
+\subsection{Passo 2: regra de poupan\c{c}a}
 
-O problema da gera\c{c}\~ao jovem \'e
+O problema do jovem \'e
 \[
-\max_{s_t}
-\ln(w_t-s_t)+\beta \ln\!\bigl((1+r_{t+1})s_t\bigr).
+\max_{s_t}\;
+\ln(w_t-s_t)+\beta\ln\!\bigl((1+r_{t+1})s_t\bigr).
 \]
-A condi\c{c}\~ao de primeira ordem \'e
+
+Como \((1+r_{t+1})\) n\~ao depende de \(s_t\), a condi\c{c}\~ao de primeira ordem
+\'e
 \[
--\frac{1}{w_t-s_t}+\beta \frac{1}{s_t}=0.
+-\frac{1}{w_t-s_t}+\beta\frac{1}{s_t}=0.
 \]
-Reorganizando,
+Multiplicando por \(s_t(w_t-s_t)\),
 \[
-\beta(w_t-s_t)=s_t.
+-s_t+\beta(w_t-s_t)=0.
+\]
+Rearranjando,
+\[
+\beta w_t-(1+\beta)s_t=0.
 \]
 Logo,
 \[
-\beta w_t=(1+\beta)s_t
-\qquad \Longrightarrow \qquad
 s_t=\frac{\beta}{1+\beta}w_t.
 \]
 
 \begin{resultado}
-Com utilidade logar\'itmica, a poupan\c{c}a do jovem \'e uma fra\c{c}\~ao fixa do sal\'ario:
+Com utilidade logar\'itmica, a poupan\c{c}a do jovem \'e uma fra\c{c}\~ao fixa do
+sal\'ario:
 \[
 s_t=\frac{\beta}{1+\beta}w_t.
 \]
 \end{resultado}
 
-\subsection{Do sal\'ario ao mapa de capital}
+\begin{intuicao}
+O jovem divide o sal\'ario entre consumo presente e futuro. Com utilidade log,
+essa divis\~ao vira uma regra linear particularmente transparente.
+\end{intuicao}
 
-Suponha produ\c{c}\~ao Cobb--Douglas por trabalhador,
+\subsection{Passo 3: dos pre\c{c}os fatoriais ao mapa de capital}
+
+Suponha tecnologia Cobb--Douglas por trabalhador:
 \[
-y_t=k_t^\alpha,
+y_t=f(k_t)=k_t^\alpha.
 \]
-e deprecia\c{c}\~ao completa, \(\delta=1\), como no caso padr\~ao mais simples do OLG.
-Ent\~ao o sal\'ario \'e
+Com concorr\^encia perfeita, o sal\'ario \'e
 \[
 w_t=f(k_t)-k_t f'(k_t).
 \]
-Para Cobb--Douglas,
+Como
 \[
 f'(k_t)=\alpha k_t^{\alpha-1},
 \]
-logo
+segue que
 \[
 w_t
 =
@@ -475,12 +712,15 @@ k_t^\alpha-\alpha k_t^\alpha
 (1-\alpha)k_t^\alpha.
 \]
 
-Se a popula\c{c}\~ao cresce \`a taxa \(n\), ent\~ao o capital do per\'iodo
-seguinte por jovem \'e a poupan\c{c}a agregada dividida pela nova coorte:
+Se a popula\c{c}\~ao cresce \`a taxa \(n\), a nova coorte \'e \((1+n)\) vezes
+maior do que a anterior. Com deprecia\c{c}\~ao completa, todo o capital do
+per\'iodo \(t+1\) precisa ser financiado pela poupan\c{c}a dos jovens de \(t\).
+Assim,
 \[
 k_{t+1}=\frac{s_t}{1+n}.
 \]
-Substituindo a regra de poupan\c{c}a,
+
+Substituindo a regra de poupan\c{c}a e o sal\'ario,
 \[
 k_{t+1}
 =
@@ -490,7 +730,7 @@ k_{t+1}
 \]
 
 \begin{resultado}
-O mapa din\^amico do Diamond com Cobb--Douglas e utilidade log \'e
+O mapa din\^amico do Diamond, com Cobb--Douglas e utilidade log, \'e
 \[
 k_{t+1}
 =
@@ -498,11 +738,13 @@ k_{t+1}
 \]
 \end{resultado}
 
-\subsection{Steady state do mapa discreto}
+\subsection{Passo 4: steady state do mapa discreto}
 
-Um steady state satisfaz
+Um steady state satisfaz \(k_{t+1}=k_t=k^\ast\). Logo,
 \[
-k^\ast = \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}(k^\ast)^\alpha.
+k^\ast
+=
+\frac{\beta(1-\alpha)}{(1+\beta)(1+n)}(k^\ast)^\alpha.
 \]
 Se \(k^\ast>0\), dividimos por \((k^\ast)^\alpha\):
 \[
@@ -510,7 +752,7 @@ Se \(k^\ast>0\), dividimos por \((k^\ast)^\alpha\):
 =
 \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}.
 \]
-Logo,
+Portanto,
 \[
 k^\ast
 =
@@ -519,37 +761,72 @@ k^\ast
 \right]^{\frac{1}{1-\alpha}}.
 \]
 
-\subsection{Inefici\^encia din\^amica e compara\c{c}\~ao com a Regra de Ouro}
+\subsection{Passo 5: Regra de Ouro e inefici\^encia din\^amica}
 
-No OLG, pode acontecer de o steady state competitivo gerar capital demais. A
-refer\^encia \'e o capital da Regra de Ouro, definido por
+No caso com deprecia\c{c}\~ao completa, o consumo agregado de steady state por
+jovem pode ser escrito como
 \[
-f'(k_{\text{gold}})=n+\delta.
+\bar c(k)=f(k)-(1+n)k.
 \]
-No caso simples com \(\delta=1\) na formula\c{c}\~ao discreta padr\~ao, a regra
-equivalente \'e comparar o produto marginal l\'iquido do capital com a taxa de
-crescimento da economia. Intuitivamente:
+A l\'ogica \'e simples:
 \begin{itemize}
-  \item se \(k^\ast < k_{\text{gold}}\), a economia poupa pouco;
-  \item se \(k^\ast > k_{\text{gold}}\), h\'a sobreacumula\c{c}\~ao e inefici\^encia din\^amica.
+  \item a economia produz \(f(k)\);
+  \item para manter \(k\) constante com popula\c{c}\~ao crescente, precisa investir
+  \((1+n)k\).
+\end{itemize}
+
+Maximizando \(\bar c(k)\),
+\[
+\frac{\dd \bar c(k)}{\dd k}=f'(k)-(1+n)=0.
+\]
+Logo,
+\[
+f'(k_{\text{gold}})=1+n.
+\]
+
+Como, com deprecia\c{c}\~ao completa, o retorno bruto do capital \'e
+\[
+1+r=f'(k),
+\]
+a condi\c{c}\~ao da Regra de Ouro tamb\'em pode ser escrita como
+\[
+r=n.
+\]
+
+\begin{resultado}
+No Diamond simples com deprecia\c{c}\~ao completa, a Regra de Ouro satisfaz
+\[
+f'(k_{\text{gold}})=1+n
+\qquad \text{ou, equivalentemente,} \qquad
+r=n.
+\]
+\end{resultado}
+
+Agora a compara\c{c}\~ao central:
+\begin{itemize}
+  \item se \(k^\ast<k_{\text{gold}}\), a economia poupa pouco;
+  \item se \(k^\ast>k_{\text{gold}}\), h\'a sobreacumula\c{c}\~ao de capital e
+  inefici\^encia din\^amica.
 \end{itemize}
 
 \begin{intuicao}
-O ponto central do Diamond \'e que equil\'ibrio competitivo n\~ao garante
-efici\^encia intertemporal. Diferentemente do RCK, a estrutura demogr\'afica
-pode levar a um estoque de capital excessivo.
+O Diamond quebra um resultado importante do RCK: equil\'ibrio competitivo n\~ao
+garante efici\^encia intertemporal. A estrutura de gera\c{c}\~oes sobrepostas
+pode sustentar capital demais.
 \end{intuicao}
 
 \section{Fechamento}
 
-O Cap\'itulo 2 do Romer amplia o Solow em duas dire\c{c}\~oes:
+O Cap\'itulo 2 do Romer amplia o Solow em duas dire\c{c}\~oes muito diferentes:
 \begin{itemize}
-  \item no RCK, a poupan\c{c}a \'e end\'ogena e a din\^amica passa a ser um sistema em \((k,c)\);
-  \item no Diamond, a demografia e a sobreposi\c{c}\~ao de gera\c{c}\~oes tornam poss\'ivel a inefici\^encia din\^amica.
+  \item no RCK, a poupan\c{c}a passa a ser uma escolha \'otima e a din\^amica vira
+  um sistema bidimensional em \((k,c)\);
+  \item no Diamond, a estrutura demogr\'afica cria um mapa discreto e torna
+  poss\'ivel a inefici\^encia din\^amica.
 \end{itemize}
 
-No reposit\'orio, o RCK j\'a aparece implementado em
-\texttt{ch02\_rck\_diamond/ch02\_rck.py}. O Diamond, por enquanto, fica como
-ponte te\'orica para o pr\'oximo m\'odulo.
+No reposit\'orio, o RCK j\'a est\'a implementado em
+\texttt{ch02\_rck\_diamond/ch02\_rck.py}. O Diamond, por enquanto, aparece
+como prepara\c{c}\~ao te\'orica para o pr\'oximo m\'odulo.
 
 \end{document}

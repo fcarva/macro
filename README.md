@@ -53,6 +53,7 @@ Arquivos centrais do projeto:
 - [Utilitarios de dados](./data_utils.py)
 - [Dependencias](./requirements.txt)
 - [Build das notas LaTeX](./build_derivations.ps1)
+- [Guia de derivacoes ch. 1 e 2](./notes/guia_derivacoes_ch01_ch02.pdf)
 
 Capitulo 1, Solow:
 
@@ -73,6 +74,11 @@ Capitulo 2, RCK e Diamond:
 - [Notas em PDF](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.pdf)
 - [Figuras](./ch02_rck_diamond/figures/)
 - [Outputs empiricos](./ch02_rck_diamond/empirical_outputs/)
+
+Guia transversal de estudo:
+
+- [Fonte LaTeX do guia](./notes/guia_derivacoes_ch01_ch02.tex)
+- [PDF do guia](./notes/guia_derivacoes_ch01_ch02.pdf)
 
 Testes:
 
@@ -178,7 +184,11 @@ Observacao:
 
 ## Notas de derivacao
 
-Este marco adiciona uma camada didatica em LaTeX, em portugues, com derivacoes passo a passo.
+As notas em LaTeX agora tem tres camadas complementares:
+
+- uma nota completa do Capitulo 1;
+- uma nota completa do Capitulo 2;
+- um guia transversal curto, pensado para revisar o esqueleto das derivacoes sem reler tudo.
 
 Capitulo 1:
 
@@ -190,11 +200,17 @@ Capitulo 2:
 - [Fonte LaTeX do RCK e Diamond](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.tex)
 - [PDF do RCK e Diamond](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.pdf)
 
+Guia complementar:
+
+- [Fonte LaTeX do guia de derivacoes](./notes/guia_derivacoes_ch01_ch02.tex)
+- [PDF do guia de derivacoes](./notes/guia_derivacoes_ch01_ch02.pdf)
+
 Cobertura atual das notas:
 
-- Capitulo 1: forma intensiva, dinamica de `k`, steady state, Cobb-Douglas, Regra de Ouro e growth accounting.
-- Capitulo 2A: problema da familia, Hamiltoniano, FOCs, equacao de Euler, isoclinas, steady state, saddle path e TVC.
-- Capitulo 2B: problema de duas idades, regra de poupanca, mapa `k_{t+1}(k_t)`, steady state e ineficiencia dinamica.
+- Capitulo 1: forma intensiva, dinamica de `k`, steady state, crescimento balanceado, Cobb-Douglas, Regra de Ouro, convergencia local e growth accounting.
+- Capitulo 2A: normalizacao do problema, Hamiltoniano, FOCs, equacao de Euler, isoclinas, steady state, linearizacao local, saddle path, TVC e gasto do governo.
+- Capitulo 2B: problema de duas idades, regra de poupanca, mapa `k_{t+1}(k_t)`, steady state, Regra de Ouro e ineficiencia dinamica.
+- Guia complementar: mapa de notacao, templates de derivacao e erros comuns dos capitulos 1 e 2.
 
 ## Fontes de dados
 

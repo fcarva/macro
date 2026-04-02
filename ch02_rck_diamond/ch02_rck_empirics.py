@@ -31,8 +31,10 @@ from data_utils import (
 )
 from params import BRASIL
 from plotting_style import (
+    add_callout,
     COLORS,
     finalize_figure,
+    format_number_ptbr,
     percent_formatter,
     style_axis,
 )
@@ -336,28 +338,52 @@ def plot_real_rate_vs_consumption_growth(panel: pd.DataFrame, summary: dict, out
     x_values = 100 * panel["real_rate"]
     y_values = 100 * panel["consumption_growth"]
 
-    fig, ax = plt.subplots(figsize=(8.8, 5.7))
+    fig, ax = plt.subplots(figsize=(9.0, 5.8))
     ax.scatter(
         x_values,
         y_values,
         color=COLORS["line_main"],
         alpha=0.8,
-        s=52,
+        s=54,
         edgecolors="none",
     )
     if len(panel) >= 2:
         slope, intercept = np.polyfit(x_values, y_values, deg=1)
         x_line = np.linspace(x_values.min(), x_values.max(), 100)
-        ax.plot(x_line, intercept + slope * x_line, color=COLORS["line_compare"], linewidth=2.0)
+        y_line = intercept + slope * x_line
+        ax.plot(x_line, y_line, color=COLORS["line_compare"], linewidth=2.1)
+        add_callout(
+            ax,
+            text="ajuste linear",
+            xy=(x_line[-1], y_line[-1]),
+            dx=10,
+            dy=0,
+            color=COLORS["line_compare"],
+            text_color=COLORS["line_compare"],
+            with_connector=False,
+        )
 
     if 2020 in panel.index:
-        ax.annotate(
-            "2020",
-            (100 * panel.loc[2020, "real_rate"], 100 * panel.loc[2020, "consumption_growth"]),
-            xytext=(6, 6),
-            textcoords="offset points",
-            fontsize=9,
+        x_2020 = float(100 * panel.loc[2020, "real_rate"])
+        y_2020 = float(100 * panel.loc[2020, "consumption_growth"])
+        ax.scatter(
+            [x_2020],
+            [y_2020],
+            s=74,
             color=COLORS["negative"],
+            edgecolors=COLORS["paper"],
+            linewidths=0.8,
+            zorder=4,
+        )
+        add_callout(
+            ax,
+            text="2020",
+            xy=(x_2020, y_2020),
+            dx=10,
+            dy=10,
+            color=COLORS["negative"],
+            text_color=COLORS["negative"],
+            fontweight="bold",
         )
 
     style_axis(
@@ -365,17 +391,20 @@ def plot_real_rate_vs_consumption_growth(panel: pd.DataFrame, summary: dict, out
         xlabel="Juro real anual (%)",
         ylabel="Crescimento do consumo real per capita (%)",
     )
+    ax.axhline(0.0, color=COLORS["muted_light"], linewidth=1.0, linestyle="-", zorder=0)
+    ax.axvline(0.0, color=COLORS["muted_light"], linewidth=1.0, linestyle="-", zorder=0)
     ax.xaxis.set_major_formatter(percent_formatter(0))
     ax.yaxis.set_major_formatter(percent_formatter(0))
     ax.xaxis.set_major_locator(MaxNLocator(6))
     ax.yaxis.set_major_locator(MaxNLocator(6))
+    ax.margins(x=0.05, y=0.05)
     return finalize_figure(
         fig,
         figure_path,
         title="Brasil: juros reais e crescimento do consumo no RCK",
-        subtitle=f"Amostra anual {summary['sample_start']}-{summary['sample_end']}; estimativa de rho = {summary['rho_hat']:.3f}.",
+        subtitle=f"Amostra anual {summary['sample_start']}-{summary['sample_end']}; estimativa de rho = {format_number_ptbr(summary['rho_hat'], 3, trim=False)}.",
         source="BCB SGS, IBGE SIDRA/SCN; calculos do projeto.",
-        note="Juro real = Selic anualizada deflacionada pelo IPCA. Consumo real per capita = proxy com indice de volume das contas nacionais dividido pela populacao.",
+        note="Juro real = Selic anualizada deflacionada pelo IPCA; consumo real per capita = proxy com indice de volume das contas nacionais dividido pela populacao.",
     )
 
 
