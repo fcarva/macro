@@ -25,8 +25,9 @@ Hierarquia planejada:
 
 Implementacao atual da v1:
 
-- `BCB SGS` direto para juros e inflacao no modulo RCK;
-- `World Bank API` para a camada real usada nos scripts empiricos atuais;
+- bloco Brasil em `Solow` com `IBGE SIDRA` (`CNA 6784`, `CNT 1846`, `CNT 1620`) e referencia anual da `SCN tab05`;
+- bloco Brasil em `RCK` com `IBGE SIDRA/SCN` para consumo e populacao, e `BCB SGS` para Selic e IPCA;
+- `World Bank API` apenas no bloco internacional do `Solow`;
 - `rbcb` documentado como referencia principal para uma ponte futura com os web services do BCB, sem ser dependencia obrigatoria deste ambiente.
 
 ## Como rodar
@@ -44,4 +45,6 @@ python -m unittest discover -s tests
 ## Saidas
 
 - figuras em `ch01_solow/figures/` e `ch02_rck_diamond/figures/`;
-- arquivos empiricos e `metadata` em `ch01_solow/empirical_outputs/` e `ch02_rck_diamond/empirical_outputs/`.
+- arquivos empiricos e `metadata` em `ch01_solow/empirical_outputs/` e `ch02_rck_diamond/empirical_outputs/`;
+- `brazil_official_series.csv` com o painel tidy usado em cada modulo;
+- `brazil_validation_residuals.csv` com a comparacao entre a soma anualizada da CNT e a referencia anual oficial da SCN.

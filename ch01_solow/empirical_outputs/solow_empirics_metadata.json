@@ -1,19 +1,77 @@
 {
-  "title": "Brazil growth accounting in Solow empirics",
-  "sources": [
-    {
-      "source": "World Bank API",
-      "frequency": "annual",
-      "unit": "constant local currency units / persons",
-      "fallback": "IBGE or IPEA local-national accounts bridge planned for future revisions",
-      "note": "Labor input used: population"
+  "title": "Brazil empirical layer for Solow with official IBGE and BCB references",
+  "brazil": {
+    "labor_input": "population",
+    "capital_input": "perpetual inventory on annualized FBCF volume index",
+    "future_extensions": {
+      "labor_input": [
+        "population",
+        "pea",
+        "occupied"
+      ],
+      "real_rate_input": [
+        "selic_ipca",
+        "ntnb_real_yield"
+      ],
+      "human_capital_input": [
+        "none",
+        "future_pnad_schooling"
+      ]
     },
-    {
-      "source": "World Bank API",
-      "frequency": "annual",
-      "unit": "PPP output, labor force, percent of GDP",
-      "fallback": "Penn World Tables",
-      "note": "Cross-country comparison block."
-    }
-  ]
+    "warnings": [
+      "Labor uses resident population as a long-window proxy. Migration to PEA or occupied persons via PNAD remains planned.",
+      "Annual SCN validation is available from 2000 onward because the pinned annual workbook reference starts in 2000."
+    ],
+    "sources": [
+      {
+        "source": "IBGE SIDRA",
+        "frequency": "annual",
+        "unit": "1_000_000 BRL, percent, BRL, thousand persons",
+        "dataset_id": "CNA 6784",
+        "series_code": "9808,9810,9811,9812,93",
+        "proxy_used": "labor_input=population",
+        "aggregation": "annual official series",
+        "concept_note": "Population is used as a long-window labor proxy for Solow until PNAD-based labor inputs are added."
+      },
+      {
+        "source": "IBGE SIDRA",
+        "frequency": "quarterly to annual aggregation",
+        "unit": "1_000_000 BRL",
+        "dataset_id": "CNT 1846",
+        "series_code": "585 / 11255(90707,93404,93406)",
+        "aggregation": "quarterly_to_annual_sum",
+        "concept_note": "Quarterly current-price flows are annualized for SCN-CNT validation and for the pre-2000 FBCF fallback window."
+      },
+      {
+        "source": "IBGE SIDRA",
+        "frequency": "quarterly to annual aggregation",
+        "unit": "index, base mean 1995=100",
+        "dataset_id": "CNT 1620",
+        "series_code": "583 / 11255(90707,93404,93406)",
+        "aggregation": "quarterly_to_annual_mean",
+        "concept_note": "Quarterly volume indices are annualized to keep growth accounting in real terms."
+      },
+      {
+        "source": "IBGE SCN annual workbook",
+        "frequency": "annual",
+        "unit": "1_000_000 BRL",
+        "dataset_id": "SCN 2023 tab05",
+        "series_code": "tab05:B:total,consumo_familias,fbcf:valor_corrente",
+        "aggregation": "annual official reference",
+        "revision_reference": "Sistema de Contas Nacionais 2023",
+        "concept_note": "Annual SCN tab05 values are used as the official reference for validation against aggregated quarterly CNT flows."
+      }
+    ]
+  },
+  "cross_country": {
+    "sources": [
+      {
+        "source": "World Bank API",
+        "frequency": "annual",
+        "unit": "PPP output, labor force, percent of GDP",
+        "fallback": "Penn World Tables",
+        "note": "Cross-country comparison block."
+      }
+    ]
+  }
 }

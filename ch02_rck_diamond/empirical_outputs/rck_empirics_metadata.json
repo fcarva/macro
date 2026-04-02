@@ -1,19 +1,75 @@
 {
-  "title": "Brazil calibration inputs for the RCK model",
-  "sources": [
-    {
-      "source": "BCB SGS direct API",
-      "frequency": "daily to annual aggregation",
-      "unit": "annual real interest rate",
-      "fallback": "rbcb reference package for future R bridge",
-      "note": "Immediate implementation uses Python and the BCB endpoint directly. rbcb reference: https://wilsonfreitas.github.io/rbcb/"
+  "title": "Brazil calibration inputs for the RCK model with official SIDRA and BCB data",
+  "brazil": {
+    "real_rate_input": "selic_ipca",
+    "consumption_input": "household_consumption_volume_index_per_capita",
+    "future_extensions": {
+      "labor_input": [
+        "population",
+        "pea",
+        "occupied"
+      ],
+      "real_rate_input": [
+        "selic_ipca",
+        "ntnb_real_yield"
+      ],
+      "human_capital_input": [
+        "none",
+        "future_pnad_schooling"
+      ]
     },
-    {
-      "source": "World Bank API",
-      "frequency": "annual",
-      "unit": "household final consumption per capita, constant prices",
-      "fallback": "IBGE or IPEA future bridge",
-      "note": "World Bank total household consumption divided by population."
-    }
-  ]
+    "warnings": [
+      "The real rate remains an operational proxy based on Selic deflated by IPCA, not a structural long-run natural rate.",
+      "A future upgrade can swap selic_ipca for NTN-B or term-structure based real yields."
+    ],
+    "sources": [
+      {
+        "source": "BCB SGS",
+        "frequency": "daily to annual aggregation",
+        "unit": "annualized nominal policy rate",
+        "dataset_id": "BCB SGS",
+        "series_code": "11",
+        "aggregation": "daily -> monthly mean -> annual mean",
+        "concept_note": "Selic is used as the immediate operational rate proxy. rbcb remains the reference R package for a future bridge: https://wilsonfreitas.github.io/rbcb/"
+      },
+      {
+        "source": "BCB SGS",
+        "frequency": "monthly to annual aggregation",
+        "unit": "annual inflation rate",
+        "dataset_id": "BCB SGS",
+        "series_code": "433",
+        "aggregation": "monthly compounding within calendar year",
+        "concept_note": "IPCA is compounded within each calendar year to produce annual inflation."
+      },
+      {
+        "source": "IBGE SIDRA",
+        "frequency": "annual",
+        "unit": "thousand persons",
+        "dataset_id": "CNA 6784",
+        "series_code": "93",
+        "proxy_used": "population",
+        "aggregation": "annual official series",
+        "concept_note": "Population is used to move from aggregate household consumption to a per-capita real proxy."
+      },
+      {
+        "source": "IBGE SIDRA",
+        "frequency": "quarterly to annual aggregation",
+        "unit": "index, base mean 1995=100",
+        "dataset_id": "CNT 1620",
+        "series_code": "583 / 11255(93404)",
+        "aggregation": "quarterly_to_annual_mean",
+        "concept_note": "The household consumption volume index is annualized by mean and then divided by population to build a real per-capita consumption proxy."
+      },
+      {
+        "source": "IBGE SCN annual workbook",
+        "frequency": "annual",
+        "unit": "1_000_000 BRL",
+        "dataset_id": "SCN 2023 tab05",
+        "series_code": "tab05:B:consumo_familias:valor_corrente",
+        "aggregation": "annual official reference",
+        "revision_reference": "Sistema de Contas Nacionais 2023",
+        "concept_note": "Annual household consumption current values are included as the official SCN level reference."
+      }
+    ]
+  }
 }
