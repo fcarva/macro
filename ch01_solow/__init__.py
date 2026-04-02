@@ -1,0 +1,1 @@
+"""Solow growth model module."""

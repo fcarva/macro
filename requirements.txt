@@ -1,0 +1,13 @@
+numpy
+scipy
+matplotlib
+pandas
+pandas-datareader
+wbdata
+ipeadatapy
+python-bcb
+sidrapy
+jupyter
+notebook
+ipywidgets
+linearmodels

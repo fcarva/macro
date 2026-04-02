@@ -1,0 +1,9 @@
+{
+  "rho_hat": -0.11869442340877968,
+  "theta_used": 10.720866973061588,
+  "sample_start": 2001,
+  "sample_end": 2023,
+  "mean_real_rate": 0.05527023056164059,
+  "mean_consumption_growth": 0.016226733752740592,
+  "estimation_method": "OLS Euler equation"
+}

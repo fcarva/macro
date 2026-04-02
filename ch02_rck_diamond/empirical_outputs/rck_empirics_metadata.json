@@ -1,0 +1,19 @@
+{
+  "title": "Brazil calibration inputs for the RCK model",
+  "sources": [
+    {
+      "source": "BCB SGS direct API",
+      "frequency": "daily to annual aggregation",
+      "unit": "annual real interest rate",
+      "fallback": "rbcb reference package for future R bridge",
+      "note": "Immediate implementation uses Python and the BCB endpoint directly. rbcb reference: https://wilsonfreitas.github.io/rbcb/"
+    },
+    {
+      "source": "World Bank API",
+      "frequency": "annual",
+      "unit": "household final consumption per capita, constant prices",
+      "fallback": "IBGE or IPEA future bridge",
+      "note": "World Bank total household consumption divided by population."
+    }
+  ]
+}

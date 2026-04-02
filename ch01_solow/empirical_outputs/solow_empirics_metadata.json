@@ -1,0 +1,19 @@
+{
+  "title": "Brazil growth accounting in Solow empirics",
+  "sources": [
+    {
+      "source": "World Bank API",
+      "frequency": "annual",
+      "unit": "constant local currency units / persons",
+      "fallback": "IBGE or IPEA local-national accounts bridge planned for future revisions",
+      "note": "Labor input used: population"
+    },
+    {
+      "source": "World Bank API",
+      "frequency": "annual",
+      "unit": "PPP output, labor force, percent of GDP",
+      "fallback": "Penn World Tables",
+      "note": "Cross-country comparison block."
+    }
+  ]
+}
