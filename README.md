@@ -29,12 +29,27 @@ Para recompilar as notas em LaTeX:
 powershell -ExecutionPolicy Bypass -File .\build_derivations.ps1
 ```
 
+## Padrao visual dos graficos
+
+Os graficos dos capitulos 1 e 2 seguem agora um padrao editorial claro, inspirado
+na linguagem de explicacao visual do Nexo Jornal e apoiado na paleta
+`Flexoki light`.
+
+Convencoes principais:
+
+- titulos e subtitulos em portugues;
+- rodape com `Fonte:` e, quando necessario, `Obs.:`;
+- unidades jornalisticas em pt-BR, como `R$ bi`, `R$ tri`, `%` e `p.p.`;
+- exportacao dupla para cada figura: `PNG` e `SVG`;
+- graficos teoricos mantem notacao formal (`k`, `c`, `y`, `\dot{k}`, `\dot{c}`), mas com textos de apoio legiveis.
+
 ## Navegacao rapida
 
 Arquivos centrais do projeto:
 
 - [Plano geral](./romer_study_plan.md)
 - [Parametros compartilhados](./params.py)
+- [Estilo grafico compartilhado](./plotting_style.py)
 - [Utilitarios de dados](./data_utils.py)
 - [Dependencias](./requirements.txt)
 - [Build das notas LaTeX](./build_derivations.ps1)
@@ -211,6 +226,10 @@ Capitulo 2:
 - [Outputs empiricos do RCK](./ch02_rck_diamond/empirical_outputs/)
 - [Painel brasileiro oficial](./ch02_rck_diamond/empirical_outputs/brazil_official_series.csv)
 - [Validacao CNT vs SCN](./ch02_rck_diamond/empirical_outputs/brazil_validation_residuals.csv)
+
+Observacao:
+
+- em `figures/` e `empirical_outputs/`, os graficos passam a existir em `PNG` e `SVG`, com o mesmo nome-base.
 
 ## Testes e validacao
 

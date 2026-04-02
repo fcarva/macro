@@ -9,6 +9,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.ticker import MaxNLocator
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -29,6 +30,12 @@ from data_utils import (
     write_metadata,
 )
 from params import BRASIL
+from plotting_style import (
+    COLORS,
+    finalize_figure,
+    percent_formatter,
+    style_axis,
+)
 
 
 MODULE_DIR = Path(__file__).resolve().parent
@@ -325,20 +332,51 @@ def calibrate_brazil_rho(theta=None, estimate_theta=False, start_year=2000, end_
 
 
 def plot_real_rate_vs_consumption_growth(panel: pd.DataFrame, summary: dict, output_dir=OUTPUT_DIR):
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.scatter(100 * panel["real_rate"], 100 * panel["consumption_growth"], color="steelblue", alpha=0.75)
+    figure_path = Path(output_dir) / "rck_brazil_calibration.png"
+    x_values = 100 * panel["real_rate"]
+    y_values = 100 * panel["consumption_growth"]
+
+    fig, ax = plt.subplots(figsize=(8.8, 5.7))
+    ax.scatter(
+        x_values,
+        y_values,
+        color=COLORS["line_main"],
+        alpha=0.8,
+        s=52,
+        edgecolors="none",
+    )
     if len(panel) >= 2:
-        slope, intercept = np.polyfit(100 * panel["real_rate"], 100 * panel["consumption_growth"], deg=1)
-        x_line = np.linspace(100 * panel["real_rate"].min(), 100 * panel["real_rate"].max(), 100)
-        ax.plot(x_line, intercept + slope * x_line, color="darkorange", lw=2.0)
-    ax.set_xlabel("Real interest rate, percent")
-    ax.set_ylabel("Consumption growth, percent")
-    ax.set_title(f"Brazil Euler-equation calibration, rho={summary['rho_hat']:.3f}")
-    fig.tight_layout()
-    path = Path(output_dir) / "rck_brazil_calibration.png"
-    fig.savefig(path, dpi=160)
-    plt.close(fig)
-    return path
+        slope, intercept = np.polyfit(x_values, y_values, deg=1)
+        x_line = np.linspace(x_values.min(), x_values.max(), 100)
+        ax.plot(x_line, intercept + slope * x_line, color=COLORS["line_compare"], linewidth=2.0)
+
+    if 2020 in panel.index:
+        ax.annotate(
+            "2020",
+            (100 * panel.loc[2020, "real_rate"], 100 * panel.loc[2020, "consumption_growth"]),
+            xytext=(6, 6),
+            textcoords="offset points",
+            fontsize=9,
+            color=COLORS["negative"],
+        )
+
+    style_axis(
+        ax,
+        xlabel="Juro real anual (%)",
+        ylabel="Crescimento do consumo real per capita (%)",
+    )
+    ax.xaxis.set_major_formatter(percent_formatter(0))
+    ax.yaxis.set_major_formatter(percent_formatter(0))
+    ax.xaxis.set_major_locator(MaxNLocator(6))
+    ax.yaxis.set_major_locator(MaxNLocator(6))
+    return finalize_figure(
+        fig,
+        figure_path,
+        title="Brasil: juros reais e crescimento do consumo no RCK",
+        subtitle=f"Amostra anual {summary['sample_start']}-{summary['sample_end']}; estimativa de rho = {summary['rho_hat']:.3f}.",
+        source="BCB SGS, IBGE SIDRA/SCN; calculos do projeto.",
+        note="Juro real = Selic anualizada deflacionada pelo IPCA. Consumo real per capita = proxy com indice de volume das contas nacionais dividido pela populacao.",
+    )
 
 
 def main():
@@ -351,6 +389,7 @@ def main():
     write_metadata(metadata, OUTPUT_DIR / "rck_empirics_metadata.json")
     write_metadata(summary, OUTPUT_DIR / "rck_brazil_calibration_summary.json")
     print(f"Saved {figure_path}")
+    print(f"Saved {figure_path.with_suffix('.svg')}")
 
 
 if __name__ == "__main__":

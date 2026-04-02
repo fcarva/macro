@@ -29,6 +29,18 @@ from data_utils import (
     write_metadata,
 )
 from params import BRASIL, OECD_COUNTRIES, SOLOW, clone_params
+from plotting_style import (
+    COLORS,
+    SERIES_COLORS,
+    add_country_badge,
+    finalize_figure,
+    place_country_end_labels,
+    percent_formatter,
+    plain_number_formatter,
+    style_axis,
+    style_legend,
+    year_formatter,
+)
 
 
 MODULE_DIR = Path(__file__).resolve().parent
@@ -236,73 +248,216 @@ def build_brazil_solow_inputs(start_year=1996, end_year=2023):
 
 def plot_output_per_worker(panel: pd.DataFrame, output_dir=OUTPUT_DIR):
     sample = panel.loc[panel["countryiso3code"].isin(["BRA", "USA", "KOR", "CHN", "MEX"])].copy()
-    fig, ax = plt.subplots(figsize=(9, 5))
+    figure_path = Path(output_dir) / "solow_output_per_worker.png"
+
+    fig, ax = plt.subplots(figsize=(9.6, 5.9))
+    series_for_labels = []
     for code, group in sample.groupby("countryiso3code"):
         ordered = group.sort_values("date")
-        ax.plot(ordered["date"], ordered["output_per_worker"], lw=2.0, label=code)
-    ax.set_title("GDP per worker, selected countries")
-    ax.set_xlabel("Year")
-    ax.set_ylabel("PPP-adjusted output per worker")
-    ax.legend()
-    fig.tight_layout()
-    path = Path(output_dir) / "solow_output_per_worker.png"
-    fig.savefig(path, dpi=160)
-    plt.close(fig)
-    return path
+        values = ordered["output_per_worker"] / 1_000.0
+        color = SERIES_COLORS.get(code, COLORS["line_neutral"])
+        ax.plot(ordered["date"], values, color=color)
+        series_for_labels.append(
+            {
+                "code": code,
+                "x": float(ordered["date"].iloc[-1]),
+                "y": float(values.iloc[-1]),
+                "color": color,
+            }
+        )
+
+    style_axis(
+        ax,
+        xlabel="Ano",
+        ylabel="PIB por trabalhador (US$ mil PPC)",
+        y_grid=True,
+        integer_x=True,
+    )
+    ax.yaxis.set_major_formatter(plain_number_formatter(0))
+    ax.xaxis.set_major_formatter(year_formatter())
+    ax.margins(x=0.04)
+    place_country_end_labels(ax, series_for_labels, min_gap_frac=0.1, x_pad_frac=0.1)
+    return finalize_figure(
+        fig,
+        figure_path,
+        title="PIB por trabalhador em países selecionados",
+        subtitle="Série anual desde 1990, em milhares de dólares PPC por trabalhador.",
+        source="World Bank API; cálculos do projeto.",
+        note="PPC = paridade do poder de compra.",
+    )
 
 
 def plot_investment_vs_income(panel: pd.DataFrame, output_dir=OUTPUT_DIR):
     latest = panel.sort_values("date").groupby("countryiso3code").tail(1)
-    fig, ax = plt.subplots(figsize=(8, 5))
-    ax.scatter(latest["investment_share"], np.log(latest["output_per_worker"]), alpha=0.7, color="steelblue")
-    for _, row in latest.loc[latest["countryiso3code"].isin(["BRA", "USA", "KOR", "CHN"])].iterrows():
-        ax.annotate(row["countryiso3code"], (row["investment_share"], np.log(row["output_per_worker"])), fontsize=9)
-    ax.set_xlabel("Investment share of GDP")
-    ax.set_ylabel("log GDP per worker")
-    ax.set_title("Investment and income in the Solow cross-section")
-    fig.tight_layout()
-    path = Path(output_dir) / "solow_investment_vs_income.png"
-    fig.savefig(path, dpi=160)
-    plt.close(fig)
-    return path
+    highlight_codes = {"BRA", "USA", "KOR", "CHN", "MEX"}
+    figure_path = Path(output_dir) / "solow_investment_vs_income.png"
+    badge_offsets = {
+        "BRA": (10, 10),
+        "USA": (10, 12),
+        "KOR": (10, 12),
+        "CHN": (12, 12),
+        "MEX": (12, -14),
+    }
+
+    fig, ax = plt.subplots(figsize=(8.8, 5.8))
+    ax.scatter(
+        latest["investment_share"],
+        latest["output_per_worker"] / 1_000.0,
+        s=38,
+        color=COLORS["muted"],
+        alpha=0.55,
+        edgecolors="none",
+    )
+
+    highlighted = latest.loc[latest["countryiso3code"].isin(highlight_codes)].copy()
+    for _, row in highlighted.iterrows():
+        color = SERIES_COLORS.get(row["countryiso3code"], COLORS["highlight"])
+        x_value = float(row["investment_share"])
+        y_value = float(row["output_per_worker"] / 1_000.0)
+        ax.scatter(
+            x_value,
+            y_value,
+            s=62,
+            color=color,
+            zorder=4,
+        )
+        dx, dy = badge_offsets.get(row["countryiso3code"], (8, 8))
+        add_country_badge(
+            ax,
+            x=x_value,
+            y=y_value,
+            code=row["countryiso3code"],
+            color=color,
+            dx=dx,
+            dy=dy,
+            with_connector=True,
+            connector_color=color,
+        )
+
+    style_axis(
+        ax,
+        xlabel="Taxa de investimento (% do PIB)",
+        ylabel="PIB por trabalhador (US$ mil PPC, escala log)",
+    )
+    ax.xaxis.set_major_formatter(percent_formatter(0))
+    ax.yaxis.set_major_formatter(plain_number_formatter(0))
+    ax.set_yscale("log")
+    return finalize_figure(
+        fig,
+        figure_path,
+        title="Investimento e renda no corte internacional do Solow",
+        subtitle="Último ano disponível por país; o eixo vertical está em escala logarítmica para acomodar a heterogeneidade entre economias.",
+        source="World Bank API; cálculos do projeto.",
+    )
 
 
 def plot_convergence(convergence_panel: pd.DataFrame, output_dir=OUTPUT_DIR):
-    fig, ax = plt.subplots(figsize=(8, 5))
-    colors = convergence_panel["oecd"].map({True: "darkorange", False: "steelblue"})
-    ax.scatter(np.log(convergence_panel["initial_output_per_worker"]), 100 * convergence_panel["annualized_growth"], c=colors, alpha=0.75)
-    ax.set_xlabel("log initial GDP per worker")
-    ax.set_ylabel("Annualized growth, percent")
-    ax.set_title("Conditional convergence: OECD vs world")
-    fig.tight_layout()
-    path = Path(output_dir) / "solow_convergence.png"
-    fig.savefig(path, dpi=160)
-    plt.close(fig)
-    return path
+    figure_path = Path(output_dir) / "solow_convergence.png"
+    colors = convergence_panel["oecd"].map({True: COLORS["line_compare"], False: COLORS["line_main"]})
+    x_values = convergence_panel["initial_output_per_worker"].to_numpy()
+    y_values = 100 * convergence_panel["annualized_growth"].to_numpy()
+
+    fig, ax = plt.subplots(figsize=(8.8, 5.8))
+    ax.scatter(
+        convergence_panel["initial_output_per_worker"] / 1_000.0,
+        y_values,
+        c=colors,
+        s=42,
+        alpha=0.72,
+        edgecolors="none",
+    )
+    if len(convergence_panel) >= 3:
+        slope, intercept = np.polyfit(np.log(x_values), y_values, deg=1)
+        x_line = np.geomspace(x_values.min(), x_values.max(), 120)
+        ax.plot(
+            x_line / 1_000.0,
+            intercept + slope * np.log(x_line),
+            color=COLORS["axis"],
+            linestyle=":",
+            linewidth=1.6,
+            label="Tendência",
+        )
+
+    brazil_row = convergence_panel.loc[convergence_panel["countryiso3code"] == "BRA"]
+    if not brazil_row.empty:
+        row = brazil_row.iloc[0]
+        add_country_badge(
+            ax,
+            x=float(row["initial_output_per_worker"] / 1_000.0),
+            y=float(100 * row["annualized_growth"]),
+            code="BRA",
+            color=SERIES_COLORS["BRA"],
+            dx=10,
+            dy=10,
+            with_connector=True,
+            connector_color=COLORS["axis"],
+        )
+
+    style_axis(
+        ax,
+        xlabel="PIB inicial por trabalhador em 2000 (US$ mil PPC, escala log)",
+        ylabel="Crescimento anualizado 2000-2023 (%)",
+    )
+    ax.set_xscale("log")
+    ax.xaxis.set_major_formatter(plain_number_formatter(0))
+    ax.yaxis.set_major_formatter(percent_formatter(0))
+    ax.scatter([], [], color=COLORS["line_main"], label="Não OCDE")
+    ax.scatter([], [], color=COLORS["line_compare"], label="OCDE")
+    style_legend(ax, loc="upper right", ncol=1)
+    return finalize_figure(
+        fig,
+        figure_path,
+        title="Convergência condicional: OCDE versus resto do mundo",
+        subtitle="Países com observações válidas em 2000 e 2023; a relação negativa sugere maior crescimento entre economias inicialmente mais pobres.",
+        source="World Bank API; cálculos do projeto.",
+        note="A linha pontilhada resume a tendência média da amostra.",
+    )
 
 
 def plot_brazil_growth_accounting(accounting: pd.DataFrame, output_dir=OUTPUT_DIR):
     sample = accounting.dropna(subset=["output_growth"]).tail(25)
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.plot(sample.index, sample["output_growth_pct"], color="black", lw=2.0, label="Output growth")
-    ax.bar(sample.index, sample["capital_contribution_pct"], alpha=0.5, label="Capital")
-    ax.bar(sample.index, sample["labor_contribution_pct"], bottom=sample["capital_contribution_pct"], alpha=0.5, label="Labor")
-    ax.bar(
-        sample.index,
-        sample["tfp_contribution_pct"],
-        bottom=sample["capital_contribution_pct"] + sample["labor_contribution_pct"],
-        alpha=0.5,
-        label="TFP",
+    years = sample.index.to_numpy()
+    figure_path = Path(output_dir) / "solow_brazil_growth_accounting.png"
+    components = [
+        ("capital_contribution_pct", "Capital", COLORS["line_neutral"]),
+        ("labor_contribution_pct", "Trabalho", COLORS["line_compare"]),
+        ("tfp_contribution_pct", "PTF", COLORS["positive"]),
+    ]
+
+    fig, ax = plt.subplots(figsize=(10.4, 5.8))
+    positive_bottom = np.zeros(len(sample))
+    negative_bottom = np.zeros(len(sample))
+
+    for column, label, color in components:
+        values = sample[column].to_numpy(dtype=float)
+        positive = np.where(values > 0, values, 0)
+        negative = np.where(values < 0, values, 0)
+        ax.bar(years, positive, bottom=positive_bottom, width=0.78, color=color, alpha=0.88, label=label)
+        ax.bar(years, negative, bottom=negative_bottom, width=0.78, color=color, alpha=0.88)
+        positive_bottom += positive
+        negative_bottom += negative
+
+    ax.plot(years, sample["output_growth_pct"], color=COLORS["black"], linewidth=2.5, label="Crescimento do PIB", zorder=4)
+    style_axis(
+        ax,
+        xlabel="Ano",
+        ylabel="Crescimento do PIB e contribuicoes (%, p.p.)",
+        zero_line=True,
+        integer_x=True,
     )
-    ax.set_title("Brazil growth accounting contributions")
-    ax.set_xlabel("Year")
-    ax.set_ylabel("Percent")
-    ax.legend(ncol=4)
-    fig.tight_layout()
-    path = Path(output_dir) / "solow_brazil_growth_accounting.png"
-    fig.savefig(path, dpi=160)
-    plt.close(fig)
-    return path
+    tick_years = [year for year in years if year % 2 == 0 or year == years[-1]]
+    ax.set_xticks(tick_years)
+    ax.xaxis.set_major_formatter(year_formatter())
+    ax.yaxis.set_major_formatter(percent_formatter(0))
+    style_legend(ax, loc="upper left", ncol=4)
+    return finalize_figure(
+        fig,
+        figure_path,
+        title="Brasil: decomposicao do crescimento do PIB",
+        subtitle="Contribuicoes aproximadas de capital, trabalho e produtividade total dos fatores nos ultimos 25 anos com dados anuais oficiais.",
+        source="IBGE SIDRA/SCN; calculos do projeto.",
+        note="O trabalho usa populacao residente como proxy de janela longa; a PTF e o residuo de Solow.",
+    )
 
 
 def main():
@@ -325,6 +480,7 @@ def main():
     convergence.to_csv(OUTPUT_DIR / "convergence_panel.csv", index=False)
     for path in output_paths:
         print(f"Saved {path}")
+        print(f"Saved {path.with_suffix('.svg')}")
 
 
 if __name__ == "__main__":

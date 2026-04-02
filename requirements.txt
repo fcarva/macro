@@ -1,6 +1,7 @@
 numpy
 scipy
 matplotlib
+flexoki
 pandas
 pandas-datareader
 wbdata
