@@ -1,6 +1,12 @@
 __pycache__/
 *.py[cod]
 *.pyo
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
 
 .pytest_cache/
 .mypy_cache/

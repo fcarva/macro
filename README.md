@@ -1,38 +1,19 @@
 # Romer Study
 
-Projeto de estudo para `Advanced Macroeconomics` (Romer, 5a ed.) com foco duplo:
+Projeto de estudo de `Advanced Macroeconomics` (Romer, 5a ed.) com dois objetivos:
 
-- dominar os modelos formais;
-- implementar cada modelo em Python com visualizacao e extensoes empiricas.
+- dominar a derivacao formal dos modelos;
+- implementar os modelos em Python com visualizacao e extensoes empiricas.
 
-## Modulos implementados
+O repositorio esta organizado por capitulo. Hoje, os capitulos efetivamente implementados e documentados sao:
 
-- `ch01_solow/ch01_solow.py`: nucleo numerico do modelo de Solow.
-- `ch01_solow/ch01_solow_plots.py`: 5 visualizacoes obrigatorias do modulo.
-- `ch01_solow/ch01_solow_empirics.py`: extensao empirica Brasil-first com comparacao internacional.
-- `ch02_rck_diamond/ch02_rck.py`: nucleo numerico do modelo RCK.
-- `ch02_rck_diamond/ch02_rck_plots.py`: diagrama de fase, comparacoes e choques.
-- `ch02_rck_diamond/ch02_rck_empirics.py`: calibracao brasileira de `rho`.
-- `params.py`: calibracoes compartilhadas.
+- Capitulo 1: Solow
+- Capitulo 2: Ramsey-Cass-Koopmans (RCK)
+- Capitulo 2: notas teoricas do modelo de Diamond
 
-## Fontes de dados
+## Inicio rapido
 
-Hierarquia planejada:
-
-1. Brasil real: `IBGE -> IPEA -> BCB`.
-2. Brasil monetario e financeiro: `BCB`.
-3. Internacional: `PWT -> World Bank`.
-
-Implementacao atual da v1:
-
-- bloco Brasil em `Solow` com `IBGE SIDRA` (`CNA 6784`, `CNT 1846`, `CNT 1620`) e referencia anual da `SCN tab05`;
-- bloco Brasil em `RCK` com `IBGE SIDRA/SCN` para consumo e populacao, e `BCB SGS` para Selic e IPCA;
-- `World Bank API` apenas no bloco internacional do `Solow`;
-- `rbcb` documentado como referencia principal para uma ponte futura com os web services do BCB, sem ser dependencia obrigatoria deste ambiente.
-
-## Como rodar
-
-Executar os scripts diretamente a partir da raiz do projeto:
+Da raiz do projeto:
 
 ```bash
 python ch01_solow/ch01_solow_plots.py
@@ -42,9 +23,228 @@ python ch02_rck_diamond/ch02_rck_empirics.py
 python -m unittest discover -s tests
 ```
 
-## Saidas
+Para recompilar as notas em LaTeX:
 
-- figuras em `ch01_solow/figures/` e `ch02_rck_diamond/figures/`;
-- arquivos empiricos e `metadata` em `ch01_solow/empirical_outputs/` e `ch02_rck_diamond/empirical_outputs/`;
-- `brazil_official_series.csv` com o painel tidy usado em cada modulo;
-- `brazil_validation_residuals.csv` com a comparacao entre a soma anualizada da CNT e a referencia anual oficial da SCN.
+```powershell
+powershell -ExecutionPolicy Bypass -File .\build_derivations.ps1
+```
+
+## Navegacao rapida
+
+Arquivos centrais do projeto:
+
+- [Plano geral](./romer_study_plan.md)
+- [Parametros compartilhados](./params.py)
+- [Utilitarios de dados](./data_utils.py)
+- [Dependencias](./requirements.txt)
+- [Build das notas LaTeX](./build_derivations.ps1)
+
+Capitulo 1, Solow:
+
+- [Modelo](./ch01_solow/ch01_solow.py)
+- [Plots](./ch01_solow/ch01_solow_plots.py)
+- [Empiria](./ch01_solow/ch01_solow_empirics.py)
+- [Notas em LaTeX](./ch01_solow/notes/ch01_solow_derivations.tex)
+- [Notas em PDF](./ch01_solow/notes/ch01_solow_derivations.pdf)
+- [Figuras](./ch01_solow/figures/)
+- [Outputs empiricos](./ch01_solow/empirical_outputs/)
+
+Capitulo 2, RCK e Diamond:
+
+- [Modelo RCK](./ch02_rck_diamond/ch02_rck.py)
+- [Plots RCK](./ch02_rck_diamond/ch02_rck_plots.py)
+- [Empiria RCK](./ch02_rck_diamond/ch02_rck_empirics.py)
+- [Notas em LaTeX](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.tex)
+- [Notas em PDF](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.pdf)
+- [Figuras](./ch02_rck_diamond/figures/)
+- [Outputs empiricos](./ch02_rck_diamond/empirical_outputs/)
+
+Testes:
+
+- [Testes do Solow](./tests/test_solow.py)
+- [Testes do RCK](./tests/test_rck.py)
+- [Helpers empiricos](./tests/test_empirical_helpers.py)
+
+## Estrutura do repositorio
+
+```text
+romer-study/
+├── ch01_solow/
+├── ch02_rck_diamond/
+├── ch03_endogenous_growth/
+├── ch04_cross_country/
+├── ch05_rbc/
+├── ch06_nominal_rigidity/
+├── ch07_dsge_nk/
+├── ch08_consumption/
+├── ch09_investment/
+├── ch10_financial/
+├── ch11_unemployment/
+├── ch12_monetary/
+├── ch13_fiscal/
+├── data/
+├── tests/
+├── build_derivations.ps1
+├── data_utils.py
+├── params.py
+├── requirements.txt
+└── romer_study_plan.md
+```
+
+## O que ja esta pronto
+
+### Capitulo 1, Solow
+
+Implementado em [ch01_solow.py](./ch01_solow/ch01_solow.py):
+
+- funcao de producao Cobb-Douglas em forma intensiva;
+- `steady_state()`;
+- `transition_path()`;
+- `golden_rule()`;
+- `growth_accounting()`.
+
+Visualizacoes em [ch01_solow_plots.py](./ch01_solow/ch01_solow_plots.py):
+
+- diagrama classico do Solow;
+- diagrama de fase unidimensional;
+- trajetoria de transicao de `k(t)`, `y(t)` e `c(t)`;
+- choque na taxa de poupanca;
+- comparacao com a Regra de Ouro.
+
+Camada empirica em [ch01_solow_empirics.py](./ch01_solow/ch01_solow_empirics.py):
+
+- bloco Brasil com `IBGE SIDRA`, `SCN` e `BCB` quando aplicavel;
+- comparacao internacional com `World Bank` no bloco cross-country;
+- growth accounting para o Brasil;
+- painel tidy `brazil_official_series.csv`;
+- validacao `CNT vs SCN` em `brazil_validation_residuals.csv`.
+
+Arquivos mais uteis do modulo:
+
+- [Growth accounting do Brasil](./ch01_solow/empirical_outputs/brazil_growth_accounting.csv)
+- [Painel de convergencia](./ch01_solow/empirical_outputs/convergence_panel.csv)
+- [Metadados da empiria](./ch01_solow/empirical_outputs/solow_empirics_metadata.json)
+
+### Capitulo 2, RCK e Diamond
+
+Implementado em [ch02_rck.py](./ch02_rck_diamond/ch02_rck.py):
+
+- sistema dinamico continuo em `(k, c)`;
+- `steady_state()` analitico e validacao numerica;
+- `simulate()`;
+- shooting algorithm em `find_saddle_path()`;
+- geracao de dados para diagrama de fase.
+
+Visualizacoes em [ch02_rck_plots.py](./ch02_rck_diamond/ch02_rck_plots.py):
+
+- diagrama de fase com isoclinas;
+- comparacao Solow vs RCK;
+- choque em `rho`;
+- deslocamento por `G`;
+- trajetorias de `c(t)` e `k(t)`.
+
+Camada empirica em [ch02_rck_empirics.py](./ch02_rck_diamond/ch02_rck_empirics.py):
+
+- consumo real per capita com base oficial brasileira;
+- proxy operacional de juros reais via `BCB SGS`;
+- calibracao brasileira de `rho`;
+- painel tidy `brazil_official_series.csv`;
+- residual de validacao anual.
+
+Arquivos mais uteis do modulo:
+
+- [Painel de calibracao do RCK](./ch02_rck_diamond/empirical_outputs/rck_brazil_calibration_panel.csv)
+- [Metadados da empiria do RCK](./ch02_rck_diamond/empirical_outputs/rck_empirics_metadata.json)
+
+Observacao:
+
+- o Diamond ainda nao esta implementado em Python nesta fase;
+- ele aparece apenas nas notas teoricas do Capitulo 2.
+
+## Notas de derivacao
+
+Este marco adiciona uma camada didatica em LaTeX, em portugues, com derivacoes passo a passo.
+
+Capitulo 1:
+
+- [Fonte LaTeX do Solow](./ch01_solow/notes/ch01_solow_derivations.tex)
+- [PDF do Solow](./ch01_solow/notes/ch01_solow_derivations.pdf)
+
+Capitulo 2:
+
+- [Fonte LaTeX do RCK e Diamond](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.tex)
+- [PDF do RCK e Diamond](./ch02_rck_diamond/notes/ch02_rck_diamond_derivations.pdf)
+
+Cobertura atual das notas:
+
+- Capitulo 1: forma intensiva, dinamica de `k`, steady state, Cobb-Douglas, Regra de Ouro e growth accounting.
+- Capitulo 2A: problema da familia, Hamiltoniano, FOCs, equacao de Euler, isoclinas, steady state, saddle path e TVC.
+- Capitulo 2B: problema de duas idades, regra de poupanca, mapa `k_{t+1}(k_t)`, steady state e ineficiencia dinamica.
+
+## Fontes de dados
+
+Hierarquia planejada:
+
+1. Brasil real: `IBGE -> IPEA -> BCB`
+2. Brasil monetario e financeiro: `BCB`
+3. Internacional: `PWT -> World Bank`
+
+Implementacao atual:
+
+- Solow Brasil: `IBGE SIDRA` com apoio de `SCN` anual e validacao `CNT`;
+- RCK Brasil: `IBGE SIDRA/SCN` para consumo e populacao, `BCB SGS` para Selic e IPCA;
+- Internacional: `World Bank API` apenas no bloco comparativo do Solow;
+- `rbcb` fica documentado como referencia principal para uma futura ponte em R, mas nao e dependencia obrigatoria agora.
+
+## Outputs principais
+
+Capitulo 1:
+
+- [Figuras do Solow](./ch01_solow/figures/)
+- [Outputs empiricos do Solow](./ch01_solow/empirical_outputs/)
+- [Painel brasileiro oficial](./ch01_solow/empirical_outputs/brazil_official_series.csv)
+- [Validacao CNT vs SCN](./ch01_solow/empirical_outputs/brazil_validation_residuals.csv)
+
+Capitulo 2:
+
+- [Figuras do RCK](./ch02_rck_diamond/figures/)
+- [Outputs empiricos do RCK](./ch02_rck_diamond/empirical_outputs/)
+- [Painel brasileiro oficial](./ch02_rck_diamond/empirical_outputs/brazil_official_series.csv)
+- [Validacao CNT vs SCN](./ch02_rck_diamond/empirical_outputs/brazil_validation_residuals.csv)
+
+## Testes e validacao
+
+Rodar todos os testes:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Escopo atual dos testes:
+
+- consistencia do steady state do Solow;
+- Regra de Ouro do Solow;
+- convergencia das trajetorias do Solow;
+- steady state e shooting do RCK;
+- helpers da camada empirica e validacoes de agregacao.
+
+## Estado atual do projeto
+
+Ja implementado:
+
+- Capitulo 1 em codigo, plots, empiria e notas;
+- Capitulo 2A em codigo, plots, empiria e notas;
+- Capitulo 2B em notas teoricas.
+
+Ainda nao implementado:
+
+- `ch02_diamond.py`
+- Capitulo 3 em diante
+
+## Proximos passos naturais
+
+- implementar o modelo de Diamond em Python;
+- adicionar notebooks leves por modulo;
+- expandir a camada brasileira com trabalho via PNAD/PNAD Continua;
+- usar NTN-B/ETTJ como proxy mais estrutural de juros reais no RCK;
+- avancar para o Capitulo 3 de crescimento endogeno.
