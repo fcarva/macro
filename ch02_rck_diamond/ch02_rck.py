@@ -1,10 +1,17 @@
-"""Core Ramsey-Cass-Koopmans model utilities for Chapter 2A."""
+"""Core Ramsey-Cass-Koopmans model utilities for Chapter 2A.
+
+Covers Lista I Q1-3:
+  Q1 — comparative statics on theta, rho, n, g (via steady_state and welfare).
+  Q2 — Euler equation for intertemporal consumption growth (see notes).
+  Q3 — Phase-diagram dynamics left of ċ=0 and above k̇=0 (see phase_diagram_data
+       and the qualitative description in region_dynamics).
+"""
 
 from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-from scipy.integrate import solve_ivp
+from scipy.integrate import quad, solve_ivp
 from scipy.optimize import brentq
 
 from params import RCK
@@ -238,4 +245,132 @@ class RCKModel:
             "dK": dK / norm,
             "dC": dC / norm,
             "saddle_path": saddle_path,
+        }
+
+    # ------------------------------------------------------------------
+    # Welfare (Lista I Q1)
+    # ------------------------------------------------------------------
+
+    def welfare(self, k0: float, T: float = 200.0) -> float:
+        """Discounted utility along the optimal (saddle-path) trajectory.
+
+        W = integral_0^T  [c(t)^(1-theta) / (1-theta)]  e^(-rho t) dt
+
+        For theta=1 (log case) the integrand is log(c(t)) e^(-rho t).
+
+        Args:
+            k0: Initial capital per effective worker.
+            T: Truncation horizon (must be long enough to reach SS).
+
+        Returns:
+            Approximate present value of utility W(k0).
+        """
+        saddle = self.find_saddle_path(k0, T=T)
+        sim = saddle["simulation"]
+        times = sim["t"] if "t" in sim else sim["time"]
+        c_path = sim["c"]
+
+        def integrand(t_val: float) -> float:
+            c_t = float(np.interp(t_val, times, c_path))
+            c_t = max(c_t, 1e-12)
+            if abs(self.theta - 1.0) < 1e-8:
+                return np.log(c_t) * np.exp(-self.rho * t_val)
+            return (c_t ** (1.0 - self.theta) / (1.0 - self.theta)) * np.exp(-self.rho * t_val)
+
+        result, _ = quad(integrand, 0.0, float(times[-1]), limit=200)
+        return float(result)
+
+    def steady_state_welfare(self) -> float:
+        """Discounted utility at the steady-state consumption level (infinite horizon)."""
+        ss = self.steady_state()
+        c_star = ss["c_star"]
+        if self.rho <= 0:
+            return np.inf
+        if abs(self.theta - 1.0) < 1e-8:
+            return np.log(max(c_star, 1e-12)) / self.rho
+        return (max(c_star, 1e-12) ** (1.0 - self.theta) / (1.0 - self.theta)) / self.rho
+
+    def parameter_welfare_comparison(
+        self,
+        param_name: str,
+        values: list[float],
+    ) -> pd.DataFrame:
+        """Compute steady-state welfare for a range of a single parameter.
+
+        Used to answer Lista I Q1: effects of theta, rho, n, g on welfare.
+
+        Args:
+            param_name: One of 'theta', 'rho', 'n', 'g'.
+            values: List of parameter values to evaluate.
+
+        Returns:
+            DataFrame with columns [param_name, 'k_star', 'c_star', 'welfare'].
+        """
+        records = []
+        for val in values:
+            try:
+                alt = RCKModel({**self.params, param_name: val})
+                ss = alt.steady_state()
+                w = alt.steady_state_welfare()
+                records.append({
+                    param_name: val,
+                    "k_star": ss["k_star"],
+                    "c_star": ss["c_star"],
+                    "welfare": w,
+                })
+            except (ValueError, RuntimeError):
+                continue
+        return pd.DataFrame(records)
+
+    # ------------------------------------------------------------------
+    # Phase-diagram region qualitative analysis (Lista I Q3)
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def region_dynamics(left_of_c_dot_zero: bool, above_k_dot_zero: bool) -> dict:
+        """Qualitative dynamics in a given region of the (k, c) phase diagram.
+
+        Args:
+            left_of_c_dot_zero: True if k < k* (left of vertical isocline).
+            above_k_dot_zero: True if c > k_locus(k) (above hump-shaped locus).
+
+        Returns:
+            Dict with 'c_direction', 'k_direction', and 'description'.
+
+        Lista I Q3: left of ċ=0 AND above k̇=0:
+            k < k*  →  f'(k) > rho + theta*g + delta  →  ċ > 0 (c rising)
+            c > k_locus(k)  →  k̇ < 0 (k falling)
+        This region leads away from the saddle path: divergent trajectory.
+        """
+        if left_of_c_dot_zero and above_k_dot_zero:
+            return {
+                "c_direction": "increasing",
+                "k_direction": "decreasing",
+                "description": (
+                    "À esquerda de k* (ċ=0): MPK > ρ+θg+δ ⟹ ċ > 0 (consumo cresce). "
+                    "Acima da isóclina k̇=0: c > f(k)−(n+g+δ)k ⟹ k̇ < 0 (capital diminui). "
+                    "A trajetória move-se para cima-esquerda, afastando-se do estado "
+                    "estacionário — esta região está fora da trajetória de sela."
+                ),
+                "lista_q3_region": True,
+            }
+        if not left_of_c_dot_zero and above_k_dot_zero:
+            return {
+                "c_direction": "decreasing",
+                "k_direction": "decreasing",
+                "description": "Direita de k*, acima de k̇=0: ċ < 0 e k̇ < 0 (ambos caem).",
+                "lista_q3_region": False,
+            }
+        if left_of_c_dot_zero and not above_k_dot_zero:
+            return {
+                "c_direction": "increasing",
+                "k_direction": "increasing",
+                "description": "Esquerda de k*, abaixo de k̇=0: ċ > 0 e k̇ > 0 (ambos crescem).",
+                "lista_q3_region": False,
+            }
+        return {
+            "c_direction": "decreasing",
+            "k_direction": "increasing",
+            "description": "Direita de k*, abaixo de k̇=0: ċ < 0 e k̇ > 0.",
+            "lista_q3_region": False,
         }

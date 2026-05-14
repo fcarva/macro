@@ -464,6 +464,162 @@ def plot_consumption_comparison(model: RCKModel, output_dir=FIGURES_DIR):
     )
 
 
+def plot_theta_shock(model: RCKModel, output_dir=FIGURES_DIR):
+    """Comparative statics on theta (Lista I Q1a): higher risk aversion.
+
+    Higher theta raises the required return f'(k*) = rho + theta*g + delta,
+    which lowers k* and c*. Welfare falls because both steady-state capital
+    and consumption shrink.
+    """
+    theta_values = [1.0, 2.0, 4.0]
+    colors = [COLORS["positive"], COLORS["line_main"], COLORS["negative"]]
+    figure_path = Path(output_dir) / "rck_theta_comparative.png"
+
+    fig, axes = plt.subplots(1, 2, figsize=(13.6, 5.7))
+
+    # Left: phase diagram with saddle paths for each theta
+    k_grid = None
+    for theta_val, color in zip(theta_values, colors):
+        alt = RCKModel(clone_params(model.params, {"theta": theta_val}))
+        ss = alt.steady_state()
+        phase = alt.phase_diagram_data(saddle_points=6, saddle_T=35.0, include_saddle_path=True)
+        if k_grid is None:
+            k_grid = phase["k_grid"]
+        axes[0].plot(phase["k_grid"], phase["k_dot_zero"],
+                     color=color, linewidth=2.0, alpha=0.9)
+        axes[0].axvline(phase["c_dot_zero"], color=color,
+                        linestyle="--", linewidth=1.2, alpha=0.75)
+        if not phase["saddle_path"].empty:
+            axes[0].plot(phase["saddle_path"]["k"], phase["saddle_path"]["c"],
+                         color=color, linewidth=1.8, alpha=0.85)
+        axes[0].scatter([ss["k_star"]], [ss["c_star"]],
+                        color=color, s=46, edgecolors=COLORS["paper"],
+                        linewidths=0.7, zorder=5)
+        add_callout(
+            axes[0],
+            text=f"θ={theta_val:.0f}",
+            xy=(ss["k_star"], ss["c_star"]),
+            dx=-28 if theta_val < 2 else 14,
+            dy=14,
+            color=color,
+            text_color=color,
+            fontsize=9.2,
+            with_connector=True,
+        )
+
+    style_axis(axes[0],
+               xlabel=r"Capital por trabalhador efetivo, $k$",
+               ylabel=r"Consumo por trabalhador efetivo, $c$")
+    axes[0].xaxis.set_major_formatter(plain_number_formatter(1))
+    axes[0].yaxis.set_major_formatter(plain_number_formatter(1))
+
+    legend_handles = [
+        Line2D([0], [0], color=c, linewidth=2.0, label=f"θ = {t:.0f}")
+        for t, c in zip(theta_values, colors)
+    ]
+    axes[0].legend(handles=legend_handles, loc="upper right",
+                   frameon=False, fontsize=9.5)
+
+    # Right: welfare and steady-state c* as function of theta
+    theta_range = np.linspace(0.5, 6.0, 50)
+    welfare_df = model.parameter_welfare_comparison("theta", list(theta_range))
+
+    if not welfare_df.empty:
+        ax2 = axes[1]
+        ax2b = ax2.twinx()
+        ax2.plot(welfare_df["theta"], welfare_df["c_star"],
+                 color=COLORS["line_main"], linewidth=2.3)
+        ax2b.plot(welfare_df["theta"], welfare_df["welfare"],
+                  color=COLORS["line_compare"], linewidth=2.0, linestyle="--")
+        style_axis(ax2, xlabel=r"Aversão ao risco $\theta$",
+                   ylabel=r"Consumo no est. est.  $c^*$", y_grid=False)
+        ax2b.set_ylabel(r"Bem-estar  $W^*$", color=COLORS["line_compare"],
+                        labelpad=10)
+        ax2.xaxis.set_major_formatter(plain_number_formatter(1))
+        ax2.yaxis.set_major_formatter(plain_number_formatter(2))
+        ax2b.tick_params(colors=COLORS["line_compare"])
+        add_callout(ax2, text=r"$c^*$ (eixo esq.)",
+                    xy=(theta_range[-12], float(welfare_df["c_star"].iloc[-12])),
+                    dx=10, dy=10, color=COLORS["line_main"],
+                    text_color=COLORS["line_main"], with_connector=False)
+        add_callout(ax2, text=r"$W^*$ (eixo dir.)",
+                    xy=(theta_range[10], float(welfare_df["welfare"].iloc[10])),
+                    dx=10, dy=-14, color=COLORS["line_compare"],
+                    text_color=COLORS["line_compare"], with_connector=False)
+
+    return finalize_figure(
+        fig,
+        figure_path,
+        title=r"RCK: efeito da aversão ao risco $\theta$ — Lista I Q1a",
+        subtitle=(
+            r"Maior $\theta$ exige retorno mais alto ($\rho + \theta g + \delta$), "
+            r"reduzindo $k^*$, $c^*$ e o bem-estar de longo prazo."
+        ),
+        note=(
+            r"Isóclinas $\dot{k}=0$ idênticas; $\dot{c}=0$ (linha vertical) desloca-se "
+            r"para a esquerda com $\theta$ maior."
+        ),
+        top=0.84,
+        bottom=0.12,
+    )
+
+
+def plot_welfare_comparative_statics(model: RCKModel, output_dir=FIGURES_DIR):
+    """Four-panel welfare analysis for Lista I Q1 (theta, rho, n, g)."""
+    figure_path = Path(output_dir) / "rck_welfare_comparative.png"
+    fig, axes = plt.subplots(2, 2, figsize=(13.5, 9.0))
+    axes = axes.flatten()
+
+    params_info = [
+        ("theta", r"Aversão ao risco $\theta$", np.linspace(0.5, 6.0, 40),
+         r"↑θ → menor $k^*$, $c^*$ e bem-estar"),
+        ("rho", r"Taxa de desconto $\rho$", np.linspace(0.01, 0.12, 40),
+         r"↑ρ → mais impaciente → menor $k^*$ e $c^*$"),
+        ("n", r"Crescimento pop. $n$", np.linspace(0.0, 0.04, 40),
+         r"↑n → maior diluição → menor $k^*$ e bem-estar"),
+        ("g", r"Crescimento tecnol. $g$", np.linspace(0.005, 0.05, 40),
+         r"↑g → via $\theta g$ eleva retorno exigido → menor $k^*$"),
+    ]
+
+    for ax, (param, xlabel, grid, note_text) in zip(axes, params_info):
+        df = model.parameter_welfare_comparison(param, list(grid))
+        if df.empty:
+            continue
+        ax.plot(df[param], df["c_star"], color=COLORS["line_main"],
+                linewidth=2.2, label=r"$c^*$")
+        ax_r = ax.twinx()
+        ax_r.plot(df[param], df["k_star"], color=COLORS["line_compare"],
+                  linewidth=1.8, linestyle="--", label=r"$k^*$")
+        style_axis(ax, xlabel=xlabel,
+                   ylabel=r"$c^*$ (eixo esq.)", y_grid=False)
+        ax_r.set_ylabel(r"$k^*$ (eixo dir.)",
+                        color=COLORS["line_compare"], labelpad=8)
+        ax_r.tick_params(colors=COLORS["line_compare"])
+        ax.xaxis.set_major_formatter(plain_number_formatter(2))
+        ax.yaxis.set_major_formatter(plain_number_formatter(2))
+        add_callout(ax, text=note_text,
+                    xy=(float(df[param].iloc[len(df) // 2]),
+                        float(df["c_star"].iloc[len(df) // 2])),
+                    dx=0, dy=24,
+                    color=COLORS["axis_light"], text_color=COLORS["axis"],
+                    fontsize=8.8, with_connector=False)
+
+    return finalize_figure(
+        fig,
+        figure_path,
+        title=r"RCK: estática comparativa de bem-estar — Lista I Q1",
+        subtitle=(
+            r"Efeitos de $\theta$, $\rho$, $n$, $g$ sobre os estados estacionários $k^*$ e $c^*$."
+        ),
+        note=(
+            r"Cada painel varia um parâmetro, mantendo os demais nos valores base. "
+            r"Linha sólida: $c^*$ (eixo esq.); tracejada: $k^*$ (eixo dir.)."
+        ),
+        top=0.87,
+        bottom=0.08,
+    )
+
+
 def main():
     model = RCKModel(RCK)
     output_paths = [
@@ -472,6 +628,8 @@ def main():
         plot_rho_shock(model),
         plot_government_spending_effect(model),
         plot_consumption_comparison(model),
+        plot_theta_shock(model),
+        plot_welfare_comparative_statics(model),
     ]
     for path in output_paths:
         print(f"Saved {path}")
