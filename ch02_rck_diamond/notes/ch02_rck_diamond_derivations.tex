@@ -829,4 +829,141 @@ No reposit\'orio, o RCK j\'a est\'a implementado em
 \texttt{ch02\_rck\_diamond/ch02\_rck.py}. O Diamond, por enquanto, aparece
 como prepara\c{c}\~ao te\'orica para o pr\'oximo m\'odulo.
 
+% ============================================================
+\newpage
+\section{Ap\^endice --- Lista I (Q1--3): estática comparativa e dinâmica de fase}
+% ============================================================
+
+\subsection{Questão 1 --- Efeitos de \(\theta\), \(\rho\), \(n\) e \(g\) sobre o bem-estar}
+
+A fun\c{c}\~ao utilidade por trabalhador efetivo no RCK \'e
+\[
+  u(c) = \frac{c^{1-\theta}-1}{1-\theta}, \qquad \theta > 0,\;\theta \ne 1
+  \quad\text{(para }\theta=1\text{: }u(c)=\ln c\text{)}.
+\]
+
+O bem-estar de longo prazo avaliado no estado estacion\'ario \'e
+\[
+  W^* = \frac{u(c^*)}{\rho},
+\]
+pois a utilidade \'e descontada a $\rho$ indefinidamente.\medskip
+
+\textbf{(a) Aumento de \(\theta\) (aver\c{c}\~ao ao risco).}
+A condi\c{c}\~ao de estado estacion\'ario \'e $f'(k^*) = \rho + \theta g + \delta$.
+Um aumento de \(\theta\) eleva o retorno exigido, reduzindo \(k^*\) e \(c^*\):
+\[
+  \theta \uparrow \;\Longrightarrow\; \rho+\theta g+\delta \uparrow
+  \;\Longrightarrow\; k^* \downarrow,\; c^* \downarrow,\; W^* \downarrow.
+\]
+Intuitivamente, maior avers\~ao ao risco implica menor disposi\c{c}\~ao para
+adiar consumo (menor poupan\c{c}a), resultando em menor capital e consumo
+no longo prazo.
+
+\textbf{(b) Aumento de \(\rho\) (impaciência).}
+Diretamente, $\rho$ entra no retorno exigido e no denominador de $W^*$:
+\[
+  \rho \uparrow \;\Longrightarrow\; k^* \downarrow,\; c^* \downarrow
+  \;\text{e}\; W^* \downarrow \text{ (efeito direto no desconto)}.
+\]
+A fam\'ilia mais impaciente acumula menos capital, reduzindo permanentemente
+o n\'ivel de consumo sustent\'avel.
+
+\textbf{(c) Aumento de \(n\) (crescimento populacional).}
+$n$ n\~ao afeta o retorno exigido $f'(k^*)$, mas eleva a dilui\c{c}\~ao
+do capital: $\dot k = f(k)-c-(n+g+\delta)k$. A is\'oclina $\dot k = 0$
+desce, reduzindo $c^*$ para dado $k^*$:
+\[
+  n \uparrow \;\Longrightarrow\; c^* = f(k^*) - (n+g+\delta)k^* \downarrow
+  \;\Longrightarrow\; W^* \downarrow.
+\]
+
+\textbf{(d) Aumento de \(g\) (crescimento tecnológico).}
+$g$ atua por dois canais no RCK: eleva o retorno exigido via $\theta g$
+\emph{e} aumenta a dilui\c{c}\~ao via $(n+g+\delta)k^*$. Ambos os efeitos
+reduzem $k^*$ e $c^*$:
+\[
+  g \uparrow \;\Longrightarrow\;
+  \underbrace{\rho+\theta g+\delta \uparrow}_{\text{retorno exigido}},\;
+  \underbrace{(n+g+\delta)k^* \uparrow}_{\text{diluição}}
+  \;\Longrightarrow\; k^* \downarrow,\; c^* \downarrow,\; W^* \downarrow.
+\]
+Nota: em termos de \emph{n\'ivel} de consumo agregado (n\~ao por trabalhador
+efetivo), $g$ mais alto eleva a taxa de crescimento, de modo que o efeito
+de bem-estar l\'iquido depende do horizonte de avalia\c{c}\~ao.
+
+\subsection{Questão 2 --- Taxa de crescimento intertemporal do consumo}
+
+Considerando uma fam\'ilia com utilidade CES e taxa de juros real constante $r$,
+o Hamiltoniano corrente por trabalhador efetivo \'e
+\[
+  \mathcal{H} = \frac{c^{1-\theta}}{1-\theta}\E^{-(\rho-(1-\theta)g)t}
+              + \lambda\bigl[f(k)-c-(n+g+\delta)k - G\bigr],
+\]
+onde $\lambda$ \'e o multiplicador (valor sombra do capital). As condi\c{c}\~oes
+de primeira ordem d\~ao:
+\[
+  c^{-\theta} = \lambda, \qquad
+  \dot\lambda = -\bigl[f'(k)-\delta-(n+g)\bigr]\lambda + (\rho - (1-\theta)g)\lambda.
+\]
+Dividindo a segunda por $\lambda$ e substituindo $\lambda = c^{-\theta}$:
+\begin{resultado}
+\[
+  \frac{\dot c}{c} = \frac{r - \rho}{\theta}
+  \equiv \frac{f'(k) - \delta - \rho - \theta g}{\theta}.
+\]
+Esta \'e a \textbf{equa\c{c}\~ao de Keynes--Ramsey}: o consumo cresce quando
+a taxa real de juros $r = f'(k)-\delta$ supera a taxa de desconto $\rho$
+corrigida pelo crescimento tecnol\'ogico $\theta g$.
+\end{resultado}
+
+Com riqueza inicial $W^* = k_0 + \int_0^\infty w(t)\E^{-rt}\dd t$ e $r$
+constante, a restricao de ciclo de vida integra-se para dar o nivel de consumo
+\'otimo constante (em termos de utilidade marginal), conforme derivado no
+Romer pp.~52--54.
+
+\subsection{Questão 3 --- Dinâmica no quadrante: esquerda de \(\dot c=0\), acima de \(\dot k=0\)}
+
+No diagrama de fases $(k,c)$:
+\begin{itemize}
+  \item \textbf{Is\'oclina $\dot c = 0$}: linha vertical em $k = k^*$, onde
+    $f'(k^*) = \rho + \theta g + \delta$.
+  \item \textbf{Is\'oclina $\dot k = 0$}: curva em forma de corcunda com m\'aximo
+    em $k_{\text{ouro}}$ (Regra de Ouro), dada por $c = f(k)-(n+g+\delta)k$.
+\end{itemize}
+
+\medskip
+Na regi\~ao \textbf{\`a esquerda de $\dot c = 0$ e acima de $\dot k = 0$}:
+\[
+  k < k^*
+  \;\Longrightarrow\; f'(k) > \rho + \theta g + \delta
+  \;\Longrightarrow\; \dot c > 0 \quad\text{(consumo crescente)}.
+\]
+\[
+  c > f(k)-(n+g+\delta)k
+  \;\Longrightarrow\; \dot k < 0 \quad\text{(capital decrescente)}.
+\]
+A trajet\'oria move-se para \textbf{cima e para a esquerda}: consumo sobe
+enquanto o capital cai. Esta din\^amica afasta a economia do estado estacion\'ario
+--- trata-se de uma regi\~ao fora da trajet\'oria de sela.
+
+\medskip
+\begin{center}
+\small
+\begin{tabular}{ccc}
+\hline
+Regi\~ao & $\dot c$ & $\dot k$ \\
+\hline
+Esq.\ de $\dot c=0$, acima de $\dot k=0$ & $> 0$ $\uparrow$ & $< 0$ $\leftarrow$ \\
+Dir.\ de $\dot c=0$, acima de $\dot k=0$ & $< 0$ $\downarrow$ & $< 0$ $\leftarrow$ \\
+Esq.\ de $\dot c=0$, abaixo de $\dot k=0$ & $> 0$ $\uparrow$ & $> 0$ $\rightarrow$ \\
+Dir.\ de $\dot c=0$, abaixo de $\dot k=0$ & $< 0$ $\downarrow$ & $> 0$ $\rightarrow$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+A trajet\'oria de sela \'e o \'unico caminho que converge ao estado estacion\'ario
+$(k^*, c^*)$: parte da vizinhança de qualquer $(k_0, c_0)$ com $c_0$ ajustado
+sobre a sela, e segue a din\^amica intertemporal \'otima.
+
 \end{document}
