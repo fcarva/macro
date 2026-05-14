@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parents[1]

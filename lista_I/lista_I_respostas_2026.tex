@@ -1,0 +1,762 @@
+% ==========================================================================
+%  Lista I de Exercícios — Macroeconomia I (PPGEco-UFES, 2026)
+%  Prof. Ricardo Ramalhete Moreira
+%  Respostas completas com derivações — baseadas em Romer (2019), cap. 2 e 5
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+% --------------------------------------------------------------------------
+% Packages
+% --------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[font=small, labelfont=bf, justification=justified]{caption}
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+
+% --------------------------------------------------------------------------
+% Caixas destacadas
+% --------------------------------------------------------------------------
+\tcbuselibrary{skins, breakable}
+\newtcolorbox{resultbox}[1][]{
+    colback=boxbg, colframe=boxborder, boxrule=1pt,
+    arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+    fonttitle=\bfseries\small, #1
+}
+\newtcolorbox{derivbox}[1][]{
+    colback=white, colframe=grayrbc!40, boxrule=0.5pt,
+    arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+    fonttitle=\bfseries\small, #1
+}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\khat}{\hat{k}}
+\newcommand{\chat}{\hat{c}}
+\newcommand{\yhat}{\hat{y}}
+\newcommand{\zhat}{\hat{z}}
+\newcommand{\ihat}{\hat{\imath}}
+\newcommand{\rstar}{r^*}
+\newcommand{\kstar}{k^*}
+\newcommand{\cstar}{c^*}
+\newcommand{\istar}{i^*}
+
+% --------------------------------------------------------------------------
+% Espaçamento e parágrafos
+% --------------------------------------------------------------------------
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+% --------------------------------------------------------------------------
+% Títulos
+% --------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{Questão \thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+% --------------------------------------------------------------------------
+% Cabeçalho/rodapé
+% --------------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\textcolor{grayrbc}{Lista I — Macroeconomia I (PPGEco-UFES, 2026)}}
+\rhead{\small\textcolor{grayrbc}{Romer, \textit{Advanced Macroeconomics}, cap.\ 2 e 5}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{2cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1pt}\\[1em]
+{\LARGE\bfseries\color{cyanrbc} Lista I de Exercícios\\[0.3em]
+\large Macroeconomia I — 2026}\\[1em]
+\rule{\linewidth}{1pt}
+
+\vspace{1.5em}
+{\large Prof.\ Ricardo Ramalhete Moreira}
+
+\vspace{2em}
+\begin{tcolorbox}[colback=boxbg, colframe=boxborder, width=0.85\textwidth, arc=4pt]
+\centering
+\textbf{Referência principal:} \\[0.3em]
+D.\ Romer, \textit{Advanced Macroeconomics}, 5.ª ed., McGraw-Hill (2019). \\
+Capítulo 2 (modelo RCK) e Capítulo 5 (ciclos reais de negócios).
+\end{tcolorbox}
+
+\vspace{2em}
+\begin{tabular}{ll}
+\textbf{Questões 1--3:} & Modelo de Ramsey-Cass-Koopmans (RCK) \\[0.3em]
+\textbf{Questões 4--8:} & Modelo de Ciclos Reais de Negócios (RBC)
+\end{tabular}
+
+\vfill
+{\small Soluções computadas com Python; código disponível em
+\texttt{github.com/fcarva/macro}.}
+\end{center}
+\end{titlepage}
+
+% --------------------------------------------------------------------------
+% Sumário
+% --------------------------------------------------------------------------
+\tableofcontents
+\newpage
+
+% ==========================================================================
+%  PARTE I — MODELO RCK (Questões 1-3)
+% ==========================================================================
+
+\section*{\large\color{cyanrbc} Parte I — Modelo de Ramsey-Cass-Koopmans (Q1--Q3)}
+\addcontentsline{toc}{section}{Parte I — Modelo RCK (Q1--Q3)}
+
+O modelo RCK (Romer, cap.\ 2) descreve uma economia de tempo contínuo em que famílias
+representativas maximizam o bem-estar intertemporal sujeitas à acumulação de capital.
+A solução ótima consiste em um plano de consumo-poupança que satisfaz a equação de
+Ramsey (\textit{Keynes-Ramsey rule}) e a condição de transversalidade.
+
+\bigskip
+
+% ==========================================================================
+\setcounter{section}{0}
+\section{Bem-estar no estado estacionário e estática comparativa}
+
+\subsection*{Enunciado resumido}
+Encontre o bem-estar intertemporal $W^* = \int_0^\infty u(c^*)\,e^{-\rho t}\,\mathrm{d}t$
+no estado estacionário e analise como ele se altera com $\theta$, $\rho$, $n$ e $g$.
+
+% ------------------------------------------------------------------
+\subsection*{1.1 \ Utilidade instantânea e bem-estar no estado estacionário}
+
+A utilidade instantânea com parâmetro de aversão relativa ao risco $\theta > 0$ é:
+\begin{equation}
+u(c) = \frac{c^{1-\theta} - 1}{1-\theta} \qquad (\theta \neq 1),
+\label{eq:crra}
+\end{equation}
+com $u(c) = \ln c$ quando $\theta = 1$.
+
+No estado estacionário $c(t) = \cstar$ para todo $t$, portanto:
+\begin{equation}
+W^* = \int_0^\infty u(\cstar)\,e^{-\rho t}\,\mathrm{d}t
+= \frac{u(\cstar)}{\rho},
+\label{eq:welfare_ss}
+\end{equation}
+válido se $\rho > 0$ (condição de convergência da integral).
+Para $\theta = 1$:
+\[
+W^* = \frac{\ln \cstar}{\rho}.
+\]
+
+% ------------------------------------------------------------------
+\subsection*{1.2 \ Estado estacionário}
+
+O estado estacionário satisfaz $\dot{k} = 0$ e $\dot{c} = 0$:
+\begin{align}
+f'(\kstar) &= \rstar = \rho + \theta g, \label{eq:rstar}\\
+f(\kstar) - \delta \kstar - (n+g)\kstar &= \cstar. \label{eq:cstar}
+\end{align}
+Usando $f(k) = k^\alpha$ (Cobb-Douglas com trabalho efetivo normalizado a 1):
+\[
+\kstar = \left(\frac{\alpha}{\rstar}\right)^{1/(1-\alpha)}, \qquad
+\cstar = (\kstar)^\alpha - (\delta + n + g)\kstar.
+\]
+
+% ------------------------------------------------------------------
+\subsection*{1.3 \ Estática comparativa}
+
+\begin{table}[H]
+\centering
+\caption{Efeitos de aumentos paramétricos sobre $\kstar$, $\cstar$ e $W^*$.}
+\label{tab:welfare_cs}
+\begin{tabular}{lcccl}
+\toprule
+Parâmetro & $\kstar$ & $\cstar$ & $W^*$ & Intuição \\
+\midrule
+$\uparrow \theta$ & $-$ & $-$ & $-$ &
+  Maior aversão $\Rightarrow$ $\rstar = \rho + \theta g \uparrow$ $\Rightarrow$
+  produtividade marginal maior $\Rightarrow$ $k^*$ menor \\
+$\uparrow \rho$ & $-$ & $-$ & $-$ &
+  Mais impaciente $\Rightarrow$ menor poupança, menor capital e consumo \\
+$\uparrow n$ & $-$ & $-$ & $-$ &
+  Mais pessoas diluem capital por trabalhador \\
+$\uparrow g$ & $?$ & $?$ & $?$ &
+  $g$ afeta $\rstar = \rho + \theta g$ e o custo efetivo de capital;
+  o efeito líquido em $W^*$ per capita é ambíguo \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Derivação para $\theta$:}
+\[
+\frac{\partial \kstar}{\partial \theta}
+= \frac{\partial \kstar}{\partial \rstar}\cdot g
+= -\frac{1}{1-\alpha}\cdot\frac{\kstar}{\rstar}\cdot g < 0.
+\]
+Como $\cstar$ é crescente em $\kstar$ (para $\kstar < k_{\text{áureo}}$, válido sob
+preferências razoáveis), $\partial \cstar/\partial\theta < 0$, e portanto
+$\partial W^*/\partial\theta < 0$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_theta_comparative.png}
+\caption{Estática comparativa de $\theta$: trajetórias de consumo e capital
+para diferentes valores de aversão ao risco, e relação de $\cstar$/$W^*$ com $\theta$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_welfare_comparative.png}
+\caption{Bem-estar $W^*$ em função dos parâmetros $\rho$, $\theta$, $n$ e $g$.}
+\end{figure}
+
+% ==========================================================================
+\section{Equação de Keynes-Ramsey}
+
+\subsection*{Enunciado resumido}
+Derive a equação de Euler do consumidor e interprete seus termos.
+
+% ------------------------------------------------------------------
+\subsection*{2.1 \ Problema do consumidor}
+
+O consumidor representativo maximiza:
+\[
+\max_{\{c(t)\}} \int_0^\infty u(c(t))\,e^{-({\rho-n})t}\,\mathrm{d}t
+\]
+sujeito à acumulação de riqueza:
+\[
+\dot{a}(t) = w(t) + r(t)\,a(t) - c(t) - n\,a(t),
+\]
+onde $a(t)$ é a riqueza por membro adulto, $w(t)$ o salário real e $r(t) = f'(k) - \delta$.
+
+Formando o Hamiltoniano:
+\[
+H = e^{-(\rho-n)t}\,u(c) + \mu\bigl[w + ra - c - na\bigr],
+\]
+as condições de ótimo são:
+\begin{align}
+\frac{\partial H}{\partial c} &= 0 \implies e^{-(\rho-n)t}\,u'(c) = \mu, \label{eq:foc_c}\\
+\dot{\mu} &= -\frac{\partial H}{\partial a} \implies \dot{\mu} = -\mu(r - n). \label{eq:foc_mu}
+\end{align}
+
+% ------------------------------------------------------------------
+\subsection*{2.2 \ Derivação da regra de Keynes-Ramsey}
+
+Diferenciando \eqref{eq:foc_c} em relação ao tempo:
+\[
+-(\rho-n)\,e^{-(\rho-n)t}\,u'(c) + e^{-(\rho-n)t}\,u''(c)\,\dot{c} = \dot{\mu}.
+\]
+Substituindo \eqref{eq:foc_mu} e dividindo por $e^{-(\rho-n)t}\,u'(c)$:
+\[
+-(\rho-n) + \frac{u''(c)\,\dot{c}}{u'(c)} = -(r-n).
+\]
+Para utilidade CRRA: $u''(c)/u'(c) = -\theta/c$. Reorganizando:
+\begin{equation}
+\boxed{
+\frac{\dot{c}}{c} = \frac{r - \rho}{\theta} = \frac{f'(k) - \delta - \rho}{\theta}.
+}
+\label{eq:keynes_ramsey}
+\end{equation}
+
+Em tempo contínuo com crescimento de produtividade $g$, a equação análoga para o
+consumo por unidade efetiva $\tilde{c} = c/A$ é:
+\[
+\frac{\dot{\tilde{c}}}{\tilde{c}} = \frac{f'(\tilde{k}) - \delta - \rho - \theta g}{\theta}.
+\]
+
+% ------------------------------------------------------------------
+\subsection*{2.3 \ Interpretação}
+
+\begin{resultbox}[title={Intuição da regra de Keynes-Ramsey}]
+A taxa de crescimento do consumo é proporcional ao diferencial entre a taxa
+de retorno líquida $r = f'(k)-\delta$ e a taxa de desconto intertemporal $\rho$,
+ponderada pela elasticidade de substituição intertemporal $1/\theta$:
+\begin{itemize}[leftmargin=1.5em, topsep=2pt, itemsep=2pt]
+\item Se $r > \rho$: retorno do capital supera a impaciência $\Rightarrow$ o
+  consumidor prefere adiar consumo $\Rightarrow$ $\dot{c} > 0$.
+\item Se $r < \rho$: impaciência domina $\Rightarrow$ $\dot{c} < 0$.
+\item No estado estacionário: $r = \rho + \theta g$ garante $\dot{\tilde{c}} = 0$.
+\item $1/\theta$ é a \textbf{elasticidade de substituição intertemporal} (EIS):
+  quanto maior, mais disposto está o consumidor a redistribuir consumo no tempo.
+\end{itemize}
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_phase_diagram.png}
+\caption{Diagrama de fase do modelo RCK: curvas $\dot{k}=0$ e $\dot{c}=0$, sela de
+equilíbrio e trajetórias representativas.}
+\end{figure}
+
+% ==========================================================================
+\section{Dinâmica do diagrama de fase: região esquerda-acima}
+
+\subsection*{Enunciado resumido}
+No diagrama de fase $(k, c)$, descreva a dinâmica na região à esquerda da curva
+$\dot{c}=0$ e acima da curva $\dot{k}=0$.
+
+% ------------------------------------------------------------------
+\subsection*{3.1 \ As duas curvas de lugar-zero}
+
+\textbf{Curva $\dot{c}=0$} (\textit{locus} vertical):
+\[
+f'(k) - \delta = \rho + \theta g \implies k = k^* \text{ (constante em } k).
+\]
+Portanto: à esquerda de $\dot{c}=0$ (i.e., $k < k^*$) temos $f'(k) > \rho + \theta g$,
+logo $\dot{c}/c > 0$, o consumo está \textbf{crescendo}.
+
+\textbf{Curva $\dot{k}=0$}:
+\[
+c = f(k) - (n + g + \delta)\,k.
+\]
+Acima desta curva (dado $k$, $c$ é maior do que permite a acumulação zero),
+temos $\dot{k} < 0$: o capital está \textbf{caindo}.
+
+% ------------------------------------------------------------------
+\subsection*{3.2 \ Dinâmica na região selecionada}
+
+Na região \textit{à esquerda de $\dot{c}=0$} ($k < k^*$) \textbf{e}
+\textit{acima de $\dot{k}=0$} ($c > c_{\text{locus}}(k)$):
+
+\begin{resultbox}[title={Dinâmica na região especificada (Q3)}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Condição & Equação & Direção \\
+\midrule
+$k < k^*$ (à esquerda de $\dot{c}=0$) & $f'(k) > \rho + \theta g$ & $\dot{c} > 0$ \ ($c$ crescente) \\
+$c > c_{\text{locus}}(k)$ (acima de $\dot{k}=0$) & $f(k) - \delta k - c < (n+g)k$ & $\dot{k} < 0$ \ ($k$ decrescente) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{resultbox}
+
+O par de setas de dinâmica aponta para \textbf{nordeste-noroeste}: consumo sobe e
+capital cai. Trajetórias que partem desta região (com $k < k^*$) tendem a
+\textit{explodir} para cima sem jamais convergir ao estado estacionário — exceto
+aquelas que exatamente seguem a sela de equilíbrio.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_phase_diagram.png}
+\caption{Diagrama de fase do modelo RCK. A região destacada (esquerda de $\dot{c}=0$
+e acima de $\dot{k}=0$) exibe $\dot{c}>0$ e $\dot{k}<0$ simultaneamente.}
+\end{figure}
+
+% ==========================================================================
+%  PARTE II — MODELO RBC (Questões 4-8)
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte II — Modelo de Ciclos Reais de Negócios (Q4--Q8)}
+\addcontentsline{toc}{section}{Parte II — Modelo RBC (Q4--Q8)}
+
+O modelo RBC de tempo discreto (Romer, cap.\ 5) incorpora choques de PTF
+(\textit{produtividade total dos fatores}) $z_t$ que seguem um processo AR(1)
+em logs:
+\[
+\log z_{t+1} = \rho_z \log z_t + \varepsilon_{t+1},
+\quad \varepsilon \sim \mathcal{N}(0,\sigma_z^2).
+\]
+A função de produção é $Y_t = z_t K_t^\alpha$, a utilidade é $\ln C_t$ e o trabalho
+é inelástico ($N=1$). O capital acumula por $K_{t+1} = (1-\delta)K_t + I_t$.
+
+% ==========================================================================
+\section{Estabilidade do capital no estado estacionário}
+
+\subsection*{Enunciado resumido}
+Demonstre que o capital é estável no estado estacionário do modelo RBC.
+
+% ------------------------------------------------------------------
+\subsection*{4.1 \ Condição de estado estacionário para o capital}
+
+No estado estacionário, $z_t = 1$ (choques nulos em esperança), $K_{t+1} = K_t = \kstar$.
+A equação de acumulação implica:
+\[
+K_{t+1} - K_t = I_t - \delta K_t = 0 \implies I^* = \delta \kstar.
+\]
+O investimento de equilíbrio iguala a depreciação do capital.
+
+% ------------------------------------------------------------------
+\subsection*{4.2 \ Equação de Euler e taxa de retorno}
+
+A condição de Euler (equação de Fisher/Ramsey em tempo discreto) é:
+\[
+\frac{1}{C_t} = \beta\,\E_t\!\left[\frac{r_{t+1} + 1 - \delta}{C_{t+1}}\right],
+\]
+onde $r_t = \alpha z_t K_t^{\alpha-1}$ é o produto marginal do capital.
+No estado estacionário ($C_{t+1} = C_t = \cstar$):
+\[
+\beta(\rstar + 1 - \delta) = 1 \implies
+\rstar = \frac{1}{\beta} - (1-\delta) = \frac{1-\beta(1-\delta)}{\beta}.
+\]
+Para os parâmetros padrão ($\beta=0.99$, $\delta=0.025$): $\rstar \approx 0.035$.
+
+% ------------------------------------------------------------------
+\subsection*{4.3 \ Estabilidade dinâmica via log-linearização}
+
+Log-linearizando o sistema em torno do estado estacionário, a lei de movimento do capital é:
+\[
+\khat_{t+1} = A\,\khat_t + B\,\zhat_t,
+\]
+onde $A = \gamma_k - \gamma_c\,a_k$ e $|A| < 1$ (raiz estável selecionada
+no método dos coeficientes indeterminados). Com parâmetros calibrados:
+
+\begin{table}[H]
+\centering
+\caption{Valores calibrados para o modelo RBC padrão.}
+\begin{tabular}{lll}
+\toprule
+Parâmetro & Valor & Definição \\
+\midrule
+$\alpha$ & 0.33 & Participação do capital \\
+$\beta$ & 0.99 & Fator de desconto \\
+$\delta$ & 0.025 & Taxa de depreciação \\
+$\rho_z$ & 0.95 & Persistência do choque de PTF \\
+$\sigma_z$ & 0.007 & Volatilidade do choque \\
+\midrule
+$r^*$ & 0.0351 & Taxa de retorno do capital \\
+$k^*$ & 28.35 & Capital por trabalhador no EE \\
+$i^*/y^*$ & 0.235 & Participação do investimento no PIB \\
+$a_k$ & 0.590 & Coef.\ de consumo em capital \\
+$A$ & 0.962 & Raiz da lei de movimento \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Como $|A| = 0.962 < 1$, o capital converge exponencialmente ao estado estacionário
+após qualquer choque transitório.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_irf.png}
+\caption{Função de resposta ao impulso (FRI) do modelo RBC a um choque positivo de 1\%
+de PTF. Capital, produto, consumo e investimento como desvios percentuais do
+estado estacionário.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_phase_diagram.png}
+\caption{Diagrama de fase do modelo RBC: superfície de política de consumo e
+campo de vetores; trajetórias mostram convergência ao estado estacionário após choque.}
+\end{figure}
+
+% ==========================================================================
+\section{Desutilidade marginal do trabalho}
+
+\subsection*{Enunciado resumido}
+Na versão com lazer do modelo RBC, derive e interprete a desutilidade marginal do trabalho.
+
+% ------------------------------------------------------------------
+\subsection*{5.1 \ Utilidade com lazer}
+
+Ampliamos o modelo para incluir lazer $l_t = 1 - N_t$ na utilidade:
+\[
+u(C_t, l_t) = \ln C_t + b\,\ln l_t, \quad b > 0.
+\]
+
+% ------------------------------------------------------------------
+\subsection*{5.2 \ Desutilidade marginal do trabalho}
+
+A desutilidade de oferecer uma unidade adicional de trabalho $N_t$ é o custo
+de utilidade de reduzir $l_t = 1 - N_t$ em uma unidade:
+\[
+\frac{\partial(-u)}{\partial N_t} = \frac{\partial(-b\ln l_t)}{\partial l_t}
+\cdot \frac{\partial l_t}{\partial N_t}
+= \frac{b}{l_t} \cdot 1 = \frac{b}{1 - N_t}.
+\]
+
+\begin{resultbox}[title={Desutilidade marginal do trabalho (Q5)}]
+\[
+\text{DML} = \frac{b}{1 - N_t} = \frac{b}{l_t}.
+\]
+É crescente em $N_t$ (ou decrescente em $l_t$): quanto mais se trabalha,
+mais custosa é cada hora adicional de trabalho — reflete o valor marginal crescente
+do lazer.
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_labor_leisure.png}
+\caption{Esquerda: oferta ótima de trabalho como função do salário para diferentes
+valores de $b$. Direita: curva de desutilidade marginal do trabalho em função
+de $N = 1-l$.}
+\end{figure}
+
+% ==========================================================================
+\section{Resposta do lazer a variações na taxa de juros e no salário futuro}
+
+\subsection*{Enunciado resumido}
+Como o lazer ótimo $l_t^*$ responde a um aumento da taxa de juros $r_t$ e do
+salário futuro $w_{t+1}$?
+
+% ------------------------------------------------------------------
+\subsection*{6.1 \ Condição de ótimo intratemporal}
+
+Da maximização de $u(C,l)$ sujeita à restrição orçamentária $C + w\cdot l = w + I$,
+a condição de primeira ordem equaciona a razão de utilidades marginais ao preço relativo:
+\[
+\frac{\partial u/\partial l}{\partial u/\partial C}
+= \frac{b/l}{1/C} = \frac{bC}{l} = w_t.
+\]
+Portanto o lazer ótimo é:
+\begin{equation}
+l_t^* = \frac{b\,C_t}{w_t}.
+\label{eq:leisure_opt}
+\end{equation}
+
+% ------------------------------------------------------------------
+\subsection*{6.2 \ Efeito de um aumento na taxa de juros}
+
+Um aumento em $r_t$ eleva o custo de oportunidade de consumir hoje: a condição
+de Euler $\dot{C}/C = (r-\rho)/\theta$ implica que $C_t$ \textbf{cai} (o consumidor
+poupa mais) e $C_{t+1}$ sobe. Pelo efeito substituição intertemporal:
+
+\begin{resultbox}[title={Lazer e taxa de juros (Q6a)}]
+Um aumento em $r_t$ deprime $C_t$ e, pela equação \eqref{eq:leisure_opt},
+com $w_t$ inalterado, $l_t^* = b\,C_t/w_t$ \textbf{diminui}.
+O trabalhador substitui lazer hoje por lazer amanhã (\textit{intertemporal
+labour substitution}): trabalha mais hoje quando o retorno da poupança é alto.
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\subsection*{6.3 \ Efeito de um aumento no salário futuro}
+
+Um aumento antecipado em $w_{t+1}$ (com $w_t$ constante) cria um \textit{efeito riqueza}:
+o consumidor se sente mais rico, deseja consumir mais em todos os períodos, inclusive hoje.
+Da equação \eqref{eq:leisure_opt}:
+
+\begin{resultbox}[title={Lazer e salário futuro (Q6b)}]
+Um aumento em $w_{t+1}$ (com $w_t$ fixo) eleva $C_t$ via efeito riqueza positivo.
+Portanto $l_t^* = b\,C_t/w_t$ \textbf{aumenta}: o trabalhador descansa mais hoje
+na antecipação de salários futuros mais altos — comportamento consistente com
+o efeito renda do lazer.
+\end{resultbox}
+
+% ==========================================================================
+\section{Razão consumo-lazer e calibração de $b$}
+
+\subsection*{Enunciado resumido}
+Derive a razão ótima consumo-lazer e calibre o parâmetro $b$.
+
+% ------------------------------------------------------------------
+\subsection*{7.1 \ Razão ótima $C/l$}
+
+Da equação de ótimo intratemporal \eqref{eq:leisure_opt}:
+\begin{equation}
+\frac{C_t}{l_t^*} = \frac{w_t}{b}.
+\label{eq:cl_ratio}
+\end{equation}
+A razão consumo-lazer é proporcional ao salário e inversamente proporcional a $b$.
+Intuitivamente: quanto maior o salário (custo de oportunidade do lazer), menor o lazer
+relativo ao consumo; quanto maior $b$ (preferência por lazer), maior o lazer relativo.
+
+% ------------------------------------------------------------------
+\subsection*{7.2 \ Calibração do parâmetro $b$}
+
+Fixando a fração de horas trabalhadas no estado estacionário em $N^* = 0.33$ (Romer
+sugere 1/3 do tempo disponível como trabalho), temos $l^* = 1 - N^* = 0.67$.
+No estado estacionário, $w^* = (1-\alpha)\,y^*/N^* = (1-\alpha)(\kstar)^\alpha$.
+Da condição \eqref{eq:leisure_opt}:
+\[
+b = \frac{w^*\,l^*}{C^*} = \frac{w^*(1 - N^*)}{C^*}.
+\]
+
+Para os parâmetros calibrados ($\alpha=0.33$, $\kstar \approx 28.35$,
+$\cstar \approx y^* - \delta\kstar$), obtemos $b \approx 1.55$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_labor_leisure.png}
+\caption{Curvas de oferta de trabalho (painel esquerdo) para diferentes valores de $b$.
+A linha tracejada marca o equilíbrio calibrado com $N^* = 0.33$.}
+\end{figure}
+
+% ==========================================================================
+\section{Três canais de transmissão de choques de PTF}
+
+\subsection*{Enunciado resumido}
+Explique por quais mecanismos um choque positivo de PTF afeta a economia no modelo RBC.
+
+% ------------------------------------------------------------------
+\subsection*{8.1 \ O choque de PTF}
+
+Um choque positivo $\varepsilon_t > 0$ eleva $\log z_t$ e persiste por
+$\rho_z \approx 0.95$ períodos. O impacto de primeira ordem é imediato:
+\[
+\hat{Y}_t = \hat{z}_t + \alpha\hat{K}_t
+\xrightarrow{\hat{K}_t=0 \text{ (período 0)}} \hat{Y}_t = \hat{z}_t = 0.01 \text{ (1\%)}.
+\]
+
+% ------------------------------------------------------------------
+\subsection*{8.2 \ Canal 1 — Efeito direto na produção}
+
+A PTF eleva diretamente a produtividade, aumentando o produto por unidade de capital.
+\textbf{Impacto}: o produto sobe no mesmo período do choque — confirmado pela FRI
+(Figura~5.1): $\hat{Y}_0 = 1\%$ exatamente.
+
+% ------------------------------------------------------------------
+\subsection*{8.3 \ Canal 2 — Efeito riqueza: mais poupança (investimento)}
+
+A melhora permanente esperada aumenta a riqueza permanente do consumidor. Pela
+condição de Euler, parte do aumento do produto é poupado:
+\[
+\hat{I}_0 > \hat{Y}_0 \quad \text{(amplificação do investimento)}.
+\]
+Na FRI: $\hat{I}_0 \approx 3.2\% > 1\% = \hat{Y}_0$.
+O capital acumulado $K_{t+1}$ sobe, amplificando o produto nos períodos seguintes.
+
+% ------------------------------------------------------------------
+\subsection*{8.4 \ Canal 3 — Suavização do consumo}
+
+O consumidor é avesso ao risco e prefere consumo suave. Ele distribui o ganho
+de riqueza ao longo do tempo, então $C_t$ sobe menos do que $Y_t$:
+\[
+\hat{C}_0 < \hat{Y}_0 \quad \text{(suavização do consumo)}.
+\]
+Na FRI: $\hat{C}_0 \approx 0.33\% < 1\% = \hat{Y}_0$.
+
+\begin{resultbox}[title={Resumo dos três canais (Q8)}]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+\item \textbf{Canal direto}: $z_t \uparrow$ $\Rightarrow$ $Y_t \uparrow$ no impacto.
+\item \textbf{Canal de investimento} (\textit{amplificação}):
+  riqueza maior $\Rightarrow$ poupança sobe $\Rightarrow$ $I_t > Y_t$
+  $\Rightarrow$ $K_{t+1}$ acumula $\Rightarrow$ efeito persistente.
+\item \textbf{Canal de suavização do consumo}:
+  consumidor redistribui ganho ao longo do tempo $\Rightarrow$ $C_t < Y_t$
+  $\Rightarrow$ volatilidade de $C$ menor que de $Y$.
+\end{enumerate}
+\end{resultbox}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_irf.png}
+\caption{FRI do modelo RBC: decomposição do impacto de um choque de PTF de 1\%.
+Notar $\hat{I}_0 > \hat{Y}_0 > \hat{C}_0$ — confirmando os três canais.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_simulation.png}
+\caption{Simulação estocástica do modelo RBC: séries temporais de $Y$, $C$, $I$ e
+choque de PTF $z_t$. Notar volatilidade relativa: $\sigma_I > \sigma_Y > \sigma_C$.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_moments.png}
+\caption{Momentos do modelo RBC: volatilidades relativas $\sigma(X)/\sigma(Y)$.
+O padrão $\sigma(I)/\sigma(Y) > 1 > \sigma(C)/\sigma(Y)$ é uma previsão central
+do modelo.}
+\end{figure}
+
+% ==========================================================================
+%  Apêndice
+% ==========================================================================
+
+\appendix
+\section*{\color{cyanrbc} Apêndice A — Log-linearização do Modelo RBC}
+\addcontentsline{toc}{section}{Apêndice A — Log-linearização}
+
+A log-linearização segue o método dos coeficientes indeterminados (Romer, seção 5.4).
+Supõe-se que o consumo seja uma função linear dos estados:
+\[
+\chat_t = a_k\,\khat_t + a_z\,\zhat_t.
+\]
+
+\textbf{Log-linearização da equação de acumulação:}
+\[
+\khat_{t+1} = \gamma_k\,\khat_t + \gamma_z\,\zhat_t - \gamma_c\,\chat_t,
+\]
+onde $\gamma_k = 1 + (1-\delta)\istar/y^* - \alpha\istar/y^* = (1-\delta) + \alpha\,iy$,
+$\gamma_z = \istar/y^* = iy$, $\gamma_c = \cstar/y^* = cy$.
+
+\textbf{Log-linearização da equação de Euler:}
+\[
+\chat_t = \chat_{t+1} - \beta\rstar\left[\zhat_{t+1} + (\alpha-1)\khat_{t+1}\right].
+\]
+
+\textbf{Quadrática para $a_k$:} substituindo a política de consumo e usando $\zhat_{t+1} = \rho_z\zhat_t$,
+comparando coeficientes de $\khat_t$:
+\[
+-\gamma_c\,a_k^2 + (\gamma_k - 1 - m\gamma_c)\,a_k + m\gamma_k = 0,
+\]
+onde $m = \beta\rstar(1-\alpha) > 0$. O discriminante $\Delta = (\gamma_k-1-m\gamma_c)^2 + 4m\gamma_c\gamma_k > 0$
+garante raízes reais. Seleciona-se a raiz que dá $|A| = |\gamma_k - \gamma_c a_k| < 1$.
+
+Para os parâmetros calibrados: $a_k \approx 0.590$, $a_z \approx 0.323$, $A \approx 0.962$.
+
+\bigskip
+\section*{\color{cyanrbc} Apêndice B — Parâmetros de Calibração}
+\addcontentsline{toc}{section}{Apêndice B — Parâmetros}
+
+\begin{table}[H]
+\centering
+\caption{Parâmetros utilizados nas simulações.}
+\begin{tabular}{llll}
+\toprule
+\multicolumn{2}{c}{Modelo RCK} & \multicolumn{2}{c}{Modelo RBC} \\
+\cmidrule(r){1-2}\cmidrule(l){3-4}
+Parâmetro & Valor & Parâmetro & Valor \\
+\midrule
+$\alpha$ (cap.\ share) & 0.33 & $\alpha$ & 0.33 \\
+$\rho$ (desconto) & 0.02 & $\beta$ & 0.99 \\
+$n$ (pop.\ growth) & 0.01 & $\delta$ & 0.025 \\
+$g$ (tech.\ growth) & 0.02 & $\rho_z$ & 0.95 \\
+$\delta$ (deprec.) & 0.05 & $\sigma_z$ & 0.007 \\
+$\theta$ (CRRA) & 1.5 & $b$ (lazer) & $\approx$1.55 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\bigskip
+\hrule
+\vspace{1em}
+{\footnotesize
+\textbf{Código-fonte:} \url{https://github.com/fcarva/macro} — ramo
+\texttt{main}, pastas \texttt{ch02\_rck\_diamond/} e \texttt{ch05\_rbc/}.
+Requer Python $\geq$ 3.11, \texttt{numpy}, \texttt{scipy}, \texttt{matplotlib},
+\texttt{pandas}.
+}
+
+\end{document}
