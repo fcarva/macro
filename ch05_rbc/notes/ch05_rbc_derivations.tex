@@ -1,0 +1,415 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{remark}{rgb}{0.12,0.37,0.55}
+
+\newtheorem{theorem}{Proposição}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\hk}{\hat{k}}
+\newcommand{\hz}{\hat{z}}
+\newcommand{\hc}{\hat{c}}
+\newcommand{\hy}{\hat{y}}
+\newcommand{\hi}{\hat{\imath}}
+\newcommand{\hN}{\hat{N}}
+
+\title{\textbf{Capítulo 5 --- Real Business Cycles}\\[4pt]
+       {\large Derivações e Respostas à Lista I (Q4--8)}\\[2pt]
+       {\normalsize PPGEco-CCJE-UFES · Macroeconomia I · Romer (2019) Cap.\ 5}}
+\author{Projeto de Estudo --- \textit{macro-romer}}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ============================================================
+\section{Configuração do modelo}
+% ============================================================
+
+\subsection{Preferências}
+
+O agente representativo maximiza a utilidade intertemporal esperada:
+\begin{equation}\label{eq:utility}
+  U = \E_0\!\left[\sum_{t=0}^{\infty} \beta^t\, u(C_t,\, l_t)\right],
+  \qquad \beta\in(0,1),
+\end{equation}
+onde $l_t = 1 - N_t$ é o lazer e $N_t \in[0,1]$ é a oferta de trabalho.
+
+\paragraph{Caso especial com trabalho inelástico.}
+Quando $N_t = 1$ (trabalho fixo), a utilidade por período reduz-se a
+$u(C_t) = \log C_t$.
+
+\paragraph{Caso com lazer endógeno (questões 5--7).}
+\begin{equation}\label{eq:utility_leisure}
+  u(C_t, l_t) = \log C_t + b\,\log l_t, \qquad l_t = 1 - N_t,\quad b>0.
+\end{equation}
+
+\subsection{Tecnologia}
+
+Função de produção Cobb-Douglas:
+\begin{equation}
+  Y_t = Z_t K_t^{\alpha} N_t^{1-\alpha},\qquad \alpha\in(0,1).
+\end{equation}
+O choque de produtividade total dos fatores (PTF) segue um processo AR(1) no log:
+\begin{equation}\label{eq:ar1}
+  \log Z_{t+1} = \rho_z \log Z_t + \varepsilon_{t+1},\qquad
+  \varepsilon_{t+1} \sim \mathcal{N}(0,\sigma_z^2),\quad \rho_z\in(0,1).
+\end{equation}
+
+\subsection{Acumulação de capital}
+
+\begin{equation}\label{eq:capital}
+  K_{t+1} = K_t + I_t - \delta K_t = (1-\delta)K_t + I_t,
+  \qquad \delta\in(0,1).
+\end{equation}
+
+\subsection{Restrição de recursos}
+
+\begin{equation}
+  Y_t = C_t + I_t.
+\end{equation}
+
+% ============================================================
+\section{Estado estacionário}
+% ============================================================
+
+No estado estacionário determinístico ($Z^* = 1$, $N^* = 1$):
+
+\subsubsection*{Taxa de juros de estado estacionário}
+
+A condição de Euler implica $\beta(r^*+1-\delta)=1$, portanto:
+\begin{equation}
+  r^* = \frac{1}{\beta} - (1-\delta).
+\end{equation}
+
+\subsubsection*{Capital, produto, consumo e investimento}
+
+\begin{align}
+  k^* &= \left(\frac{\alpha}{r^*}\right)^{\!\tfrac{1}{1-\alpha}}, &
+  y^* &= (k^*)^{\alpha}, \\
+  i^* &= \delta k^*, &
+  c^* &= y^* - i^*.
+\end{align}
+
+Denote-se $I^*/Y^* = \delta k^*/y^*$ e $C^*/Y^* = c^*/y^*$.
+
+% ============================================================
+\section{Questão 4 --- Investimento de equilíbrio e estabilidade do capital}
+% ============================================================
+
+\subsection{Investimento de equilíbrio vs.\ investimento efetivo}
+
+\begin{description}[leftmargin=2em]
+  \item[\textbf{Investimento de equilíbrio}] é o nível que mantém o estoque
+    de capital constante no estado estacionário, compensando exatamente a depreciação:
+    \begin{equation}
+      I^*_t = \delta K^*_t.
+    \end{equation}
+  \item[\textbf{Investimento efetivo}] é dado pela equação de acumulação de capital:
+    \begin{equation}
+      I_t = K_{t+1} - (1-\delta)K_t.
+    \end{equation}
+    Quando $I_t > I^*_t$ o capital cresce; quando $I_t < I^*_t$ o capital diminui.
+\end{description}
+
+\subsection{Condição de estabilidade do estoque de capital}
+
+Log-linearizando a equação de acumulação em torno do estado estacionário,
+defina $\hk_t = (K_t - K^*)/K^*$ (desvio percentual). Obtém-se:
+\begin{equation}
+  \hk_{t+1} = A\,\hk_t + B\,\hz_t,
+\end{equation}
+onde $A = \gamma_k - \gamma_c\, a_k$, $\gamma_k = (1-\delta)+\alpha\eta$,
+$\gamma_c = \eta(C^*/Y^*)$, $\eta = \delta/(I^*/Y^*)$.
+
+A condição necessária e suficiente para estabilidade local é:
+\begin{equation}\label{eq:stability}
+  \boxed{|A| < 1.}
+\end{equation}
+Para os parâmetros padrão ($\alpha=0{,}33$, $\beta=0{,}99$, $\delta=0{,}025$),
+obtém-se $A \approx 0{,}96$, satisfazendo \eqref{eq:stability}.
+A velocidade de convergência é $1-A \approx 0{,}04$, implicando uma meia-vida de
+aproximadamente $\ln(0{,}5)/\ln(A) \approx 17$ períodos.
+
+% ============================================================
+\section{Questão 5 --- Desutilidade marginal da oferta de trabalho}
+% ============================================================
+
+Com a função utilidade \eqref{eq:utility_leisure}:
+\[
+  u(C_t, l_t) = \log C_t + b\,\log(1-N_t).
+\]
+
+A derivada da utilidade em relação ao trabalho é:
+\begin{equation}
+  \frac{\partial u}{\partial N_t} = -\frac{b}{1-N_t} = -\frac{b}{l_t} < 0.
+\end{equation}
+
+A \textbf{desutilidade marginal da oferta de trabalho} é o valor absoluto desta derivada:
+\begin{equation}\label{eq:mud}
+  \boxed{
+    \text{DMA}(N_t) = \frac{b}{1-N_t} = \frac{b}{l_t}.
+  }
+\end{equation}
+
+\begin{itemize}
+  \item DMA é crescente em $N_t$: conforme o agente trabalha mais (lazer cai), cada
+    unidade adicional de trabalho impõe uma desutilidade marginal maior.
+  \item DMA é crescente em $b$: maior peso do lazer amplifica o custo de trabalhar.
+\end{itemize}
+
+% ============================================================
+\section{Questão 6 --- Razão ótima de lazer e os efeitos de $r$ e $w$ futuros}
+% ============================================================
+
+\subsection{Condição de otimalidade intratemporal}
+
+Maximizando \eqref{eq:utility_leisure} sujeito ao orçamento corrente, a condição
+de primeira ordem para $N_t$ iguala a relação marginal de substituição entre
+consumo e lazer ao salário real:
+\begin{equation}\label{eq:intratemporal}
+  \frac{MU_{l_t}}{MU_{C_t}} = \frac{b/l_t}{1/C_t} = \frac{b\,C_t}{l_t} = w_t.
+\end{equation}
+Resolvendo para $l_t$:
+\begin{equation}\label{eq:optimal_leisure}
+  \boxed{l_t^* = \frac{b\,C_t}{w_t}.}
+\end{equation}
+
+\subsection{(a) Efeito de uma elevação da taxa real de juros $r_t$}
+
+A condição de Euler intertemporal (em termos de consumo) é:
+\begin{equation}
+  \frac{C_{t+1}}{C_t} = \beta(1 + r_{t+1} - \delta).
+\end{equation}
+Uma elevação de $r_t$ eleva o retorno de trabalhar hoje e poupar, tornando o
+trabalho corrente mais rentável relativamente ao trabalho futuro.
+Via \textbf{substituição intertemporal de trabalho}:
+\[
+  r_t \uparrow \;\Longrightarrow\; N_t \uparrow \;\Longrightarrow\;
+  l_t = 1 - N_t \;\mathbf{\downarrow}.
+\]
+Formalmente, de \eqref{eq:optimal_leisure}, um aumento de $r_t$ reduz $C_t$
+(poupança sobe) e reduz $l_t$.
+
+\subsection{(b) Efeito de uma elevação dos salários futuros $\E_t[w_{t+1}]$}
+
+Salários futuros mais altos elevam a rentabilidade de trabalhar no futuro.
+Via substituição intertemporal de trabalho, o agente \textit{antecipa} lazer
+(trabalha menos hoje) para poder trabalhar mais amanhã:
+\[
+  \E_t[w_{t+1}] \uparrow \;\Longrightarrow\; N_t \downarrow \;\Longrightarrow\;
+  l_t^* = 1 - N_t \;\mathbf{\uparrow}.
+\]
+Este canal é central para a amplificação dos choques de PTF no modelo RBC:
+um choque positivo eleva $w_{t+1}$ esperado, incentivando maior oferta de
+trabalho atual também (via antecipação de renda permanente).
+
+% ============================================================
+\section{Questão 7 --- Trade-off consumo-lazer e efeito de $b$}
+% ============================================================
+
+\subsection{Razão ótima consumo-lazer}
+
+De \eqref{eq:intratemporal}, a razão ótima entre consumo e lazer é:
+\begin{equation}\label{eq:cn_ratio}
+  \boxed{\frac{C_t}{l_t} = \frac{w_t}{b}.}
+\end{equation}
+
+\textbf{Interpretação}: a cada nível de salário, o agente distribui renda entre
+consumo e lazer na proporção $w_t : b$. Quanto maior o salário, maior a razão
+$C/l$ (a substituição relativa a favor do consumo, pois trabalhar tem mais valor).
+
+\subsection{Dedução via o problema de alocação de tempo}
+
+A família aumenta a oferta de trabalho em $\dd N$ horas no período $t$,
+obtendo $w_t\,\dd N$ unidades adicionais de consumo ao custo de $\dd N$ de lazer.
+A condição de ótimo exige que o ganho marginal de consumo iguale o custo
+marginal de lazer:
+\[
+  \underbrace{w_t \cdot MU_{C_t}}_{\text{ganho}} = \underbrace{MU_{l_t}}_{\text{custo}},
+\]
+que reproduz \eqref{eq:intratemporal}.
+
+\subsection{Impacto de um aumento em $b$}
+
+\begin{theorem}
+  Mantendo $C_t$ e $w_t$ fixos, um aumento em $b$ eleva o lazer ótimo $l_t^*$
+  e reduz a oferta de trabalho $N_t^*$.
+\end{theorem}
+\begin{proof}
+  De \eqref{eq:optimal_leisure}: $l_t^* = b\,C_t/w_t$.
+  Portanto $\partial l_t^*/\partial b = C_t/w_t > 0$.
+\end{proof}
+
+\noindent Em termos de bem-estar, maior $b$ redistribui a cesta ótima em favor
+do lazer. Como $N_t$ cai, o produto e o consumo de equilíbrio são menores,
+mas o bem-estar pode subir ou cair dependendo da elasticidade de substituição.
+
+% ============================================================
+\section{Questão 8 --- Canais de transmissão do choque tecnológico}
+% ============================================================
+
+Um choque de PTF positivo ($Z_t$ acima do estado estacionário) eleva o produto
+corrente acima do nível tendencial por pelo menos três canais:
+
+\subsubsection*{Canal 1: Efeito direto sobre a produtividade}
+
+O aumento de $Z_t$ eleva diretamente o produto marginal do capital
+$r_t = \alpha Z_t K_t^{\alpha-1}$ e o produto marginal do trabalho
+$w_t = (1-\alpha)Z_t K_t^{\alpha}$.
+Com o mesmo estoque de capital e trabalho, a produção aumenta:
+\[
+  Y_t = Z_t K_t^{\alpha} \uparrow \quad \text{(holding } K_t, N_t \text{ fixed)}.
+\]
+
+\subsubsection*{Canal 2: Substituição intertemporal do trabalho}
+
+Salários correntes mais altos ($w_t \uparrow$) tornam o trabalho hoje
+mais lucrativo. Famílias aumentam $N_t$ (lazer $l_t$ cai),
+amplificando o produto:
+\[
+  w_t \uparrow \;\Longrightarrow\; N_t \uparrow \;\Longrightarrow\;
+  Y_t = Z_t K_t^{\alpha} N_t^{1-\alpha} \uparrow\uparrow.
+\]
+Este é o \textbf{canal de oferta de trabalho} --- crítico para a ampliação
+das flutuações no modelo RBC.
+
+\subsubsection*{Canal 3: Acumulação acelerada de capital}
+
+A taxa de juros mais alta ($r_t \uparrow$) e o produto maior estimulam o
+investimento $I_t = Y_t - C_t$. Com a regra de consumo suavizado,
+$I_t$ sobe mais do que $C_t$ (amplificação do investimento):
+\[
+  r_t \uparrow \;\Longrightarrow\; I_t \uparrow \;\Longrightarrow\;
+  K_{t+1} \uparrow \;\Longrightarrow\; Y_{t+1} \uparrow.
+\]
+Este canal \textbf{propaga} o choque para além do período corrente,
+explicando a persistência das flutuações mesmo quando $\rho_z < 1$.
+
+\bigskip
+\noindent\textit{Síntese}: a função de resposta ao impulso obtida pelo modelo
+log-linearizado (implementada em \texttt{ch05\_rbc.py}) captura os três canais:
+impacto em $t=0$ (canal 1), amplificação via trabalho (canal 2) e propagação
+via capital (canal 3).
+
+% ============================================================
+\section{Log-linearização: derivação completa}
+% ============================================================
+
+\subsection{Equação de Euler log-linearizada}
+
+A condição de primeira ordem intertemporal (com $N=1$) é:
+\[
+  \frac{1}{C_t} = \beta\,\E_t\!\left[\frac{r_{t+1}+1-\delta}{C_{t+1}}\right].
+\]
+No estado estacionário, $\beta(r^*+1-\delta)=1$.
+Log-linearizando em torno de $(K^*,C^*)$ (variáveis hatted = log-desvio):
+\begin{equation}\label{eq:euler_ll}
+  \hc_t = \E_t[\hc_{t+1}] - \beta r^*\,\E_t\!\left[\hz_{t+1} + (\alpha-1)\hk_{t+1}\right].
+\end{equation}
+
+\subsection{Lei de acumulação de capital log-linearizada}
+
+\[
+  \hk_{t+1} = (1-\delta)\hk_t + \delta\,\hi_t,
+\]
+combinado com a restrição de recursos e a função de produção:
+\begin{equation}\label{eq:capital_ll}
+  \hk_{t+1} = \left[\gamma_k - \gamma_c\,a_k\right]\hk_t
+             + \left[\eta - \gamma_c\,a_z\right]\hz_t,
+\end{equation}
+onde $\eta = \delta/(I^*/Y^*)$, $\gamma_k = (1-\delta)+\alpha\eta$,
+$\gamma_c = \eta(C^*/Y^*)$.
+
+\subsection{Solução por coeficientes indeterminados}
+
+Supõe-se a função política linear $\hc_t = a_k\hk_t + a_z\hz_t$.
+Substituindo em \eqref{eq:euler_ll} e \eqref{eq:capital_ll} e igualando
+coeficientes, obtém-se para $a_k$ uma equação quadrática:
+\begin{equation}\label{eq:quadratic}
+  -\gamma_c\,a_k^2
+  + \bigl(\gamma_k - 1 - m\,\gamma_c\bigr)\,a_k
+  + m\,\gamma_k = 0,
+  \quad m = \beta r^*(1-\alpha) > 0.
+\end{equation}
+O discriminante é $\Delta = (\gamma_k-1-m\gamma_c)^2 + 4\gamma_c m\gamma_k > 0$.
+A raiz estável ($|A|<1$) é selecionada.
+O coeficiente $a_z$ é então obtido analiticamente:
+\begin{equation}
+  a_z = \frac{\lambda\,\eta - \beta r^*\rho_z}{1 - \rho_z + \lambda\,\eta\,(C^*/Y^*)},
+  \qquad \lambda = a_k + m.
+\end{equation}
+
+\subsection{Funções de resposta ao impulso}
+
+Dado um choque $\hz_0 = \sigma_z$ e $\hk_0 = 0$:
+\begin{align}
+  \hk_{t+1} &= A\,\hk_t + B\,\hz_t, &
+  \hz_{t+1} &= \rho_z\,\hz_t, \\
+  \hy_t &= \alpha\hk_t + \hz_t, &
+  \hc_t &= a_k\hk_t + a_z\hz_t, \\
+  \hi_t &= \frac{\hy_t - (C^*/Y^*)\hc_t}{I^*/Y^*}. &&
+\end{align}
+
+\noindent Os momentos simulados (desvios padrão relativos ao PIB, correlações)
+são computados em \texttt{ch05\_rbc.py} via o método \texttt{moments()}.
+
+% ============================================================
+\section{Parâmetros de calibração}
+% ============================================================
+
+\begin{table}[h!]
+  \centering
+  \caption{Parâmetros do modelo RBC (base e Brasil)}
+  \begin{tabular}{llcc}
+    \toprule
+    Parâmetro & Descrição & Valor base & Brasil \\
+    \midrule
+    $\alpha$ & Participação do capital & $0{,}33$ & $0{,}40$ \\
+    $\beta$  & Fator de desconto subjetivo & $0{,}99$ & $0{,}99$ \\
+    $\delta$ & Taxa de depreciação (trimestral) & $0{,}025$ & $0{,}05$ \\
+    $\rho_z$ & Persistência do choque de PTF & $0{,}95$ & $0{,}95$ \\
+    $\sigma_z$ & Desvio padrão do choque & $0{,}007$ & $0{,}007$ \\
+    $b$      & Peso do lazer na utilidade & calibrado & calibrado \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent O parâmetro $b$ é calibrado via \texttt{LaborLeisureConditions.calibrate\_b()}
+de forma que a oferta de trabalho no estado estacionário seja $N^* \approx 0{,}33$
+(um terço do tempo).
+
+% ============================================================
+\section{Conexão com o capítulo do RCK (Lista I Q1--3)}
+% ============================================================
+
+O modelo RBC pode ser visto como uma extensão do RCK com choques estocásticos
+de PTF. As três diferenças fundamentais são:
+
+\begin{enumerate}
+  \item \textbf{Tempo discreto} vs.\ tempo contínuo (RCK).
+  \item \textbf{Oferta de trabalho endógena} com margem de lazer.
+  \item \textbf{Tecnologia estocástica} seguindo AR(1).
+\end{enumerate}
+
+A condição de Euler do RBC com trabalho inelástico e utilidade logarítmica reproduz
+a equação de Keynes-Ramsey do RCK:
+\[
+  \frac{\dot C}{C} \approx \frac{r^* - \rho}{\theta}
+  \quad \text{(RCK, tempo contínuo)},
+\]
+que corresponde, no limite de período pequeno, à equação de Euler discreta do RBC.
+
+\end{document}
