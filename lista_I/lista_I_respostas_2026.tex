@@ -14,13 +14,14 @@
 \usepackage{lmodern}
 \usepackage{microtype}
 
-\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm]{geometry}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
 
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{mathtools}
 \usepackage{bm}
 
 \usepackage{graphicx}
+\graphicspath{{../}}   % resolve figure paths relative to repo root when compiled from lista_I/
 \usepackage{float}
 \usepackage[font=small, labelfont=bf, justification=justified]{caption}
 \usepackage{subcaption}
@@ -574,13 +575,13 @@ o efeito renda do lazer.
 \end{resultbox}
 
 % ==========================================================================
-\section{Razão consumo-lazer e calibração de $b$}
+\section{Razão consumo-lazer e calibração de \texorpdfstring{$b$}{b}}
 
 \subsection*{Enunciado resumido}
 Derive a razão ótima consumo-lazer e calibre o parâmetro $b$.
 
 % ------------------------------------------------------------------
-\subsection*{7.1 \ Razão ótima $C/l$}
+\subsection*{7.1 \ Razão ótima \texorpdfstring{$C/l$}{C/l}}
 
 Da equação de ótimo intratemporal \eqref{eq:leisure_opt}:
 \begin{equation}
@@ -592,7 +593,7 @@ Intuitivamente: quanto maior o salário (custo de oportunidade do lazer), menor 
 relativo ao consumo; quanto maior $b$ (preferência por lazer), maior o lazer relativo.
 
 % ------------------------------------------------------------------
-\subsection*{7.2 \ Calibração do parâmetro $b$}
+\subsection*{7.2 \ Calibração do parâmetro \texorpdfstring{$b$}{b}}
 
 Fixando a fração de horas trabalhadas no estado estacionário em $N^* = 0.33$ (Romer
 sugere 1/3 do tempo disponível como trabalho), temos $l^* = 1 - N^* = 0.67$.
