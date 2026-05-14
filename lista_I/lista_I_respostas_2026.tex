@@ -21,7 +21,9 @@
 \usepackage{bm}
 
 \usepackage{graphicx}
-\graphicspath{{../}}   % resolve figure paths relative to repo root when compiled from lista_I/
+% Figures are in lista_I/figures/. The two paths below let pdflatex find them
+% whether compiled from the repo root or from inside lista_I/:
+\graphicspath{{lista_I/figures/}{figures/}}
 \usepackage{float}
 \usepackage[font=small, labelfont=bf, justification=justified]{caption}
 \usepackage{subcaption}
@@ -209,20 +211,18 @@ Usando $f(k) = k^\alpha$ (Cobb-Douglas com trabalho efetivo normalizado a 1):
 \centering
 \caption{Efeitos de aumentos paramétricos sobre $\kstar$, $\cstar$ e $W^*$.}
 \label{tab:welfare_cs}
-\begin{tabular}{lcccl}
+\begin{tabular}{lcccp{6.5cm}}
 \toprule
 Parâmetro & $\kstar$ & $\cstar$ & $W^*$ & Intuição \\
 \midrule
 $\uparrow \theta$ & $-$ & $-$ & $-$ &
-  Maior aversão $\Rightarrow$ $\rstar = \rho + \theta g \uparrow$ $\Rightarrow$
-  produtividade marginal maior $\Rightarrow$ $k^*$ menor \\
+  Maior aversão $\Rightarrow$ $\rstar \uparrow$ $\Rightarrow$ $k^*$ menor \\[2pt]
 $\uparrow \rho$ & $-$ & $-$ & $-$ &
-  Mais impaciente $\Rightarrow$ menor poupança, menor capital e consumo \\
+  Mais impaciente $\Rightarrow$ menor poupança, menor capital e consumo \\[2pt]
 $\uparrow n$ & $-$ & $-$ & $-$ &
-  Mais pessoas diluem capital por trabalhador \\
+  Mais pessoas diluem capital por trabalhador \\[2pt]
 $\uparrow g$ & $?$ & $?$ & $?$ &
-  $g$ afeta $\rstar = \rho + \theta g$ e o custo efetivo de capital;
-  o efeito líquido em $W^*$ per capita é ambíguo \\
+  $g$ afeta $\rstar = \rho + \theta g$ e o custo efetivo; efeito líquido ambíguo \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -239,14 +239,14 @@ $\partial W^*/\partial\theta < 0$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_theta_comparative.png}
+\includegraphics[width=0.85\textwidth]{rck_theta_comparative.png}
 \caption{Estática comparativa de $\theta$: trajetórias de consumo e capital
 para diferentes valores de aversão ao risco, e relação de $\cstar$/$W^*$ com $\theta$.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_welfare_comparative.png}
+\includegraphics[width=0.85\textwidth]{rck_welfare_comparative.png}
 \caption{Bem-estar $W^*$ em função dos parâmetros $\rho$, $\theta$, $n$ e $g$.}
 \end{figure}
 
@@ -323,7 +323,7 @@ ponderada pela elasticidade de substituição intertemporal $1/\theta$:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_phase_diagram.png}
+\includegraphics[width=0.85\textwidth]{rck_phase_diagram.png}
 \caption{Diagrama de fase do modelo RCK: curvas $\dot{k}=0$ e $\dot{c}=0$, sela de
 equilíbrio e trajetórias representativas.}
 \end{figure}
@@ -360,12 +360,12 @@ Na região \textit{à esquerda de $\dot{c}=0$} ($k < k^*$) \textbf{e}
 
 \begin{resultbox}[title={Dinâmica na região especificada (Q3)}]
 \begin{center}
-\begin{tabular}{lll}
+\begin{tabular}{p{4.5cm}p{4.5cm}p{3cm}}
 \toprule
 Condição & Equação & Direção \\
 \midrule
-$k < k^*$ (à esquerda de $\dot{c}=0$) & $f'(k) > \rho + \theta g$ & $\dot{c} > 0$ \ ($c$ crescente) \\
-$c > c_{\text{locus}}(k)$ (acima de $\dot{k}=0$) & $f(k) - \delta k - c < (n+g)k$ & $\dot{k} < 0$ \ ($k$ decrescente) \\
+$k < k^*$ (esquerda de $\dot{c}=0$) & $f'(k) > \rho + \theta g$ & $\dot{c} > 0$ ($c$ sobe) \\[4pt]
+$c > c_{\text{locus}}(k)$ (acima de $\dot{k}=0$) & $f(k) - \delta k - c < (n{+}g)k$ & $\dot{k} < 0$ ($k$ cai) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -378,7 +378,7 @@ aquelas que exatamente seguem a sela de equilíbrio.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch02_rck_diamond/figures/rck_phase_diagram.png}
+\includegraphics[width=0.85\textwidth]{rck_phase_diagram.png}
 \caption{Diagrama de fase do modelo RCK. A região destacada (esquerda de $\dot{c}=0$
 e acima de $\dot{k}=0$) exibe $\dot{c}>0$ e $\dot{k}<0$ simultaneamente.}
 \end{figure}
@@ -469,7 +469,7 @@ após qualquer choque transitório.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_irf.png}
+\includegraphics[width=0.85\textwidth]{rbc_irf.png}
 \caption{Função de resposta ao impulso (FRI) do modelo RBC a um choque positivo de 1\%
 de PTF. Capital, produto, consumo e investimento como desvios percentuais do
 estado estacionário.}
@@ -477,7 +477,7 @@ estado estacionário.}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_phase_diagram.png}
+\includegraphics[width=0.85\textwidth]{rbc_phase_diagram.png}
 \caption{Diagrama de fase do modelo RBC: superfície de política de consumo e
 campo de vetores; trajetórias mostram convergência ao estado estacionário após choque.}
 \end{figure}
@@ -518,7 +518,7 @@ do lazer.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_labor_leisure.png}
+\includegraphics[width=0.85\textwidth]{rbc_labor_leisure.png}
 \caption{Esquerda: oferta ótima de trabalho como função do salário para diferentes
 valores de $b$. Direita: curva de desutilidade marginal do trabalho em função
 de $N = 1-l$.}
@@ -608,7 +608,7 @@ $\cstar \approx y^* - \delta\kstar$), obtemos $b \approx 1.55$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_labor_leisure.png}
+\includegraphics[width=0.85\textwidth]{rbc_labor_leisure.png}
 \caption{Curvas de oferta de trabalho (painel esquerdo) para diferentes valores de $b$.
 A linha tracejada marca o equilíbrio calibrado com $N^* = 0.33$.}
 \end{figure}
@@ -671,21 +671,21 @@ Na FRI: $\hat{C}_0 \approx 0.33\% < 1\% = \hat{Y}_0$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_irf.png}
+\includegraphics[width=0.85\textwidth]{rbc_irf.png}
 \caption{FRI do modelo RBC: decomposição do impacto de um choque de PTF de 1\%.
 Notar $\hat{I}_0 > \hat{Y}_0 > \hat{C}_0$ — confirmando os três canais.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_simulation.png}
+\includegraphics[width=0.85\textwidth]{rbc_simulation.png}
 \caption{Simulação estocástica do modelo RBC: séries temporais de $Y$, $C$, $I$ e
 choque de PTF $z_t$. Notar volatilidade relativa: $\sigma_I > \sigma_Y > \sigma_C$.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{../ch05_rbc/figures/rbc_moments.png}
+\includegraphics[width=0.85\textwidth]{rbc_moments.png}
 \caption{Momentos do modelo RBC: volatilidades relativas $\sigma(X)/\sigma(Y)$.
 O padrão $\sigma(I)/\sigma(Y) > 1 > \sigma(C)/\sigma(Y)$ é uma previsão central
 do modelo.}
