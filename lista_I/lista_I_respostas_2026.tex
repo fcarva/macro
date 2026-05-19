@@ -346,23 +346,62 @@ Com $f(k)=k^\alpha$:
 
 \begin{table}[H]
 \centering
-\caption{Efeitos de aumentos paramétricos sobre $\kstar$, $\cstar$ e $W^*$.}
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\caption{Efeitos de aumentos paramétricos no estado estacionário do modelo RCK.}
 \label{tab:welfare_cs}
-\begin{tabular}{lcccp{6.2cm}}
+\begin{tabular}{@{}lcccc p{6.8cm}@{}}
 \toprule
-Parâmetro & $\kstar$ & $\cstar$ & $W^*$ & Intuição \\
+\textbf{Parâmetro} & $\boldsymbol{r^*}$ & $\boldsymbol{k^*}$ & $\boldsymbol{c^*}$ & $\boldsymbol{W^*}$
+  & \textbf{Canal de transmissão} \\
 \midrule
-$\uparrow\theta$ & $-$ & $-$ & $-$ &
-  $\rstar=\rho+\theta g$ sobe $\Rightarrow$ $f'(\kstar)\uparrow$ $\Rightarrow$ $\kstar\downarrow$ \\[2pt]
-$\uparrow\rho$ & $-$ & $-$ & $-$ &
-  Mais impaciente $\Rightarrow$ menos poupança, menor capital \\[2pt]
-$\uparrow n$ & $-$ & $-$ & $-$ &
-  Mais pessoas diluem capital por trabalhador \\[2pt]
-$\uparrow g$ & $-$ & $?$ & $?$ &
-  $\rstar=\rho+\theta g$ sobe; efeito sobre $\cstar$ ambíguo \\
+$\uparrow\theta$
+  & \textcolor{blue!70!black}{$\uparrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & $\theta\!\uparrow\;\Rightarrow\;
+     \underbrace{r^*{=}\rho{+}\theta g}_{\text{custo efetivo}}\!\uparrow\;
+     \Rightarrow\; f'(k^*)\uparrow\;
+     \Rightarrow\; k^*\downarrow\;
+     \Rightarrow\; c^*\downarrow\;
+     \Rightarrow\; W^*\downarrow$ \\[2pt]
+$\uparrow\rho$
+  & \textcolor{blue!70!black}{$\uparrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{red!70!black}{$\downarrow\!\downarrow$}
+  & $\rho\!\uparrow\;\Rightarrow\; r^*\uparrow \;\Rightarrow\; k^*\downarrow,\,c^*\downarrow$;\quad
+     \textbf{duplo golpe} em $W^*{=}\tfrac{u(c^*)}{\rho}$:
+     numerador $\downarrow$ \textit{e} denominador $\uparrow$ \\[2pt]
+$\uparrow n$
+  & \textcolor{grayrbc}{$=$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & $n\!\uparrow$ \textit{não} afeta $r^*$;\;
+     dilui $k^*$ via $\dot{k}=y-c-(\delta{+}n)k$\;
+     $\Rightarrow\; k^*\downarrow\;\Rightarrow\; c^*\downarrow\;\Rightarrow\; W^*\downarrow$ \\[2pt]
+$\uparrow g$
+  & \textcolor{blue!70!black}{$\uparrow$}
+  & \textcolor{red!70!black}{$\downarrow$}
+  & \textcolor{orangerbc}{$?$}
+  & \textcolor{orangerbc}{$?$}
+  & $g\!\uparrow\;\Rightarrow\; r^*{=}\rho{+}\theta g\uparrow\;\Rightarrow\; k^*\downarrow$;\;
+     mas $c^*{=}f(k^*)-(\delta{+}g)k^*$ depende dos dois efeitos opostos
+     (ambíguo) \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\noindent\footnotesize
+\textcolor{blue!70!black}{$\uparrow$}~aumenta\quad
+\textcolor{red!70!black}{$\downarrow$}~diminui\quad
+\textcolor{red!70!black}{$\downarrow\!\downarrow$}~diminui por dois canais independentes\quad
+\textcolor{grayrbc}{$=$}~inalterado\quad
+\textcolor{orangerbc}{$?$}~ambíguo
+\normalsize
 
 \textbf{Derivação para $\theta$:}
 \[
