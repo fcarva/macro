@@ -45,15 +45,17 @@
 \definecolor{boxborder}{HTML}{3b9dbd}
 
 % --------------------------------------------------------------------------
-% Caixas destacadas
+% Caixas destacadas  (sem skins/TikZ para evitar manchas na conversão PDF)
 % --------------------------------------------------------------------------
-\tcbuselibrary{skins, breakable}
+\tcbuselibrary{breakable}
 \newtcolorbox{resultbox}[1][]{
+    standard,
     colback=boxbg, colframe=boxborder, boxrule=1pt,
     arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
     fonttitle=\bfseries\small, #1
 }
 \newtcolorbox{derivbox}[1][]{
+    standard,
     colback=white, colframe=grayrbc!40, boxrule=0.5pt,
     arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
     fonttitle=\bfseries\small, #1
