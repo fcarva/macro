@@ -1,0 +1,262 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{remark}{rgb}{0.12,0.37,0.55}
+
+\newtheorem{theorem}{Proposição}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\hpi}{\hat{\pi}}
+\newcommand{\hx}{\hat{x}}
+
+\title{\textbf{Capítulo 6 --- Rigidez Nominal}\\[4pt]
+       {\large Derivações e Notas}\\[2pt]
+       {\normalsize PPGEco-CCJE-UFES · Macroeconomia I · Romer (2019) Cap.\ 6}}
+\author{Projeto de Estudo --- \textit{macro-romer}}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ============================================================
+\section{Configuração do modelo}
+% ============================================================
+
+\subsection{Competição monopolística e demanda Dixit-Stiglitz}
+
+Há um contínuo de firmas no intervalo $[0,1]$, cada uma produzindo uma
+variedade diferenciada $Y_i$.  O agregador CES gera demanda para cada
+variedade:
+\begin{equation}\label{eq:demand}
+  Y_i = Y\!\left(\frac{P_i}{P}\right)^{-\eta}, \qquad \eta > 1,
+\end{equation}
+onde $P = \left[\int_0^1 P_i^{1-\eta}\,di\right]^{1/(1-\eta)}$ é o índice
+de preços agregado, $Y$ é a demanda agregada e $\eta$ é a elasticidade-preço
+de demanda.
+
+\subsection{Lucro do monopólico}
+
+A firma $i$ maximiza o lucro:
+\begin{equation}
+  \pi_i = (P_i - MC_i)\,Y_i = \left(P_i - MC_i\right)\!Y\!\left(\frac{P_i}{P}\right)^{-\eta},
+\end{equation}
+onde $MC_i$ é o custo marginal.  A condição de primeira ordem (preço ótimo
+flexível) é:
+\begin{equation}\label{eq:optimal_price}
+  P_i^* = \frac{\eta}{\eta-1}\,MC_i = \mu\,MC_i, \qquad \mu \equiv \frac{\eta}{\eta-1}.
+\end{equation}
+O markup $\mu > 1$ é decrescente em $\eta$.  No log:
+\begin{equation}
+  p_i^* = \log\mu + mc_i \approx \log\mu + p + \text{fatores reais}.
+\end{equation}
+
+% ============================================================
+\section{Custos de menu (Mankiw 1985)}
+% ============================================================
+
+\subsection{Decisão de ajuste}
+
+Suponha que o custo marginal real siga a demanda nominal agregada~$M$
+(aproximação): $mc_i \approx m$.  Na presença de um custo fixo de ajuste
+$z > 0$ (custo de menu), a firma compara o \emph{ganho de lucro} de
+re-otimizar contra $z$.
+
+Expandindo o lucro em segunda ordem ao redor de $P_i^*$:
+\begin{equation}\label{eq:profit_gain}
+  \Pi(P_i) \approx \Pi(P_i^*) - \frac{\eta-1}{2}\,(p_i - p_i^*)^2,
+\end{equation}
+pois a derivada de segunda ordem do lucro em relação ao log-preço é
+$-(\eta-1)\Pi^*/P_i^{*2}$, normalizada a $-(\eta-1)$.  Portanto, o ganho
+de reajustar é:
+\begin{equation}\label{eq:G}
+  G(p_{dev}) \equiv \Pi(P_i^*) - \Pi(P_i) = \frac{\eta-1}{2}\,p_{dev}^2,
+\end{equation}
+onde $p_{dev} = p_i - p_i^*$ é o log-desvio do preço atual em relação ao
+ótimo.
+
+\subsection{Limiar de ajuste}
+
+A firma ajusta se e somente se $G(p_{dev}) \geq z$:
+\begin{equation}\label{eq:threshold}
+  \frac{\eta-1}{2}\,p_{dev}^2 \geq z
+  \quad\Longleftrightarrow\quad
+  |p_{dev}| \geq \bar{p}(z) \equiv \sqrt{\frac{2z}{\eta-1}}.
+\end{equation}
+Observe que $\bar{p}(z)$ cresce com $z$ (mais rigidez para custo maior) e
+decresce com $\eta$ (firmas com demanda mais elástica ajustam com mais
+frequência).
+
+\subsection{Externalidade de demanda agregada (Ball-Romer)}
+
+Com $n$ firmas simétricas, cada firma ignora o efeito do seu preço sobre a
+demanda das demais.  O ganho \emph{social} de ajustar é:
+\begin{equation}
+  G^{social} = n\,G^{private} = n\,\frac{\eta-1}{2}\,p_{dev}^2.
+\end{equation}
+
+\textbf{Falha de coordenação:} existe uma região em que
+$G^{private} < z \leq G^{social}$.  Nessa região nenhuma firma ajusta
+individualmente, mesmo que todos se beneficiassem se ajustassem
+simultaneamente.  Isso gera \textbf{rigidez de preços agregada} mesmo quando
+os custos de menu individuais são pequenos --- o resultado central de Mankiw
+(1985) e Ball-Romer (1990).
+
+% ============================================================
+\section{Precificação de Calvo}
+% ============================================================
+
+\subsection{Estrutura}
+
+Em cada período uma firma mantém seu preço com probabilidade $\alpha$ (o
+processo de Calvo é independente de estado e do tempo desde o último ajuste).
+Com probabilidade $(1-\alpha)$ a firma re-otimiza escolhendo $\tilde{P}_t$.
+
+A probabilidade de que um preço fixado $s$ períodos atrás ainda vigore é:
+\begin{equation}
+  P(\text{preço inalterado por }s\text{ períodos}) = \alpha^s.
+\end{equation}
+
+\subsection{Preço de re-otimização}
+
+A firma que re-otimiza em $t$ escolhe $\tilde{P}_t$ para maximizar o valor
+presente esperado dos lucros futuros, ponderado pela probabilidade de
+permanência:
+\begin{equation}\label{eq:reset_price}
+  \log\tilde{P}_t = (1-\alpha\beta)\sum_{s=0}^{\infty}(\alpha\beta)^s
+                    \E_t\!\left[\log P_{t+s}^* \right],
+\end{equation}
+onde $P_{t+s}^* = \mu\,MC_{t+s}$ é o preço ótimo flexível no período $t+s$.
+
+\subsection{Índice de preços agregado}
+
+O índice CES agrega preços antigos (peso $\alpha$) e novos (peso $1-\alpha$):
+\begin{equation}\label{eq:price_index}
+  P_t^{1-\eta} = \alpha\,P_{t-1}^{1-\eta} + (1-\alpha)\,\tilde{P}_t^{1-\eta}.
+\end{equation}
+Log-linearizando (em torno de inflação zero):
+\begin{equation}\label{eq:price_index_log}
+  p_t = \alpha\,p_{t-1} + (1-\alpha)\,\tilde{p}_t.
+\end{equation}
+
+% ============================================================
+\section{Curva de Phillips Novo-Keynesiana}
+% ============================================================
+
+\subsection{Derivação da CPNK}
+
+Definindo inflação $\pi_t = p_t - p_{t-1}$ e combinando
+\eqref{eq:reset_price} com \eqref{eq:price_index_log}:
+
+\begin{equation}
+  \tilde{p}_t - p_{t-1} = (1-\alpha\beta)\sum_{s=0}^{\infty}(\alpha\beta)^s
+                           \E_t[\pi_{t+1:t+s} + \hat{mc}_{t+s}],
+\end{equation}
+onde $\hat{mc}_t$ é o custo marginal em log-desvio do estado estacionário.
+
+Após manipulação algébrica obtém-se a forma recursiva:
+\begin{equation}\label{eq:nkpc}
+  \boxed{\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t + u_t},
+\end{equation}
+onde $x_t$ é o hiato do produto e a inclinação é:
+\begin{equation}\label{eq:kappa}
+  \kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,(\omega + \sigma^{-1}).
+\end{equation}
+Aqui $\sigma^{-1}$ é a elasticidade de substituição intertemporal e $\omega$
+é a inversa da elasticidade de Frisch (do trabalho).
+
+\subsection{Interpretação dos parâmetros}
+
+\begin{itemize}[leftmargin=*]
+  \item $\alpha \nearrow$: mais rigidez → CPNK mais plana ($\kappa \searrow$).
+  \item $\beta \nearrow$: firmas pesam mais o futuro → expectativas mais
+        importantes.
+  \item $\omega \nearrow$ ou $\sigma \searrow$: custo marginal sobe mais com
+        produto → CPNK mais íngreme.
+\end{itemize}
+
+\begin{table}[h!]
+\centering
+\caption{Parâmetros da CPNK: valores de referência}
+\begin{tabular}{lll}
+\toprule
+Parâmetro & Valor & Interpretação \\
+\midrule
+$\alpha$  & 0,75  & 75\,\% das firmas não ajustam em cada trimestre \\
+$\beta$   & 0,99  & Fator de desconto trimestral \\
+$\sigma$  & 1,0   & IES = 1 (log-utilidade) \\
+$\omega$  & 1,0   & Elasticidade de Frisch inversa \\
+$\kappa$  & $\approx 0,085$ & Inclinação derivada \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Rigidezes reais e falha de coordenação (Ball-Romer)}
+% ============================================================
+
+\subsection{Rigidezes nominais vs.\ reais}
+
+Mankiw (1985) mostra que rigidezes nominais (custos de menu) geram
+não-neutralidade da moeda mesmo quando os custos individuais são pequenos,
+porque a externalidade de demanda agrega as perdas sociais.
+
+Ball e Romer (1990) mostram que \textbf{rigidezes reais} (e.g.\ rigidez real
+de salários, competição imperfeita) amplificam o efeito de custos de menu
+pequenos.  Com rigidezes reais, o preço ótimo flexível $P^*$ responde pouco
+ao ambiente macroeconômico, de modo que o custo de não ajustar é pequeno e
+mesmo custos de menu ínfimos geram rigidez agregada substancial.
+
+\subsection{Condição de falha de coordenação}
+
+Definindo o efeito estratégico $\gamma \equiv \partial P_i^*/\partial P$
+(resposta do preço ótimo individual ao nível de preços agregado), a condição
+necessária para falha de coordenação é:
+\begin{equation}
+  \gamma > 0 \quad \text{e} \quad z < G^{social} - G^{private} = (n-1)\,G^{private}.
+\end{equation}
+Quando $\gamma \in (0,1)$ (complementaridade estratégica parcial), o
+equilíbrio com preços fixos pode ser auto-realizável, dando origem a
+múltiplos equilíbrios e recessões de equilíbrio.
+
+% ============================================================
+\section{Quadro resumo e calibração brasileira}
+% ============================================================
+
+\begin{table}[h!]
+\centering
+\caption{Calibração para o Brasil (dados BCB)}
+\begin{tabular}{llll}
+\toprule
+Série & Código BCB & Período & Uso \\
+\midrule
+IPCA & SGS 433 & 2000--2024 & Inflação realizada \\
+Selic & SGS 4189 & 2000--2024 & Taxa nominal de referência \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A CPNK calibrada com $\alpha=0{,}75$ e parâmetros padrão implica:
+\begin{equation}
+  \kappa = \frac{(1-0{,}75)(1-0{,}75 \times 0{,}99)}{0{,}75}(1 + 1)
+         \approx 0{,}085.
+\end{equation}
+
+Regra de Taylor simplificada para comparação:
+\begin{equation}
+  i_t = \bar{r} + \phi_\pi\,\pi_t, \qquad
+  \bar{r} = 0{,}75\%\text{ a.m.}, \quad \phi_\pi = 1{,}5.
+\end{equation}
+
+\end{document}

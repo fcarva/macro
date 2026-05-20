@@ -1,0 +1,309 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{remark}{rgb}{0.12,0.37,0.55}
+
+\newtheorem{theorem}{Proposição}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\hx}{\hat{x}}
+\newcommand{\hpi}{\hat{\pi}}
+
+\title{\textbf{Capítulo 7 --- Modelos DSGE Novo-Keynesianos}\\[4pt]
+       {\large Derivações do Modelo Canônico NK}\\[2pt]
+       {\normalsize PPGEco-CCJE-UFES · Macroeconomia I · Romer (2019) Cap.\ 7}}
+\author{Projeto de Estudo --- \textit{macro-romer}}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ============================================================
+\section{Modelo NK canônico --- três equações}
+% ============================================================
+
+O modelo Novo-Keynesiano canônico consiste em três equações log-linearizadas
+em torno do estado estacionário:
+
+\paragraph{IS dinâmica (equação de Euler das famílias):}
+\begin{equation}\label{eq:is}
+  x_t = \E_t[x_{t+1}] - \frac{1}{\sigma}(i_t - \E_t[\pi_{t+1}] - r^n),
+\end{equation}
+onde $x_t$ é o hiato do produto, $i_t$ é a taxa nominal de juros,
+$\pi_t$ é a inflação e $r^n = -\ln\beta$ é a taxa real natural.
+
+\paragraph{Curva de Phillips Novo-Keynesiana (CPNK):}
+\begin{equation}\label{eq:nkpc}
+  \pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\, x_t + u_t,
+\end{equation}
+onde $u_t$ é um choque de custo-push (AR1 com persistência $\rho_u$).
+
+\paragraph{Regra de Taylor:}
+\begin{equation}\label{eq:taylor}
+  i_t = r^n + \phi_\pi \pi_t + \phi_x x_t + v_t,
+\end{equation}
+onde $v_t$ é um choque de política monetária (AR1 com persistência $\rho_v$).
+
+% ============================================================
+\section{Estado estacionário e taxa natural}
+% ============================================================
+
+No estado estacionário sem choques ($v_t = u_t = 0$):
+\[
+  x^* = 0,\qquad \pi^* = 0,\qquad i^* = r^n.
+\]
+
+A taxa real natural é:
+\begin{equation}
+  r^n = -\ln\beta \approx \frac{1-\beta}{\beta}.
+\end{equation}
+
+Para $\beta = 0{,}99$ (trimestral), $r^n \approx 0{,}01$ por período,
+ou cerca de $4\%$ ao ano.
+
+% ============================================================
+\section{Solução por coeficientes indeterminados}
+% ============================================================
+
+Substituindo \eqref{eq:taylor} em \eqref{eq:is}:
+\begin{equation}\label{eq:is_taylor}
+  \left(1 + \frac{\phi_x}{\sigma}\right) x_t
+  + \frac{\phi_\pi}{\sigma}\,\pi_t
+  = \E_t[x_{t+1}] + \frac{1}{\sigma}\,\E_t[\pi_{t+1}] - \frac{v_t}{\sigma}.
+\end{equation}
+
+\subsection{Choque de política monetária ($v_t$)}
+
+Suponha que $u_t = 0$ e $v_t = \rho_v\,v_{t-1} + \varepsilon_t^v$.
+Adivinha-se a solução linear:
+\[
+  x_t = \psi_{xv}\,v_t, \qquad \pi_t = \psi_{\pi v}\,v_t.
+\]
+
+\paragraph{Da CPNK \eqref{eq:nkpc}:}
+\[
+  \psi_{\pi v}\,v_t = \beta\,\rho_v\,\psi_{\pi v}\,v_t + \kappa\,\psi_{xv}\,v_t
+  \;\Longrightarrow\;
+  \psi_{\pi v}(1 - \beta\rho_v) = \kappa\,\psi_{xv}.
+\]
+Portanto:
+\begin{equation}\label{eq:psi_piv}
+  \psi_{\pi v} = \frac{\kappa\,\psi_{xv}}{1-\beta\rho_v}.
+\end{equation}
+
+\paragraph{Da equação IS modificada \eqref{eq:is_taylor}:}
+Dividindo por $v_t$ e usando $\E_t[v_{t+1}] = \rho_v v_t$:
+\[
+  \psi_{xv}\!\left(1 + \frac{\phi_x}{\sigma} - \rho_v\right)
+  + \psi_{\pi v}\!\frac{\phi_\pi - \rho_v}{\sigma} = -\frac{1}{\sigma}.
+\]
+Substituindo \eqref{eq:psi_piv}:
+\[
+  \psi_{xv}\!\left[\underbrace{(1-\rho_v)
+    + \frac{1}{\sigma}\!\left(\phi_x
+    + \frac{\kappa(\phi_\pi-\rho_v)}{1-\beta\rho_v}\right)}_{\Delta_v}\right]
+  = -\frac{1}{\sigma}.
+\]
+
+\begin{equation}\label{eq:solution_v}
+  \boxed{
+    \psi_{xv} = \frac{-1}{\sigma\,\Delta_v},
+    \qquad
+    \psi_{\pi v} = \frac{-\kappa}{\sigma\,\Delta_v\,(1-\beta\rho_v)},
+  }
+\end{equation}
+onde $\Delta_v = (1-\rho_v) + \bigl[\phi_x + \kappa(\phi_\pi-\rho_v)/(1-\beta\rho_v)\bigr]/\sigma > 0$
+quando o princípio de Taylor é satisfeito.
+
+\paragraph{Interpretação:}
+\begin{itemize}
+  \item $\psi_{xv} < 0$: aperto monetário ($v_t > 0$) reduz o hiato do produto.
+  \item $\psi_{\pi v} < 0$: aperto monetário reduz a inflação.
+  \item Quanto maior $\phi_\pi$ (mais agressivo), maior $|\psi_{\pi v}|/|\psi_{xv}|$
+    (inflação responde mais do que o produto).
+\end{itemize}
+
+\subsection{Choque de custo-push ($u_t$)}
+
+Agora $v_t = 0$ e $u_t = \rho_u\,u_{t-1} + \varepsilon_t^u$.
+Adivinhe:
+\[
+  x_t = \psi_{xu}\,u_t, \qquad \pi_t = \psi_{\pi u}\,u_t.
+\]
+
+\paragraph{Da CPNK:}
+\[
+  \psi_{\pi u}(1-\beta\rho_u) = \kappa\,\psi_{xu} + 1
+  \;\Longrightarrow\;
+  \psi_{\pi u} = \frac{1 + \kappa\,\psi_{xu}}{1-\beta\rho_u}. \tag{3}
+\]
+
+\paragraph{Da IS modificada (com $v_t=0$):}
+\[
+  \psi_{xu}\!\left(1 + \frac{\phi_x}{\sigma} - \rho_u\right)
+  + \psi_{\pi u}\!\frac{\phi_\pi - \rho_u}{\sigma} = 0.
+\]
+Substituindo (3):
+\[
+  \psi_{xu}\!\underbrace{\left[(1-\rho_u)
+    + \frac{\phi_x + \kappa(\phi_\pi-\rho_u)/(1-\beta\rho_u)}{\sigma}\right]}_{D_u}
+  = -\frac{\phi_\pi-\rho_u}{\sigma(1-\beta\rho_u)}.
+\]
+
+\begin{equation}\label{eq:solution_u}
+  \boxed{
+    \psi_{xu} = \frac{-(\phi_\pi-\rho_u)}{\sigma(1-\beta\rho_u)\,D_u},
+    \qquad
+    \psi_{\pi u} = \frac{1 + \kappa\,\psi_{xu}}{1-\beta\rho_u}.
+  }
+\end{equation}
+
+\paragraph{Interpretação:}
+\begin{itemize}
+  \item $\psi_{\pi u} > 0$: choque de custo-push eleva a inflação.
+  \item $\psi_{xu} < 0$: choque de custo-push contrai o produto
+    (estagflação --- o dilema de política monetária).
+  \item O BC não pode estabilizar $x$ e $\pi$ simultaneamente
+    após um choque de custo-push.
+\end{itemize}
+
+% ============================================================
+\section{Condição de Blanchard-Kahn (princípio de Taylor)}
+% ============================================================
+
+\subsection{Matriz do sistema expectacional}
+
+Eliminando expectativas do sistema (sem choques), o equilíbrio racional
+satisfaz:
+\[
+  \begin{pmatrix}\E_t[x_{t+1}]\\\E_t[\pi_{t+1}]\end{pmatrix}
+  = M\begin{pmatrix}x_t\\\pi_t\end{pmatrix},
+\]
+onde:
+\begin{equation}\label{eq:system_matrix}
+  M = \begin{pmatrix}
+    1 + \dfrac{\phi_x}{\sigma} + \dfrac{\kappa}{\beta\sigma}
+    & \dfrac{\phi_\pi}{\sigma} - \dfrac{1}{\beta\sigma} \\[8pt]
+    -\dfrac{\kappa}{\beta}
+    & \dfrac{1}{\beta}
+  \end{pmatrix}.
+\end{equation}
+
+\subsection{Condição de determinação}
+
+Como $x_t$ e $\pi_t$ são ambas variáveis de salto (jump variables),
+a condição de Blanchard-Kahn exige que os \emph{dois} valores próprios
+de $M$ estejam fora do círculo unitário ($|\lambda_{1,2}| > 1$).
+
+O determinante de $M$ é:
+\[
+  \det(M) = \frac{1 + (\phi_x + \kappa\phi_\pi)/\sigma}{\beta} > 1
+  \quad\text{se}\quad \phi_x + \kappa\phi_\pi > \sigma(\beta-1),
+\]
+o que é satisfeito para $\phi_x,\phi_\pi \geq 0$ e $\beta < 1$.
+
+A condição suficiente (aproximação analítica) é o \textbf{princípio de Taylor}:
+\begin{equation}\label{eq:taylor_principle}
+  \boxed{\phi_\pi > 1 \;\text{ (e }\phi_x \geq 0).}
+\end{equation}
+
+Mais precisamente, a região de determinação satisfaz:
+\[
+  \kappa(\phi_\pi - 1) + (1-\beta)\phi_x > 0.
+\]
+Para $\beta \approx 1$ (frequência trimestral), o termo $(1-\beta)\phi_x \approx 0$
+e a condição reduz-se a $\phi_\pi > 1$.
+
+% ============================================================
+\section{Política monetária ótima e fronteira eficiente}
+% ============================================================
+
+\subsection{Perda da função-objetivo do banco central}
+
+O banco central minimiza a perda quadrática esperada:
+\begin{equation}
+  L = \E_0\!\left[\sum_{t=0}^\infty \beta^t\!
+    \left(\pi_t^2 + \lambda_x\,x_t^2\right)\right],\quad \lambda_x > 0.
+\end{equation}
+
+\subsection{Fronteira de variância (Taylor 1979)}
+
+Variando $\phi_\pi$ (e fixando $\phi_x$), o BC traça a fronteira eficiente
+entre $\mathrm{Var}(\pi_t)$ e $\mathrm{Var}(x_t)$.
+
+\begin{itemize}
+  \item $\phi_\pi \to \infty$: $\mathrm{Var}(\pi) \to 0$, mas
+    $\mathrm{Var}(x) \uparrow$ (inflação totalmente estabilizada,
+    mas produto volátil).
+  \item $\phi_\pi \to 1^+$: $\mathrm{Var}(x) \to \min$, mas
+    $\mathrm{Var}(\pi) \uparrow$ (produto estabilizado, inflação volátil).
+\end{itemize}
+
+A fronteira é implementada numericamente em \texttt{ch07\_nk.py} via o método
+\texttt{policy\_frontier()}, que simula os momentos de segunda ordem para
+diferentes valores de $\phi_\pi$.
+
+% ============================================================
+\section{Parâmetros de calibração}
+% ============================================================
+
+\begin{table}[h!]
+  \centering
+  \caption{Parâmetros do modelo NK canônico}
+  \begin{tabular}{llcc}
+    \toprule
+    Parâmetro & Descrição & Valor base & Referência \\
+    \midrule
+    $\beta$    & Fator de desconto             & $0{,}99$  & Trimestral \\
+    $\sigma$   & Inv.\ elasticidade intertemp. & $1{,}0$   & Log-utilidade \\
+    $\kappa$   & Slope da CPNK                 & $0{,}1$   & Galí (2008) \\
+    $\phi_\pi$ & Peso da inflação (Taylor)     & $1{,}5$   & Taylor (1993) \\
+    $\phi_x$   & Peso do hiato (Taylor)        & $0{,}5$   & Taylor (1993) \\
+    $\rho_v$   & Persistência choque de demanda & $0{,}5$  & Estimado \\
+    $\rho_u$   & Persistência choque de oferta & $0{,}5$   & Estimado \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent A taxa real natural é $r^n = -\ln(0{,}99) \approx 1{,}005\%$ por trimestre
+($\approx 4\%$ ao ano). O slope da CPNK ($\kappa = 0{,}1$) implica,
+pela fórmula de Calvo, $\alpha \approx 0{,}75$ (firmas reajustam preços
+a cada 4 trimestres em média).
+
+% ============================================================
+\section{Funções de resposta ao impulso}
+% ============================================================
+
+Dada a solução \eqref{eq:solution_v}--\eqref{eq:solution_u}, as IRFs
+para os choques são:
+
+\paragraph{Choque de demanda $v_0 > 0$, $u_t = 0$:}
+\[
+  v_t = \rho_v^t\,v_0,\quad
+  x_t = \psi_{xv}\,v_t < 0,\quad
+  \pi_t = \psi_{\pi v}\,v_t < 0,\quad
+  i_t = r^n + \phi_\pi\pi_t + \phi_x x_t + v_t > 0.
+\]
+
+\paragraph{Choque de oferta $u_0 > 0$, $v_t = 0$:}
+\[
+  u_t = \rho_u^t\,u_0,\quad
+  x_t = \psi_{xu}\,u_t < 0,\quad
+  \pi_t = \psi_{\pi u}\,u_t > 0.
+\]
+O banco central aumenta $i_t$ para conter a inflação, mas isso aprofunda
+a contração do produto --- o dilema da política monetária após choques de oferta.
+
+\end{document}
