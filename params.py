@@ -47,6 +47,14 @@ NK = {
     "rho_v": 0.5,
 }
 
+NR = {
+    "eta": 4.0,
+    "alpha_calvo": 0.75,
+    "beta": 0.99,
+    "sigma": 1.0,
+    "omega": 1.0,
+}
+
 BRASIL = {
     "alpha": 0.40,
     "s": 0.18,
