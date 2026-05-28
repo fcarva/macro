@@ -1,0 +1,739 @@
+% ==========================================================================
+%  Guia de Estudo — Prova 2 / Lista II
+%  Macroeconomia I (PPGEco-UFES, 2026)
+%  Prof. Ricardo Ramalhete Moreira
+%  Rigidez Nominal e Modelos Novo-Keynesianos
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+% --------------------------------------------------------------------------
+% Packages
+% --------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{graphicx}
+\graphicspath{{lista_II/figures/}{figures/}}
+\usepackage{float}
+\usepackage[font=small, labelfont=bf, justification=justified]{caption}
+\usepackage{subcaption}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+
+% --------------------------------------------------------------------------
+% Caixas
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{formulabox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\pibar}{\bar{\pi}}
+\newcommand{\xgap}{x_t}
+
+% --------------------------------------------------------------------------
+% Espaçamento e parágrafos
+% --------------------------------------------------------------------------
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+% --------------------------------------------------------------------------
+% Títulos
+% --------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{Questão \thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+% --------------------------------------------------------------------------
+% Cabeçalho/rodapé
+% --------------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Guia P2 --- Macroeconomia I (PPGEco-UFES, 2026)}}
+\rhead{\footnotesize\textcolor{grayrbc}{Rigidez Nominal \& NK --- Romer, cap.\ 6--7}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Guia de Estudo --- Prova 2 / Lista II\\[0.4em]
+\large Macroeconomia I --- 2026}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{1em}
+{\large Prof.\ Ricardo Ramalhete Moreira}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{\textcolor{provaborder}{Atenção:}} Este guia foi elaborado com base na
+\textbf{Lista II 2026} e cobre os modelos de
+\textbf{Rigidez Nominal} (Romer, cap.\ 6) e \textbf{DSGE Novo-Keynesiano}
+(Romer, cap.\ 7).
+\end{tcolorbox}
+
+\vspace{1.5em}
+\begin{tabular}{ll}
+\textbf{Questões 1--4:}  & Rigidez nominal, competição monopolística e preços \\[0.4em]
+\textbf{Questões 5--7:}  & Informação incompleta e Crítica de Lucas \\[0.4em]
+\textbf{Questões 8--10:} & Modelos Fischer, Taylor, Calvo e Christiano et al. \\[0.4em]
+\textbf{Questão 11:}     & Modelo NK canônico --- IS, CPNK e Regra de Taylor
+\end{tabular}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=boxbg, colframe=boxborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{Referência principal:} \\[0.3em]
+D.\ Romer, \textit{Advanced Macroeconomics}, 5.ª ed., McGraw-Hill (2019). \\
+Capítulos 6 e 7.
+\end{tcolorbox}
+
+\vfill
+{\small Soluções computadas com Python; código disponível em
+\texttt{github.com/fcarva/macro}.}
+\end{center}
+\end{titlepage}
+
+% --------------------------------------------------------------------------
+% Formulário de Referência Rápida
+% --------------------------------------------------------------------------
+\newpage
+\thispagestyle{fancy}
+
+\begin{center}
+{\large\bfseries\color{cyanrbc} Formulário de Referência Rápida --- P2}\\[0.3em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+\vspace{0.3em}
+\begin{multicols}{2}
+
+\textbf{\textcolor{cyanrbc}{BLOCO RIGIDEZ NOMINAL}}
+
+\medskip
+\textbf{Preço ótimo (competição monopolística):}
+\[
+P_i^* = \frac{\eta}{\eta-1}\,MC_i = \mu\,MC_i
+\]
+
+\textbf{Produto de equilíbrio (competição monop.):}
+\[
+Y^* = \left[\frac{\eta-1}{\eta}\right]^{1/(\gamma-1)}
+\]
+
+\textbf{Ganho de ajuste (menu costs):}
+\[
+G(p_{\text{dev}}) = \frac{\eta-1}{2}\,p_{\text{dev}}^2
+\]
+
+\textbf{Limiar de ajuste:}
+\[
+|p_{\text{dev}}| \geq \bar{p}(z) = \sqrt{\frac{2z}{\eta-1}}
+\]
+
+\textbf{Curva de Lucas:}
+\[
+y = b\,(p - \E[p])
+\]
+
+\textbf{Curva de Phillips NK (Calvo):}
+\[
+\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,y_t,\quad
+\kappa \equiv \frac{\alpha[1-(1-\alpha)\beta]\phi}{1-\alpha}
+\]
+onde $\phi = \theta + \gamma - 1$.
+
+\textbf{CPNK com inércia (Christiano et al.):}
+\[
+\pi_t = \gamma\pi_{t-1} + (1-\gamma)\E_t[\pi_{t+1}] + \chi y_t
+\]
+
+\columnbreak
+
+\textbf{\textcolor{cyanrbc}{BLOCO MODELO NK CANÔNICO}}
+
+\medskip
+\textbf{IS dinâmica:}
+\[
+y_t = \E_t[y_{t+1}] - \frac{1}{\theta}\,r_t + u_t^{IS}
+\]
+
+\textbf{CPNK (3-equação):}
+\[
+\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,y_t + u_t^{\pi}
+\]
+
+\textbf{Regra de Taylor (em juros reais):}
+\[
+r_t = \phi_\pi\,\E_t[\pi_{t+1}] + \phi_y\,\E_t[y_{t+1}] + u_t^{MP}
+\]
+
+\textbf{Princípio de Taylor (determinação):}
+\[
+\phi_\pi > 1 \;\;\text{(Blanchard-Kahn)}
+\]
+
+\textbf{Modelo de Fischer ($\phi$ = inv.\ rigidez real):}
+\[
+p_t = \E_{t-2}m_t + \frac{\phi}{1+\phi}[\E_{t-1}m_t - \E_{t-2}m_t]
+\]
+\[
+y_t = \frac{1}{1+\phi}[\E_{t-1}m_t - \E_{t-2}m_t] + [m_t - \E_{t-1}m_t]
+\]
+
+\textbf{Modelo de Taylor:}
+\[
+y_t = \lambda\,y_{t-1} + \frac{1+\lambda}{2}\,u_t
+\]
+
+\textbf{Calibração NK padrão:}\\[2pt]
+$\beta=0{,}99$, $\kappa=0{,}1$, $\phi_\pi=1{,}5$, $\phi_y=0{,}5$,\\
+$\theta=1{,}0$, $\alpha=0{,}75$ (Calvo)
+
+\end{multicols}
+
+\rule{\linewidth}{0.6pt}
+
+\vspace{0.5em}
+\begin{provabox}[title={Fórmula mais cobrada: inclinação da CPNK de Calvo}]
+A inclinação $\kappa$ mede o pass-through do hiato do produto para a inflação.
+Quanto maior $\alpha$ (fração de firmas \emph{que} ajustam), maior $\kappa$ e mais íngreme a CPNK.
+Quanto maior a rigidez real ($\phi$ menor), menor $\kappa$ --- a CPNK fica mais plana e a
+política monetária precisa de maiores variações de juros para controlar a inflação.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+% Sumário
+% --------------------------------------------------------------------------
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================================================
+%  PARTE I — RIGIDEZ NOMINAL E COMPETIÇÃO MONOPOLÍSTICA (Q1-Q4)
+% ==========================================================================
+
+\section*{\large\color{cyanrbc} Parte I --- Rigidez Nominal e Preços (Q1--Q4)}
+\addcontentsline{toc}{section}{Parte I --- Rigidez Nominal e Preços (Q1--Q4)}
+
+Os modelos de rigidez nominal surgidos a partir da década de 1970 (Mankiw, 1985;
+Ball \& Romer, 1990; Calvo, 1983) mostram como pequenas fricções na formação de
+preços em nível microeconômico geram não-neutralidade da moeda no curto prazo.
+O elemento central é a competição monopolística à la Dixit-Stiglitz, que fornece
+microfundamentos para o markup e para o produto de equilíbrio.
+
+\bigskip
+\setcounter{section}{0}
+
+% ==========================================================================
+\section{Rigidez nominal e efeitos da política monetária}
+
+\subsection*{Enunciado}
+Com base em modelos surgidos a partir da década de 70, a ocorrência de alguma forma
+de rigidez nominal na economia é essencial para: (a) efeitos nominais da PM; (b) efeitos
+reais de longo prazo de choques nos dispêndios; (c) coordenação entre PM e fiscal;
+(d) otimização dos agentes; \textbf{(e) efeitos reais de curto prazo dos choques monetários}.
+
+\begin{resultbox}[title={Resposta: alternativa (e)}]
+A rigidez nominal é a condição necessária para que choques monetários tenham efeitos
+\textbf{reais no curto prazo}. Sem ela, os agentes ajustariam preços imediatamente e a
+moeda seria neutra em qualquer horizonte. As demais alternativas não requerem rigidez
+nominal: efeitos nominais da PM existem mesmo com preços flexíveis; efeitos reais de
+longo prazo dependem de fatores reais (capital, tecnologia); coordenação PM-fiscal é
+questão de regra fiscal; otimização dos agentes é compatível com preços flexíveis.
+\end{resultbox}
+
+% ==========================================================================
+\section{Otimização da família: consumo e oferta de trabalho ótimos}
+
+\subsection*{Enunciado}
+Seja $U = C^{1-\theta} - \tfrac{1}{\gamma}L^\gamma$, $\gamma>1$, $\theta>0$, com restrição
+$C = WL$. Calcule $C^*$ e $L^*$.
+
+\subsection*{Resolução}
+
+Formamos o lagrangiano com multiplicador $\lambda$:
+\begin{equation}
+\mathcal{L} = C^{1-\theta} - \frac{1}{\gamma}L^\gamma + \lambda(WL - C).
+\label{eq:lagr2}
+\end{equation}
+
+\textbf{CPO em $C$:}
+\[
+\frac{\partial\mathcal{L}}{\partial C} = (1-\theta)C^{-\theta} - \lambda = 0
+\;\Longrightarrow\;
+\lambda = (1-\theta)C^{-\theta}. \tag{2}
+\]
+
+\textbf{CPO em $L$:}
+\[
+\frac{\partial\mathcal{L}}{\partial L} = -L^{\gamma-1} + \lambda W = 0
+\;\Longrightarrow\;
+\lambda = \frac{L^{\gamma-1}}{W}. \tag{3}
+\]
+
+\textbf{Igualando (2) e (3):}
+\begin{equation}
+(1-\theta)C^{-\theta} = \frac{L^{\gamma-1}}{W}.
+\label{eq:foc_equal}
+\end{equation}
+
+\begin{resultbox}[title={Consumo e oferta de trabalho ótimos}]
+\textbf{Resolvendo \eqref{eq:foc_equal} para $C$:}
+\[
+\boxed{C^* = \left[\frac{W(1-\theta)}{L^{\gamma-1}}\right]^{1/\theta}}
+\]
+
+\textbf{Resolvendo \eqref{eq:foc_equal} para $L$:}
+\[
+\boxed{L^* = \left[W(1-\theta)C^{-\theta}\right]^{1/(\gamma-1)}}
+\]
+\end{resultbox}
+
+\begin{provabox}[title={Intuição econômica}]
+O consumo ótimo $C^*$ aumenta com o salário $W$ (maior renda) e diminui com $\gamma$
+(maior desutilidade do trabalho reduz o equilíbrio de trabalho e, portanto, a renda).
+A oferta ótima $L^*$ aumenta com $W$ (efeito substituição) e com $(1-\theta)$
+(menor aversão ao risco aumenta a utilidade marginal do consumo, incentivando mais trabalho).
+\end{provabox}
+
+% ==========================================================================
+\section{Produto de equilíbrio com competição monopolística}
+
+\subsection*{Enunciado}
+Seja $Y = \left[\tfrac{\eta-1}{\eta}\right]^{1/(\gamma-1)}$. Interprete os efeitos de
+aumentos em $\eta$ e $\gamma$ sobre $Y^*$.
+
+\subsection*{Derivação e interpretação}
+
+O produto de equilíbrio resulta da igualação entre a demanda do consumidor (derivada
+do problema de maximização de utilidade) e a regra de markup da firma monopolista:
+\[
+P_i^* = \frac{\eta}{\eta-1}\,MC_i = \mu\,MC_i, \qquad \mu \equiv \frac{\eta}{\eta-1}.
+\]
+No equilíbrio simétrico ($P_i = P$), combinando as CPOs da família e da firma,
+obtém-se:
+\[
+Y^* = \left[\frac{\eta-1}{\eta}\right]^{1/(\gamma-1)}.
+\]
+
+\begin{resultbox}[title={Efeitos de $\eta$ e $\gamma$}]
+\textbf{Aumento de $\eta$:} reduz o markup $\mu = \eta/(\eta-1)$, diminuindo o poder
+de mercado das firmas. Isso eleva $Y^*$ --- mais concorrência $\Rightarrow$ menor
+distorção $\Rightarrow$ maior produto de equilíbrio.
+
+\[
+\eta \uparrow \;\Rightarrow\; \mu \downarrow \;\Rightarrow\; \frac{\eta-1}{\eta} \uparrow
+\;\Rightarrow\; Y^* \uparrow
+\]
+
+\textbf{Aumento de $\gamma$:} reduz o expoente $1/(\gamma-1)$, diminuindo a
+elasticidade da oferta de trabalho a variações salariais. Isso contrai $Y^*$.
+
+\[
+\gamma \uparrow \;\Rightarrow\; \frac{1}{\gamma-1} \downarrow \;\Rightarrow\; Y^* \downarrow
+\]
+\end{resultbox}
+
+% ==========================================================================
+\section{Nível ótimo de preços e efeito de $\gamma$}
+
+\subsection*{Enunciado}
+Dada $Y = M/P$ (demanda agregada simples), deduza o nível de preços de equilíbrio.
+Coeteris paribus, o que ocorre com $P$ após elevação de $\gamma$? Interprete.
+
+\subsection*{Resolução}
+
+Substituindo $Y^*$ em $P = M/Y^*$:
+
+\begin{resultbox}[title={Nível de preços de equilíbrio}]
+\[
+\boxed{P^* = \frac{M}{\left[\dfrac{\eta-1}{\eta}\right]^{1/(\gamma-1)}}}
+\]
+\end{resultbox}
+
+\textbf{Efeito de $\gamma \uparrow$:} Da questão anterior, $\gamma \uparrow \Rightarrow Y^* \downarrow$.
+Com $M$ fixo (ceteris paribus), o excesso de demanda nominal eleva o nível de preços:
+\[
+\gamma \uparrow \;\Rightarrow\; Y^* \downarrow \;\Rightarrow\; P^* = \frac{M}{Y^*} \uparrow.
+\]
+
+\begin{provabox}[title={Interpretação estrutural}]
+A elevação de $\gamma$ representa maior desutilidade marginal do trabalho, reduzindo
+a oferta de trabalho de equilíbrio e, portanto, o produto. Dada a oferta de moeda
+pelo Banco Central, o ajuste recai inteiramente sobre os preços: a economia precisa
+de um nível de preços mais alto para equilibrar o mercado de bens. Esse mecanismo
+é análogo a um choque negativo de oferta agregada na curva AS.
+\end{provabox}
+
+% ==========================================================================
+%  PARTE II — INFORMAÇÃO INCOMPLETA E CRÍTICA DE LUCAS (Q5-Q7)
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte II --- Informação Incompleta e Crítica de Lucas (Q5--Q7)}
+\addcontentsline{toc}{section}{Parte II --- Informação Incompleta e Crítica de Lucas (Q5--Q7)}
+
+O modelo de informação incompleta de Lucas (1973) mostra que mesmo agentes
+otimizadores e racionais podem ser enganados por choques monetários, pois não
+conseguem distinguir, em tempo real, variações de preços relativos de variações
+do nível geral de preços.
+
+\bigskip
+
+% ==========================================================================
+\section{Modelo de informação incompleta de Lucas}
+
+\subsection*{Enunciado}
+A firma decide $y_i = [1/(\gamma-1)]\,\E[r_i \mid p_i]$, onde $r_i = p_i - p$.
+Explique como flutuações de produto no curto prazo resultam de falta de informação
+e como a rigidez de preços pode ser deduzida desse modelo.
+
+\begin{resultbox}[title={Mecanismo de extração de sinal}]
+A firma \textbf{não observa} $p$ (nível geral) no momento da decisão de produção;
+ela apenas observa seu próprio preço $p_i$. Diante de um choque positivo de demanda:
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+  \item A demanda pelo produto $i$ sobe $\Rightarrow$ $p_i \uparrow$.
+  \item A firma não sabe se $p_i \uparrow$ reflete $r_i = p_i - p \uparrow$
+    (aumento \emph{relativo}) ou apenas $p \uparrow$ (inflação geral).
+  \item Ela atribui parte do aumento a $r_i \uparrow$ $\Rightarrow$ eleva $y_i$.
+\end{enumerate}
+\end{resultbox}
+
+\textbf{Rigidez de preços endógena:} como a firma não ajusta seu preço de forma
+instantânea e completa ao nível geral --- pois não dispõe dessa informação ---
+os preços individuais respondem menos do que o necessário ao choque monetário,
+gerando a aparência de rigidez nominal mesmo sem custos de menu explícitos.
+
+% ==========================================================================
+\section{Curva de Lucas: choque monetário e convergência de longo prazo}
+
+\subsection*{Enunciado}
+Seja $y = b(p - \E[p])$, $b>0$. Interprete a dinâmica do produto após um choque
+monetário positivo. Explique a convergência de longo prazo.
+
+\subsection*{Mecanismo de curto e longo prazo}
+
+\textbf{Curto prazo:} Um choque $m > \E[m]$ eleva $p$ acima de $\E[p]$:
+\[
+m \uparrow \;\Rightarrow\; p > \E[p] \;\Rightarrow\; y = b(p - \E[p]) > 0.
+\]
+As firmas interpretam parte da alta de $p_i$ como aumento de preço relativo,
+expandindo a produção.
+
+\begin{resultbox}[title={Convergência de longo prazo}]
+No longo prazo, via expectativas racionais e aprendizado, os agentes atualizam
+$\E[m]$ e $\E[p]$ para os novos níveis:
+\[
+\E[m] \uparrow \;\text{ e }\; \E[p] \uparrow \;\Rightarrow\; p = \E[p] \;\Rightarrow\; y = 0.
+\]
+Uma vez que a nova regra de política monetária é assimilada, a moeda é
+\textbf{neutra no longo prazo}: o produto retorna ao nível normal (desvio nulo).
+A correlação positiva entre $p$ e $y$ desaparece --- consistente com a
+dicotomia clássica de longo prazo.
+\end{resultbox}
+
+% ==========================================================================
+\section{Crítica de Lucas}
+
+\subsection*{Enunciado}
+Um BC estuda mudar a regra de PM com base em séries temporais. Interprete a
+eficácia da medida a partir da Crítica de Lucas.
+
+\begin{resultbox}[title={Crítica de Lucas (1976)}]
+As relações econométricas estimadas com dados passados são válidas apenas
+\textbf{condicional ao estado de expectativas} prevalecente naquele período.
+Uma mudança de \emph{regra} de PM altera estruturalmente as expectativas dos agentes,
+invalidando as previsões feitas com o modelo antigo.
+\end{resultbox}
+
+\begin{provabox}[title={Implicação para política econômica}]
+Para que as previsões baseadas em séries históricas sejam válidas, seria necessário
+que a mudança de PM \textbf{não fosse percebida como estrutural} pelos agentes.
+Mas se os agentes são racionais (Muth, 1961), eles antecipam a nova regra e ajustam
+suas expectativas imediatamente --- tornando o modelo histórico obsoleto.
+Isso é a base teórica para a independência do BC e para a comunicação de políticas
+críveis via ancoragem de expectativas.
+\end{provabox}
+
+% ==========================================================================
+%  PARTE III — MODELOS DE RIGIDEZ: FISCHER, TAYLOR, CALVO (Q8-Q10)
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte III --- Modelos de Rigidez de Preços (Q8--Q10)}
+\addcontentsline{toc}{section}{Parte III --- Modelos de Rigidez (Q8--Q10)}
+
+Os modelos de Fischer (1977), Taylor (1980) e Calvo (1983) formalizaram a rigidez
+nominal com microfundamentos distintos. Em todos eles, o parâmetro chave é o
+\textbf{grau de rigidez real} ($\phi$ ou $\alpha$), que determina o pass-through
+de choques monetários para preços versus produto.
+
+\bigskip
+
+% ==========================================================================
+\section{Modelos de Fischer e Taylor: rigidez e efeitos reais da PM}
+
+\subsection*{Enunciado}
+Comente sobre o grau de rigidez de preços (a partir de $\phi$) e os efeitos reais
+da PM nos modelos de: (a) Fischer; (b) Taylor.
+
+\subsection*{(a) Modelo de Fischer}
+
+O modelo assume contratos de dois períodos: os preços do período $t$ são fixados em
+$t-2$ (firmas do grupo 1) e em $t-1$ (firmas do grupo 2). As equações de equilíbrio são:
+\begin{align}
+p_t &= \E_{t-2}m_t + \frac{\phi}{1+\phi}\left[\E_{t-1}m_t - \E_{t-2}m_t\right], \\
+y_t &= \frac{1}{1+\phi}\left[\E_{t-1}m_t - \E_{t-2}m_t\right] + \left[m_t - \E_{t-1}m_t\right].
+\end{align}
+
+\begin{resultbox}[title={Papel de $\phi$ no modelo de Fischer}]
+$\phi$ é o \textbf{inverso do grau de rigidez real}: maior $\phi$ = menor rigidez.
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\phi \uparrow$: os preços respondem mais às revisões de expectativas
+    $[\E_{t-1}m_t - \E_{t-2}m_t]$, pois as firmas têm maior flexibilidade real.
+  \item $\phi \uparrow$: o coeficiente do produto $1/(1+\phi)$ \emph{diminui} --- menor
+    efeito real da PM sobre o produto.
+  \item Intuição: quando os preços são mais flexíveis, eles absorvem mais os choques,
+    deixando menos espaço para efeitos reais.
+\end{itemize}
+\end{resultbox}
+
+\subsection*{(b) Modelo de Taylor}
+
+O modelo de Taylor assume contratos escalonados de dois períodos. O resultado
+macroeconômico é:
+\[
+y_t = \lambda\,y_{t-1} + \frac{1+\lambda}{2}\,u_t,
+\]
+onde $\lambda$ mede a \textbf{sensibilidade dos preços correntes aos preços passados}
+(rigidez real e persistência do produto) e $u_t$ é o choque de demanda.
+
+\begin{resultbox}[title={Papel de $\lambda$ e $\phi$ no modelo de Taylor}]
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\lambda$ e $\phi$ têm relação inversa: $\lambda \uparrow \Leftrightarrow \phi \downarrow$
+    (mais rigidez real $\Rightarrow$ maior persistência do produto).
+  \item $\phi \uparrow$ (menos rigidez): menor $\lambda$, menor persistência de $y_t$
+    e menor efeito de $u_t$ sobre o produto.
+  \item O modelo de Taylor gera \textbf{persistência endógena} dos ciclos de negócios
+    via escalonamento de contratos, mesmo sem choques persistentes.
+\end{itemize}
+\end{resultbox}
+
+% ==========================================================================
+\section{Modelo de Calvo: papel de $\theta$ e $\alpha$ na CPNK}
+
+\subsection*{Enunciado}
+Na CPNK de Calvo $\pi_t = \kappa y_t + \beta\E_t\pi_{t+1}$, com
+$\kappa \equiv \alpha[1-(1-\alpha)\beta]\phi/(1-\alpha)$ e $\phi = \theta + \gamma - 1$,
+comente o papel de: (a) $\theta$ (aversão ao risco); (b) $\alpha$ (fração de firmas
+que ajustam).
+
+\begin{resultbox}[title={(a) Papel de $\theta$ — aversão ao risco}]
+$\theta$ entra no slope via $\phi = \theta + \gamma - 1$. Um aumento de $\theta$:
+\[
+\theta \uparrow \;\Rightarrow\; \phi \uparrow \;\Rightarrow\; \kappa \uparrow.
+\]
+Maior aversão ao risco \textbf{reduz a rigidez real} (firmas querem ajustar preços
+mais rapidamente para evitar perdas), tornando a CPNK \textbf{mais íngreme}.
+Assim, variações do hiato do produto têm impacto inflacionário \textbf{maior} quando
+$\theta$ é alto --- a PM precisa ser mais agressiva para controlar a inflação.
+\end{resultbox}
+
+\begin{resultbox}[title={(b) Papel de $\alpha$ — fração de firmas que ajustam}]
+$\alpha$ aparece tanto no numerador quanto no denominador de $\kappa$:
+\[
+\alpha \uparrow \;\Rightarrow\; \kappa \uparrow \quad \text{(CPNK mais íngreme)}.
+\]
+Intuitivamente: se mais firmas podem ajustar preços em cada período, a inflação
+responde mais rapidamente a variações na atividade econômica.
+O caso limite $\alpha \to 1$ (todas as firmas ajustam) recupera a curva de oferta
+agregada com preços totalmente flexíveis.
+\end{resultbox}
+
+% ==========================================================================
+\section{Calvo (1983) vs Christiano et al. (2005): inércia inflacionária}
+
+\subsection*{Enunciado}
+Explique a diferença entre os modelos e como Christiano et al. (2005) contorna o
+problema da desinflação sem recessão do Calvo original.
+
+\subsection*{Limitação do modelo de Calvo puro}
+
+No modelo de Calvo puro, a CPNK é estritamente forward-looking:
+$\pi_t = \beta\E_t\pi_{t+1} + \kappa y_t$.
+Um processo de desinflação crível ($\E_t\pi_{t+1} \downarrow$) leva a
+$\pi_t \downarrow$ \textbf{sem} necessidade de recessão ($y_t$ não precisa cair).
+Isso contradiz a evidência empírica de que desinflações geram \textbf{custos de sacrifício}.
+
+\subsection*{Solução de Christiano et al. (2005): indexação}
+
+O modelo assume contratos com indexação à inflação passada. A CPNK resultante é:
+\begin{equation}
+\pi_t = \gamma\pi_{t-1} + (1-\gamma)\E_t[\pi_{t+1}] + \chi y_t, \quad 0 \leq \gamma \leq 1.
+\end{equation}
+
+\begin{resultbox}[title={Mecanismo de geração de custos de desinflação}]
+Quando $\gamma > (1-\gamma)$ (o passado pesa mais que as expectativas futuras), uma
+desinflação $\pi_{t-1} > \pi_t > \E_t\pi_{t+1}$ exige $y_t < 0$.
+\end{resultbox}
+
+\begin{provabox}[title={Exemplo numérico ($\gamma=0{,}8$, $\chi=0{,}9$)}]
+Dados: $\E_t\pi_{t+1} = 1{,}5\%$, $\pi_{t-1} = 6\%$, $\pi_t = 3{,}5\%$.
+\[
+3{,}5 = 0{,}8 \times 6 + 0{,}2 \times 1{,}5 + 0{,}9\,y_t
+\;\Rightarrow\;
+y_t = \frac{3{,}5 - 4{,}8 - 0{,}3}{0{,}9} = \frac{-1{,}6}{0{,}9} \approx -1{,}7\%.
+\]
+A desinflação custou aproximadamente $1{,}7\%$ de hiato negativo do produto ---
+consistente com evidências empíricas de razões de sacrifício positivas.
+\end{provabox}
+
+% ==========================================================================
+%  PARTE IV — MODELO NK CANÔNICO (Q11)
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte IV --- Modelo NK Canônico (Q11)}
+\addcontentsline{toc}{section}{Parte IV --- Modelo NK Canônico (Q11)}
+
+O modelo Novo-Keynesiano canônico de três equações (Woodford, 2003; Galí, 2008)
+oferece uma representação compacta da demanda agregada (IS), oferta agregada (CPNK)
+e comportamento do BC (Regra de Taylor). Ele é o principal framework para análise
+de política monetária em economias com rigidez nominal.
+
+\bigskip
+
+% ==========================================================================
+\section{Modelo NK canônico: aversão ao risco, choques de oferta e PM}
+
+\subsection*{Enunciado}
+O modelo canônico NK:
+\begin{align}
+y_t &= \E_t[y_{t+1}] - \frac{1}{\theta}\,r_t + u_t^{IS},\quad \theta > 0, \\
+\pi_t &= \beta\,\E_t[\pi_{t+1}] + \kappa\,y_t + u_t^{\pi},\quad 0<\beta<1,\;\kappa>0, \\
+r_t &= \phi_\pi\,\E_t[\pi_{t+1}] + \phi_y\,\E_t[y_{t+1}] + u_t^{MP},\quad \phi_\pi>0,\;\phi_y\geq 0.
+\end{align}
+Comente: (i) como $\theta$ afeta as relações estruturais; (ii) como choques negativos
+de oferta influenciam a condução de PM.
+
+\subsection*{(i) Papel de $\theta$ (aversão ao risco)}
+
+\textbf{Efeito na IS:} $\theta$ é a inversa da elasticidade intertemporal de substituição
+(EIS). Maior $\theta$ $\Rightarrow$ famílias respondem menos a variações de juros reais:
+\[
+\theta \uparrow \;\Rightarrow\; \left|\frac{\partial y_t}{\partial r_t}\right| = \frac{1}{\theta} \downarrow.
+\]
+
+\begin{resultbox}[title={Efeitos de $\theta$ no sistema NK}]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item \textbf{IS mais inelástica:} a PM precisa de variações de juros \emph{maiores}
+    para eliminar o hiato do produto. Porém, o custo social é nulo (só move $r_t$).
+  \item \textbf{CPNK mais íngreme:} $\theta \uparrow \Rightarrow \phi = \theta+\gamma-1 \uparrow
+    \Rightarrow \kappa \uparrow$. Choques de demanda têm maior impacto inflacionário.
+  \item \textbf{Regra de Taylor mais agressiva:} $\phi_\pi$ e $\phi_y$ ótimos aumentam
+    com $\theta$ e $\kappa$ (e diminuem com $\beta$), pois o BC precisa reagir mais
+    fortemente para compensar a maior rigidez e o maior pass-through.
+\end{enumerate}
+\end{resultbox}
+
+\subsection*{(ii) Choques negativos de oferta e condução de PM}
+
+Um choque negativo de oferta corresponde a $u_t^\pi > 0$ na CPNK. Isso cria o
+\textbf{dilema fundamental} da PM sob rigidez nominal:
+
+\begin{resultbox}[title={Trade-off estagflacionário}]
+\[
+u_t^\pi > 0 \;\Rightarrow\; \begin{cases}
+\pi_t \uparrow & (\text{pressão inflacionária}) \\
+y_t \downarrow & (\text{custo real se PM reagir})
+\end{cases}
+\]
+Para zerar o desvio de inflação, o BC eleva $r_t$ $\Rightarrow$ $y_t < 0$
+(custo social positivo = recessão). Não é possível estabilizar $\pi_t$ e $y_t$
+simultaneamente após um choque de custo-push.
+\end{resultbox}
+
+\begin{provabox}[title={Estratégias do BC diante de choques de oferta}]
+\textbf{Opção 1 --- Desinflação imediata:} Elevar $r_t$ para $\pi_t = 0$.
+Custo: hiato negativo $y_t < 0$ (recessão). Benefício: credibilidade preservada.
+
+\textbf{Opção 2 --- Acomodação transitória:} Tolerar $\pi_t > 0$ temporariamente
+(bandas de tolerância), esperando a reversão natural do choque. Justificada quando
+$\rho_\pi$ (persistência) é baixa.
+
+\textbf{Opção 3 --- Desinflação gradual:} Elevar $r_t$ progressivamente ao longo
+de vários períodos. Minimiza o custo de recessão em $t$, mas prolonga o desvio
+inflacionário.
+
+Quando $\rho_\pi$ é muito alto, o BC tende a preferir a Opção 1 ou 3 para evitar
+a perda de controle da dinâmica inflacionária e o risco de \emph{desancoragem}
+das expectativas.
+\end{provabox}
+
+\vspace{1em}
+\begin{formulabox}[title={Conexão com o modelo computacional (ch07\_nk.py)}]
+O modelo NK canônico das três questões acima está completamente implementado em
+\texttt{ch07\_dsge\_nk/ch07\_nk.py} (classe \texttt{NKModel}).
+A solução analítica por coeficientes indeterminados ($\psi_{xv}$, $\psi_{\pi v}$,
+$\psi_{xu}$, $\psi_{\pi u}$) reproduz exatamente os efeitos qualitativos discutidos.
+As IRFs para choques de demanda ($v_t$) e oferta ($u_t$) confirmam:
+$\psi_{xv} < 0$, $\psi_{\pi v} < 0$ (aperto monetário contrai $y$ e $\pi$);
+$\psi_{xu} < 0$, $\psi_{\pi u} > 0$ (choque de custo-push gera estagflação).
+\end{formulabox}
+
+\end{document}
