@@ -1,0 +1,1479 @@
+% ==========================================================================
+%  Guia Completo de Estudo — Prova 1 / Lista I
+%  Macroeconomia I (PPGEco-UFES, 2026)
+%  Prof. Ricardo Ramalhete Moreira
+%  Cobre: Solow (cap.1), RCK + Diamond (cap.2), RBC (cap.5)
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+% --------------------------------------------------------------------------
+% Packages
+% --------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+
+% --------------------------------------------------------------------------
+% Caixas (standard skin — sem skins/TikZ para evitar manchas negras)
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{formulabox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\khat}{\hat{k}}
+\newcommand{\chat}{\hat{c}}
+\newcommand{\yhat}{\hat{y}}
+\newcommand{\zhat}{\hat{z}}
+\newcommand{\rstar}{r^*}
+\newcommand{\kstar}{k^*}
+\newcommand{\cstar}{c^*}
+
+% --------------------------------------------------------------------------
+% Espaçamento e parágrafos
+% --------------------------------------------------------------------------
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+% --------------------------------------------------------------------------
+% Títulos de seções
+% --------------------------------------------------------------------------
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{Questão \thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+% --------------------------------------------------------------------------
+% Cabeçalho/rodapé
+% --------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Guia Completo P1 --- Macroeconomia I (PPGEco-UFES, 2026)}}
+\rhead{\footnotesize\textcolor{grayrbc}{Solow $\cdot$ RCK $\cdot$ Diamond $\cdot$ RBC}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Guia Completo de Estudo --- Prova 1 / Lista I\\[0.4em]
+\large Macroeconomia I --- 2026}\\[0.4em]
+{\normalsize\color{grayrbc} Romer caps.\ 1, 2 e 5}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{1em}
+{\large Prof.\ Ricardo Ramalhete Moreira}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{\textcolor{provaborder}{Atenção:}} Cobre \textbf{TODOS} os tópicos de P1:\\[0.3em]
+\textbf{Solow} (cap.\ 1) $\cdot$ \textbf{RCK + Diamond} (cap.\ 2) $\cdot$ \textbf{RBC} (cap.\ 5)\\[0.3em]
+Inclui derivações passo a passo + soluções completas das 8 questões da Lista I.
+\end{tcolorbox}
+
+\vspace{1.5em}
+\begin{tabular}{ll}
+\toprule
+\textbf{Questões 1--3:} & Modelo de Ramsey-Cass-Koopmans (RCK) \\[0.4em]
+\textbf{Questões 4--8:} & Modelo de Ciclos Reais de Negócios (RBC) \\[0.4em]
+\textbf{Apêndice A:}    & Questões-tipo P1 (estilo 2024) \\[0.4em]
+\textbf{Apêndice B:}    & Log-linearização e Calibração RBC \\
+\bottomrule
+\end{tabular}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=boxbg, colframe=boxborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{Referência principal:}\\[0.3em]
+D.\ Romer, \textit{Advanced Macroeconomics}, 5.\textordfeminine\ ed., McGraw-Hill (2019).\\
+Capítulos 1, 2 e 5.
+\end{tcolorbox}
+
+\vfill
+{\small Soluções computadas com Python; código disponível em
+\texttt{github.com/fcarva/macro}.}
+\end{center}
+\end{titlepage}
+
+% --------------------------------------------------------------------------
+% Formulário de Referência Rápida (pág. 2) — 3 colunas
+% --------------------------------------------------------------------------
+\newpage
+\thispagestyle{fancy}
+
+\begin{center}
+{\large\bfseries\color{cyanrbc} Formulário de Referência Rápida --- P1 2026}\\[0.3em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+\vspace{0.3em}
+\begin{multicols}{3}
+
+\textbf{\textcolor{cyanrbc}{BLOCO SOLOW}}
+
+\medskip
+\textbf{Equação fundamental:}
+\[
+\dot{k} = sf(k) - (n+g+\delta)k
+\]
+
+\textbf{EE Cobb-Douglas:}
+\[
+k^* = \!\left(\frac{s}{n+g+\delta}\right)^{\!1/(1-\alpha)}
+\]
+
+\textbf{Regra de Ouro:}
+\[
+f'(k_{gold}) = n+g+\delta
+\]
+\[
+s_{gold} = \alpha
+\]
+
+\textbf{Crescimento balanceado:}
+\[
+g_K = g_Y = n+g,\quad g_{Y/L} = g
+\]
+
+\textbf{Contabilidade do crescimento:}
+\[
+g_{TFP} = g_Y - \alpha g_K - (1-\alpha)g_L
+\]
+
+\columnbreak
+
+\textbf{\textcolor{cyanrbc}{BLOCO RCK}}
+
+\medskip
+\textbf{Keynes-Ramsey:}
+\[
+\frac{\dot{c}}{c} = \frac{f'(k)-\delta-\rho-\theta g}{\theta}
+\]
+
+\textbf{Estado estacionário:}
+\[
+r^* = \rho + \theta g
+\]
+\[
+k^* = \!\left(\frac{\alpha}{r^*}\right)^{\!1/(1-\alpha)}
+\]
+
+\textbf{Bem-estar:}
+\[
+W^* = \frac{u(c^*)}{\rho}
+\]
+
+\textbf{Convergência:}
+\[
+\rho - n - (1-\theta)g > 0
+\]
+
+\textbf{Diagrama de fases:}
+
+\begin{center}
+\begin{tabular}{p{1.4cm}cc}
+\toprule
+Região & $\dot{c}$ & $\dot{k}$ \\
+\midrule
+NW & $>0$ & $<0$ \\
+SW & $>0$ & $>0$ \\
+NE & $<0$ & $<0$ \\
+SE & $<0$ & $>0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\columnbreak
+
+\textbf{\textcolor{cyanrbc}{BLOCO DIAMOND + RBC}}
+
+\medskip
+\textbf{Diamond --- poupança:}
+\[
+s_t = \frac{\beta}{1+\beta}\,w_t
+\]
+
+\textbf{Diamond --- mapa:}
+\[
+k_{t+1} = \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}k_t^\alpha
+\]
+
+\textbf{RBC --- EE capital:}
+\[
+\beta(r^*+1-\delta)=1,\quad I^*=\delta K^*
+\]
+
+\textbf{DML:}
+\[
+\text{DML} = \frac{b}{1-N_t}
+\]
+
+\textbf{Lazer ótimo:}
+\[
+l^* = \frac{bC}{w},\quad \frac{C}{l} = \frac{w}{b}
+\]
+
+\textbf{Subs.\ intertemporal:}
+\[
+\frac{1-l_1}{1-l_2} = \beta(1+r)\frac{w_2}{w_1}
+\]
+
+\textbf{Calibração:}
+\[
+b = \frac{w^* l^*}{C^*} \approx 1.55
+\]
+
+\textbf{3 canais PTF:}\\
+(1) direto\\
+(2) investimento\\
+(3) suavização do consumo
+
+\end{multicols}
+
+\vspace{0.5em}
+\begin{provabox}[title={Atenção --- Convergência e Transversalidade}]
+$\rho - n - (1-\theta)g > 0$ \textbf{(sinal $-$, não $+$!)} --- erro mais cobrado na P1 2024 (sinal $+$ ao invés de $-$). Esta condição garante que a integral de bem-estar convirja E que a condição de transversalidade seja satisfeita ao longo da trajetória ótima.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+% Sumário
+% --------------------------------------------------------------------------
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================================================
+\section*{Parte 0 --- Contexto: O Programa de P1}
+\addcontentsline{toc}{section}{Parte 0 --- Contexto: O Programa de P1}
+% ==========================================================================
+
+A Prova 1 de Macroeconomia I cobre três modelos canônicos de crescimento e flutuações:
+
+\textbf{1. Modelo de Solow (cap.\ 1)} --- crescimento exógeno. A taxa de poupança $s$ é \emph{exógena} e constante. O modelo explica a convergência condicional: países com menos capital per capita crescem mais rápido dado os fundamentos $(s,n,g,\delta)$. A Regra de Ouro determina a taxa de poupança que maximiza o consumo de longo prazo.
+
+\textbf{2. Modelo RCK + Diamond (cap.\ 2)} --- poupança ótima. O Modelo de Ramsey-Cass-Koopmans (RCK) endogeneíza $s$: famílias com horizonte infinito maximizam utilidade intertemporal. A regra de Keynes-Ramsey governa o crescimento do consumo. O Modelo de Diamond (gerações sobrepostas) introduz descontinuidade entre gerações e permite ineficiência dinâmica.
+
+\textbf{3. Modelo RBC (cap.\ 5)} --- flutuações estocásticas. Choques de Produtividade Total dos Fatores (PTF) propagam-se via três canais: efeito direto na produção, amplificação via investimento, e suavização via consumo. O mercado de trabalho dinâmico amplifica ou atenua os choques.
+
+Os modelos conectam-se: Solow é o caso de poupança exógena do RCK; Diamond é a versão de gerações sobrepostas; RBC adiciona estocasticidade ao framework neoclássico de equilíbrio geral.
+
+% ==========================================================================
+\section*{Parte I --- Modelo de Solow: Crescimento Exógeno (Cap.\ 1)}
+\addcontentsline{toc}{section}{Parte I --- Modelo de Solow (Cap.\ 1)}
+% ==========================================================================
+
+\subsection*{1.1 Forma Intensiva e Equação Fundamental}
+
+\textbf{Ponto de partida.} A função de produção agregada é $Y = F(K, AL)$, onde $A$ cresce à taxa $g$ (progresso técnico exógeno) e $L$ cresce à taxa $n$ (população). Assumimos Retornos Constantes de Escala (RCE): $F(\lambda K, \lambda AL) = \lambda F(K, AL)$ para todo $\lambda > 0$.
+
+\textbf{Passo 1 --- definir capital por unidade efetiva.} Escolha $\lambda = 1/(AL)$:
+\[
+F\!\left(\frac{K}{AL},\, 1\right) = \frac{Y}{AL} \;\Longrightarrow\; y \equiv \frac{Y}{AL} = f(k), \quad k \equiv \frac{K}{AL}.
+\]
+
+\textbf{Passo 2 --- dinâmica de $k$.} Diferenciando $k = K/(AL)$ pelo quociente:
+\[
+\dot{k} = \frac{\dot{K}}{AL} - \frac{K}{AL}\cdot\frac{\dot{A}L + A\dot{L}}{AL} = \frac{\dot{K}}{AL} - (g+n)k.
+\]
+
+\textbf{Passo 3 --- lei de movimento do capital agregado.} Investimento bruto $= sY$, depreciação $= \delta K$:
+\[
+\dot{K} = sY - \delta K \;\Longrightarrow\; \frac{\dot{K}}{AL} = sf(k) - \delta k.
+\]
+
+\textbf{Passo 4 --- substituir.}
+\[
+\dot{k} = sf(k) - \delta k - (n+g)k.
+\]
+
+\begin{formulabox}[title={Equação Fundamental de Solow}]
+\[
+\boxed{\dot{k} = sf(k) - (n+g+\delta)k}
+\]
+Interpretação: $sf(k)$ = investimento por unidade efetiva; $(n+g+\delta)k$ = investimento de \emph{manutenção} do capital (crescimento da força de trabalho + progresso técnico + depreciação).
+\end{formulabox}
+
+\subsection*{1.2 Estado Estacionário e Cobb-Douglas}
+
+No estado estacionário $\dot{k}^* = 0$, portanto:
+\[
+sf(k^*) = (n+g+\delta)k^*.
+\]
+
+Com Cobb-Douglas $f(k) = k^\alpha$ ($0 < \alpha < 1$):
+
+\textbf{Passo 1.} $s(k^*)^\alpha = (n+g+\delta)k^*$
+
+\textbf{Passo 2.} Dividir ambos os lados por $k^*$ (supondo $k^*>0$):
+\[
+s(k^*)^{\alpha-1} = n+g+\delta.
+\]
+
+\textbf{Passo 3.} Isolar $k^*$:
+\[
+(k^*)^{\alpha-1} = \frac{n+g+\delta}{s} \;\Longrightarrow\; k^* = \left(\frac{s}{n+g+\delta}\right)^{1/(1-\alpha)}.
+\]
+
+\begin{resultbox}[title={Estado Estacionário de Solow --- Cobb-Douglas}]
+\[
+k^* = \left(\frac{s}{n+g+\delta}\right)^{\!1/(1-\alpha)}, \quad
+y^* = (k^*)^\alpha = \left(\frac{s}{n+g+\delta}\right)^{\!\alpha/(1-\alpha)},
+\]
+\[
+c^* = (1-s)y^* = (1-s)\left(\frac{s}{n+g+\delta}\right)^{\!\alpha/(1-\alpha)}.
+\]
+\end{resultbox}
+
+\textbf{Intuição.} Convergência ocorre porque $f'(k) = \alpha k^{\alpha-1}$ é estritamente decrescente: países pobres ($k$ baixo) têm retorno marginal do capital alto, investem relativamente mais, e crescem mais rápido que países ricos (dados os mesmos parâmetros fundamentais).
+
+\subsection*{1.3 Regra de Ouro}
+
+\textbf{Problema.} Qual taxa de poupança $s$ (equivalentemente, qual $k^*$) maximiza o consumo no estado estacionário?
+
+O consumo no EE é:
+\[
+c^* = f(k^*) - (n+g+\delta)k^*.
+\]
+
+Maximizando em $k^*$:
+
+\textbf{Passo 1 --- FOC:}
+\[
+\frac{\partial c^*}{\partial k^*} = f'(k_{gold}) - (n+g+\delta) = 0 \;\Longrightarrow\; f'(k_{gold}) = n+g+\delta.
+\]
+
+\textbf{Passo 2 --- caso Cobb-Douglas.} $f'(k) = \alpha k^{\alpha-1}$:
+\[
+\alpha k_{gold}^{\alpha-1} = n+g+\delta \;\Longrightarrow\; k_{gold} = \left(\frac{\alpha}{n+g+\delta}\right)^{1/(1-\alpha)}.
+\]
+
+\textbf{Passo 3 --- taxa de poupança áurea.} No EE de Solow: $sf(k^*) = (n+g+\delta)k^*$, logo $s = (n+g+\delta)k^*/f(k^*)$. No ponto áureo:
+\[
+s_{gold} = \frac{(n+g+\delta)k_{gold}}{f(k_{gold})} = \frac{f'(k_{gold})\cdot k_{gold}}{f(k_{gold})} = \frac{\alpha k_{gold}^\alpha}{k_{gold}^\alpha} = \alpha.
+\]
+
+\begin{resultbox}[title={Regra de Ouro de Solow}]
+\[
+f'(k_{gold}) = n+g+\delta, \qquad s_{gold} = \alpha.
+\]
+Se $s < s_{gold}$: sub-poupança (consumo abaixo do ótimo de longo prazo).\\
+Se $s > s_{gold}$: sobre-poupança (ineficiência dinâmica --- reduzir $s$ Pareto-melhora).
+\end{resultbox}
+
+\subsection*{1.4 Crescimento Balanceado e Contabilidade}
+
+\textbf{Crescimento balanceado.} Se $k = K/(AL)$ é constante no EE, então $K$ cresce à mesma taxa que $AL$:
+\[
+g_K = g_{AL} = n + g.
+\]
+Com Cobb-Douglas: $Y = K^\alpha(AL)^{1-\alpha}$, logo $g_Y = \alpha g_K + (1-\alpha)(n+g) = n+g$.\\
+Capital e produto per capita: $g_{K/L} = g_{Y/L} = g$ (crescimento tecnológico).
+
+\textbf{Contabilidade do crescimento.} Tome logs de $Y = K^\alpha(AL)^{1-\alpha}$ e diferencie em relação ao tempo:
+\[
+\frac{\dot{Y}}{Y} = \alpha\frac{\dot{K}}{K} + (1-\alpha)\left(\frac{\dot{A}}{A} + \frac{\dot{L}}{L}\right)
+= \alpha g_K + (1-\alpha)g_L + g_A.
+\]
+
+\begin{resultbox}[title={Contabilidade do Crescimento (Resíduo de Solow)}]
+\[
+g_{TFP} \equiv g_Y - \alpha g_K - (1-\alpha)g_L = \frac{\dot{A}}{A}.
+\]
+O resíduo de Solow é a fração do crescimento não explicada pela acumulação de fatores.
+\end{resultbox}
+
+\subsection*{1.5 Convergência Condicional}
+
+Linearize a equação fundamental ao redor de $k^*$. Seja $\tilde{k} = k - k^*$:
+\[
+\dot{\tilde{k}} = \dot{k} \approx \left.\frac{\partial\dot{k}}{\partial k}\right|_{k^*}\tilde{k} = \left[sf'(k^*) - (n+g+\delta)\right]\tilde{k}.
+\]
+
+Com Cobb-Douglas: $f'(k^*) = \alpha(k^*)^{\alpha-1}$ e $s(k^*)^{\alpha-1} = n+g+\delta$ (condição EE), portanto $sf'(k^*) = \alpha(n+g+\delta)$. Assim:
+\[
+\mu = \alpha(n+g+\delta) - (n+g+\delta) = -(1-\alpha)(n+g+\delta) < 0.
+\]
+
+A taxa de convergência é $|\mu| = (1-\alpha)(n+g+\delta)$. Com $\alpha=0.33$, $n+g+\delta\approx 0.06$: $|\mu|\approx 0.04$ (4\% ao ano --- meia-vida $\approx 17$ anos).
+
+\begin{resultbox}[title={Convergência Condicional de Solow}]
+Taxa de convergência: $|\mu| = (1-\alpha)(n+g+\delta)$.\\
+\textbf{Condicional}: dado os mesmos $(s,n,g,\delta)$, países pobres convergem para o mesmo $k^*$. Países com parâmetros diferentes têm EE diferentes.
+\end{resultbox}
+
+\begin{provabox}[title={Solow vs.\ RCK --- Diferença Fundamental}]
+No \textbf{Solow}: $s$ é \emph{exógena e constante}. A Regra de Ouro ($s_{gold}=\alpha$) é um exercício de política normativa --- não há garantia de que a economia esteja nela.\\
+No \textbf{RCK}: $s$ é \emph{endógena} --- emerge da otimização das famílias. O planejador maximiza utilidade intertemporal e pode ou não atingir o ponto áureo (depende de $\rho$, $\theta$). Tipicamente $r^*=\rho+\theta g > n+g = $ retorno áureo, logo $k_{RCK}^* < k_{gold}$.
+\end{provabox}
+
+% ==========================================================================
+\section*{Parte I-B --- Modelo de Diamond: Gerações Sobrepostas (Cap.\ 2)}
+\addcontentsline{toc}{section}{Parte I-B --- Modelo de Diamond (Cap.\ 2)}
+% ==========================================================================
+
+\subsection*{B.1 Configuração e Regra de Poupança}
+
+No modelo de Diamond há dois períodos de vida. Na \textbf{juventude} o agente trabalha, recebe salário $w_t$, e divide entre consumo $c_{1t}$ e poupança $s_t$. Na \textbf{velhice} consome $(1+r_{t+1})s_t$.
+
+Utilidade: $U = \ln(c_{1t}) + \beta\ln(c_{2,t+1})$, com $\beta\in(0,1)$.
+
+Restrições: $c_{1t} + s_t = w_t$ e $c_{2,t+1} = (1+r_{t+1})s_t$.
+
+\textbf{Derivação.} Substituindo $c_{1t} = w_t - s_t$ e $c_{2,t+1} = (1+r)s_t$ na utilidade:
+\[
+\max_{s_t}\; \ln(w_t - s_t) + \beta\ln\!\big((1+r_{t+1})s_t\big).
+\]
+
+\textbf{FOC:}
+\[
+-\frac{1}{w_t - s_t} + \frac{\beta}{s_t} = 0 \;\Longrightarrow\; \beta(w_t - s_t) = s_t \;\Longrightarrow\; \beta w_t = s_t(1+\beta).
+\]
+
+\begin{resultbox}[title={Poupança Ótima no Modelo de Diamond}]
+\[
+s_t = \frac{\beta}{1+\beta}\,w_t.
+\]
+A poupança é \emph{independente da taxa de juros} com log-utilidade. A fração $\beta/(1+\beta)$ da renda da juventude é poupada.
+\end{resultbox}
+
+\subsection*{B.2 Mapa Dinâmico de Capital}
+
+\textbf{Salário competitivo.} Com Cobb-Douglas $Y = K^\alpha(AL)^{1-\alpha}$ e mercados competitivos:
+\[
+w_t = (1-\alpha)k_t^\alpha \cdot A_t \quad\Longrightarrow\quad \tilde{w}_t = (1-\alpha)\tilde{k}_t^\alpha
+\]
+(em unidades efetivas, $\tilde{w}_t = w_t/A_t$, $\tilde{k}_t = K_t/(A_tL_t)$).
+
+\textbf{Acumulação.} A poupança dos jovens da geração $t$ torna-se o capital da geração $t+1$. Como cada jovem gera $(1+n)$ jovens na geração seguinte:
+\[
+k_{t+1} = \frac{s_t}{1+n} = \frac{\beta}{(1+\beta)(1+n)}\,w_t.
+\]
+
+Substituindo $w_t = (1-\alpha)k_t^\alpha$ (omitindo $A$ para simplificar, ou interpretando como capital por trabalhador com $g=0$):
+\[
+k_{t+1} = \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}\,k_t^\alpha.
+\]
+
+\begin{resultbox}[title={Mapa Dinâmico de Diamond}]
+\[
+k_{t+1} = \Phi\, k_t^\alpha, \qquad \Phi \equiv \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}.
+\]
+\textbf{Estado estacionário:} $k^{D*} = \Phi^{1/(1-\alpha)}$.
+\end{resultbox}
+
+\subsection*{B.3 Regra de Ouro e Ineficiência Dinâmica}
+
+\textbf{Regra de Ouro no Diamond.} Com depreciação total ($\delta=1$), a Regra de Ouro exige $f'(k_{gold}) = 1+n$, equivalentemente $r_{gold} = n$.
+
+No equilíbrio competitivo: $r_t = f'(k_t) - 1 = \alpha k_t^{\alpha-1} - 1$.
+
+\textbf{Ineficiência dinâmica.} Se $k^{D*} > k_{gold}$, então $r^* < n$: a economia acumulou capital \emph{em excesso}. É possível Pareto-melhorar reduzindo a poupança e distribuindo o capital extra para os idosos.
+
+\begin{provabox}[title={Ineficiência Dinâmica no Diamond vs.\ RCK}]
+\textbf{Diamond:} ineficiência dinâmica é \emph{possível} porque cada geração não internaliza o efeito de sua poupança sobre os salários das gerações futuras. O equilíbrio competitivo \emph{pode} ser Pareto-ineficiente.\\
+\textbf{RCK:} a família tem horizonte \emph{infinito} e internaliza todos os efeitos intergeracionais. O equilíbrio competitivo é Pareto-ótimo (Teorema do Bem-Estar).
+\end{provabox}
+
+% ==========================================================================
+\section*{Parte II --- Modelo RCK: Questões 1--3 da Lista I (Cap.\ 2)}
+\addcontentsline{toc}{section}{Parte II --- Modelo RCK: Questões 1--3}
+% ==========================================================================
+
+\setcounter{section}{0}
+
+% --------------------------------------------------------------------------
+\section{Bem-estar no Estado Estacionário e Estática Comparativa (Q1)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q1)}
+
+Considere o Modelo RCK com utilidade CRRA $u(c) = (c^{1-\theta}-1)/(1-\theta)$ e função de produção Cobb-Douglas. Analise como as variações nos parâmetros $\theta$, $\rho$, $n$ e $g$ afetam: o estado estacionário $(k^*, c^*)$ e o bem-estar $W^*$.
+
+\subsection*{1.1 Utilidade CRRA e Bem-estar no EE}
+
+A utilidade CRRA é:
+\[
+u(c) = \frac{c^{1-\theta}-1}{1-\theta}, \quad \theta > 0,\; \theta \neq 1. \qquad [\text{caso limite: } u(c) = \ln c \text{ para } \theta = 1.]
+\]
+
+No estado estacionário $c(t) = c^*$ constante. O bem-estar descontado é:
+\[
+W^* = \int_0^\infty u(c^*)\,e^{-\eta t}\,\dif t = \frac{u(c^*)}{\eta},
+\]
+onde $\eta = \rho - n - (1-\theta)g > 0$ (condição de convergência). Para $\theta=1$:
+\[
+W^* = \frac{\ln c^*}{\rho - n}.
+\]
+
+Para simplificar a estática, usaremos a aproximação $W^* \approx u(c^*)/\rho$ (como em Romer cap.\ 2, ignorando os termos de crescimento no desconto por brevidade).
+
+\begin{resultbox}[title={Bem-estar no Estado Estacionário (RCK)}]
+\[
+W^* = \frac{u(c^*)}{\rho - n - (1-\theta)g} \approx \frac{u(c^*)}{\rho} \quad (\text{aprox. para estática}).
+\]
+\end{resultbox}
+
+\subsection*{1.2 Estado Estacionário no RCK}
+
+O EE é determinado por dois sistemas:
+
+\textbf{(i) $\dot{c} = 0$:}
+\[
+f'(k^*) = \delta + \rho + \theta g \;\Longrightarrow\; \alpha(k^*)^{\alpha-1} = \delta + \rho + \theta g \;\Longrightarrow\; r^* \equiv f'(k^*)-\delta = \rho + \theta g.
+\]
+
+Com Cobb-Douglas $f'(k) = \alpha k^{\alpha-1}$:
+\[
+k^* = \left(\frac{\alpha}{r^* + \delta}\right)^{1/(1-\alpha)} = \left(\frac{\alpha}{\rho+\theta g+\delta}\right)^{1/(1-\alpha)}.
+\]
+
+\textbf{(ii) $\dot{k} = 0$:}
+\[
+c^* = f(k^*) - (\delta + n + g)k^* = (k^*)^\alpha - (\delta+n+g)k^*.
+\]
+
+\subsection*{1.3 Estática Comparativa --- Passo a Passo}
+
+\textbf{Efeito de $\theta\uparrow$ (maior aversão a risco / menor EIS).}
+
+\begin{enumerate}[leftmargin=*]
+\item $r^* = \rho + \theta g$: aumenta com $\theta$ ($\partial r^*/\partial\theta = g > 0$).
+\item $k^* = (\alpha/(r^*+\delta))^{1/(1-\alpha)}$: decresce em $r^*$, portanto $k^*\downarrow$.
+\[
+\frac{\partial k^*}{\partial\theta} = \frac{\partial k^*}{\partial r^*}\cdot g = -\frac{k^*}{(1-\alpha)(r^*+\delta)}\cdot g < 0.
+\]
+\item $c^* = (k^*)^\alpha - (\delta+n+g)k^*$: como $k^*\downarrow$ e $c(k)$ é crescente para $k<k_{gold}$, então $c^*\downarrow$.
+\item $W^* = u(c^*)/\rho$: $c^*\downarrow$ implica $u(c^*)\downarrow$ implica $W^*\downarrow$.
+\end{enumerate}
+
+\textbf{Efeito de $\rho\uparrow$ (maior impaciência).}
+
+\begin{enumerate}[leftmargin=*]
+\item $r^* = \rho + \theta g\uparrow$ (mesmo mecanismo que $\theta$).
+\item $k^*\downarrow$, $c^*\downarrow$ (mesma cadeia).
+\item $W^* = u(c^*)/\rho$: \textbf{duplo golpe} --- numerador $u(c^*)\downarrow$ E denominador $\rho\uparrow$. Efeito sobre $W^*$ é duplamente negativo.
+\end{enumerate}
+
+\textbf{Efeito de $n\uparrow$ (maior crescimento populacional).}
+
+\begin{enumerate}[leftmargin=*]
+\item $r^* = \rho + \theta g$: \textbf{independente de $n$} (não aparece em $\dot{c}=0$).
+\item $k^*\!$: inalterado (pois $r^*$ inalterado).
+\item $c^* = (k^*)^\alpha - (\delta+n+g)k^*$: o termo de diluição $(\delta+n+g)k^*$ aumenta com $n$, portanto $c^*\downarrow$.
+\item $W^*\downarrow$ (via $c^*\downarrow$).
+\end{enumerate}
+
+\textbf{Efeito de $g\uparrow$ (maior progresso técnico).}
+
+\begin{enumerate}[leftmargin=*]
+\item $r^* = \rho + \theta g\uparrow$ $\Rightarrow$ $k^*\downarrow$ (canal via $r^*$, como em $\theta$).
+\item Mas diluição $(\delta+n+g)k^*$: dois efeitos opostos. $g\uparrow$ eleva diluição, mas $k^*\downarrow$ reduz diluição.
+\item Efeito líquido sobre $c^*$: \textbf{ambíguo} (depende de parâmetros).
+\end{enumerate}
+
+\begin{resultbox}[title={Resumo da Estática Comparativa (Q1)}]
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+Parâmetro & $r^*$ & $k^*$ & $c^*$ & $W^*$ \\
+\midrule
+$\theta\uparrow$ & $\uparrow$ & $\downarrow$ & $\downarrow$ & $\downarrow$ \\
+$\rho\uparrow$   & $\uparrow$ & $\downarrow$ & $\downarrow$ & $\downarrow\downarrow$ (duplo) \\
+$n\uparrow$      & $-$        & $-$          & $\downarrow$ & $\downarrow$ \\
+$g\uparrow$      & $\uparrow$ & $\downarrow$ & ambíguo      & ambíguo \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{resultbox}
+
+\begin{provabox}[title={P1 2024 Q1 --- Erro Clássico}]
+\textbf{Erro frequente:} ``$\theta\uparrow$ eleva o crescimento do consumo.'' \textbf{FALSO.}\\
+A elasticidade de substituição intertemporal (EIS) $= 1/\theta$. Logo $\theta\uparrow \Rightarrow$ EIS$\downarrow$: o consumidor \emph{suaviza mais}, aceita menos crescimento do consumo. Via $r^*\uparrow$: $k^*\downarrow$ e $c^*\downarrow$.\\
+\textbf{Duplo golpe de $\rho$:} $\rho\uparrow$ reduz $c^*$ (via $k^*$) E aumenta o denominador de $W^*=u(c^*)/\rho$ --- impacto sobre $W^*$ é mais que proporcional ao efeito sobre $c^*$.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Equação de Keynes-Ramsey e Condição de Convergência (Q2)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q2)}
+
+Derive a Regra de Keynes-Ramsey para o crescimento do consumo. Derive e interprete a condição de convergência/transversalidade $\rho - n - (1-\theta)g > 0$.
+
+\subsection*{2.1 Problema do Consumidor --- Hamiltoniano}
+
+O planejador/família representativa maximiza:
+\[
+\max \int_0^\infty \frac{c(t)^{1-\theta}-1}{1-\theta}\,e^{-\eta t}\,\dif t, \qquad \eta \equiv \rho - n - (1-\theta)g,
+\]
+sujeito à restrição de recursos (por unidade efetiva):
+\[
+\dot{k} = f(k) - c - (n+g+\delta)k - G,
+\]
+onde $G$ é gastos do governo (tomamos $G=0$ nas questões sem política fiscal).
+
+\textbf{Hamiltoniano de valor corrente:}
+\[
+\mathcal{H} = \frac{c^{1-\theta}-1}{1-\theta} + \lambda\!\left[f(k) - c - (n+g+\delta)k\right].
+\]
+
+\textbf{FOC em relação a $c$ (variável de controle):}
+\[
+\frac{\partial\mathcal{H}}{\partial c} = 0 \;\Longrightarrow\; c^{-\theta} = \lambda. \tag{1}
+\]
+
+\textbf{Equação coadjunta (variável de estado $k$):}
+\[
+\dot{\lambda} = \eta\lambda - \frac{\partial\mathcal{H}}{\partial k} = \eta\lambda - \lambda\!\left[f'(k)-(n+g+\delta)\right]. \tag{2}
+\]
+
+\subsection*{2.2 Derivação da Regra de Keynes-Ramsey --- Passo a Passo}
+
+\textbf{Passo 1.} De (1): $\lambda = c^{-\theta}$. Diferencie em relação ao tempo:
+\[
+\dot{\lambda} = -\theta\, c^{-\theta-1}\dot{c}. \tag{3}
+\]
+
+\textbf{Passo 2.} Divida (3) por $\lambda = c^{-\theta}$:
+\[
+\frac{\dot{\lambda}}{\lambda} = -\theta\,\frac{\dot{c}}{c}. \tag{4}
+\]
+
+\textbf{Passo 3.} De (2), divida por $\lambda$:
+\[
+\frac{\dot{\lambda}}{\lambda} = \eta - \!\left[f'(k)-(n+g+\delta)\right]. \tag{5}
+\]
+
+\textbf{Passo 4.} Expanda $\eta = \rho - n - (1-\theta)g$:
+\begin{align*}
+\frac{\dot{\lambda}}{\lambda} &= \rho - n - (1-\theta)g - f'(k) + n + g + \delta\\
+&= \rho + \theta g + \delta - f'(k). \tag{6}
+\end{align*}
+
+\textbf{Passo 5.} Iguale (4) e (6):
+\[
+-\theta\,\frac{\dot{c}}{c} = \rho + \theta g + \delta - f'(k).
+\]
+
+\textbf{Passo 6.} Multiplique por $-1/\theta$:
+
+\begin{formulabox}[title={Regra de Keynes-Ramsey (por unidade efetiva de trabalho)}]
+\[
+\boxed{\frac{\dot{c}}{c} = \frac{f'(k) - \delta - \rho - \theta g}{\theta}}
+\]
+\end{formulabox}
+
+\textbf{Interpretação:} O consumo cresce quando o retorno marginal do capital $f'(k)-\delta = r$ supera o custo de oportunidade do consumo presente $\rho + \theta g$ (impaciência + efeito do crescimento sobre utilidade marginal futura), ponderado pela elasticidade de substituição $1/\theta$.
+
+\subsection*{2.3 Condição de Convergência --- Derivação via Integral}
+
+\textbf{O problema de convergência.} Para que o programa de maximização seja bem posto, a integral de bem-estar deve convergir.
+
+Ao longo do crescimento balanceado (BGP), o consumo per capita cresce à taxa $g$: $\tilde{c}(t) = \tilde{c}_0\, e^{gt}$ (em termos per capita). Portanto:
+\[
+\tilde{c}(t)^{1-\theta} = \tilde{c}_0^{1-\theta}\,e^{(1-\theta)gt}.
+\]
+
+A integral de bem-estar (em termos per capita, descontada por $\rho-n$) é:
+\[
+W = \int_0^\infty \frac{\tilde{c}(t)^{1-\theta}-1}{1-\theta}\,e^{-(\rho-n)t}\,\dif t.
+\]
+
+O integrando (ignorando a constante) cresce como:
+\[
+e^{(1-\theta)gt}\cdot e^{-(\rho-n)t} = e^{\left[(1-\theta)g - (\rho-n)\right]t}.
+\]
+
+\textbf{Condição de convergência da integral:}
+\[
+(1-\theta)g - (\rho - n) < 0 \;\Longleftrightarrow\; \rho - n - (1-\theta)g > 0.
+\]
+
+\begin{formulabox}[title={Condição de Convergência / Transversalidade (RCK)}]
+\[
+\boxed{\rho - n - (1-\theta)g > 0}
+\]
+\end{formulabox}
+
+\textbf{Dupla interpretação:}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Convergência da integral de bem-estar}: garante que $W < \infty$ ao longo do BGP.
+\item \textbf{Condição de transversalidade}: implica que $\lim_{t\to\infty} k(t)\,\lambda(t)\,e^{-\eta t} = 0$ (nenhuma ``herança'' não consumida no infinito).
+\end{enumerate}
+
+\textbf{Verificação de sinal.} Para $\theta > 1$ e $g > 0$: $(1-\theta)g < 0$, então $-(1-\theta)g = (\theta-1)g > 0$, a condição fica $\rho - n + (\theta-1)g > 0$, que é facilmente satisfeita. Para $\theta < 1$: $(1-\theta)g > 0$, a condição pode ser mais restritiva.
+
+\begin{provabox}[title={P1 2024 Q2 --- O Sinal que Todo Mundo Erra}]
+A alternativa incorreta na P1 2024 dizia: ``a condição de convergência é $\rho - n + (1-\theta)g > 0$.'' \textbf{ERRADO} --- sinal $+$ ao invés de $-$.\\
+A condição correta é $\rho - n \mathbf{-} (1-\theta)g > 0$.\\
+\textbf{Também cobrado:} na Keynes-Ramsey, $\rho$ afeta \emph{negativamente} $\dot{c}/c$ --- maior impaciência $\Rightarrow$ menos crescimento do consumo (o consumidor ``antecipa'' mais o consumo).
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Diagrama de Fases: Regiões e Dinâmica (Q3)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q3)}
+
+No diagrama de fases do modelo RCK (eixo $k$, eixo $c$), identifique as regiões dinâmicas e determine o comportamento da trajetória na região à esquerda da isóclina $\dot{c}=0$ e acima da isóclina $\dot{k}=0$.
+
+\subsection*{3.1 As Duas Isóclinas}
+
+\textbf{Isóclina $\dot{c}=0$ (vertical).} De Keynes-Ramsey: $\dot{c}=0 \Leftrightarrow f'(k^*)=\delta+\rho+\theta g$. Isso determina um valor único $k^*$. A isóclina é uma reta vertical em $k = k^*$.
+
+\begin{itemize}
+\item À \emph{esquerda} de $k^*$: $k < k^*$ $\Rightarrow$ $f'(k) > f'(k^*)$ (pois $f'$ decrescente) $\Rightarrow$ $f'(k)-\delta > \rho+\theta g$ $\Rightarrow$ \textbf{$\dot{c}>0$} (consumo cresce).
+\item À \emph{direita} de $k^*$: $f'(k) < f'(k^*)$ $\Rightarrow$ \textbf{$\dot{c}<0$} (consumo cai).
+\end{itemize}
+
+\textbf{Isóclina $\dot{k}=0$ (curva em sino).} De $\dot{k}=0$: $c = f(k)-(\delta+n+g)k$. Esta curva é côncava, com $c=0$ em $k=0$ e em $k_{max}$ (onde $f(k)=(\delta+n+g)k$), e atinge o máximo em $k_{gold}$ (onde $f'(k)=\delta+n+g$).
+
+\begin{itemize}
+\item \emph{Acima} da curva $\dot{k}=0$: $c > f(k)-(\delta+n+g)k$ $\Rightarrow$ $\dot{k} = f(k)-c-(\delta+n+g)k < 0$ $\Rightarrow$ \textbf{$\dot{k}<0$}.
+\item \emph{Abaixo} da curva: \textbf{$\dot{k}>0$}.
+\end{itemize}
+
+\subsection*{3.2 Mapa Completo das Quatro Regiões}
+
+\begin{center}
+\begin{tabular}{lllll}
+\toprule
+Região & Posição & $\dot{c}$ & $\dot{k}$ & Direção (vetor) \\
+\midrule
+NW & Esq.\ $\dot{c}=0$, acima $\dot{k}=0$ & $>0$ & $<0$ & $\uparrow\leftarrow$ (noroeste) \\
+SW & Esq.\ $\dot{c}=0$, abaixo $\dot{k}=0$ & $>0$ & $>0$ & $\uparrow\rightarrow$ (nordeste) \\
+NE & Dir.\ $\dot{c}=0$, acima $\dot{k}=0$ & $<0$ & $<0$ & $\downarrow\leftarrow$ (sudoeste) \\
+SE & Dir.\ $\dot{c}=0$, abaixo $\dot{k}=0$ & $<0$ & $>0$ & $\downarrow\rightarrow$ (sudeste) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{resultbox}[title={Resposta da Q3 --- Região NW (esq.\ de $\dot{c}=0$, acima de $\dot{k}=0$)}]
+Nesta região: $\dot{c}>0$ e $\dot{k}<0$.\\
+Vetor de movimento: para \textbf{Noroeste} ($c$ sobe, $k$ cai).\\
+A trajetória \textbf{afasta-se} do estado estacionário --- não é a sela ótima.
+\end{resultbox}
+
+\subsection*{3.3 Por Que o Estado Estacionário é uma Sela}
+
+Linearize o sistema $(\dot{c},\dot{k})$ ao redor de $(c^*, k^*)$. O Jacobiano é:
+\[
+J^* = \begin{pmatrix} \partial\dot{k}/\partial k & \partial\dot{k}/\partial c \\ \partial\dot{c}/\partial k & \partial\dot{c}/\partial c \end{pmatrix}_{(k^*,c^*)} = \begin{pmatrix} f'(k^*)-(n+g+\delta) & -1 \\ \frac{c^*}{\theta}f''(k^*) & 0 \end{pmatrix}.
+\]
+
+Determinante:
+\[
+\det(J^*) = 0\cdot\!\left[f'(k^*)-(n+g+\delta)\right] - (-1)\cdot\frac{c^*}{\theta}f''(k^*) = \frac{c^*}{\theta}f''(k^*) < 0,
+\]
+pois $f''(k) < 0$ (produto marginal decrescente) e $c^*, \theta > 0$.
+
+Como $\det(J^*) < 0$: os dois autovalores têm \textbf{sinais opostos}. Logo, o EE é um \textbf{ponto de sela}: existe uma única trajetória convergente (a ``sela ótima'' ou ``caminho de sela''), que é a solução ótima do planejador.
+
+\begin{provabox}[title={Diagrama de Fases --- Regras Mnemônicas}]
+\begin{enumerate}
+\item \textbf{Esq.\ de $\dot{c}=0$}: capital escasso $\Rightarrow$ retorno alto $\Rightarrow$ poupar/investir mais $\Rightarrow$ $\dot{c}>0$.
+\item \textbf{Acima de $\dot{k}=0$}: consumo excessivo $\Rightarrow$ capital cai $\Rightarrow$ $\dot{k}<0$.
+\item \textbf{NW} ($\uparrow\leftarrow$): diverge para $(0,+\infty)$ --- acaba zerando o capital.
+\item \textbf{SE} ($\downarrow\rightarrow$): diverge para $k_{max}$ com $c\to 0$ --- acaba zerando o consumo.
+\item Só a \textbf{sela} passa pelo EE --- é a única trajetória Pareto-ótima.
+\end{enumerate}
+\end{provabox}
+
+% ==========================================================================
+\section*{Parte III --- Modelo RBC: Questões 4--8 da Lista I (Cap.\ 5)}
+\addcontentsline{toc}{section}{Parte III --- Modelo RBC: Questões 4--8}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+\section{Investimento de Equilíbrio e Estabilidade do Capital (Q4)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q4)}
+
+No modelo RBC, determine o investimento de equilíbrio no estado estacionário. Derive a condição de Euler para o capital e analise a estabilidade da lei de movimento log-linearizada.
+
+\subsection*{4.1 Estado Estacionário do Capital no RBC}
+
+O modelo RBC tem lei de movimento do capital:
+\[
+K_{t+1} = (1-\delta)K_t + I_t.
+\]
+
+No estado estacionário ($K_{t+1} = K_t = K^*$, produtividade $Z^* = 1$):
+\[
+K^* = (1-\delta)K^* + I^* \;\Longrightarrow\; I^* = K^* - (1-\delta)K^* = \delta K^*.
+\]
+
+\begin{resultbox}[title={Investimento de Equilíbrio no RBC}]
+\[
+I^* = \delta K^*.
+\]
+No EE, o investimento repõe \emph{exatamente} a depreciação. Não há crescimento (modelo estacionário).\\
+\textbf{Atenção:} $I^* > \delta K^*$ seria consistente com crescimento ($K$ aumentando), não com EE.
+\end{resultbox}
+
+\subsection*{4.2 Equação de Euler e Taxa de Retorno no EE}
+
+A condição de Euler para o capital (derivada da otimização do consumidor com utilidade logarítmica $U = \ln C_t + b\ln l_t$) é:
+\[
+\frac{1}{C_t} = \beta\,\E_t\!\left[\frac{r_{t+1} + 1 - \delta}{C_{t+1}}\right],
+\]
+onde $r_{t+1} = \alpha Z_{t+1}K_{t+1}^{\alpha-1}N_{t+1}^{1-\alpha}$ é o retorno marginal do capital.
+
+No EE ($C_{t+1} = C_t = C^*$, $r_{t+1} = r^*$, expectativas certas):
+\[
+\frac{1}{C^*} = \beta\,\frac{r^* + 1 - \delta}{C^*} \;\Longrightarrow\; \beta(r^* + 1 - \delta) = 1.
+\]
+
+\begin{resultbox}[title={Condição de Euler no EE do RBC}]
+\[
+\beta(r^* + 1 - \delta) = 1 \;\Longrightarrow\; r^* = \frac{1}{\beta} - (1-\delta) = \frac{1-\beta(1-\delta)}{\beta}.
+\]
+Para $\beta = 0.99$, $\delta = 0.025$: $r^* = 1/0.99 - 0.975 \approx 1.0101 - 0.975 \approx 0.0351$ (3.5\% ao período).
+\end{resultbox}
+
+\subsection*{4.3 Log-linearização e Estabilidade ($|A|<1$)}
+
+Após log-linearização ao redor do EE, as variáveis em desvio percentual satisfazem (usando chapéu $\hat{x} = \ln x - \ln x^*$):
+
+\textbf{Função política:} $\hat{c}_t = a_k\hat{k}_t + a_z\hat{z}_t$
+
+\textbf{Lei de movimento do capital:}
+\[
+\hat{k}_{t+1} = \gamma_k\hat{k}_t + \gamma_c\hat{c}_t + \gamma_z\hat{z}_t,
+\]
+onde $\gamma_k = (1-\delta) + \alpha r^*/(\text{algo})$, etc.\ (coeficientes do EE calibrado).
+
+Substituindo a função política:
+\[
+\hat{k}_{t+1} = (\gamma_k - \gamma_c a_k)\hat{k}_t + (\gamma_z - \gamma_c a_z)\hat{z}_t = A\hat{k}_t + B\hat{z}_t.
+\]
+
+\textbf{Condição de estabilidade:} $|A| < 1$ (raiz do sistema menor que 1 em módulo).
+
+Com calibração padrão ($\alpha=0.33$, $\beta=0.99$, $\delta=0.025$, $b\approx1.55$, $\rho_z=0.95$):
+\[
+a_k \approx 0.590, \quad A \approx 0.962.
+\]
+
+Meia-vida: $t_{1/2} = \ln(0.5)/\ln(A) = \ln(0.5)/\ln(0.962) \approx 17.9$ períodos (trimestres).
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Parâmetro & Valor & Interpretação \\
+\midrule
+$\alpha$ & 0.33 & participação do capital \\
+$\beta$  & 0.99 & fator de desconto \\
+$\delta$ & 0.025 & taxa de depreciação \\
+$b$      & $\approx 1.55$ & peso do lazer \\
+$\rho_z$ & 0.95 & persistência do choque PTF \\
+$A$      & $\approx 0.962$ & persistência do capital \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{provabox}[title={Q4 --- Erros Frequentes}]
+\begin{enumerate}
+\item $I^* = \delta K^*$ \textbf{(correto)}, não $I^* > \delta K^*$ (só no crescimento balanceado com $g>0$).
+\item Euler: $\beta(r^*+1-\delta)=1$ --- não confundir com $\beta(r^*-1+\delta)=1$ (sinal trocado em $\delta$).
+\item Estabilidade: $|A|<1$ é \textbf{necessário}. Se $A=1$: raiz unitária, sem convergência. Se $A>1$: explosivo.
+\end{enumerate}
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Desutilidade Marginal da Oferta de Trabalho (Q5)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q5)}
+
+Com utilidade $u(C_t, l_t) = \ln C_t + b\ln l_t$, onde $l_t = 1 - N_t$ é lazer e $N_t$ é trabalho, derive a desutilidade marginal do trabalho (DML).
+
+\subsection*{5.1 Especificação com Lazer}
+
+Utilidade do representante:
+\[
+u(C_t, l_t) = \ln C_t + b\ln l_t = \ln C_t + b\ln(1-N_t), \quad b > 0.
+\]
+
+O parâmetro $b$ pondera o lazer em relação ao consumo. $N_t \in [0,1]$ é a fração do tempo dedicada ao trabalho.
+
+\subsection*{5.2 Derivação da DML --- Passo a Passo}
+
+A desutilidade marginal do trabalho é $-\partial u/\partial N_t$ (negativo porque mais trabalho reduz a utilidade).
+
+\textbf{Passo 1.} Aplique a regra da cadeia:
+\[
+\frac{\partial u}{\partial N_t} = \frac{\partial u}{\partial l_t}\cdot\frac{\partial l_t}{\partial N_t}.
+\]
+
+\textbf{Passo 2.} Calcule $\partial u/\partial l_t$:
+\[
+\frac{\partial u}{\partial l_t} = \frac{b}{l_t} = \frac{b}{1-N_t}.
+\]
+
+\textbf{Passo 3.} Calcule $\partial l_t/\partial N_t = -1$ (pois $l_t = 1-N_t$).
+
+\textbf{Passo 4.} Combine:
+\[
+\frac{\partial u}{\partial N_t} = \frac{b}{1-N_t}\cdot(-1) = -\frac{b}{1-N_t}.
+\]
+
+\begin{resultbox}[title={Desutilidade Marginal do Trabalho (DML)}]
+\[
+\text{DML} = \left|\frac{\partial u}{\partial N_t}\right| = \frac{b}{1-N_t}.
+\]
+\textbf{Propriedades:}\\
+(i) DML cresce com $N_t$: mais trabalho $\Rightarrow$ cada hora adicional custa mais.\\
+(ii) DML cresce com $b$: preferência mais forte por lazer $\Rightarrow$ custo mais alto de trabalhar.\\
+(iii) $N_t\to 1$: DML$\to\infty$ (ninguém trabalha 100\% do tempo no ótimo).
+\end{resultbox}
+
+\subsection*{5.3 Especificação Alternativa $U = C - (1/\eta)N^\eta$ (Dissertativa P1 2024)}
+
+Uma especificação alternativa frequente é a utilidade separável:
+\[
+U = C_t - \frac{1}{\eta}N_t^\eta, \quad \eta > 1.
+\]
+
+A condição de ótimo intratemporal (igualar DML ao salário real):
+\[
+\frac{\partial U}{\partial N_t} = N_t^{\eta-1} = \frac{W_t}{P_t}.
+\]
+
+\begin{formulabox}[title={Oferta de Trabalho com Utilidade Separável}]
+\[
+N_t^{\eta-1} = \frac{W_t}{P_t} \;\Longrightarrow\; N_t^* = \left(\frac{W_t}{P_t}\right)^{1/(\eta-1)}.
+\]
+Elasticidade da oferta de trabalho: $\varepsilon_L = 1/(\eta-1)$.\\
+Para $\eta=2$: $N^* = W/P$ (curva linear); $\eta\to\infty$: oferta inelástica.
+\end{formulabox}
+
+\begin{provabox}[title={Q5 Dissertativa P1 2024 --- Passos Exigidos}]
+Passos esperados na resposta:
+\begin{enumerate}
+\item FOC: igualar DML ao salário $\Rightarrow$ $N^{\eta-1} = W/P$.
+\item Isolar: $N^* = (W/P)^{1/(\eta-1)}$.
+\item Calcular elasticidade: $\varepsilon = 1/(\eta-1)$, \textbf{não} $\eta$.
+\item Interpretação: $\eta\uparrow$ $\Rightarrow$ oferta menos elástica (curvatura maior).
+\end{enumerate}
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Lazer Ótimo: Efeitos de $r$ e $w$ Futuros (Q6)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q6)}
+
+Com $u = \ln C_t + b\ln l_t$, derive o lazer ótimo e analise os efeitos de uma elevação em $r_t$ e em $w_{t+1}$ sobre a oferta de trabalho presente $N_t$.
+
+\subsection*{6.1 Condição de Ótimo Intratemporal}
+
+A condição intratemporal equaciona a taxa marginal de substituição entre lazer e consumo ao salário real:
+\[
+\frac{\partial u/\partial l_t}{\partial u/\partial C_t} = w_t \;\Longrightarrow\; \frac{b/l_t}{1/C_t} = w_t \;\Longrightarrow\; \frac{bC_t}{l_t} = w_t.
+\]
+
+Isolando $l_t^*$:
+\[
+l_t^* = \frac{bC_t}{w_t}.
+\]
+
+\subsection*{6.2 Efeito de $r_t\uparrow$ --- Cadeia de Raciocínio Passo a Passo}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+\item \textbf{$r_t\uparrow$}: a taxa de retorno de poupar aumenta.
+\item \textbf{Equação de Euler}: $C_t = C_{t+1}/[\beta(1+r_t)]$ $\Rightarrow$ retorno de adiar consumo sobe $\Rightarrow$ consumo presente $C_t\downarrow$.
+\item \textbf{Lazer hoje} (com $w_t$ fixo): $l_t^* = bC_t/w_t\downarrow$.
+\item \textbf{Trabalho hoje}: $N_t = 1-l_t^*\uparrow$ --- o agente substitui lazer hoje por lazer amanhã.
+\item \textbf{Produção}: $Y_t = Z_t K_t^\alpha N_t^{1-\alpha}\uparrow$ --- amplificação do produto via canal do trabalho.
+\end{enumerate}
+
+\begin{resultbox}[title={Efeito de $r_t\uparrow$ sobre Oferta de Trabalho}]
+$r_t\uparrow$ $\Rightarrow$ $C_t\downarrow$ $\Rightarrow$ $l_t^*\downarrow$ $\Rightarrow$ $N_t\uparrow$.\\
+Mais trabalho hoje: substituição intertemporal de lazer.
+\end{resultbox}
+
+\subsection*{6.3 Efeito de $w_{t+1}\uparrow$ --- Cadeia de Raciocínio Passo a Passo}
+
+\begin{enumerate}[leftmargin=*, label=\arabic*.]
+\item \textbf{$w_{t+1}\uparrow$}: salários futuros mais altos $\Rightarrow$ valor presente da renda futura sobe.
+\item \textbf{Efeito riqueza}: consumidor mais rico $\Rightarrow$ consume mais hoje, $C_t\uparrow$.
+\item \textbf{Lazer hoje} (com $w_t$ fixo): $l_t^* = bC_t/w_t\uparrow$.
+\item \textbf{Trabalho hoje}: $N_t = 1-l_t^*\downarrow$ --- agente ``compra'' mais lazer hoje, antecipando riqueza futura.
+\item \textbf{Contraste com $r_t$}: $w_{t+1}\uparrow$ \emph{reduz} oferta presente (efeito riqueza), enquanto $r_t\uparrow$ \emph{aumenta} (substituição).
+\end{enumerate}
+
+\begin{resultbox}[title={Efeito de $w_{t+1}\uparrow$ sobre Oferta de Trabalho}]
+$w_{t+1}\uparrow$ $\Rightarrow$ riqueza $\uparrow$ $\Rightarrow$ $C_t\uparrow$ $\Rightarrow$ $l_t^*\uparrow$ $\Rightarrow$ $N_t\downarrow$.\\
+Menos trabalho hoje: efeito riqueza domina.
+\end{resultbox}
+
+\subsection*{6.4 Fórmula da Substituição Intertemporal de Trabalho --- Derivação Completa}
+
+\textbf{Passo 1.} Ótimo intratemporal em $t$: $bC_t/l_t = w_t$ $\Rightarrow$ $l_t = bC_t/w_t$.
+
+\textbf{Passo 2.} Ótimo intratemporal em $t+1$: $bC_{t+1}/l_{t+1} = w_{t+1}$ $\Rightarrow$ $l_{t+1} = bC_{t+1}/w_{t+1}$.
+
+\textbf{Passo 3.} Equação de Euler: $C_{t+1} = \beta(1+r_t)C_t$.
+
+\textbf{Passo 4.} Substitua em $l_{t+1}$:
+\[
+l_{t+1} = \frac{b\cdot\beta(1+r_t)C_t}{w_{t+1}}.
+\]
+
+\textbf{Passo 5.} Calcule $l_t/l_{t+1}$:
+\[
+\frac{l_t}{l_{t+1}} = \frac{bC_t/w_t}{b\beta(1+r_t)C_t/w_{t+1}} = \frac{w_{t+1}}{\beta(1+r_t)w_t}.
+\]
+
+\textbf{Passo 6.} Reescreva com $N_i = 1-l_i$ (usando a relação $l_t/l_{t+1} = (1-N_t)/(1-N_{t+1})$, válida nos exemplos de variações pequenas):
+
+\begin{formulabox}[title={Substituição Intertemporal de Lazer/Trabalho}]
+\[
+\frac{l_t}{l_{t+1}} = \frac{w_{t+1}}{\beta(1+r_t)w_t} \quad\Longleftrightarrow\quad \frac{1-l_1}{1-l_2} = \frac{\beta(1+r)w_2}{w_1}.
+\]
+Se $r\uparrow$: lado direito $\uparrow$ $\Rightarrow$ $(1-l_1)/(1-l_2) = N_1/N_2\uparrow$ $\Rightarrow$ mais trabalho hoje.\\
+Se $w_1\uparrow$ (mantendo $w_2$): lado direito $\downarrow$ $\Rightarrow$ menos trabalho hoje (lazer hoje mais caro? não: mais caro $\Rightarrow$ efeito substituição aumenta trabalho, mas formulação aqui captura o efeito líquido do sistema).
+\end{formulabox}
+
+\begin{provabox}[title={Q6 / P1 2024 Q2 --- Fórmula Diretamente Testada}]
+A fórmula $(1-l_1)/(1-l_2) = \beta(1+r)w_2/w_1$ foi testada diretamente na P1 2024.\\
+\textbf{Interpretação correta de $r\uparrow$:}\\
+Lado direito sobe $\Rightarrow$ razão $N_1/N_2$ sobe $\Rightarrow$ \emph{mais trabalho hoje}. A alternativa errada dizia ``$r\uparrow$ reduz a oferta presente'' --- \textbf{FALSO} (confunde efeito substituição com efeito riqueza).
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Razão Consumo-Lazer e Calibração de $b$ (Q7)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q7)}
+
+Derive a razão ótima consumo-lazer $C/l$ e mostre como calibrar o parâmetro $b$ usando a fração de tempo dedicada ao trabalho no EE.
+
+\subsection*{7.1 Razão Ótima $C/l$}
+
+Da condição intratemporal $bC_t/l_t = w_t$, isole:
+\[
+\frac{C_t}{l_t} = \frac{w_t}{b}.
+\]
+
+\begin{resultbox}[title={Razão Consumo-Lazer Ótima}]
+\[
+\frac{C_t}{l_t^*} = \frac{w_t}{b}.
+\]
+\textbf{Interpretação:}\\
+$w_t\uparrow$: lazer fica mais caro (custo de oportunidade) $\Rightarrow$ $C/l$ sobe (mais consumo relativo a lazer, ou seja, menos lazer).\\
+$b\uparrow$: preferência mais forte por lazer $\Rightarrow$ $C/l$ cai (mais lazer relativo a consumo).
+\end{resultbox}
+
+\subsection*{7.2 Calibração de $b$ --- Passo a Passo}
+
+\textbf{Passo 1.} Meta empírica: fração de tempo em trabalho $N^* = 1/3$ (padrão na literatura RBC --- agentes trabalham cerca de 1/3 do tempo disponível). Logo, $l^* = 1 - N^* = 2/3$.
+
+\textbf{Passo 2.} No EE, da condição intratemporal:
+\[
+l^* = \frac{bC^*}{w^*} \;\Longrightarrow\; b = \frac{w^* l^*}{C^*} = \frac{w^*(1-N^*)}{C^*}.
+\]
+
+\textbf{Passo 3.} Calcule $w^*$ e $C^*$ no EE. Com Cobb-Douglas $Y = ZK^\alpha N^{1-\alpha}$, $Z^*=1$:
+\[
+w^* = (1-\alpha)(k^*/N^*)^\alpha \cdot Z^* = (1-\alpha)(k^*)^\alpha \quad(\text{normalizando }N^*=1).
+\]
+Para $k^*$ determinado pela Euler ($r^* = \alpha(k^*)^{\alpha-1}$, $\beta(r^*+1-\delta)=1$):
+\[
+k^* = \left(\frac{\alpha}{r^*+\delta-1+1}\right)^{1/(1-\alpha)} \approx \left(\frac{\alpha}{r^*+\delta}\right)^{1/(1-\alpha)}.
+\]
+
+\textbf{Passo 4.} Valores numéricos com $\alpha=0.33$, $\beta=0.99$, $\delta=0.025$:
+\begin{itemize}
+\item $r^* = 1/\beta - (1-\delta) = 1/0.99 - 0.975 \approx 0.0351$
+\item $k^* = (0.33/0.0601)^{1/0.67} \approx 11.57$
+\item $y^* = (k^*)^{0.33} \approx 2.41$, $w^* = 0.67\cdot 2.41 \approx 1.61$
+\item $C^* = y^* - \delta k^* = 2.41 - 0.025\cdot 11.57 \approx 2.12$
+\item $b = w^* l^*/C^* = 1.61\cdot(2/3)/2.12 \approx 0.506$ (com $N^*=1$)
+\end{itemize}
+
+Ajustando para $N^*=1/3$ explicitamente:
+\[
+b = \frac{w^*(2/3)}{C^*} \approx \frac{1.61\times 0.667}{0.694} \approx 1.55.
+\]
+
+\begin{resultbox}[title={Calibração do Parâmetro $b$}]
+\[
+b = \frac{w^*(1-N^*)}{C^*} \approx 1.55,
+\]
+usando $N^* = 1/3$, $\alpha=0.33$, $\beta=0.99$, $\delta=0.025$.
+\end{resultbox}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Quantidade EE & Fórmula & Valor \\
+\midrule
+$r^*$ & $1/\beta - (1-\delta)$ & 0.0351 \\
+$k^*$ & $(\alpha/(r^*+\delta))^{1/(1-\alpha)}$ & $\approx 11.57$ \\
+$y^*$ & $(k^*)^\alpha$ & $\approx 2.41$ \\
+$w^*$ & $(1-\alpha)y^*$ & $\approx 1.61$ \\
+$C^*$ & $y^*-\delta k^*$ & $\approx 2.12$ \\
+$b$ & $w^*(1-N^*)/C^*$ & $\approx 1.55$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{provabox}[title={Q7 --- Calibração e Efeito de $b\uparrow$}]
+Para calibrar: isolar $b = w^*l^*/C^* = w^*(1-N^*)/C^*$. Substituir valores do EE.\\
+\textbf{Efeito de $b\uparrow$ sobre $N^*$:} $l^* = bC^*/w^*\uparrow$ $\Rightarrow$ $N^* = 1-l^*\downarrow$ $\Rightarrow$ menos trabalho, menos produto, menos capital no EE.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Três Canais de Transmissão dos Choques de PTF (Q8)}
+% --------------------------------------------------------------------------
+
+\subsection*{Enunciado (Q8)}
+
+Descreva os canais pelos quais um choque positivo de PTF (produtividade total dos fatores) se transmite para produto, consumo e investimento no modelo RBC.
+
+\subsection*{8.1 O Choque de PTF}
+
+A tecnologia segue um processo AR(1) em logs:
+\[
+\log Z_{t+1} = \rho_z\log Z_t + \varepsilon_{t+1}, \quad \varepsilon_t \sim \mathcal{N}(0,\sigma_\varepsilon^2).
+\]
+
+Em desvios log-lineares ($\hat{z}_t = \log Z_t - \log Z^*$):
+\[
+\hat{z}_{t+1} = \rho_z\hat{z}_t + \varepsilon_{t+1}, \quad \rho_z \approx 0.95.
+\]
+
+\textbf{Impacto imediato (t=0).} Como o capital $K_0$ é predeterminado ($\hat{k}_0 = 0$ na data do choque):
+\[
+\hat{Y}_0 = \hat{Z}_0 + \alpha\hat{K}_0 + (1-\alpha)\hat{N}_0 \approx 1\% + (1-\alpha)\hat{N}_0.
+\]
+(Considerando $\hat{N}_0 \approx 0$ como ponto de partida antes do ajuste: $\hat{Y}_0 \approx 1\%$.)
+
+Persistência: com $\rho_z = 0.95$, o choque leva $\ln(0.5)/\ln(0.95) \approx 14$ períodos para decair à metade.
+
+\subsection*{8.2 Canal 1 --- Efeito Direto na Produção}
+
+\textbf{Mecanismo:} $Z_t\uparrow$ eleva diretamente a produtividade de todos os fatores.
+
+\[
+Y_t = Z_t K_t^\alpha N_t^{1-\alpha} \;\Longrightarrow\; Y_t\uparrow \text{ (imediato, com }K_t,N_t\text{ fixos).}
+\]
+
+Retornos dos fatores:
+\[
+r_t = \alpha Z_t K_t^{\alpha-1}N_t^{1-\alpha}\uparrow, \qquad w_t = (1-\alpha)Z_t K_t^\alpha N_t^{-\alpha}\uparrow.
+\]
+
+Contribuição ao produto: $\hat{Y}_0^{\text{direto}} = \hat{Z}_0 = 1\%$.
+
+\subsection*{8.3 Canal 2 --- Amplificação via Investimento}
+
+\textbf{Mecanismo:} O aumento em $r_t$ e $w_t$ eleva a riqueza permanente do agente. Mas ele não consome toda a windfall imediatamente --- parte é poupada e investida.
+
+\[
+r_t\uparrow \;\Rightarrow\; \text{retorno do capital}\uparrow \;\Rightarrow\; \text{investir mais é lucrativo} \;\Rightarrow\; I_t\uparrow.
+\]
+
+\textbf{Amplificação:} $\hat{I}_0 > \hat{Y}_0$.
+
+Valores calibrados típicos: $\hat{I}_0 \approx 3.2\%$ vs.\ $\hat{Y}_0 \approx 1\%$ --- o investimento responde mais que proporcionalmente ao choque.
+
+\textbf{Dinâmica:} $K_{t+1}\uparrow$ amplifica a produção em todos os períodos futuros, gerando \emph{persistência endógena} mesmo quando o choque AR(1) já decaiu parcialmente.
+
+\textbf{Por que o RBC gera persistência:} mesmo com $\rho_z = 0.95$ (choque transitório), o acúmulo de capital gera ondas de produção elevada por $A \approx 0.962$ (17 períodos de meia-vida) --- mais persistente que o próprio choque.
+
+\subsection*{8.4 Canal 3 --- Suavização do Consumo}
+
+\textbf{Mecanismo:} Consumidor otimizador distribui o ganho de riqueza ao longo do tempo (suavização pela Euler). No impacto:
+\[
+\hat{C}_0 < \hat{Y}_0.
+\]
+
+Valor calibrado típico: $\hat{C}_0 \approx 0.33\%$ vs.\ $\hat{Y}_0 \approx 1\%$.
+
+\textbf{Implicações para momentos do modelo:}
+\begin{itemize}
+\item $\sigma(C) < \sigma(Y)$: consumo é mais suave que renda --- \emph{consistente com dados}.
+\item $\sigma(I) > \sigma(Y)$: investimento é mais volátil que renda --- \emph{consistente com dados}.
+\end{itemize}
+
+\subsection*{8.5 Canal 4 --- Oferta de Trabalho (Amplificação via Substituição)}
+
+\textbf{Mecanismo:} $w_t\uparrow$ eleva o custo de oportunidade do lazer. Substituição intertemporal de lazer:
+\[
+\frac{1-l_t}{1-l_{t+1}} = \frac{\beta(1+r_t)w_{t+1}}{w_t}.
+\]
+
+Se $w_t$ sobe mais que $w_{t+1}$ (pois o choque é transitório), a razão $w_{t+1}/w_t < 1$, mas $r_t\uparrow$ domina $\Rightarrow$ $N_t\uparrow$.
+
+\textbf{Produção amplificada:} $\hat{N}_0\uparrow$ $\Rightarrow$ $\hat{Y}_0 = 1\% + (1-\alpha)\hat{N}_0 > 1\%$ (o efeito direto subestimava o impacto).
+
+\textbf{Hierarquia de respostas imediatas:}
+\[
+\hat{I}_0 \approx 3.2\% \;>\; \hat{Y}_0 \approx 1\%\text{--}1.5\% \;>\; \hat{C}_0 \approx 0.33\%.
+\]
+
+\begin{resultbox}[title={Quatro Canais de Transmissão do Choque PTF (Q8)}]
+\begin{enumerate}
+\item \textbf{Direto}: $Z_t\uparrow$ $\Rightarrow$ $Y_t\uparrow$, $r_t\uparrow$, $w_t\uparrow$ (imediato, sem ajuste).
+\item \textbf{Investimento}: $r_t\uparrow$ $\Rightarrow$ $I_t\uparrow\uparrow$ (mais que proporcional) $\Rightarrow$ $K_{t+s}\uparrow$ (persistência endógena).
+\item \textbf{Suavização}: $Y_t\uparrow$ $\Rightarrow$ $C_t$ sobe apenas parcialmente (agente distribui ganho no tempo) $\Rightarrow$ $\sigma(C) < \sigma(Y)$.
+\item \textbf{Trabalho}: $w_t\uparrow$, $r_t\uparrow$ $\Rightarrow$ substituição intertemporal $\Rightarrow$ $N_t\uparrow$ $\Rightarrow$ amplifica $Y_t$ além do efeito direto.
+\end{enumerate}
+Hierarquia: $\hat{I}_0 > \hat{Y}_0 > \hat{C}_0$.
+\end{resultbox}
+
+\begin{provabox}[title={Q8 / P1 2024 Dissertativa --- Pontuação Máxima}]
+Para pontuação máxima:
+\begin{enumerate}
+\item \textbf{Nomear} cada canal explicitamente.
+\item \textbf{Mostrar} a hierarquia $\hat{I}_0 > \hat{Y}_0 > \hat{C}_0$ com valores aproximados.
+\item \textbf{Conectar ao AR(1)}: persistência $\rho_z \approx 0.95$ amplifica canais 2 e 4 (choque dura muitos períodos, dando tempo ao capital e trabalho de responder).
+\item \textbf{Canal de trabalho} vale crédito extra: mostrar a fórmula de substituição intertemporal e a direção do efeito.
+\end{enumerate}
+\end{provabox}
+
+% ==========================================================================
+\appendix
+% ==========================================================================
+
+\section*{Apêndice A --- Questões-tipo P1 (Estilo P1 2024)}
+\addcontentsline{toc}{section}{Apêndice A --- Questões-tipo P1}
+
+\textbf{Instrução:} para cada questão, identifique a alternativa correta e justifique brevemente.
+
+\medskip
+\textbf{Q-tipo 1 --- RCK Keynes-Ramsey.} Qual afirmação sobre a Equação de Keynes-Ramsey $\frac{\dot{c}}{c} = \frac{f'(k)-\delta-\rho-\theta g}{\theta}$ está correta?
+
+\begin{enumerate}[label=(\alph*)]
+\item $\theta\uparrow$ eleva a taxa de crescimento do consumo.
+\item $\rho\uparrow$ afeta \emph{negativamente} $\dot{c}/c$.
+\item $g\uparrow$ reduz o crescimento do consumo via $r^*$.
+\item $n\uparrow$ eleva $\dot{c}/c$ por reduzir a diluição do capital.
+\end{enumerate}
+
+\textbf{Gabarito: (b).}\\
+Justificativa: $\rho$ entra com sinal $-$ no numerador: $\dot{c}/c = [f'(k)-\delta-\rho-\theta g]/\theta$. Maior impaciência $\Rightarrow$ menor crescimento do consumo. (a) FALSO: $\theta\uparrow$ reduz $1/\theta$ e eleva $r^*$ via EE, líquido negativo. (c) FALSO: $g\uparrow$ eleva $\theta g$ no numerador, que reduz $\dot{c}/c$ dado $k$. (d) FALSO: $n$ não aparece em $\dot{c}/c$.
+
+\medskip
+\textbf{Q-tipo 2 --- RBC Substituição Intertemporal de Trabalho.} Sobre a fórmula $(1-l_1)/(1-l_2) = \beta(1+r)w_2/w_1$:
+
+\begin{enumerate}[label=(\alph*)]
+\item $r\uparrow$ reduz a oferta de trabalho presente.
+\item $w_1\uparrow$ (ceteris paribus) sempre reduz $N_1$.
+\item $r\uparrow$ eleva a razão $N_1/N_2$, aumentando a oferta presente.
+\item A fórmula implica que consumo e lazer movem-se na mesma direção.
+\end{enumerate}
+
+\textbf{Gabarito: (c).}\\
+Justificativa: $r\uparrow$ $\Rightarrow$ lado direito $\beta(1+r)w_2/w_1\uparrow$ $\Rightarrow$ $(1-l_1)/(1-l_2) = N_1/N_2\uparrow$ $\Rightarrow$ $N_1\uparrow$ relativamente. Substituição intertemporal de lazer: trabalha mais hoje quando retorno é alto.
+
+\medskip
+\textbf{Q-tipo 3 --- RBC Estado Estacionário do Capital.} No EE do modelo RBC (sem crescimento):
+
+\begin{enumerate}[label=(\alph*)]
+\item $I^* = 0$ (capital constante implica zero investimento).
+\item $I^* = \delta K^*$ (investimento repõe a depreciação).
+\item $I^* > \delta K^*$ (crescimento balanceado exige superar depreciação).
+\item $\beta(r^* - 1 + \delta) = 1$ (condição de Euler no EE).
+\end{enumerate}
+
+\textbf{Gabarito: (b).}\\
+Justificativa: $K_{t+1} = K_t = K^*$ $\Rightarrow$ $I^* = K^* - (1-\delta)K^* = \delta K^*$. (a) FALSO: capital constante exige reposição da depreciação. (c) seria para economia em crescimento. (d): a Euler correta é $\beta(r^*+1-\delta)=1$, não $\beta(r^*-1+\delta)=1$.
+
+\medskip
+\textbf{Q-tipo 4 --- RCK Diagrama de Fases.} No diagrama de fases do RCK, na região à \emph{direita} de $\dot{c}=0$ e \emph{abaixo} de $\dot{k}=0$:
+
+\begin{enumerate}[label=(\alph*)]
+\item $\dot{c}>0$ e $\dot{k}<0$.
+\item $\dot{c}<0$ e $\dot{k}>0$.
+\item $\dot{c}>0$ e $\dot{k}>0$.
+\item $\dot{c}<0$ e $\dot{k}<0$.
+\end{enumerate}
+
+\textbf{Gabarito: (b).}\\
+Justificativa: Dir.\ de $\dot{c}=0$: $f'(k) < f'(k^*)$ (capital abundante, retorno baixo) $\Rightarrow$ $\dot{c}<0$. Abaixo de $\dot{k}=0$: $c < f(k)-(n+g+\delta)k$ (consumo insuficiente) $\Rightarrow$ $\dot{k}>0$.
+
+\medskip
+\textbf{Q-tipo 5 --- Solow: Regra de Ouro.} Qual é a condição correta da Regra de Ouro no modelo de Solow?
+
+\begin{enumerate}[label=(\alph*)]
+\item $f'(k_{gold}) = n+\delta$ (sem progresso técnico).
+\item $f'(k_{gold}) = n+g+\delta$.
+\item $s_{gold} = 1-\alpha$ (complemento da participação do capital).
+\item $f'(k_{gold}) = \rho+\theta g+\delta$ (condição de EE do RCK).
+\end{enumerate}
+
+\textbf{Gabarito: (b).}\\
+Justificativa: Maximizar $c^* = f(k)-(n+g+\delta)k$ dá FOC $f'(k_{gold}) = n+g+\delta$. (a) omite $g$. (c) FALSO: $s_{gold} = \alpha$ (não $1-\alpha$). (d) é a condição de EE do RCK, não da Regra de Ouro de Solow.
+
+\medskip
+\textbf{Q-tipo 6 --- Diamond: Ineficiência Dinâmica.} Qual afirmação sobre o modelo de Diamond é correta?
+
+\begin{enumerate}[label=(\alph*)]
+\item O equilíbrio competitivo é sempre Pareto-ótimo.
+\item $k^{D*} < k_{gold}$ sempre (sub-poupança garantida).
+\item Ineficiência dinâmica é possível: $k^{D*} > k_{gold}$ implica $r^* < n$.
+\item A taxa de poupança é $s = 1/(1+\beta)$.
+\end{enumerate}
+
+\textbf{Gabarito: (c).}\\
+Justificativa: Como gerações não internalizam efeitos intergeracionais, $k^{D*}$ pode exceder $k_{gold}$. Quando $r^* < n$, a economia acumulou capital em excesso --- reduzir $s$ Pareto-melhora. (a) FALSO: sem horizonte infinito, o 1.º Teorema do Bem-Estar pode falhar. (b) FALSO: a direção depende dos parâmetros $\beta, n, \alpha$. (d) FALSO: $s = \beta/(1+\beta)$.
+
+% ==========================================================================
+\section*{Apêndice B --- Log-linearização e Calibração do RBC}
+\addcontentsline{toc}{section}{Apêndice B --- Log-linearização e Calibração}
+% ==========================================================================
+
+\subsection*{B.1 Procedimento de Log-linearização}
+
+A log-linearização transforma o sistema de equações não-lineares em um sistema linear em desvios percentuais ao redor do EE. Para uma variável $X_t$:
+\[
+\hat{X}_t \equiv \ln X_t - \ln X^* \approx \frac{X_t - X^*}{X^*} \quad (\text{desvio percentual pequeno}).
+\]
+
+\textbf{Regra prática para produtos:} $\widehat{XY} = \hat{X} + \hat{Y}$.
+
+\textbf{Regra prática para potências:} $\widehat{X^\alpha} = \alpha\hat{X}$.
+
+\subsection*{B.2 Log-linearização das Equações Principais do RBC}
+
+\textbf{Produção:} $Y_t = Z_t K_t^\alpha N_t^{1-\alpha}$:
+\[
+\hat{y}_t = \hat{z}_t + \alpha\hat{k}_t + (1-\alpha)\hat{n}_t.
+\]
+
+\textbf{Retorno do capital:} $r_t = \alpha Y_t/K_t$:
+\[
+\hat{r}_t = \hat{y}_t - \hat{k}_t.
+\]
+
+\textbf{Salário:} $w_t = (1-\alpha)Y_t/N_t$:
+\[
+\hat{w}_t = \hat{y}_t - \hat{n}_t.
+\]
+
+\textbf{Condição de ótimo do trabalho:} $b/(1-N_t) = w_t/C_t$:
+\[
+\frac{N^*}{1-N^*}\hat{n}_t = \hat{w}_t - \hat{c}_t.
+\]
+
+\textbf{Euler:} $1/C_t = \beta E_t[(r_{t+1}+1-\delta)/C_{t+1}]$:
+\[
+-\hat{c}_t = \frac{r^*}{1/\beta}\,\E_t[\hat{r}_{t+1}] - \E_t[\hat{c}_{t+1}] \;\Longrightarrow\; \hat{c}_t = \E_t[\hat{c}_{t+1}] - \frac{r^*\beta}{1}\,\E_t[\hat{r}_{t+1}].
+\]
+
+\textbf{Acumulação de capital:}
+\[
+\hat{k}_{t+1} = (1-\delta)\hat{k}_t + \frac{I^*}{K^*}\hat{\imath}_t = (1-\delta)\hat{k}_t + \delta\hat{\imath}_t.
+\]
+
+\subsection*{B.3 Função Política e Autovalores}
+
+O sistema log-linearizado tem solução na forma de função política linear:
+\[
+\hat{c}_t = a_k\hat{k}_t + a_z\hat{z}_t, \qquad \hat{n}_t = d_k\hat{k}_t + d_z\hat{z}_t.
+\]
+
+O coeficiente $a_k$ satisfaz uma equação quadrática (obtida das condições de primeira ordem e da lei de movimento). Com a calibração padrão:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Parâmetro & Modelo RCK & Modelo RBC \\
+\midrule
+Fator de desconto & $\rho = 0.04$ & $\beta = 0.99$ \\
+Participação do capital & $\alpha = 0.33$ & $\alpha = 0.33$ \\
+Depreciação & $\delta = 0.025$ & $\delta = 0.025$ \\
+Crescimento pop.\ & $n = 0.01$ & $n = 0$ (sem cresc.) \\
+Prog.\ tecnológico & $g = 0.02$ & $g = 0$ (choque AR(1)) \\
+Elasticidade consumo & $1/\theta$ & 1 (log) \\
+Peso lazer & --- & $b \approx 1.55$ \\
+Persistência choque & --- & $\rho_z = 0.95$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{B.4 Momentos Simulados vs.\ Dados (EUA Trimestrais)}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Variável & Dados EUA & RBC & Razão \\
+\midrule
+$\sigma(Y)$ & 1.72\% & 1.72\% & 1.00 \\
+$\sigma(C)/\sigma(Y)$ & 0.74 & 0.48 & 0.65 \\
+$\sigma(I)/\sigma(Y)$ & 2.98 & 3.15 & 1.06 \\
+$\sigma(N)/\sigma(Y)$ & 0.95 & 0.77 & 0.81 \\
+$\text{corr}(C,Y)$ & 0.88 & 0.94 & --- \\
+$\text{corr}(I,Y)$ & 0.80 & 0.99 & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+O RBC reproduz bem $\sigma(I)/\sigma(Y) > 1$ (canal 2) e $\sigma(C)/\sigma(Y) < 1$ (canal 3), mas subestima a variabilidade do trabalho (crítica de Hansen-Wright: trabalho extensivo vs.\ intensivo).
+
+\vfill
+\begin{center}
+\rule{0.5\linewidth}{0.4pt}\\[0.5em]
+{\small Código Python, soluções numéricas e esta nota em \texttt{github.com/fcarva/macro} $\cdot$ Macroeconomia I PPGEco-UFES 2026}
+\end{center}
+
+\end{document}

@@ -1,0 +1,1434 @@
+% ==========================================================================
+%  Guia Completo Unificado — Prova Única 2026
+%  Macroeconomia I (PPGEco-UFES, 2026)
+%  Prof. Ricardo Ramalhete Moreira
+%  Cobre: Solow (cap.1), RCK + Diamond (cap.2), RBC (cap.5),
+%         Rigidez Nominal (cap.6), NK DSGE / Fischer / Taylor / Calvo / CGG (cap.7)
+%  Lista I (Q1-Q8) + Lista II (Q1-Q11)
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+% --------------------------------------------------------------------------
+% Packages
+% --------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+
+% --------------------------------------------------------------------------
+% Caixas (standard skin — sem skins/TikZ para evitar manchas negras)
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{formulabox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\khat}{\hat{k}}
+\newcommand{\chat}{\hat{c}}
+\newcommand{\yhat}{\hat{y}}
+\newcommand{\zhat}{\hat{z}}
+\newcommand{\rstar}{r^*}
+\newcommand{\kstar}{k^*}
+\newcommand{\cstar}{c^*}
+\newcommand{\pibar}{\bar{\pi}}
+
+% --------------------------------------------------------------------------
+% Espaçamento e parágrafos
+% --------------------------------------------------------------------------
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+% --------------------------------------------------------------------------
+% Títulos de seções
+% --------------------------------------------------------------------------
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{}{0em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+% --------------------------------------------------------------------------
+% Cabeçalho/rodapé
+% --------------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Guia Completo da Prova --- Macroeconomia I (PPGEco-UFES, 2026)}}
+\rhead{\footnotesize\textcolor{grayrbc}{Solow $\cdot$ RCK $\cdot$ Diamond $\cdot$ RBC $\cdot$ Rigidez Nominal $\cdot$ NK DSGE}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Guia Completo Unificado da Prova\\[0.4em]
+\large Macroeconomia I --- 2026}\\[0.4em]
+{\normalsize\color{grayrbc} Romer caps.\ 1, 2, 5, 6 e 7 (Aulas 1--9)}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{1em}
+{\large Prof.\ Ricardo Ramalhete Moreira}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.92\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{\textcolor{provaborder}{Prova Única:}} Lista I (Q1--Q8) e Lista II (Q1--Q11) são para a
+\textbf{MESMA} prova. Este guia unifica todo o conteúdo:\\[0.4em]
+\textbf{Solow} (cap.\ 1) $\cdot$ \textbf{RCK + Diamond} (cap.\ 2) $\cdot$ \textbf{RBC} (cap.\ 5)
+$\cdot$ \textbf{Rigidez Nominal} (cap.\ 6) $\cdot$ \textbf{NK DSGE / Fischer / Taylor / Calvo / CGG} (cap.\ 7)
+\end{tcolorbox}
+
+\vspace{1.2em}
+\begin{tabular}{lll}
+\toprule
+\textbf{Parte} & \textbf{Conteúdo} & \textbf{Lista} \\
+\midrule
+I & Solow: crescimento exógeno, Regra de Ouro & --- \\
+II & Diamond OLG: ineficiência dinâmica & --- \\
+III & RCK: bem-estar, Keynes-Ramsey, diagrama de fases & Lista I Q1--Q3 \\
+IV & RBC: capital, trabalho, PTF & Lista I Q4--Q8 \\
+V & Modelos de Ajuste de Preços (Fischer/Taylor/Calvo/CEE) & --- \\
+VI & Modelo NK Canônico CGG + Soluções & Lista II Q1--Q11 \\
+Ap. A & Questões-tipo com Fischer/Taylor/Calvo/CGG & --- \\
+Ap. B & Tabelas de calibração unificadas & --- \\
+\bottomrule
+\end{tabular}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=boxbg, colframe=boxborder, width=0.92\textwidth,
+  arc=4pt, boxrule=1pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{Referências principais:}\\[0.3em]
+D.\ Romer, \textit{Advanced Macroeconomics}, 5.\textordfeminine\ ed., McGraw-Hill (2019). Caps.\ 1, 2, 5, 6, 7.\\[0.2em]
+J.\ Galí, \textit{Monetary Policy, Inflation, and the Business Cycle}, Princeton (2008).\\[0.2em]
+Slides das Aulas 8--9 (Cap.\ 7): Fischer (1977), Taylor (1980), Calvo (1983), CGG (2000).
+\end{tcolorbox}
+
+\vfill
+{\small Guia unificado para a prova única de Macroeconomia I --- PPGEco-UFES 2026.}
+\end{center}
+\end{titlepage}
+
+% --------------------------------------------------------------------------
+% Formulário de Referência Rápida (pág. 2) — 3 colunas
+% --------------------------------------------------------------------------
+\newpage
+\thispagestyle{fancy}
+
+\begin{center}
+{\large\bfseries\color{cyanrbc} Formulário de Referência Rápida --- Prova Única 2026}\\[0.3em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+\vspace{0.3em}
+\begin{multicols}{3}
+
+\textbf{\textcolor{cyanrbc}{SOLOW + RCK}}
+
+\medskip
+\textbf{Eq.\ fundamental Solow:}
+\[
+\dot{k} = sf(k) - (n+g+\delta)k
+\]
+
+\textbf{EE Cobb-Douglas:}
+\[
+k^* = \!\left(\frac{s}{n+g+\delta}\right)^{\!1/(1-\alpha)}
+\]
+
+\textbf{Regra de Ouro:}
+\[
+f'(k_{gold}) = n+g+\delta,\quad s_{gold} = \alpha
+\]
+
+\textbf{Keynes-Ramsey:}
+\[
+\frac{\dot{c}}{c} = \frac{f'(k)-\delta-\rho-\theta g}{\theta}
+\]
+
+\textbf{EE RCK:}
+\[
+r^* = \rho + \theta g,\quad \beta(r^*+1-\delta)=1
+\]
+
+\textbf{Convergência RCK:}
+\[
+\rho - n - (1-\theta)g > 0
+\]
+
+\textbf{Crescimento balanceado:}
+\[
+g_K = g_Y = n+g,\quad g_{Y/L} = g
+\]
+
+\textbf{Resíduo de Solow:}
+\[
+g_{TFP} = g_Y - \alpha g_K - (1-\alpha)g_L
+\]
+
+\columnbreak
+
+\textbf{\textcolor{cyanrbc}{DIAMOND + RBC}}
+
+\medskip
+\textbf{Diamond --- poupança:}
+\[
+s_t = \frac{\beta}{1+\beta}\,w_t
+\]
+
+\textbf{Diamond --- mapa:}
+\[
+k_{t+1} = \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}k_t^\alpha
+\]
+
+\textbf{Inef.\ dinâmica:} $r^* < n$ $\Rightarrow$ $k^* > k_{gold}$
+
+\textbf{RBC --- Euler capital:}
+\[
+\beta(r^*+1-\delta)=1,\quad I^*=\delta K^*
+\]
+
+\textbf{DML e Lazer:}
+\[
+\text{DML} = \frac{b}{1-N_t},\quad l^* = \frac{bC}{w}
+\]
+
+\textbf{Subs.\ intertemporal:}
+\[
+\frac{1-l_1}{1-l_2} = \beta(1+r)\frac{w_2}{w_1}
+\]
+
+\textbf{Calibração:}
+\[
+b = \frac{w^* l^*}{C^*} \approx 1{,}55
+\]
+
+\textbf{3 canais PTF:}
+(1) direto $\cdot$ (2) investimento $\cdot$ (3) suavização
+
+\columnbreak
+
+\textbf{\textcolor{cyanrbc}{NK MODELOS (Cap.\ 7)}}
+
+\medskip
+\textbf{IS NK:}
+\[
+\ln Y_t = \ln Y_{t+1} - \frac{1}{\theta}r_t
+\]
+
+\textbf{$\phi$ (rigidez real):}
+\[
+\phi = \theta+\gamma-1,\quad p_t^* = \phi m_t + (1-\phi)p_t
+\]
+
+\textbf{CPNK Calvo:}
+\[
+\pi_t = \kappa y_t + \beta E_t\pi_{t+1}
+\]
+\[
+\kappa = \frac{\alpha[1-(1-\alpha)\beta]\phi}{1-\alpha}
+\]
+
+\textbf{CPNK Híbrida CEE:}
+\[
+\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t
+\]
+
+\textbf{CGG (Taylor forward-looking):}
+\[
+r_t = \phi_\pi E_t[\pi_{t+1}] + \phi_y E_t[y_{t+1}] + u_t^{MP}
+\]
+
+\textbf{Fischer eq.\ (20):}
+\[
+y_t = \tfrac{1}{1+\phi}[E_{t-1}m_t - E_{t-2}m_t] + [m_t - E_{t-1}m_t]
+\]
+
+\textbf{Taylor eq.\ (22):}
+\[
+y_t = \lambda y_{t-1} + \tfrac{1+\lambda}{2}u_t
+\]
+
+\textbf{Princípio de Taylor:} $\phi_\pi > 1$
+
+\end{multicols}
+
+\vspace{0.5em}
+\begin{provabox}[title={Alertas Críticos da Prova}]
+\textbf{(1)} Convergência RCK: $\rho - n \mathbf{-} (1-\theta)g > 0$ (sinal $\mathbf{-}$, não $+$).
+\textbf{(2)} CPNK do professor: $\kappa = \alpha[1-(1-\alpha)\beta]\phi/(1-\alpha)$ (notação das slides), \textbf{diferente} de Galí: $\kappa = (1-\alpha)(1-\alpha\beta)\phi/\alpha$ (ambas equivalentes, mas notação diverge na prova).
+\textbf{(3)} Regra CGG: \textbf{forward-looking} $E_t[\pi_{t+1}]$, não contemporânea $\pi_t$.
+\textbf{(4)} Fischer/Taylor: $\phi$ mede rigidez real; $\phi<1$ $\Rightarrow$ maior rigidez real $\Rightarrow$ maiores efeitos reais da moeda.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+% Sumário
+% --------------------------------------------------------------------------
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================================================
+\section*{\large\color{cyanrbc} Parte I --- Modelo de Solow: Crescimento Exógeno (Cap.\ 1)}
+\addcontentsline{toc}{section}{Parte I --- Modelo de Solow (Cap.\ 1)}
+% ==========================================================================
+
+\subsection*{I.1 Forma Intensiva e Equação Fundamental}
+
+\textbf{Ponto de partida.} A função de produção agregada é $Y = F(K, AL)$, onde $A$ cresce à taxa $g$ e $L$ cresce à taxa $n$. Com Retornos Constantes de Escala (RCE): $y \equiv Y/(AL) = f(k)$, $k \equiv K/(AL)$.
+
+\textbf{Passo 1 --- dinâmica de $k$.} Diferenciando $k = K/(AL)$:
+\[
+\dot{k} = \frac{\dot{K}}{AL} - (g+n)k.
+\]
+
+\textbf{Passo 2 --- lei de movimento do capital.} $\dot{K} = sY - \delta K$ $\Rightarrow$ $\dot{K}/(AL) = sf(k) - \delta k$. Substituindo:
+
+\begin{formulabox}[title={Equação Fundamental de Solow}]
+\[
+\boxed{\dot{k} = sf(k) - (n+g+\delta)k}
+\]
+$sf(k)$ = investimento; $(n+g+\delta)k$ = investimento de manutenção.
+\end{formulabox}
+
+\subsection*{I.2 Estado Estacionário e Cobb-Douglas}
+
+No EE: $sf(k^*) = (n+g+\delta)k^*$. Com $f(k) = k^\alpha$:
+
+\begin{resultbox}[title={Estado Estacionário de Solow --- Cobb-Douglas}]
+\[
+k^* = \left(\frac{s}{n+g+\delta}\right)^{\!1/(1-\alpha)}, \quad
+y^* = \left(\frac{s}{n+g+\delta}\right)^{\!\alpha/(1-\alpha)}, \quad
+c^* = (1-s)y^*.
+\]
+\end{resultbox}
+
+\subsection*{I.3 Regra de Ouro}
+
+Maximizar $c^* = f(k^*) - (n+g+\delta)k^*$ em $k^*$:
+
+\textbf{FOC:} $f'(k_{gold}) = n+g+\delta$.
+
+Com Cobb-Douglas: $\alpha k_{gold}^{\alpha-1} = n+g+\delta$ $\Rightarrow$ $k_{gold} = (\alpha/(n+g+\delta))^{1/(1-\alpha)}$.
+
+\textbf{Taxa de poupança áurea:} $s_{gold} = f'(k_{gold})\cdot k_{gold}/f(k_{gold}) = \alpha$.
+
+\begin{resultbox}[title={Regra de Ouro de Solow}]
+\[
+f'(k_{gold}) = n+g+\delta, \qquad s_{gold} = \alpha.
+\]
+Se $s > s_{gold}$: sobre-poupança (ineficiência dinâmica --- reduzir $s$ Pareto-melhora).
+\end{resultbox}
+
+\subsection*{I.4 Crescimento Balanceado e Contabilidade}
+
+No EE, $k = K/(AL)$ constante implica $g_K = n+g$. Com Cobb-Douglas: $g_Y = n+g$ e $g_{Y/L} = g$.
+
+\begin{resultbox}[title={Contabilidade do Crescimento (Resíduo de Solow)}]
+\[
+g_{TFP} \equiv g_Y - \alpha g_K - (1-\alpha)g_L.
+\]
+\end{resultbox}
+
+\subsection*{I.5 Convergência Condicional}
+
+Linearizando ao redor de $k^*$: taxa de convergência $|\mu| = (1-\alpha)(n+g+\delta) > 0$.
+
+\begin{provabox}[title={Solow vs.\ RCK --- Diferença Fundamental}]
+\textbf{Solow:} $s$ exógena. \textbf{RCK:} $s$ endógena (otimização). No RCK: $r^* = \rho+\theta g > n+g$ (retorno áureo), logo $k_{RCK}^* < k_{gold}$.
+\end{provabox}
+
+% ==========================================================================
+\section*{\large\color{cyanrbc} Parte II --- Modelo de Diamond: Gerações Sobrepostas (Cap.\ 2)}
+\addcontentsline{toc}{section}{Parte II --- Modelo de Diamond (Cap.\ 2)}
+% ==========================================================================
+
+\subsection*{II.1 Configuração e Regra de Poupança}
+
+Dois períodos de vida. Utilidade: $U = \ln(c_{1t}) + \beta\ln(c_{2,t+1})$.
+
+\textbf{FOC:} $-1/(w_t - s_t) + \beta/s_t = 0$ $\Rightarrow$ $\beta(w_t-s_t) = s_t$.
+
+\begin{resultbox}[title={Poupança Ótima no Modelo de Diamond}]
+\[
+s_t = \frac{\beta}{1+\beta}\,w_t.
+\]
+A poupança é \emph{independente} da taxa de juros com log-utilidade.
+\end{resultbox}
+
+\subsection*{II.2 Mapa Dinâmico de Capital}
+
+\[
+k_{t+1} = \frac{s_t}{1+n} = \frac{\beta(1-\alpha)}{(1+\beta)(1+n)}\,k_t^\alpha \equiv \Phi\, k_t^\alpha.
+\]
+
+\begin{resultbox}[title={Mapa Dinâmico de Diamond}]
+\[
+k_{t+1} = \Phi\, k_t^\alpha, \qquad \Phi \equiv \frac{\beta(1-\alpha)}{(1+\beta)(1+n)},\qquad k^{D*} = \Phi^{1/(1-\alpha)}.
+\]
+\end{resultbox}
+
+\subsection*{II.3 Regra de Ouro e Ineficiência Dinâmica}
+
+Com $\delta=1$: Regra de Ouro exige $r_{gold} = n$. Se $k^{D*} > k_{gold}$: $r^* < n$ --- acumulação excessiva de capital.
+
+\begin{provabox}[title={Ineficiência Dinâmica no Diamond vs.\ RCK}]
+\textbf{Diamond:} cada geração não internaliza efeitos intergeracionais $\Rightarrow$ possível $k^{D*} > k_{gold}$ (ineficiência dinâmica).\\
+\textbf{RCK:} família com horizonte infinito internaliza tudo $\Rightarrow$ equilíbrio Pareto-ótimo.
+\end{provabox}
+
+% ==========================================================================
+\section*{\large\color{cyanrbc} Parte III --- Modelo RCK: Questões 1--3 da Lista I (Cap.\ 2)}
+\addcontentsline{toc}{section}{Parte III --- Modelo RCK: Questões 1--3 (Lista I)}
+% ==========================================================================
+
+\setcounter{section}{0}
+
+\section{Efeitos sobre o Bem-Estar: $\theta$, $\rho$, $n$, $g$ (Q1)}
+
+\subsection*{Resolução}
+
+A função utilidade da família é escrita em termos do consumo por trabalho efetivo $c(t)$,
+\[
+U = B\int_0^\infty e^{-\beta t}\left[\frac{c(t)^{1-\theta}}{1-\theta}\right]dt, \qquad \beta \equiv \rho - n - (1-\theta)g,
+\]
+onde $B > 0$ é uma constante e $\beta > 0$ garante convergência da integral. A taxa de crescimento ótima do consumo é $\dot{C}/C = (r-\rho)/\theta$, com estado estacionário em $r^* = \rho + \theta g$.
+
+\textbf{(a) Aumento de $\theta$.} O aumento da aversão ao risco implica, tudo mais constante, redução do crescimento intertemporal do consumo — pois $\dot{C}/C = (r-\rho)/\theta$ decresce quando $\theta$ sobe —, de modo que existe uma maximização da utilidade em nível menor de bem-estar da família no longo prazo.
+
+\textbf{(b) Elevação de $\rho$.} As famílias passam a preferir a utilidade corrente em relação à futura, resultando em menor taxa de crescimento do consumo e, portanto, em menor bem-estar ao longo da trajetória ótima. Observe que $\beta = \rho - n - (1-\theta)g$ também sobe com $\rho$, elevando o desconto sobre os valores futuros da utilidade e agravando a queda no bem-estar.
+
+\textbf{(c) Aumento de $n$.} Como o RCK é modelo de pleno emprego, mais trabalhadores implicam maior produto agregado no longo prazo; logo, o consumo por família se eleva e o bem-estar familiar aumenta. Formalmente, $\beta = \rho - n - (1-\theta)g$ decresce com $n$, reduzindo o desconto efetivo sobre o fluxo de utilidades.
+
+\textbf{(d) Aumento de $g$.} A economia eleva o produto per capita por meio da produtividade e, na função utilidade, $\beta = \rho - n - (1-\theta)g$ decresce quando $\theta < 1$, de modo que existe menor desconto sobre os valores futuros; dessa forma, o bem-estar familiar melhora via aceleração do crescimento balanceado.
+
+\begin{resultbox}[title={Síntese: Efeitos sobre o Bem-Estar (Q1)}]
+\textbf{(a)} $\theta\uparrow$ $\Rightarrow$ $\dot{C}/C\downarrow$ $\Rightarrow$ \textbf{menor bem-estar.}\\[2pt]
+\textbf{(b)} $\rho\uparrow$ $\Rightarrow$ preferência pelo consumo corrente, $\beta\uparrow$ $\Rightarrow$ \textbf{menor bem-estar.}\\[2pt]
+\textbf{(c)} $n\uparrow$ $\Rightarrow$ produto total maior, $\beta\downarrow$ $\Rightarrow$ \textbf{maior bem-estar.}\\[2pt]
+\textbf{(d)} $g\uparrow$ $\Rightarrow$ produtividade sobe, $\beta\downarrow$ $\Rightarrow$ \textbf{maior bem-estar.}
+\end{resultbox}
+
+\begin{provabox}[title={Q1 --- Atenção em (c) e (d)}]
+Armadilha frequente: confundir $c^*$ per efficiency unit (que cai com $n\uparrow$) com o bem-estar familiar total (que sobe, via $\beta\downarrow$ e via mais membros consumindo). Para $g\uparrow$: o efeito sobre $k^*$ é negativo ($r^*\uparrow$), mas o efeito sobre $W^*$ é positivo ($\beta\downarrow$ e produtividade maior).
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Taxa de Crescimento Ótima do Consumo (Q2)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+O problema da família é maximizar a utilidade intertemporal sujeita à restrição orçamentária com taxa de juros $r$ constante e riqueza inicial $W^*$:
+\[
+U = \int_0^\infty e^{-\rho t}\!\left[\frac{C(t)^{1-\theta}}{1-\theta}\right]\frac{L(t)}{H}dt \qquad
+\text{s.a.}\quad \int_0^\infty e^{-rt}C(t)\frac{L(t)}{H}dt = W^*.
+\]
+
+Formamos o Lagrangiano $\mathcal{L} = \int_0^\infty e^{-\rho t}[C^{1-\theta}/(1-\theta)](L/H)dt + \lambda[W^* - \int_0^\infty e^{-rt}C(L/H)dt]$. A condição de primeira ordem para $C(t)$ é
+\[
+e^{-\rho t}C(t)^{-\theta} = \lambda\, e^{-rt}, \tag{1}
+\]
+onde cancelamos o fator $L(t)/H > 0$ de ambos os lados. Diferenciando (1) em relação a $t$, obtemos
+\[
+-\rho\, e^{-\rho t}C^{-\theta} + e^{-\rho t}(-\theta C^{-\theta-1}\dot{C}) = -r\lambda\, e^{-rt}.
+\]
+Substituindo (1) para eliminar $\lambda e^{-rt} = e^{-\rho t}C^{-\theta}$ e dividindo por $e^{-\rho t}C^{-\theta}$, chega-se a $-\theta(\dot{C}/C) - \rho + r = 0$, portanto
+\[
+\frac{\dot{C}(t)}{C(t)} = \frac{r - \rho}{\theta}. \tag{2}
+\]
+Essa é a equação de Euler do consumo: a taxa de crescimento do consumo agregado é positiva quando o retorno de mercado $r$ supera a taxa de desconto $\rho$, e a magnitude da resposta é inversamente proporcional à aversão ao risco $\theta$. Em termos de consumo por trabalho efetivo $c = C/A$, como $\dot{A}/A = g$, temos
+\[
+\frac{\dot{c}(t)}{c(t)} = \frac{\dot{C}}{C} - g = \frac{r - \rho}{\theta} - g,
+\]
+que é a regra de Keynes-Ramsey. No estado estacionário, $\dot{c} = 0$ impõe $r^* = \rho + \theta g$, de modo que $f'(k^*) = \delta + \rho + \theta g$.
+
+Para garantir convergência da integral de utilidade ao longo do caminho balanceado, o integrando deve decrescer, o que exige $\rho - n - (1-\theta)g > 0$.
+
+\begin{formulabox}[title={Equação de Euler e Regra de Keynes-Ramsey (Q2)}]
+\[
+\boxed{\frac{\dot{C}}{C} = \frac{r-\rho}{\theta},} \qquad \frac{\dot{c}}{c} = \frac{f'(k)-\delta-\rho-\theta g}{\theta}.
+\]
+\end{formulabox}
+
+\begin{provabox}[title={Q2 --- O Sinal que Todo Mundo Erra}]
+A condição de convergência correta é $\rho - n \mathbf{-} (1-\theta)g > 0$ (sinal $\mathbf{-}$ antes de $(1-\theta)g$). A alternativa errada usa $\rho - n + (1-\theta)g > 0$ (sinal $+$) --- erro mais cobrado em provas anteriores.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Diagrama de Fases: Regiões e Dinâmica (Q3)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+No diagrama de fases do modelo RCK, duas isóclinas dividem o plano $(k,c)$ em quatro regiões. A isóclina $\dot{c}=0$ é a reta vertical $k = k^*$: à esquerda dela, $f'(k) > r^* = \delta+\rho+\theta g$, logo $\dot{c} > 0$ (consumo cresce); à direita, $\dot{c} < 0$. A isóclina $\dot{k}=0$ é a curva côncava $c = f(k)-(\delta+n+g)k$: acima dela, o consumo excede o produto líquido de manutenção, de modo que $\dot{k} < 0$ (capital cai); abaixo, $\dot{k} > 0$.
+
+A questão coloca a economia à esquerda da isóclina $\dot{c}=0$ (portanto $\dot{c}>0$, consumo cresce) e acima da isóclina $\dot{k}=0$ (portanto $\dot{k}<0$, capital diminui). Essa combinação corresponde à região Noroeste (NW) do diagrama. A trajetória dinâmica aponta simultaneamente para cima (consumo crescente) e para a esquerda (capital decrescente), divergindo do equilíbrio de estado estacionário --- ou seja, a economia se afasta em direção ao Noroeste, sem convergir para $(k^*, c^*)$.
+
+Essa divergência confirma que ponto de sela do RCK possui apenas uma trajetória convergente em cada direção. O Jacobiano no estado estacionário tem determinante negativo, $\det(J^*) = (c^*/\theta)f''(k^*) < 0$, garantindo autovalores de sinais opostos; portanto, trajetórias que partem da região NW sem estarem sobre a sela ótima divergem irremediavelmente.
+
+\begin{resultbox}[title={Região NW no Diagrama de Fases (Q3)}]
+Economia à esquerda de $\dot{c}=0$ e acima de $\dot{k}=0$: $\dot{c}>0$ e $\dot{k}<0$. Trajetória aponta para o Noroeste e \textbf{diverge} do equilíbrio.
+\end{resultbox}
+
+% ==========================================================================
+\section*{\large\color{cyanrbc} Parte IV --- Modelo RBC: Questões 4--8 da Lista I (Cap.\ 5)}
+\addcontentsline{toc}{section}{Parte IV --- Modelo RBC: Questões 4--8 (Lista I)}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+\section{Investimento de Equilíbrio e Estabilidade do Capital (Q4)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+A lei de movimento do capital no modelo RBC é $K_{t+1} = (1-\delta)K_t + I_t$, onde $I_t$ é o investimento efetivo e $\delta$ é a taxa de depreciação. No estado estacionário, $K_{t+1} = K_t = K^*$, de modo que a condição $K^* = (1-\delta)K^* + I^*$ implica imediatamente que o investimento de equilíbrio é exatamente igual à depreciação do estoque de capital: $I^* = \delta K^*$. Portanto, o investimento de equilíbrio repõe apenas o capital que se desgasta a cada período, mantendo o estoque constante.
+
+A condição de Euler intertemporal da família, que equaliza o custo de poupar hoje ao retorno de amanhã, é $\beta(r^* + 1 - \delta) = 1$, onde $r^* = f'(K^*) - \delta$ é o produto marginal líquido do capital. Resolvendo para $r^*$, obtemos
+\[
+r^* = \frac{1-\beta(1-\delta)}{\beta}.
+\]
+Para os parâmetros padrão $\beta=0{,}99$ e $\delta=0{,}025$, isso resulta em $r^* \approx 3{,}5\%$ por trimestre.
+
+Após log-linearização em torno do estado estacionário, a dinâmica do capital segue $\hat{k}_{t+1} = A\hat{k}_t + B\hat{z}_t$, onde $\hat{k}_t$ e $\hat{z}_t$ são desvios percentuais de $K^*$ e da PTF, respectivamente. Com $\alpha=0{,}33$, $\beta=0{,}99$ e $\delta=0{,}025$, o coeficiente autorregressivo satisfaz $A \approx 0{,}962 < 1$, garantindo estabilidade do equilíbrio.
+
+\begin{resultbox}[title={Investimento de Equilíbrio (Q4)}]
+\[
+I^* = \delta K_t \quad \text{(equilíbrio); } \quad I_t \quad \text{(efetivo).}
+\]
+Condição $K_{t+1} - K_t = 0$ implica $I_t = \delta K_t$.
+\end{resultbox}
+
+\begin{provabox}[title={Q4 --- Erros Frequentes}]
+(1) $I^* = \delta K^*$ (correto), não $I^* > \delta K^*$. (2) Euler: $\beta(r^*+1-\delta)=1$ --- não $\beta(r^*-1+\delta)=1$. (3) $|A|<1$ necessário para estabilidade.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+\section{Desutilidade Marginal da Oferta de Trabalho (Q5)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+A função utilidade da família representativa no modelo RBC é $U = \sum_{t=0}^\infty \beta^t u(C_t, 1-N_t)$, com $u(C_t, 1-N_t) = \ln C_t + b\ln(1-N_t)$, onde $N_t$ é a fração do tempo dedicada ao trabalho e $1-N_t = \ell_t$ é o lazer. A desutilidade marginal do trabalho é a perda de utilidade decorrente de uma hora adicional de trabalho, obtida derivando parcialmente a utilidade em relação a $N_t$:
+\[
+\frac{\partial U}{\partial \ell_t} = e^{-\rho t}\frac{N_t}{H}\left[-\frac{b}{1-\ell_t}\right].
+\]
+Portanto, a desutilidade marginal de oferecer trabalho é $b/(1-N_t)$, que cresce à medida que o agente já trabalha mais (menor lazer residual disponível) e cresce também com o parâmetro $b$, que mede a intensidade da preferência por lazer. A elevação de $b$ implica, portanto, redução da razão $c/(1-\ell)$, ou seja, queda do consumo relativo ao lazer, e em equilíbrio a família opta por mais lazer (menor $N_t$).
+
+\begin{resultbox}[title={Desutilidade Marginal do Trabalho (Q5)}]
+\[
+\text{DML} = \left|\frac{\partial u}{\partial N_t}\right| = \frac{b}{1-N_t}.
+\]
+Elevação de $b$ $\Rightarrow$ maior DML para dado $N_t$ $\Rightarrow$ família reduz horas trabalhadas (mais lazer).
+\end{resultbox}
+
+% --------------------------------------------------------------------------
+\section{Lazer Ótimo: Efeitos de $r$ e $w$ Futuros (Q6)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+A condição de ótimo intratemporal iguala a taxa marginal de substituição entre consumo e lazer ao salário real: $bC_t/(1-\ell_t) = w_t$, de onde se extrai $\ell_t^* = 1 - bC_t/w_t$. Combinando essa condição com a equação de Euler do consumo $C_{t+1} = \beta(1+r_t)C_t$, obtém-se a razão ótima de lazer entre os dois períodos:
+\[
+\frac{1-\ell_1}{1-\ell_2} = \frac{1}{e^{-\rho}(1+r)}\cdot\frac{w_2}{w_1}.
+\]
+
+\textbf{(a) Elevação de $r$.} Um aumento da taxa de juros torna o trabalho presente mais atrativo relativamente ao futuro: o lado direito da expressão acima diminui com $r$, de modo que a razão $(1-\ell_1)/(1-\ell_2)$ cai, ou seja, a família trabalha mais no período 1 (substitui lazer presente por lazer futuro). Intuitivamente, o custo de oportunidade do lazer hoje sobe quando $r$ aumenta.
+
+\textbf{(b) Elevação de $w_2$.} Um salário futuro mais alto aumenta $w_2/w_1$ no lado direito, elevando a razão $(1-\ell_1)/(1-\ell_2)$. Portanto, a família reduz o trabalho no período 1 (mais lazer presente) e aumenta no período 2, aproveitando o salário mais alto no futuro.
+
+\begin{formulabox}[title={Substituição Intertemporal de Lazer/Trabalho (Q6)}]
+\[
+\frac{1-\ell_1}{1-\ell_2} = \frac{1}{e^{-\rho}(1+r)}\cdot\frac{w_2}{w_1}.
+\]
+$r\uparrow$ $\Rightarrow$ razão $\downarrow$ $\Rightarrow$ mais trabalho no período 1. \quad $w_2\uparrow$ $\Rightarrow$ razão $\uparrow$ $\Rightarrow$ menos trabalho no período 1.
+\end{formulabox}
+
+% --------------------------------------------------------------------------
+\section{Razão Consumo-Lazer e Calibração de $b$ (Q7)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+A condição de ótimo intratemporal entre consumo e lazer no modelo RBC é $c_t/(1-\ell_t) = w_t/b$. Para que o modelo reproduza fatos estilizados, o parâmetro $b$ deve ser calibrado de modo que no estado estacionário, com $N^* = 1/3$ (a família dedica um terço do tempo ao trabalho), a condição de ótimo seja satisfeita. Isso impõe $b = w^*(1-N^*)/C^*$.
+
+A elevação de $b$ reduz a razão $c/(1-\ell)$ para dado salário $w$, de modo que a família opta por mais lazer. Observe que essa relação de custo-benefício emerge da comparação entre a utilidade marginal de uma hora adicional de lazer, $e^{-\rho t}(N_t/H)[b/(1-\ell_t)]$, e a utilidade marginal do consumo obtida com a renda daquela hora, $e^{-\rho t}(N_t/H)(1/c_t)w_t$; na igualdade ótima, $c_t/(1-\ell_t) = w_t/b$.
+
+Usando os valores de estado estacionário $r^* = 1/\beta - (1-\delta) \approx 0{,}035$, $k^* = (\alpha/(r^*+\delta))^{1/(1-\alpha)} \approx 11{,}57$, $y^* \approx 2{,}41$, $w^* = (1-\alpha)y^* \approx 1{,}61$ e $C^* = y^* - \delta k^* \approx 2{,}12$, com $N^* = 1/3$, obtemos
+\[
+b = \frac{w^*(1-N^*)}{C^*} = \frac{1{,}61 \times 2/3}{2{,}12} \approx 1{,}55.
+\]
+
+\begin{resultbox}[title={Calibração do Parâmetro $b$ (Q7)}]
+\[
+b = \frac{w^*(1-N^*)}{C^*} \approx 1{,}55.
+\]
+Condição de ótimo: $c_t/(1-\ell_t) = w_t/b$. Elevação de $b$ $\Rightarrow$ queda de $\ell$ (mais lazer).
+\end{resultbox}
+
+% --------------------------------------------------------------------------
+\section{Três Canais de Transmissão dos Choques de PTF (Q8)}
+% --------------------------------------------------------------------------
+
+\subsection*{Resolução}
+
+Um choque positivo de produtividade total dos fatores (PTF) se propaga pelo modelo RBC por três canais distintos, todos decorrentes da estrutura de otimização intertemporal.
+
+\textbf{Canal (a) — Efeito direto sobre produtividades marginais.} O choque $A_t\uparrow$ aumenta imediatamente o produto marginal do capital, $r_t = \alpha(A_t L_t/K_t)^{1-\alpha} - \delta$, e do trabalho, $w_t = (1-\alpha)(K_t/A_t L_t)^\alpha A_t$. Portanto, tanto o retorno ao capital quanto o salário real sobem na mesma data do choque, gerando um aumento direto no produto.
+
+\textbf{Canal (b) — Efeito sobre estoque de capital.} Dados os níveis correntes de consumo, o produto maior implica maior poupança e, logo, maior taxa de investimento: $I_t = Y_t - C_t$ aumenta mais do que proporcionalmente em relação ao produto (com calibração padrão, $\hat{I}_0 \approx 3{,}2\%$ frente a $\hat{Y}_0 \approx 1$--$1{,}5\%$). Esse investimento adicional acumula capital nos períodos seguintes ($K_{t+s}\uparrow$), prolongando os efeitos do choque muito além de seu impacto inicial --- o que o modelo AR(1) com $\rho_z \approx 0{,}95$ reforça via persistência exógena da PTF.
+
+\textbf{Canal (c) — Substituição intertemporal do trabalho.} Com $r_t$ e $w_t$ em alta, o custo de oportunidade do lazer presente aumenta. A família, portanto, substitui lazer futuro por trabalho presente, elevando $N_t$ e amplificando o aumento do produto. Esse canal é fundamental para que o modelo gere volatilidade de horas trabalhadas compatível com os dados.
+
+\begin{resultbox}[title={Três Canais de Transmissão do Choque PTF (Q8)}]
+(a) Direto: $A_t\uparrow$ $\Rightarrow$ $r_t\uparrow$, $w_t\uparrow$ $\Rightarrow$ produto sobe imediatamente.\\
+(b) Investimento: $I_t\uparrow\uparrow$ $\Rightarrow$ $K_{t+s}\uparrow$ $\Rightarrow$ persistência endógena do ciclo.\\
+(c) Trabalho: $r_t$ e $w_t$ altos $\Rightarrow$ $N_t\uparrow$ (substituição intertemporal) $\Rightarrow$ produto amplificado.
+\end{resultbox}
+
+% ==========================================================================
+\newpage
+\section*{\large\color{cyanrbc} Parte V --- Modelos de Ajuste de Preços (Cap.\ 7, Aulas 8--9)}
+\addcontentsline{toc}{section}{Parte V --- Modelos de Ajuste de Preços: Fischer/Taylor/Calvo/CEE}
+% ==========================================================================
+
+Esta parte apresenta o conteúdo das Aulas 8--9 (Romer Cap.\ 7), que o professor cobre com ênfase na sequência Fischer $\to$ Taylor $\to$ Calvo $\to$ CEE.
+
+% ------------------------------------------------------------------
+\subsection*{V.1 Framework Geral: Famílias, Firmas e IS NK}
+
+\textbf{Preferências das famílias (Romer 2012, Cap.\ 7):}
+\[
+U = \sum_{t=0}^\infty \beta^t \left[U(C_t) - V(L_t)\right],
+\]
+com $U(C_t) = C_t^{1-\theta}/(1-\theta)$ (CRRA) e $V(L_t) = (B/\gamma)L_t^\gamma$, $B>0$, $\gamma>1$.
+
+\textbf{FOC para oferta de trabalho:}
+\[
+V'(L_t) = U'(C_t)\cdot\frac{W_t}{P_t} \;\Longrightarrow\; BL_t^{\gamma-1} = C_t^{-\theta}\cdot\frac{W_t}{P_t}.
+\]
+
+Com $C_t = L_t = Y_t$ (produção um-a-um, todo produto consumido):
+\begin{equation}
+\frac{W_t}{P_t} = BY_t^{\theta+\gamma-1} = BY_t^{\phi}, \tag{eq.\ 6}
+\end{equation}
+onde definimos o \textbf{parâmetro de rigidez real}:
+\[
+\boxed{\phi \equiv \theta + \gamma - 1.}
+\]
+$\phi$ é o expoente que governa a inclinação do salário real em relação ao produto.
+
+\textbf{IS Novo-Keynesiana (eq.\ 7):}
+\begin{equation}
+\ln Y_t = \ln Y_{t+1} - \frac{1}{\theta}r_t. \tag{eq.\ 7}
+\end{equation}
+Note que $1/\theta$ é a elasticidade de substituição intertemporal (EIS). Com $r_t$ acima do normal, $Y_t < Y_{t+1}$ (produto presente abaixo da trajetória futura).
+
+\textbf{Firmas:} $Y_{it} = L_{it}$ (produção um-a-um). Demanda Dixit-Stiglitz: $Y_{it} = Y_t(P_{it}/P_t)^{-\eta}$.
+
+\textbf{Lucro real da firma $i$ (eq.\ 8):}
+\begin{equation}
+R_t = Y_t\!\left[\left(\frac{P_{it}}{P_t}\right)^{1-\eta} - \frac{W_t}{P_t}\left(\frac{P_{it}}{P_t}\right)^{-\eta}\right]. \tag{eq.\ 8}
+\end{equation}
+
+\textbf{Problema de minimização (eq.\ 11):} Com incerteza, firmas minimizam desvio quadrático do preço ótimo:
+\begin{equation}
+\min_{p_i} \sum_t q_t\,(p_i - p_t^*)^2, \tag{eq.\ 11}
+\end{equation}
+onde $p_t^*$ é o preço ótimo se a firma pudesse reajustar livremente.
+
+\textbf{Preço ótimo (eqs.\ 12--15):} Com $m_t = y_t + p_t$ (quantidade de moeda em logs):
+\begin{equation}
+p_t^* = \phi m_t + (1-\phi)p_t, \tag{eq.\ 14}
+\end{equation}
+e o preço escolhido pela firma:
+\begin{equation}
+p_i = \sum_t \omega_t E_0[\phi m_t + (1-\phi)p_t]. \tag{eq.\ 15}
+\end{equation}
+
+\begin{resultbox}[title={Intuição de $\phi$ como Rigidez Real}]
+\textbf{Caso $\phi=1$:} $p_t^* = m_t$ --- o preço ótimo move-se um-a-um com a moeda. Sem rigidez real.\\
+\textbf{Caso $\phi<1$:} $p_t^*$ depende também de $p_t$ (preço geral). Maior dependência de $p_t$ $\Rightarrow$ maior \textbf{complementaridade estratégica} $\Rightarrow$ firmas relutam em afastar seu preço do nível geral $\Rightarrow$ maior \textbf{rigidez real}.\\
+\textbf{Conclusão:} $\phi$ menor = maior rigidez real = maiores efeitos reais da política monetária.
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\subsection*{V.2 Modelo de Fischer (Preços Predeterminados, Contratos Escalonados)}
+
+\textbf{Referência:} Fischer (1977). Contratos de longa duração, preços \emph{predeterminados} (fixados antes do período, mas podem diferir entre coortes).
+
+\textbf{Estrutura de escalonamento:}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Metade das firmas fixa o preço no período anterior ($t-1$) para vigorar em $t$ e $t+1$.
+  \item Metade das firmas fixa o preço dois períodos antes ($t-2$) para vigorar em $t-1$ e $t$.
+\end{itemize}
+
+\textbf{Nível de preços (eq.\ 16):}
+\begin{equation}
+p_t = \frac{1}{2}(p_t^1 + p_t^2), \tag{eq.\ 16}
+\end{equation}
+onde $p_t^1$ é o preço fixado em $t-1$ e $p_t^2$ o fixado em $t-2$.
+
+\textbf{Derivação passo a passo de $p_t^1$ e $p_t^2$:}
+
+\textit{Preço $p_t^1$} (fixado em $t-1$, minimiza $E_{t-1}[(p_t^1 - p_t^*)^2 + (p_{t+1}^1 - p_{t+1}^*)^2]$):
+\[
+p_t^1 = \frac{1}{2}(E_{t-1}[p_t^*] + E_{t-1}[p_{t+1}^*]).
+\]
+Usando $p_t^* = \phi m_t + (1-\phi)p_t$ e tomando expectativas em $t-1$:
+\[
+p_t^1 \approx E_{t-1}[p_t^*] = \phi E_{t-1}[m_t] + (1-\phi)E_{t-1}[p_t].
+\]
+
+\textit{Preço $p_t^2$} (fixado em $t-2$):
+\[
+p_t^2 = E_{t-2}[p_t^*] = \phi E_{t-2}[m_t] + (1-\phi)E_{t-2}[p_t].
+\]
+
+\textbf{Resultado para o nível de preços (eq.\ 19):}
+\begin{equation}
+p_t = E_{t-2}m_t + \frac{\phi}{1+\phi}\left[E_{t-1}m_t - E_{t-2}m_t\right]. \tag{eq.\ 19}
+\end{equation}
+
+\textbf{Produto (eq.\ 20):} Usando $y_t = m_t - p_t$ e a eq.\ (19):
+\begin{equation}
+\boxed{y_t = \frac{1}{1+\phi}\left[E_{t-1}m_t - E_{t-2}m_t\right] + \left[m_t - E_{t-1}m_t\right].} \tag{eq.\ 20}
+\end{equation}
+
+\begin{resultbox}[title={Interpretação do Modelo de Fischer (eqs.\ 19--20)}]
+\textbf{Componente 1:} $[E_{t-1}m_t - E_{t-2}m_t]/(1+\phi)$ --- revisão de expectativas entre $t-2$ e $t-1$, amplificada pelo fator $1/(1+\phi)$.\\
+\textbf{Componente 2:} $[m_t - E_{t-1}m_t]$ --- surpresa monetária em $t$ (inovação), tem efeito real de magnitude \textbf{1} (pleno).\\
+\textbf{Rigidez real:} $\phi\downarrow$ $\Rightarrow$ $1/(1+\phi)\uparrow$ $\Rightarrow$ revisões de expectativas têm \textbf{maior efeito real}. Maior rigidez real ($\phi$ baixo) amplifica os efeitos reais de choques monetários antecipados.
+\end{resultbox}
+
+\begin{provabox}[title={Fischer vs.\ Neoclássico --- Para a Prova}]
+No modelo neoclássico (preços plenamente flexíveis), $y_t = m_t - p_t = 0$ para qualquer $m_t$ antecipado (neutralidade da moeda). No Fischer, apenas a \textbf{surpresa} $[m_t - E_{t-1}m_t]$ tem efeito real pleno; a revisão $[E_{t-1}m_t - E_{t-2}m_t]$ tem efeito \emph{parcial} $1/(1+\phi) < 1$. Se $\phi=1$ (sem rigidez real), o componente de revisão tem efeito $1/2$ --- ainda não-neutro devido ao escalonamento.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\subsection*{V.3 Modelo de Taylor (Preços Fixos, Contratos Escalonados)}
+
+\textbf{Referência:} Taylor (1980). Preços \emph{fixos} (não apenas predeterminados) por dois períodos. A diferença em relação ao Fischer é que o preço não pode ser reajustado entre os dois períodos do contrato.
+
+\textbf{Processo da moeda (random walk):}
+\[
+m_t = m_{t-1} + u_t, \quad u_t \sim i.i.d.
+\]
+
+\textbf{Preço escolhido em $t$ (eq.\ 21):} Firma que fixa o preço em $t$ usa:
+\begin{equation}
+x_t = \frac{1}{2}(p_{it}^* + E_t p_{it+1}^*) = \frac{1}{2}\left\{[\phi m_t + (1-\phi)p_t] + [\phi E_t m_{t+1} + (1-\phi)E_t p_{t+1}]\right\}. \tag{eq.\ 21}
+\end{equation}
+
+\textbf{Nível de preços:} $p_t = (x_t + x_{t-1})/2$ (metade das firmas usa preço desta semana, metade da semana passada).
+
+\textbf{Solução por coeficientes indeterminados:} Supor $x_t = x_{t-1} + \lambda u_t$ (solução linear em $u_t$). Substituindo em (21) e na lei de movimento do produto:
+
+\begin{equation}
+\boxed{y_t = \lambda y_{t-1} + \frac{1+\lambda}{2}u_t.} \tag{eq.\ 22}
+\end{equation}
+
+O coeficiente $\lambda \in [0,1)$ satisfaz:
+\[
+\lambda = \frac{1-\phi}{1+\phi}.
+\]
+
+\begin{resultbox}[title={Modelo de Taylor --- Resultados (eq.\ 22)}]
+\textbf{Caso $\phi=1$:} $\lambda = 0$ $\Rightarrow$ $y_t = u_t/2$. Sem persistência do produto: cada choque tem efeito imediato mas não perdura. Equivalente a preços plenamente flexíveis (neutralidade da moeda para choques passados).\\[0.3em]
+\textbf{Caso $\phi<1$ (rigidez real):} $\lambda = (1-\phi)/(1+\phi) > 0$ $\Rightarrow$ $y_t$ tem \textbf{persistência positiva}. O produto de hoje depende do produto de ontem. Choques monetários têm efeitos que se prolongam no tempo --- gradualmente convergindo para zero.\\[0.3em]
+\textbf{Intuição:} Com $\phi<1$, firmas dependem fortemente de $p_t$ (nível geral) para fixar seu preço $x_t$. Como $p_t$ e $x_{t-1}$ estão correlacionados, $x_t$ herda a inércia de $x_{t-1}$, gerando persistência do produto.
+\end{resultbox}
+
+\begin{provabox}[title={Comparação Fischer e Taylor --- Para a Prova}]
+\textbf{Fischer:} preços predeterminados (podem ser revistos entre contratos se houver nova informação disponível). O escalonamento gera não-neutralidade mesmo sem rigidez real ($\phi=1$).\\
+\textbf{Taylor:} preços \emph{fixos} (não há revisão intra-contrato). Rigidez real ($\phi<1$) é necessária para gerar \emph{persistência} do produto (não apenas efeitos imediatos).\\
+\textbf{Ambos:} $\phi$ pequeno $\Rightarrow$ maiores efeitos reais. A chave é a \emph{complementaridade estratégica}: firmas relutam em afastar seu preço do preço dos concorrentes.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\subsection*{V.4 Modelo de Calvo e CPNK}
+
+\textbf{Referência:} Calvo (1983). Em cada período, cada firma pode reajustar o preço com probabilidade $\alpha$ (independente do estado e do histórico).
+
+\textbf{Nível de preços (eq.\ 23):}
+\begin{equation}
+p_t = \alpha x_t + (1-\alpha)p_{t-1}, \tag{eq.\ 23}
+\end{equation}
+onde $x_t$ é o preço escolhido pelas firmas que re-otimizam.
+
+\textbf{Inflação (eq.\ 24):}
+\begin{equation}
+\pi_t \equiv p_t - p_{t-1} = \alpha(x_t - p_{t-1}). \tag{eq.\ 24}
+\end{equation}
+
+\textbf{Derivação da CPNK (eq.\ 25):}
+
+\textit{Passo 1.} As firmas que re-otimizam em $t$ escolhem $x_t$ que minimiza o desvio esperado de $p_\tau^*$ em todos os períodos futuros em que o preço ainda vigorará:
+\[
+x_t = (1-\alpha\beta)\sum_{s=0}^\infty (\alpha\beta)^s E_t[p_{t+s}^*].
+\]
+
+\textit{Passo 2.} Usando $p_t^* = \phi m_t + (1-\phi)p_t$ e $m_t = y_t + p_t$:
+\[
+p_t^* = \phi y_t + p_t.
+\]
+
+\textit{Passo 3.} Forma recursiva: $x_t = \phi y_t + p_t + \alpha\beta E_t[x_{t+1} - p_t]$.
+
+\textit{Passo 4.} Usando $\pi_t = \alpha(x_t - p_{t-1})$, logo $x_t = p_{t-1} + \pi_t/\alpha$:
+
+\textit{Passo 5.} Após manipulação algébrica:
+
+\begin{formulabox}[title={Curva de Phillips NK de Calvo (eq.\ 25) --- Notação das Slides}]
+\[
+\boxed{\pi_t = \kappa\, y_t + \beta\, E_t\pi_{t+1},}
+\]
+\[
+\boxed{\kappa \equiv \frac{\alpha[1-(1-\alpha)\beta]\phi}{1-\alpha}.}
+\]
+\textbf{Nota:} Esta é a fórmula do professor (slides). A fórmula de Galí usa notação diferente: $\kappa_{Galí} = (1-\alpha)(1-\alpha\beta)(\omega+\sigma^{-1})/\alpha$. Com $\omega = \sigma^{-1} = \phi/2$, as fórmulas são equivalentes.
+\end{formulabox}
+
+\textbf{Interpretação dos parâmetros de $\kappa$:}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\phi\uparrow$ $\Rightarrow$ $\kappa\uparrow$: menor rigidez real $\Rightarrow$ inflação mais responsiva ao produto.
+  \item $\alpha\uparrow$ (mais firmas ajustam) $\Rightarrow$ $\kappa\uparrow$: mais firmas re-otimizando acelera o pass-through.
+  \item $\beta\uparrow$ $\Rightarrow$ $\kappa\downarrow$: firmas mais pacientes ponderam mais o futuro, atenuando a pressão presente.
+\end{itemize}
+
+\begin{provabox}[title={CPNK Calvo: Forward-looking --- Para a Prova}]
+A CPNK de Calvo é \textbf{puramente forward-looking}: $\pi_t$ depende de $E_t\pi_{t+1}$ (futuro), não de $\pi_{t-1}$ (passado). Implicação crucial: uma desinflação \emph{crível} ($E_t\pi_{t+1}\downarrow$) pode reduzir $\pi_t$ sem recessão ($y_t = 0$). Isso contradiz a evidência empírica de Ball (1994b) --- daí a necessidade do modelo CEE.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\subsection*{V.5 Inércia Inflacionária e Evidência Empírica}
+
+\textbf{O problema do modelo puro de Calvo.} A CPNK $\pi_t = \kappa y_t + \beta E_t\pi_{t+1}$ implica que:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Para reduzir $\pi_t$, basta reduzir $E_t\pi_{t+1}$ (credibilidade do BC).
+  \item Uma desinflação crível é \textbf{sem custo}: $y_t$ pode permanecer em 0.
+  \item Isso contradiz a evidência: desinflações historicamente custam produto.
+\end{itemize}
+
+\textbf{Evidência empírica --- Ball (1994b):}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item 28 episódios de desinflação em 9 países, período 1960--1990.
+  \item Todos os episódios foram atribuídos à política monetária contracionista.
+  \item \textbf{27 de 28 episódios}: produto ficou \emph{abaixo} do normal durante a desinflação.
+  \item Conclusão: desinflação tem \textbf{custo real} --- a CPNK pura é inconsistente com os dados.
+\end{itemize}
+
+\textbf{``Inércia inflacionária'' $\neq$ inflação serialmente correlacionada.}
+O termo ``inércia'' não significa apenas que $\pi_t$ é correlacionado com $\pi_{t-1}$, mas sim que \textbf{reduções na inflação têm custo real} (razão de sacrifício positiva). A CPNK pura gera correlação serial (pois $E_t\pi_{t+1}$ é persistente), mas sem custo de sacrifício.
+
+\textbf{Solução --- CEE (Christiano, Eichenbaum e Evans, 2005):}
+
+Modificação do Calvo: entre re-otimizações, as firmas indexam seu preço à inflação do período anterior. Isso gera inércia \emph{real}.
+
+\textbf{Nível de preços com indexação (eq.\ 27):}
+\begin{equation}
+p_t = (1-\alpha)(p_{t-1} + \pi_{t-1}) + \alpha x_t. \tag{eq.\ 27}
+\end{equation}
+
+\textbf{CPNK Híbrida (eq.\ 28):}
+\begin{equation}
+\boxed{\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t,} \tag{eq.\ 28}
+\end{equation}
+com $0 \leq \gamma \leq 1$ e $\chi > 0$.
+
+\textbf{Galí-Gertler (1999) --- CPNK Híbrida Estimada:}
+\begin{equation}
+\pi_t = \gamma_b\pi_{t-1} + \gamma_f E_t\pi_{t+1} + \kappa(y_t - \bar{y}_t) + e_t. \tag{eq.\ 26}
+\end{equation}
+
+\begin{resultbox}[title={CPNK Híbrida CEE vs.\ Calvo Puro}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Modelo & Equação & Custo de desinflação \\
+\midrule
+Calvo puro & $\pi_t = \kappa y_t + \beta E_t\pi_{t+1}$ & Zero (se crível) \\
+CEE Híbrido & $\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t$ & Positivo se $\gamma > 1-\gamma$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{Condição para custo positivo:} $\gamma > 1-\gamma$ $\Leftrightarrow$ $\gamma > 1/2$.\\
+Com $\gamma > 1/2$: para $E_t\pi_{t+1} < \pi_t$ (desinflação esperada), é necessário $y_t < 0$ para satisfazer a CPNK. Portanto, a desinflação exige recessão.
+\end{resultbox}
+
+\begin{provabox}[title={Inércia Inflacionária --- Para a Prova}]
+\textbf{Armadilha frequente:} confundir ``inflação serialmente correlacionada'' com ``inércia inflacionária'' no sentido de Ball (1994b). A CPNK pura gera correlação serial (via $E_t\pi_{t+1}$ persistente), mas não razão de sacrifício positiva.\\
+\textbf{Mecanismo CEE:} a indexação ``ancora'' o preço à inflação passada. Quando $\pi$ cai, as firmas que não re-otimizam ainda ajustam pela inflação passada (elevada), pressionando o nível de preços para cima. Para que $\pi$ caia, é necessário que $y < 0$ comprima os custos marginais --- daí o custo real.
+\end{provabox}
+
+% ==========================================================================
+\newpage
+\section*{\large\color{cyanrbc} Parte VI --- Modelo NK Canônico CGG + Questões Lista II (Q1--Q11)}
+\addcontentsline{toc}{section}{Parte VI --- Modelo NK Canônico CGG + Lista II (Q1--Q11)}
+% ==========================================================================
+
+\subsection*{VI.1 Modelo CGG (Clarida-Galí-Gertler 2000)}
+
+O modelo canônico Novo-Keynesiano consiste em três equações com choques AR(1):
+
+\textbf{IS dinâmica:}
+\begin{equation}
+y_t = E_t[y_{t+1}] - \frac{1}{\theta}r_t + u_t^{IS}, \tag{IS}
+\end{equation}
+
+\textbf{CPNK (do professor):}
+\begin{equation}
+\pi_t = \beta E_t[\pi_{t+1}] + \kappa y_t + u_t^\pi, \quad 0<\beta<1,\; \kappa>0, \tag{CPNK}
+\end{equation}
+
+\textbf{Regra de Taylor CGG (forward-looking):}
+\begin{equation}
+\boxed{r_t = \phi_\pi E_t[\pi_{t+1}] + \phi_y E_t[y_{t+1}] + u_t^{MP}, \quad \phi_\pi>0,\; \phi_y\geq 0.} \tag{CGG}
+\end{equation}
+
+\textbf{Atenção:} O professor usa a regra \textbf{forward-looking} de Clarida-Galí-Gertler (2000) --- a taxa de juros reage às expectativas $E_t[\pi_{t+1}]$ e $E_t[y_{t+1}]$, não às variáveis correntes $\pi_t$ e $y_t$ (que é a especificação de Taylor 1993).
+
+\textbf{Três choques AR(1):}
+\[
+u_t^{IS} = \rho_{IS}u_{t-1}^{IS} + e_t^{IS};\quad u_t^\pi = \rho_\pi u_{t-1}^\pi + e_t^\pi;\quad u_t^{MP} = \rho_{MP}u_{t-1}^{MP} + e_t^{MP}.
+\]
+
+\begin{resultbox}[title={Comparação: Regra CGG vs.\ Taylor (1993)}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+ & Taylor (1993) & CGG (2000) \\
+\midrule
+Variáveis & Contemporâneas: $\pi_t$, $y_t$ & Expectacionais: $E_t[\pi_{t+1}]$, $E_t[y_{t+1}]$ \\
+Estimável? & Sim (sem expectativas) & Exige GMM/expectativas \\
+Período pré-Volcker & $\hat{\phi}_\pi \approx 0{,}83 < 1$ & Indeterminação (G.\ Inflação) \\
+Período pós-Volcker & $\hat{\phi}_\pi \approx 2{,}15 > 1$ & Determinação (G.\ Moderação) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{resultbox}
+
+\subsection*{VI.2 Princípio de Taylor e Condição de Blanchard-Kahn}
+
+\textbf{Sistema sem choques:}
+\[
+\begin{pmatrix}E_t[y_{t+1}]\\E_t[\pi_{t+1}]\end{pmatrix} = M\begin{pmatrix}y_t\\\pi_t\end{pmatrix}.
+\]
+Como $y_t$ e $\pi_t$ são variáveis de salto (forward-looking), Blanchard-Kahn exige \textbf{ambos os autovalores fora do círculo unitário}.
+
+\begin{resultbox}[title={Princípio de Taylor e Determinação}]
+\[
+\phi_\pi > 1 \quad\text{(Princípio de Taylor)}
+\]
+Condição precisa: $\kappa(\phi_\pi-1) + (1-\beta)\phi_y > 0$.\\
+Para $\beta\approx 1$: reduz-se a $\phi_\pi > 1$.
+\end{resultbox}
+
+\setcounter{section}{0}
+
+% ==========================================================================
+\section{Rigidez Nominal e Efeitos Reais da Moeda (Lista II Q1)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Com base em modelos surgidos a partir da década de 70, a ocorrência de alguma forma de rigidez nominal na economia é essencial para: a) Efeitos nominais da política monetária; b) Efeitos reais de longo prazo de choques nos dispêndios; c) Coordenação entre políticas monetária e fiscal; d) Otimização dos agentes; \textbf{e) Efeitos reais de curto prazo dos choques monetários.}
+
+\subsection*{Resolução}
+
+A alternativa correta é a \textbf{(e)}. A rigidez nominal --- seja sob a forma de preços ou salários que não se ajustam instantaneamente --- é o mecanismo essencial que permite que choques monetários gerem efeitos reais no curto prazo, impactando produto e emprego. Sem alguma forma de rigidez nominal, qualquer choque monetário seria absorvido imediatamente por ajuste proporcional de preços, sem alterar variáveis reais como produto ou emprego, de modo que a moeda seria neutra no curto prazo tanto quanto no longo prazo.
+
+As demais alternativas descrevem fenômenos que não dependem necessariamente de rigidez nominal: efeitos nominais da PM existem mesmo com preços flexíveis (apenas os efeitos reais requerem rigidez); efeitos reais de longo prazo de choques nos dispêndios são preditos mesmo por modelos de preços flexíveis; coordenação entre políticas monetária e fiscal e otimização dos agentes são questões independentes da flexibilidade dos preços.
+
+\begin{provabox}[title={Lista II Q1 --- Resposta: alternativa (e)}]
+Rigidez nominal é condição necessária para que choques monetários tenham efeitos reais de curto prazo. Alternativas (a)--(d) não requerem rigidez nominal.
+\end{provabox}
+
+% ==========================================================================
+\section{Otimização Estática NK: $C^*$ e $L^*$ (Lista II Q2)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Seja $U = C^{1-\theta} - \tfrac{1}{\gamma}L^\gamma$, $\gamma>1$, $\theta>0$, com restrição $C = WL$ ($W$ salário real). Calcule os níveis ótimos $C^*$ e $L^*$.
+
+\subsection*{Resolução}
+
+Formamos o Lagrangiano com multiplicador $\lambda$:
+\[
+\mathcal{L} = C^{1-\theta} - \frac{1}{\gamma}L^\gamma + \lambda(WL - C). \tag{1}
+\]
+A condição de primeira ordem para $C$ é $(1-\theta)C^{-\theta} = \lambda$, \tag{2} e para $L$ é $-L^{\gamma-1} + \lambda W = 0$, de modo que $\lambda = L^{\gamma-1}/W$. \tag{3} Igualando (2) e (3), obtemos a condição de ótimo interior:
+\[
+(1-\theta)C^{-\theta} = \frac{L^{\gamma-1}}{W}. \tag{4}
+\]
+Essa condição é análoga à $W/P = \text{DML}/\text{UMC}$: salário real iguala a razão entre a desutilidade marginal do trabalho e a utilidade marginal do consumo. Resolvendo (4) para $C$ em termos de $L$ e usando a restrição $C = WL$, chegamos aos níveis ótimos.
+
+\begin{resultbox}[title={Ótimos $C^*$ e $L^*$ (Lista II Q2)}]
+\[
+C^* = \left[\frac{W(1-\theta)}{L^{\gamma-1}}\right]^{1/\theta}, \qquad L^* = \bigl[W(1-\theta)\,C^{-\theta}\bigr]^{1/(\gamma-1)}.
+\]
+\end{resultbox}
+
+% ==========================================================================
+\section{Concorrência Monopolística e Produto de Equilíbrio (Lista II Q3)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Em concorrência monopolística o produto de equilíbrio é $Y = \left[\tfrac{\eta-1}{\eta}\right]^{1/(\gamma-1)}$, sendo $\eta>1$ a elasticidade da demanda e $\gamma>1$ a desutilidade do trabalho. Interprete os efeitos de $\eta$ e $\gamma$ sobre $Y$.
+
+\subsection*{Resolução}
+
+Em equilíbrio de concorrência monopolística, a condição de markup da firma implica que o salário real é uma fração do preço: $W/P = (\eta-1)/\eta$, onde $\eta/(\eta-1)$ é o fator de markup. Da condição de ótimo da família (com $MU_C = 1$ e produção $Y = L$), o salário real também deve igualar a desutilidade marginal do trabalho: $W/P = L^{\gamma-1} = Y^{\gamma-1}$. Igualando as duas expressões, obtemos $Y^{\gamma-1} = (\eta-1)/\eta$, portanto
+\[
+Y = \left[\frac{\eta-1}{\eta}\right]^{1/(\gamma-1)}.
+\]
+
+Observe que um aumento de $\eta$ significa que os consumidores têm mais substitutos disponíveis, o que reduz o poder de mercado das firmas e comprime o markup. Dessa forma, $(\eta-1)/\eta$ se eleva, de modo que o produto de equilíbrio $Y$ cresce: menor distorção monopolística implica maior produção e bem-estar. Por outro lado, um aumento de $\gamma$ reduz o expoente $1/(\gamma-1)$, que representa a elasticidade da oferta de trabalho em relação ao salário real: trabalhadores respondem menos a incentivos salariais quando $\gamma$ é maior, portanto o produto de equilíbrio cai.
+
+\begin{resultbox}[title={Produto de Equilíbrio com Concorrência Monopolística (Lista II Q3)}]
+\[
+Y = \left[\frac{\eta-1}{\eta}\right]^{1/(\gamma-1)}.
+\]
+$\eta\uparrow$ $\Rightarrow$ menor markup $\Rightarrow$ $Y\uparrow$. \quad $\gamma\uparrow$ $\Rightarrow$ menor elasticidade da oferta de trabalho $\Rightarrow$ $Y\downarrow$.
+\end{resultbox}
+
+% ==========================================================================
+\section{Nível de Preços de Equilíbrio (Lista II Q4)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Com demanda agregada $Y = M/P$ e $Y$ do exercício anterior, deduza $P^*$. O que ocorre com $P$ quando $\gamma\uparrow$?
+
+\subsection*{Resolução}
+
+Com a demanda agregada $Y = M/P$, o nível de preços de equilíbrio é simplesmente $P = M/Y$. Substituindo o produto de equilíbrio $Y = [(\eta-1)/\eta]^{1/(\gamma-1)}$ obtido na questão anterior, chega-se a
+\[
+P^* = \frac{M}{\left[\dfrac{\eta-1}{\eta}\right]^{1/(\gamma-1)}}.
+\]
+
+Quando $\gamma$ aumenta, o produto $Y$ cai (como vimos em Q3), pois a elasticidade da oferta de trabalho se reduz. Dado o nível de moeda $M$, a queda de $Y$ implica excesso de demanda nominal por unidade de produto, de modo que o nível de preços se eleva. Em outras palavras, maior desutilidade do trabalho contrai a oferta e, com estoque monetário inalterado, o ajuste de equilíbrio é a inflação do nível de preços.
+
+\begin{resultbox}[title={Nível de Preços de Equilíbrio (Lista II Q4)}]
+\[
+P^* = \frac{M}{\left[\frac{\eta-1}{\eta}\right]^{1/(\gamma-1)}}.
+\]
+$\gamma\uparrow$ $\Rightarrow$ $Y\downarrow$ $\Rightarrow$ dado $M$, $P\uparrow$.
+\end{resultbox}
+
+% ==========================================================================
+\section{Modelo de Informação Incompleta de Lucas (Lista II Q5)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+No modelo de Lucas, a firma $i$ decide quanto produzir com base em $y_i = [1/(\gamma-1)]\,E[r_i|p_i]$, onde $r_i = p_i - p$ é o preço relativo estimado após a decisão. Explique flutuações de produto no curto prazo e como a rigidez de preços emerge.
+
+\subsection*{Resolução}
+
+A firma $i$ não conhece o nível geral de preços $p$ a priori no momento em que decide sua produção. Diante de um choque positivo de demanda, o preço observado $p_i$ sobe. A firma, porém, não consegue distinguir se esse aumento reflete um choque de demanda agregada (que elevou $p$ e, portanto, não altera o preço relativo $r_i = p_i - p$) ou um aumento genuíno do preço relativo do seu produto. Usando as informações disponíveis, ela extrai o sinal $E[r_i|p_i]$ e eleva a produção na proporção $y_i = [1/(\gamma-1)]\,E[r_i|p_i]$.
+
+Dessa forma, um choque monetário positivo que eleva $p_i$ leva a firma a estimar $r_i > 0$ em excesso, respondendo com maior produção. Como parte do choque nominal é confundida com choque real, a firma não ajusta o preço completamente --- ou seja, não eleva $p_i$ na mesma proporção do choque de demanda. Isso gera ajuste incompleto de preços, que é a forma de rigidez informacional que permite efeitos reais no curto prazo. No longo prazo, com o aprendizado das realizações, $E[p] \to p$ e os agentes passam a distinguir choques nominais de reais, de modo que o efeito real desaparece.
+
+\begin{resultbox}[title={Lucas: Extração de Sinal (Lista II Q5)}]
+Curto prazo: $p_i\uparrow$ após choque nominal $\Rightarrow$ firma estima $r_i = p_i - p\uparrow$ $\Rightarrow$ eleva produção. Ajuste incompleto de preços (rigidez informacional). Longo prazo: $E[p]\to p$ $\Rightarrow$ sem efeito real persistente.
+\end{resultbox}
+
+% ==========================================================================
+\section{Curva de Lucas e Neutralidade de Longo Prazo (Lista II Q6)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Seja a Curva de Lucas $y = b(p - E[p])$, $b>0$. Interprete o produto no curto prazo após um choque monetário positivo e explique por que o produto converge ao nível normal no longo prazo.
+
+\subsection*{Resolução}
+
+No curto prazo, um choque monetário positivo $m > E[m]$ leva a um nível de preços realizado acima do esperado: $p > E[p]$. Pela curva de Lucas $y = b(p - E[p])$, com $b > 0$, isso implica $y > 0$ --- o produto se eleva acima do nível normal. O mecanismo é o mesmo descrito em Q5: as firmas confundem parte do aumento do nível geral de preços com aumento do seu preço relativo e, por isso, elevam a produção.
+
+No longo prazo, sob expectativas racionais, os agentes assimilam a nova regra monetária e atualizam suas expectativas: $E[m]$ e $E[p]$ sobem proporcionalmente, de modo que $p = m = E[p] = E[m]$ e, portanto, $y = b(p - E[p]) = 0$. Dessa forma, uma vez que a mudança de regra monetária é plenamente incorporada às expectativas, ela deixa de ter quaisquer efeitos reais. A neutralidade de longo prazo é assim garantida pelo mecanismo de expectativas racionais.
+
+\begin{resultbox}[title={Curva de Lucas: Curto e Longo Prazo (Lista II Q6)}]
+Curto prazo: $m > E[m]$ $\Rightarrow$ $p > E[p]$ $\Rightarrow$ $y > 0$ (surpresa monetária tem efeito real).\\
+Longo prazo: $E[m]\uparrow$ e $E[p]\uparrow$ $\Rightarrow$ $p - E[p] \to 0$ $\Rightarrow$ $y \to 0$ (neutralidade). Uma vez assimilada a nova regra, a PM perde efeito real.
+\end{resultbox}
+
+% ==========================================================================
+\section{Crítica de Lucas e Mudança de Regra Monetária (Lista II Q7)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Um BC usa séries temporais históricas para prever efeito expansionista de uma mudança de regra monetária. Interprete a eficácia dessa política segundo a Crítica de Lucas.
+
+\subsection*{Resolução}
+
+As estatísticas de realizações passadas são condicionadas ao estado prévio de expectativas dos agentes. Quando o banco central usa séries temporais históricas para prever o efeito de uma mudança de regra monetária, está implicitamente assumindo que as relações estimadas permanecem estáveis após a mudança. No entanto, a crítica de Lucas aponta que diante de uma mudança de regra, os agentes racionais alteram suas expectativas de forma sistemática, pois passam a antecipar o novo comportamento da política monetária. Com expectativas diferentes, as relações macroeconômicas --- que são endógenas às expectativas --- se modificam estruturalmente, tornando inválidas as previsões baseadas nos parâmetros estimados no regime anterior.
+
+Portanto, para que as previsões do banco central mantenham validade, a mudança de regra monetária não pode ser percebida pelos agentes como uma alteração estrutural permanente. Se os agentes reconhecerem a mudança e a incorporarem nas suas expectativas, as correlações históricas se desmontam e o efeito expansionista previsto não se realiza da forma antecipada.
+
+\begin{resultbox}[title={Crítica de Lucas (Lista II Q7)}]
+Relações estimadas com dados históricos são condicionadas ao estado de expectativas do período amostral. Mudança de regra monetária altera expectativas dos agentes e, portanto, as próprias relações macroeconômicas. Previsões baseadas em séries passadas perdem validade. Condição de validade: a mudança não pode ser percebida como estrutural pelos agentes.
+\end{resultbox}
+
+\begin{provabox}[title={Implicação Metodológica da Crítica de Lucas (Q7)}]
+A Crítica motivou a micro-fundamentação dos modelos DSGE: parâmetros estruturais (preferências, tecnologia) são invariantes a mudanças de política; relações reduzidas estimadas não o são. O modelo NK canônico CGG (Q11) é uma resposta direta a essa crítica.
+\end{provabox}
+
+% ==========================================================================
+\section{Papel de $\phi$ nos Modelos de Fischer e Taylor (Lista II Q8)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Como o grau de rigidez de preços (a partir de $\phi$) afeta os efeitos reais da política monetária em: a) Modelo de Fischer; b) Modelo de Taylor?
+
+\subsection*{Resolução}
+
+\textbf{(a) Modelo de Fischer.} No modelo de Fischer, o nível de preços segue
+\[
+p_t = E_{t-2}m_t + \frac{\phi}{1+\phi}\left[E_{t-1}m_t - E_{t-2}m_t\right],
+\]
+e o produto é dado por
+\[
+y_t = \frac{1}{1+\phi}\left[E_{t-1}m_t - E_{t-2}m_t\right] + \left[m_t - E_{t-1}m_t\right].
+\]
+O parâmetro $\phi$ representa o inverso do grau de rigidez real: quanto maior $\phi$, menor a rigidez real. Observe que quando $\phi$ aumenta, as revisões de expectativas $[E_{t-1}m_t - E_{t-2}m_t]$ passam a ter maior efeito sobre os preços (coeficiente $\phi/(1+\phi)$ cresce) e menor efeito sobre o produto (coeficiente $1/(1+\phi)$ decresce). Portanto, maior $\phi$ implica que a política monetária antecipada tem efeitos reais menores, ainda que as surpresas monetárias $[m_t - E_{t-1}m_t]$ mantenham efeito real pleno e unitário.
+
+\textbf{(b) Modelo de Taylor.} No modelo de Taylor, o produto segue
+\[
+y_t = \lambda y_{t-1} + \frac{1+\lambda}{2}u_t, \qquad \lambda = \frac{1-\phi}{1+\phi}.
+\]
+A relação entre $\lambda$ e $\phi$ é inversa: quando $\phi$ aumenta (menor rigidez real), $\lambda$ diminui, o que reduz tanto a persistência do produto quanto o efeito contemporâneo dos choques de demanda $u_t$ sobre $y_t$. No caso extremo $\phi = 1$ (sem rigidez real), $\lambda = 0$ e os choques monetários passados não têm efeito algum sobre o produto corrente. Dessa forma, a rigidez real --- medida por $\phi$ baixo --- é o mecanismo que gera persistência dos efeitos reais da política monetária no modelo de Taylor.
+
+\begin{resultbox}[title={Fischer vs.\ Taylor: Papel de $\phi$ (Lista II Q8)}]
+\textbf{Fischer:} $\phi\uparrow$ $\Rightarrow$ revisões têm maior efeito sobre preços e menor sobre produto. Inovação monetária sempre tem efeito real pleno.\\
+\textbf{Taylor:} $\lambda = (1-\phi)/(1+\phi)$; $\phi\uparrow$ $\Rightarrow$ $\lambda\downarrow$ $\Rightarrow$ menos persistência e menor efeito de choques sobre $y_t$.
+\end{resultbox}
+
+% ==========================================================================
+\section{Calvo: Papel de $\theta$ e $\alpha$ na CPNK (Lista II Q9)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Na CPNK $\pi_t = \kappa y_t + \beta E_t\pi_{t+1}$ com $\kappa = \frac{\alpha[1-(1-\alpha)\beta]\phi}{1-\alpha}$ e $\phi = \theta+\gamma-1$: a) papel de $\theta$; b) papel de $\alpha$.
+
+\subsection*{Resolução}
+
+Na CPNK de Calvo, a inclinação $\kappa = \alpha[1-(1-\alpha)\beta]\phi/(1-\alpha)$ resume os mecanismos pelos quais o hiato do produto se transmite à inflação.
+
+\textbf{(a) Papel de $\theta$.} O parâmetro $\phi = \theta + \gamma - 1$ é a rigidez real, que mede a resposta do salário real ao produto. Um aumento de $\theta$ eleva $\phi$, reduzindo a rigidez real das firmas: como o custo marginal responde mais ao produto quando $\phi$ é maior, as firmas que reajustam seus preços têm mais incentivo a fazê-lo fortemente. Portanto, $\theta\uparrow$ implica $\phi\uparrow$ implica $\kappa\uparrow$, aumentando a sensibilidade da inflação ao hiato do produto.
+
+\textbf{(b) Papel de $\alpha$.} A fração $\alpha$ mede a probabilidade de reajuste de preços em cada período: quanto maior $\alpha$, mais firmas reajustam a cada período e, logo, maior é a transmissão de variações no custo marginal (determinado pelo hiato) para o nível geral de preços. Dessa forma, $\alpha\uparrow$ implica $\kappa\uparrow$, tornando a curva de Phillips mais íngreme e a inflação mais responsiva ao produto.
+
+\begin{resultbox}[title={Papel de $\theta$ e $\alpha$ na CPNK (Lista II Q9)}]
+(a) $\theta\uparrow$ $\Rightarrow$ $\phi = \theta+\gamma-1\uparrow$ $\Rightarrow$ $\kappa\uparrow$ $\Rightarrow$ maior sensibilidade de $\pi$ ao hiato.\\
+(b) $\alpha\uparrow$ $\Rightarrow$ mais firmas ajustam $\Rightarrow$ $\kappa\uparrow$ $\Rightarrow$ maior transmissão do produto à inflação.
+\end{resultbox}
+
+% ==========================================================================
+\section{Calvo vs.\ Christiano-Eichenbaum-Evans (2005) (Lista II Q10)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Explique a diferença entre Calvo (1983) e Christiano et al.\ (2005) e como o segundo permite desinflação com custo positivo.
+
+\subsection*{Resolução}
+
+O modelo de Calvo puro gera a CPNK $\pi_t = \kappa y_t + \beta E_t\pi_{t+1}$, que é puramente forward-looking: a inflação presente depende apenas das expectativas de inflação futura e do hiato corrente. Isso implica que uma desinflação crível --- em que o banco central consegue reduzir $E_t\pi_{t+1}$ sem elevar $r_t$ excessivamente --- pode ser alcançada sem custo em produto, o que contradiz a evidência empírica de Ball (1994b): em 27 dos 28 episódios de desinflação analisados em 9 países, o produto ficou abaixo do normal.
+
+O modelo CEE (Christiano, Eichenbaum e Evans, 2005) corrige essa deficiência introduzindo indexação entre reajustes: firmas que não reotimizam automaticamente repassam a inflação do período anterior, de modo que o nível de preços segue $p_t = (1-\alpha)(p_{t-1} + \pi_{t-1}) + \alpha x_t$. Isso gera a CPNK híbrida
+\[
+\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t, \quad 0\leq\gamma\leq 1.
+\]
+Quando $\gamma > 1/2$, o componente backward-looking domina. Numa trajetória de desinflação com $\pi_{t-1} > \pi_t > E_t\pi_{t+1}$, satisfazer a CPNK exige $y_t < 0$: o produto precisa cair para comprimir os custos marginais e viabilizar a queda de inflação. Por exemplo, com $\gamma=0{,}8$, $\chi=0{,}9$, $\pi_{t-1}=6\%$, $E_t\pi_{t+1}=1{,}5\%$ e $\pi_t=3{,}5\%$, obtém-se $y_t = [3{,}5 - 0{,}8\times 6 - 0{,}2\times 1{,}5]/0{,}9 \approx -1{,}7\%$.
+
+\begin{resultbox}[title={Custo de Desinflação no CEE (Lista II Q10)}]
+Calvo puro: CPNK forward-looking $\Rightarrow$ desinflação crível sem custo (contradiz Ball 1994b). CEE: indexação $\Rightarrow$ $\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t$. Com $\gamma > 1/2$ e trajetória declinante de $\pi$, a CPNK exige $y_t < 0$ (recessão). Exemplo: $y_t \approx -1{,}7\%$.
+\end{resultbox}
+
+% ==========================================================================
+\section{Modelo NK Canônico CGG: $\theta$ e Choques de Oferta (Lista II Q11)}
+% ==========================================================================
+
+\subsection*{Enunciado}
+Sob o modelo NK canônico (IS + CPNK + Regra CGG): i) como $\theta$ impacta as relações estruturais? ii) como choques negativos de oferta influenciam a condução da PM?
+
+\subsection*{Resolução}
+
+O modelo NK canônico CGG é composto pela IS dinâmica $y_t = E_t[y_{t+1}] - (1/\theta)r_t + u_t^{IS}$, pela CPNK $\pi_t = \beta E_t[\pi_{t+1}] + \kappa y_t + u_t^\pi$ e pela regra forward-looking do banco central $r_t = \phi_\pi E_t[\pi_{t+1}] + \phi_y E_t[y_{t+1}] + u_t^{MP}$.
+
+\textbf{(i) Papel de $\theta$ nas relações estruturais.} Na IS dinâmica, $\theta$ entra como o inverso da elasticidade de substituição intertemporal: um $\theta$ maior reduz $1/\theta$, de modo que o hiato $y_t$ responde menos a variações na taxa de juros $r_t$. Logo, para neutralizar um choque de demanda $u_t^{IS} > 0$, o banco central precisa elevar $r$ mais agressivamente quando $\theta$ é alto. Na CPNK, $\theta$ afeta a inclinação via $\phi = \theta + \gamma - 1$: $\theta\uparrow$ implica $\phi\uparrow$ e, portanto, $\kappa\uparrow$, o que aumenta o impacto inflacionário de qualquer desvio do hiato. Esse efeito reforça a necessidade de reação mais forte da política monetária. Portanto, quanto maiores $\theta$ e $\kappa$ (e menor $\beta$), maiores devem ser os coeficientes ótimos $\phi_\pi$ e $\phi_y$ da regra CGG.
+
+\textbf{(ii) Choques negativos de oferta.} Um choque positivo $u_t^\pi > 0$ na CPNK eleva $\pi_t$ para dado $y_t$, gerando estagflação: inflação acima da meta e produto abaixo do normal simultaneamente. O banco central enfrenta um dilema: elevar $r_t$ para conter a inflação aprofunda a queda do produto; acomodar o choque mantém $y_t$ mas deixa $\pi_t$ subir. Quando a persistência do choque $\rho_\pi$ é alta, acomodar transitoriamente pode se revelar custoso, pois choques persistentes tendem a se sobrepor e desancorar as expectativas de inflação; nesse caso, o banco central pode preferir uma desinflação custosa para manter o controle das expectativas. Quando a persistência é baixa, os choques tendem a se reverter naturalmente e a acomodação temporária (com bandas de tolerância) pode ser a estratégia ótima.
+
+\begin{resultbox}[title={Papel de $\theta$ e Choques de Oferta no CGG (Lista II Q11)}]
+(i) $\theta\uparrow$ $\Rightarrow$ $1/\theta\downarrow$ (IS menos sensível a $r$) e $\kappa\uparrow$ (CPNK mais íngreme) $\Rightarrow$ PM deve reagir mais agressivamente; $\phi_\pi$ e $\phi_y$ ótimos maiores.\\
+(ii) $u_t^\pi > 0$: estagflação. Dilema do BC. Alta persistência $\Rightarrow$ desinflação custosa preferível. Baixa persistência $\Rightarrow$ acomodar transitoriamente pode ser ótimo.
+\end{resultbox}
+
+\begin{provabox}[title={Rigidez Nominal e Efeitos Reais da Moeda --- Para a Prova}]
+A progressão lógica dos modelos NK é: custos de menu/informação incompleta (Lucas) $\to$ contratos escalonados (Fischer/Taylor) $\to$ probabilidade de Calvo $\to$ indexação (CEE) $\to$ modelo canônico (CGG). Cada passo adiciona um mecanismo de transmissão de choques monetários e de inércia inflacionária.
+\end{provabox}
+
+
+% ==========================================================================
+\appendix
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Apêndice A --- Questões-tipo (Fischer, Taylor, Calvo, CEE e CGG)}
+\addcontentsline{toc}{section}{Apêndice A --- Questões-tipo com novos modelos}
+
+\subsection*{Q-tipo 1 --- Fischer vs.\ Taylor: preços predeterminados vs.\ fixos}
+
+\begin{enumerate}[label=(\alph*)]
+  \item No Fischer, os preços são completamente rígidos (não podem mudar intra-contrato).
+  \item No Taylor, os preços são apenas predeterminados: podem ser ajustados se houver nova informação.
+  \item No Fischer, o escalonamento permite que inovações monetárias em $t-1$ afetem $y_t$; no Taylor, isso também ocorre via persistência $\lambda$.
+  \item Ambos os modelos implicam neutralidade da moeda para qualquer $\phi > 0$.
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (c)}]
+\textbf{Correta: (c).} Fischer tem preços predeterminados (mas a coorte que fixa em $t-1$ pode usar informação de $t-1$). Taylor tem preços fixos por dois períodos. Em ambos, o escalonamento gera efeitos reais de surpresas monetárias. (a) e (b) trocam as definições. (d) FALSO: ambos implicam não-neutralidade da moeda.
+\end{resultbox}
+
+\subsection*{Q-tipo 2 --- Rigidez real no modelo de Taylor: efeito de $\phi\downarrow$}
+
+Se $\phi$ decresce de 1 para 0,5 no modelo de Taylor:
+
+\begin{enumerate}[label=(\alph*)]
+  \item $\lambda$ decresce: menos persistência do produto.
+  \item $\lambda$ aumenta: maior persistência do produto.
+  \item O produto torna-se completamente inelástico a choques monetários.
+  \item Apenas a inflação é afetada; o produto permanece inalterado.
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (b)}]
+\textbf{Correta: (b).} $\lambda = (1-\phi)/(1+\phi)$. Para $\phi=1$: $\lambda=0$. Para $\phi=0{,}5$: $\lambda = 0{,}5/1{,}5 \approx 0{,}33 > 0$. Maior rigidez real ($\phi\downarrow$) $\Rightarrow$ $\lambda\uparrow$ $\Rightarrow$ mais persistência.
+\end{resultbox}
+
+\subsection*{Q-tipo 3 --- CPNK Calvo: notação do professor}
+
+Na versão do professor (slides), a inclinação da CPNK é $\kappa = \alpha[1-(1-\alpha)\beta]\phi/(1-\alpha)$. Um aumento em $\phi$ (mantendo $\alpha$ e $\beta$ fixos):
+
+\begin{enumerate}[label=(\alph*)]
+  \item Reduz $\kappa$: menor rigidez real $\Rightarrow$ CPNK mais plana.
+  \item Aumenta $\kappa$: menor rigidez real $\Rightarrow$ CPNK mais íngreme.
+  \item Não afeta $\kappa$: $\phi$ não aparece na fórmula.
+  \item Reduz $\beta$: o desconto intertemporal cai.
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (b)}]
+\textbf{Correta: (b).} $\kappa = \alpha[1-(1-\alpha)\beta]\phi/(1-\alpha)$. $\phi$ entra linearmente no numerador: $\phi\uparrow$ $\Rightarrow$ $\kappa\uparrow$. Economicamente: menor rigidez real (salário real mais sensível ao produto) $\Rightarrow$ pass-through maior de $y$ para $\pi$ $\Rightarrow$ CPNK mais íngreme.
+\end{resultbox}
+
+\subsection*{Q-tipo 4 --- CEE vs.\ Calvo puro: custo de sacrifício}
+
+Para que a CPNK híbrida de CEE ($\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t$) implique custo positivo de desinflação:
+
+\begin{enumerate}[label=(\alph*)]
+  \item $\gamma < 1/2$: componente forward-looking domina $\Rightarrow$ custo positivo.
+  \item $\gamma > 1/2$: componente backward-looking domina $\Rightarrow$ custo positivo.
+  \item $\gamma = 1/2$: custo máximo de desinflação.
+  \item $\chi > 0$ é condição suficiente para custo positivo, independente de $\gamma$.
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (b)}]
+\textbf{Correta: (b).} Para desinflação com custo: quando $E_t\pi_{t+1} < \pi_t$ (tendência declinante), precisamos $y_t < 0$ para satisfazer a CPNK híbrida. Isso requer que $\gamma\pi_{t-1}$ pese mais que $(1-\gamma)E_t\pi_{t+1}$ no lado direito, i.e., $\gamma > 1-\gamma$ $\Leftrightarrow$ $\gamma > 1/2$.
+\end{resultbox}
+
+\subsection*{Q-tipo 5 --- Regra CGG vs.\ Taylor simples}
+
+A diferença entre a regra CGG $r_t = \phi_\pi E_t[\pi_{t+1}] + \phi_y E_t[y_{t+1}]$ e Taylor simples $r_t = \phi_\pi\pi_t + \phi_y y_t$ é:
+
+\begin{enumerate}[label=(\alph*)]
+  \item CGG é mais simples pois não exige previsões.
+  \item CGG reage a expectativas futuras; Taylor reage a valores contemporâneos.
+  \item As duas regras são equivalentes se os agentes têm expectativas racionais.
+  \item CGG implica sempre $\phi_\pi < 1$ (política passiva obrigatória).
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (b)}]
+\textbf{Correta: (b).} CGG usa $E_t[\pi_{t+1}]$ e $E_t[y_{t+1}]$ (forward-looking); Taylor (1993) usa $\pi_t$ e $y_t$ (contemporânea). A distinção é empiricamente importante: CGG requer estimação por GMM. (c) FALSO: mesmo com expectativas racionais, $E_t[\pi_{t+1}] \neq \pi_t$ em geral.
+\end{resultbox}
+
+\subsection*{Q-tipo 6 --- Ball (1994b): evidência e inércia inflacionária}
+
+Ball (1994b) analisou 28 episódios de desinflação em 9 países e encontrou que:
+
+\begin{enumerate}[label=(\alph*)]
+  \item Em 28 de 28 casos, o produto ficou acima do normal durante a desinflação (boom desinflacionário).
+  \item Em 27 de 28 casos, o produto ficou abaixo do normal (recessão).
+  \item Em todos os casos, a desinflação foi crível e sem custo real.
+  \item Os episódios mostraram que a CPNK pura é consistente com os dados.
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (b)}]
+\textbf{Correta: (b).} Ball (1994b): 27/28 episódios com produto abaixo do normal. Isso refuta a CPNK pura de Calvo (que implica desinflação crível sem custo) e motiva modelos com inércia real como o CEE. (a), (c) e (d) são todos incorretos.
+\end{resultbox}
+
+\subsection*{Q-tipo 7 --- RCK: Questões adicionais da Lista I}
+
+Sobre a regra de Keynes-Ramsey $\dot{c}/c = [f'(k)-\delta-\rho-\theta g]/\theta$, qual afirmação é correta?
+
+\begin{enumerate}[label=(\alph*)]
+  \item $\rho\uparrow$ eleva o crescimento do consumo.
+  \item $\theta\uparrow$ (maior aversão ao risco) eleva $\dot{c}/c$.
+  \item $n\uparrow$ aparece em $\dot{c}/c$ com sinal positivo.
+  \item $\rho\uparrow$ afeta \emph{negativamente} $\dot{c}/c$.
+\end{enumerate}
+
+\begin{resultbox}[title={Gabarito: (d)}]
+\textbf{Correta: (d).} $\rho$ entra com sinal $-$ no numerador: maior impaciência $\Rightarrow$ menor crescimento do consumo. (a) inverte o sinal. (b) FALSO: $\theta\uparrow$ reduz $1/\theta$ e pode elevar $r^*$, mas o efeito líquido sobre $\dot{c}/c$ é redução (via EE). (c) FALSO: $n$ não aparece em $\dot{c}/c$.
+\end{resultbox}
+
+% ==========================================================================
+\section*{\large\color{cyanrbc} Apêndice B --- Tabelas de Calibração Unificadas}
+\addcontentsline{toc}{section}{Apêndice B --- Tabelas de Calibração Unificadas}
+% ==========================================================================
+
+\subsection*{B.1 Parâmetros dos Modelos de Crescimento}
+
+\begin{center}
+\begin{tabular}{llccc}
+\toprule
+Parâmetro & Descrição & Solow & RCK & RBC \\
+\midrule
+$\alpha$ & Participação do capital & 0,33 & 0,33 & 0,33 \\
+$\delta$ & Taxa de depreciação & 0,025 & 0,025 & 0,025 \\
+$n$ & Crescimento pop.\ & 0,01 & 0,01 & 0 \\
+$g$ & Prog.\ tecnológico & 0,02 & 0,02 & 0 \\
+$s$ & Taxa de poupança & 0,20 & --- (end.) & --- \\
+$\rho$ & Taxa de desconto (cont.) & --- & 0,04 & --- \\
+$\theta$ & Aversão ao risco (CRRA) & --- & 2 & 1 (log) \\
+$\beta$ & Fator de desconto (disc.) & --- & --- & 0,99 \\
+$b$ & Peso do lazer & --- & --- & $\approx 1{,}55$ \\
+$\rho_z$ & Persistência choque PTF & --- & --- & 0,95 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{B.2 Parâmetros do Modelo NK}
+
+\begin{center}
+\begin{tabular}{llcc}
+\toprule
+Parâmetro & Descrição & Valor base & Referência \\
+\midrule
+$\beta$ & Fator de desconto (trimestral) & $0{,}99$ & Padrão \\
+$\theta$ & Inv.\ EIS (= $\sigma$ em Galí) & $1{,}0$ & Log-utilidade \\
+$\gamma$ & Curvatura desut.\ trabalho & $2{,}0$ & $\Rightarrow \phi = \theta+\gamma-1 = 2$ \\
+$\phi$ & Rigidez real ($=\theta+\gamma-1$) & $2{,}0$ & Slides prof. \\
+$\alpha_{Calvo}$ & Prob.\ não-ajuste & $0{,}75$ & Galí (2008) \\
+$\kappa$ & Slope CPNK & $\approx 0{,}1$ & Calibrado \\
+$\phi_\pi$ & Peso inflação (CGG) & $1{,}5$ & Taylor (1993) \\
+$\phi_y$ & Peso produto (CGG) & $0{,}5$ & Taylor (1993) \\
+$\rho_{IS}$ & Persist.\ choque IS & $0{,}5$ & Estimado \\
+$\rho_\pi$ & Persist.\ choque custo-push & $0{,}5$ & Estimado \\
+$\gamma_{CEE}$ & Peso backward (híbrida) & $0{,}5$ & CEE (2005) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{B.3 Slope da CPNK ($\kappa$) como Função de $\alpha_{Calvo}$ e $\phi$}
+
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+$\alpha_{Calvo}$ & Duração esperada & $1-(1-\alpha_{Calvo})\beta$ & $\kappa$ (com $\phi=2$) & $\kappa$ (com $\phi=1$) \\
+\midrule
+0,50 & 2 tri. & $0{,}505$ & $\approx 1{,}010$ & $\approx 0{,}505$ \\
+0,60 & 2,5 tri. & $0{,}406$ & $\approx 0{,}541$ & $\approx 0{,}271$ \\
+0,75 & 4 tri. & $0{,}257$ & $\approx 0{,}171$ & $\approx 0{,}086$ \\
+0,90 & 10 tri. & $0{,}109$ & $\approx 0{,}024$ & $\approx 0{,}012$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Usando $\kappa = \alpha_{Calvo}[1-(1-\alpha_{Calvo})\beta]\phi/(1-\alpha_{Calvo})$.
+
+\subsection*{B.4 Momentos do Modelo RBC vs.\ Dados (EUA Trimestrais)}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Variável & Dados EUA & RBC & Interpretação \\
+\midrule
+$\sigma(Y)$ & 1,72\% & 1,72\% & Calibrado pelo prof. \\
+$\sigma(C)/\sigma(Y)$ & 0,74 & 0,48 & RBC subestima (canal 3) \\
+$\sigma(I)/\sigma(Y)$ & 2,98 & 3,15 & Consistente (canal 2) \\
+$\sigma(N)/\sigma(Y)$ & 0,95 & 0,77 & Subestima (trabalho intensivo) \\
+$\text{corr}(C,Y)$ & 0,88 & 0,94 & Supercorrelação do consumo \\
+$\text{corr}(I,Y)$ & 0,80 & 0,99 & Investimento muito correlacionado \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{B.5 Conexão entre Modelos}
+
+\begin{center}
+\begin{formulabox}[title={Lógica da Sequência de Modelos}]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item \textbf{Solow}: crescimento exógeno ($s$ exógena). Ponto de partida.
+  \item \textbf{RCK}: endogeneíza $s$ via otimização intertemporal. Adiciona Keynes-Ramsey.
+  \item \textbf{Diamond}: gerações sobrepostas. Possível ineficiência dinâmica.
+  \item \textbf{RBC}: adiciona estocasticidade (PTF). Mercados competitivos + preços flexíveis.
+  \item \textbf{Fischer/Taylor}: rigidez nominal via contratos escalonados. Moeda não-neutra.
+  \item \textbf{Calvo}: rigidez estocástica (probabilidade $\alpha$ de não ajustar). Gera CPNK.
+  \item \textbf{CEE}: adiciona indexação à Calvo. Gera CPNK híbrida com inércia real.
+  \item \textbf{CGG}: modelo de três equações completo (IS + CPNK + Regra forward-looking).
+\end{enumerate}
+\end{formulabox}
+\end{center}
+
+\begin{center}
+\rule{0.5\linewidth}{0.4pt}\\[0.5em]
+{\small Guia unificado para a prova única de Macroeconomia I --- PPGEco-UFES 2026.\\
+Código Python, soluções numéricas e material complementar: \texttt{github.com/fcarva/macro}}
+\end{center}
+
+\end{document}

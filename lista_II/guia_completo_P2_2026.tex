@@ -1,0 +1,1765 @@
+% ==========================================================================
+%  Guia Completo de Estudo — Prova 2 / Lista II
+%  Macroeconomia I (PPGEco-UFES, 2026)
+%  Prof. Ricardo Ramalhete Moreira
+%  Rigidez Nominal (cap.6) e NK DSGE (cap.7)
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+% --------------------------------------------------------------------------
+% Packages
+% --------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+
+% --------------------------------------------------------------------------
+% Caixas (standard skin — sem skins/TikZ)
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{formulabox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\pibar}{\bar{\pi}}
+\newcommand{\xgap}{x_t}
+
+% --------------------------------------------------------------------------
+% Espaçamento e parágrafos
+% --------------------------------------------------------------------------
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+% --------------------------------------------------------------------------
+% Títulos
+% --------------------------------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{Questão \thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+% --------------------------------------------------------------------------
+% Cabeçalho/rodapé
+% --------------------------------------------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Guia Completo P2 --- Macroeconomia I (PPGEco-UFES, 2026)}}
+\rhead{\footnotesize\textcolor{grayrbc}{Rigidez Nominal \(\cdot\) NK DSGE --- Romer, cap.\ 6--7}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Guia Completo de Estudo --- Prova 2 / Lista II\\[0.4em]
+\large Macroeconomia I --- 2026}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{0.8em}
+{\large Romer, caps.\ 6 e 7}
+
+\vspace{0.8em}
+{\large Prof.\ Ricardo Ramalhete Moreira}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{\textcolor{provaborder}{Cobertura completa:}} Este guia cobre \textbf{TODOS} os
+tópicos de P2: \textbf{Rigidez Nominal} (Romer, cap.\ 6) e
+\textbf{Modelos DSGE Novo-Keynesianos} (Romer, cap.\ 7). Inclui derivações
+passo a passo e soluções completas das 11 questões da Lista II.
+\end{tcolorbox}
+
+\vspace{1.5em}
+\begin{tabular}{lll}
+\toprule
+\textbf{Questão} & \textbf{Tópico} & \textbf{Capítulo} \\
+\midrule
+Q1 & Custos de menu e decisão de ajuste de preços & Cap.\ 6 \\
+Q2 & Externalidade de demanda e falha de coordenação & Cap.\ 6 \\
+Q3 & Modelo de Calvo: probabilidade e duração & Cap.\ 6 \\
+Q4 & Derivação da Curva de Phillips NK & Cap.\ 6 \\
+Q5 & Rigidezes reais vs.\ nominais & Cap.\ 6 \\
+Q6 & IS dinâmica e taxa natural & Cap.\ 7 \\
+Q7 & CPNK: trade-off e choque de custo-push & Cap.\ 7 \\
+Q8 & Regra de Taylor e princípio de Taylor & Cap.\ 7 \\
+Q9 & Solução NK: choque de demanda & Cap.\ 7 \\
+Q10 & Solução NK: choque de custo-push & Cap.\ 7 \\
+Q11 & Fronteira eficiente de política monetária & Cap.\ 7 \\
+\bottomrule
+\end{tabular}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=boxbg, colframe=boxborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{Referência principal:} \\[0.3em]
+D.\ Romer, \textit{Advanced Macroeconomics}, 5.ª ed., McGraw-Hill (2019). \\
+Capítulos 6 e 7. \\[0.3em]
+J.\ Galí, \textit{Monetary Policy, Inflation, and the Business Cycle}, Princeton (2008).
+\end{tcolorbox}
+
+\vfill
+{\small Soluções computadas com Python; código disponível em
+\texttt{github.com/fcarva/macro}.}
+\end{center}
+\end{titlepage}
+
+% --------------------------------------------------------------------------
+% Formulário de Referência Rápida
+% --------------------------------------------------------------------------
+\newpage
+\thispagestyle{fancy}
+
+\begin{center}
+{\large\bfseries\color{cyanrbc} Formulário de Referência Rápida --- P2}\\[0.3em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+\vspace{0.3em}
+\begin{multicols}{2}
+
+\textbf{\textcolor{cyanrbc}{BLOCO RIGIDEZ NOMINAL (Cap.\ 6)}}
+
+\medskip
+\textbf{Demanda Dixit-Stiglitz:}
+\[
+Y_i = Y\!\left(\frac{P_i}{P}\right)^{-\eta}, \quad \eta > 1
+\]
+
+\textbf{Preço ótimo flexível:}
+\[
+P_i^* = \mu\cdot MC_i,\quad \mu = \frac{\eta}{\eta-1}
+\]
+
+\textbf{Ganho de reajuste (Mankiw):}
+\[
+G = \frac{\eta-1}{2}\,p_{dev}^2
+\]
+
+\textbf{Limiar de ajuste:}
+\[
+|p_{dev}| \geq \bar{p} = \sqrt{\frac{2z}{\eta-1}}
+\]
+
+\textbf{Calvo --- preço de re-otimização:}
+\[
+\log\tilde{P}_t = (1-\alpha\beta)\!\sum_{s=0}^{\infty}(\alpha\beta)^s
+  \E_t[\log P_{t+s}^*]
+\]
+
+\textbf{Índice de preços (log):}
+\[
+p_t = \alpha\,p_{t-1} + (1-\alpha)\,\tilde{p}_t
+\]
+
+\textbf{CPNK:}
+\[
+\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t + u_t
+\]
+
+\textbf{Slope:}
+\[
+\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,(\omega + \sigma^{-1})
+\]
+
+\columnbreak
+
+\textbf{\textcolor{cyanrbc}{BLOCO NK DSGE (Cap.\ 7)}}
+
+\medskip
+\textbf{IS dinâmica:}
+\[
+x_t = \E_t[x_{t+1}] - \frac{1}{\sigma}(i_t - \E_t[\pi_{t+1}] - r^n)
+\]
+
+\textbf{CPNK:}
+\[
+\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t + u_t
+\]
+
+\textbf{Regra de Taylor:}
+\[
+i_t = r^n + \phi_\pi\,\pi_t + \phi_x\,x_t + v_t
+\]
+
+\textbf{Taxa natural:}
+\[
+r^n = -\ln\beta \approx \frac{1-\beta}{\beta}
+\]
+
+\textbf{Solução choque $v_t$:}
+\[
+\psi_{xv} = \frac{-1}{\sigma\Delta_v},\quad
+\psi_{\pi v} = \frac{-\kappa}{\sigma\Delta_v(1-\beta\rho_v)}
+\]
+
+\textbf{Solução choque $u_t$:}
+\[
+\psi_{xu} = \frac{-(\phi_\pi-\rho_u)}{\sigma(1-\beta\rho_u)D_u}
+\]
+
+\textbf{Princípio de Taylor:} $\phi_\pi > 1$
+
+\textbf{Condição precisa:}
+\[
+\kappa(\phi_\pi-1) + (1-\beta)\phi_x > 0
+\]
+
+\textbf{Calibração padrão:}\\[2pt]
+$\beta=0{,}99$, $\sigma=1$, $\kappa=0{,}1$, $\phi_\pi=1{,}5$, $\phi_x=0{,}5$
+
+\end{multicols}
+
+\rule{\linewidth}{0.6pt}
+
+\vspace{0.5em}
+\begin{provabox}[title={Princípio de Taylor --- Alerta de Prova}]
+\textbf{$\phi_\pi > 1$} é condição necessária para determinação do equilíbrio.
+Se $\phi_\pi < 1$ (política \emph{passiva}), a taxa real cai quando a inflação sobe,
+realimentando as expectativas inflacionárias --- equilíbrio \textbf{indeterminado}
+(múltiplos EE). A armadilha de liquidez ocorre quando $i_t = 0$ impede atingir
+$r^n < 0$: o BC perde a capacidade de estimular a demanda via juros convencional.
+\end{provabox}
+
+% --------------------------------------------------------------------------
+% Sumário
+% --------------------------------------------------------------------------
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================================================
+%  PARTE 0 — Contexto
+% ==========================================================================
+
+\section*{\large\color{cyanrbc} Parte 0 --- Contexto: Por que Rigidez Nominal Importa?}
+\addcontentsline{toc}{section}{Parte 0 --- Contexto: Por que Rigidez Nominal Importa?}
+
+Em mercados competitivos com preços plenamente flexíveis, a moeda é neutra: um choque
+monetário eleva apenas o nível nominal de preços, deixando todas as variáveis reais
+(produto, emprego, salário real) inalteradas. Isso é a \textbf{dicotomia clássica}.
+
+A Macroeconomia Novo-Keynesiana parte de uma premissa diferente: preços são
+\textbf{rígidos no curto prazo}. Essa rigidez --- por custos de menu (Mankiw, 1985),
+por contratos escalonados (Fischer, 1977; Taylor, 1980) ou por chegadas aleatórias de
+oportunidades de ajuste (Calvo, 1983) --- implica que choques monetários têm efeitos
+\textbf{reais} de curto prazo.
+
+\textbf{Conexão entre capítulos 6 e 7:} O cap.\ 6 fundamenta \emph{por que} os preços
+são rígidos e deriva a Curva de Phillips NK (CPNK). O cap.\ 7 usa a CPNK como bloco de
+oferta do modelo de três equações, que se torna o framework central para análise de
+política monetária em economias modernas.
+
+\begin{resultbox}[title={Lógica da sequência}]
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+  \item Firmas têm poder de mercado (Dixit-Stiglitz) $\Rightarrow$ markup $\mu$.
+  \item Custos de menu ou Calvo $\Rightarrow$ preços rígidos no CP.
+  \item Rigidez $\Rightarrow$ moeda não-neutra $\Rightarrow$ CPNK com hiato do produto.
+  \item CPNK + IS dinâmica + Regra de Taylor $\Rightarrow$ Modelo NK.
+  \item Modelo NK $\Rightarrow$ análise de PM ótima, princípio de Taylor, IRFs.
+\end{enumerate}
+\end{resultbox}
+
+% ==========================================================================
+%  PARTE I — Rigidez Nominal (Derivações, Cap. 6)
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte I --- Rigidez Nominal: Derivações (Cap.\ 6)}
+\addcontentsline{toc}{section}{Parte I --- Rigidez Nominal: Derivações (Cap.\ 6)}
+
+% ------------------------------------------------------------------
+\subsection*{I.1 \ Competição Monopolística e Precificação Ótima}
+
+\textbf{Demanda Dixit-Stiglitz.}
+O agregador CES da economia gera demanda para cada variedade $i$:
+\[
+Y = \left[\int_0^1 Y_i^{(\eta-1)/\eta}\,di\right]^{\eta/(\eta-1)},\quad \eta > 1.
+\]
+Maximizando a utilidade do consumidor para um dado gasto $PY$, obtém-se
+a demanda pela variedade $i$:
+\begin{equation}
+Y_i = Y\!\left(\frac{P_i}{P}\right)^{-\eta},
+\label{eq:demand_ds}
+\end{equation}
+onde $P = \left[\int_0^1 P_i^{1-\eta}\,di\right]^{1/(1-\eta)}$ é o índice de preços
+Dixit-Stiglitz e $\eta$ é a elasticidade-preço.
+
+\textbf{Preço ótimo — derivação passo a passo.}
+O lucro da firma $i$ é:
+\[
+\Pi_i = (P_i - MC_i)\,Y_i = (P_i - MC_i)\,Y\!\left(\frac{P_i}{P}\right)^{-\eta}.
+\]
+
+\textit{Passo 1.} Derivada em relação a $P_i$:
+\[
+\frac{\partial\Pi_i}{\partial P_i} = Y\!\left(\frac{P_i}{P}\right)^{-\eta}
+  + (P_i - MC_i)(-\eta)\,Y\,P_i^{-\eta-1}\,P^\eta = 0.
+\]
+
+\textit{Passo 2.} Fatorar $Y(P_i/P)^{-\eta}$:
+\[
+Y\!\left(\frac{P_i}{P}\right)^{-\eta}\!\!\left[1 - \frac{\eta(P_i - MC_i)}{P_i}\right] = 0.
+\]
+
+\textit{Passo 3.} Resolver (o fator entre colchetes deve ser zero):
+\[
+1 - \frac{\eta(P_i - MC_i)}{P_i} = 0
+\;\Rightarrow\;
+P_i - MC_i = \frac{P_i}{\eta}
+\;\Rightarrow\;
+P_i\!\left(1 - \frac{1}{\eta}\right) = MC_i.
+\]
+
+\begin{resultbox}[title={Preço ótimo com poder de mercado}]
+\[
+\boxed{P_i^* = \frac{\eta}{\eta-1}\,MC_i \equiv \mu\cdot MC_i,
+\quad \mu = \frac{\eta}{\eta-1} > 1.}
+\]
+Em log: $p_i^* = \log\mu + mc_i$.
+O markup $\mu$ é decrescente em $\eta$: mais concorrência $\Rightarrow$ menor markup.
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\subsection*{I.2 \ Custos de Menu (Mankiw 1985)}
+
+\textbf{Ganho de reajuste — derivação quadrática.}
+Expandindo o lucro em segunda ordem ao redor do preço ótimo $P_i^*$:
+\[
+\Pi(P_i) \approx \Pi(P_i^*) + \underbrace{\Pi'(P_i^*)}_{=\,0}\,(P_i - P_i^*)
+  + \frac{1}{2}\Pi''(P_i^*)\,(P_i - P_i^*)^2.
+\]
+A derivada de primeira ordem é nula no ótimo. Em termos de log-desvio
+$p_{dev} = p_i - p_i^*$, normalizando a derivada de segunda ordem:
+\[
+\Pi(P_i) \approx \Pi(P_i^*) - \frac{\eta-1}{2}\,p_{dev}^2.
+\]
+O \textbf{ganho de reajustar} (diferença de lucros) é:
+
+\begin{formulabox}[title={Ganho de reajuste (Mankiw 1985)}]
+\[
+G(p_{dev}) = \Pi(P_i^*) - \Pi(P_i) = \frac{\eta-1}{2}\,p_{dev}^2.
+\]
+O ganho é \emph{quadrático} em $p_{dev}$: desvios pequenos têm custo de
+segundo ordem para a firma, mas de primeiro ordem para o bem-estar social.
+\end{formulabox}
+
+\textbf{Limiar de ajuste.}
+A firma ajusta se $G(p_{dev}) \geq z$ (custo de menu):
+\[
+\frac{\eta-1}{2}\,p_{dev}^2 \geq z
+\;\Longleftrightarrow\;
+|p_{dev}| \geq \bar{p}(z) = \sqrt{\frac{2z}{\eta-1}}.
+\]
+
+\begin{resultbox}[title={Limiar de ajuste de preços}]
+\[
+\boxed{|p_{dev}| \geq \bar{p}(z) = \sqrt{\frac{2z}{\eta-1}}.}
+\]
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\bar{p}(z)$ cresce com $z$: custos maiores $\Rightarrow$ mais rigidez.
+  \item $\bar{p}(z)$ decresce com $\eta$: demanda mais elástica $\Rightarrow$
+        firmas ajustam com mais frequência.
+\end{itemize}
+\end{resultbox}
+
+\textbf{Externalidade de demanda agregada (Ball-Romer).}
+Com $n$ firmas simétricas, o ganho \emph{social} de ajuste é:
+\[
+G^{social} = n\cdot G^{private} = n\cdot\frac{\eta-1}{2}\,p_{dev}^2.
+\]
+\textbf{Região de falha de coordenação:} $G^{private} < z \leq G^{social}$.
+Nessa região, nenhuma firma ajusta individualmente (pois $G^{private} < z$),
+mas o ajuste coletivo seria benéfico (pois $G^{social} \geq z$).
+Resultado: múltiplos equilíbrios e rigidez agregada mesmo com custos individuais ínfimos.
+
+\begin{provabox}[title={Resultado central de Mankiw-Ball-Romer}]
+Custos de menu \textbf{pequenos} geram rigidez \textbf{grande} por dois motivos:
+(1) a externalidade de demanda amplifica o ganho social; (2) firmas são
+\emph{complementos estratégicos} --- se as demais não ajustam, é ótimo não ajustar
+também (o preço relativo da firma desviante muda pouco).
+\end{provabox}
+
+% ------------------------------------------------------------------
+\subsection*{I.3 \ Modelo de Calvo}
+
+\textbf{Estrutura.}
+Em cada período, cada firma:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item mantém o preço com probabilidade $\alpha \in (0,1)$, ou
+  \item re-otimiza com probabilidade $(1-\alpha)$.
+\end{itemize}
+O processo é i.i.d.: independente do estado e do tempo desde o último ajuste.
+
+A probabilidade de que um preço fixado há $s$ períodos ainda vigore é $\alpha^s$.
+A duração esperada de um preço é:
+\[
+E[T] = \sum_{s=0}^{\infty}(1-\alpha)\alpha^s \cdot s = \frac{\alpha}{1-\alpha}
+\;\Rightarrow\; E[T]+1 = \frac{1}{1-\alpha}.
+\]
+Para $\alpha = 0{,}75$ (trimestral): $E[T] = 3$ períodos adicionais, duração total
+= 4 trimestres = 1 ano.
+
+\textbf{Preço de re-otimização.}
+A firma que re-otimiza em $t$ escolhe $\tilde{P}_t$ para maximizar o valor presente
+esperado dos lucros, ponderado pela probabilidade $\alpha^s$ de o preço ainda viger:
+\begin{equation}
+\log\tilde{P}_t = (1-\alpha\beta)\sum_{s=0}^{\infty}(\alpha\beta)^s
+  \E_t\!\left[\log P_{t+s}^*\right].
+\label{eq:calvo_reset}
+\end{equation}
+O peso $(1-\alpha\beta)$ garante que $\sum_{s=0}^\infty (\alpha\beta)^s(1-\alpha\beta) = 1$
+(normalização).
+
+\begin{formulabox}[title={Preço de re-otimização de Calvo}]
+$\tilde{P}_t$ é uma \textbf{média ponderada} dos preços ótimos futuros esperados,
+com pesos que decrescem geometricamente à taxa $\alpha\beta$.
+\end{formulabox}
+
+\textbf{Índice de preços --- log-linearização.}
+O índice CES agrega preços antigos (peso $\alpha$) e novos (peso $1-\alpha$):
+\[
+P_t^{1-\eta} = \alpha\,P_{t-1}^{1-\eta} + (1-\alpha)\,\tilde{P}_t^{1-\eta}.
+\]
+Log-linearizando em torno de inflação zero:
+\begin{equation}
+p_t = \alpha\,p_{t-1} + (1-\alpha)\,\tilde{p}_t.
+\label{eq:price_index}
+\end{equation}
+Equivalentemente: $\pi_t = p_t - p_{t-1} = (1-\alpha)(\tilde{p}_t - p_{t-1})$,
+ou seja, a inflação é a fração de firmas que ajusta multiplicada pelo gap de ajuste.
+
+% ------------------------------------------------------------------
+\subsection*{I.4 \ Derivação da CPNK}
+
+A seguir apresentamos a derivação completa da Curva de Phillips NK a partir da
+precificação de Calvo.
+
+\textbf{Passo 1.} Custo marginal em desvio log do estado estacionário:
+$\hat{mc}_t$. O preço ótimo flexível é $\log P_t^* = \log\mu + p_t + \hat{mc}_t$,
+onde $p_t$ é o nível de preços e $\hat{mc}_t$ captura custos reais.
+
+\textbf{Passo 2.} Substituindo em \eqref{eq:calvo_reset}:
+\[
+\tilde{p}_t - p_t = (1-\alpha\beta)\sum_{s=0}^{\infty}(\alpha\beta)^s
+  \E_t\!\left[\hat{mc}_{t+s} + (p_{t+s} - p_t)\right].
+\]
+
+\textbf{Passo 3.} Note que $p_{t+s} - p_t = \sum_{j=1}^s \pi_{t+j}$.
+
+\textbf{Passo 4.} Definir o \emph{reset price gap}: $\hat{q}_t = \tilde{p}_t - p_{t-1}$.
+Da equação do índice \eqref{eq:price_index}:
+\[
+\pi_t = (1-\alpha)\,\hat{q}_t.
+\]
+
+\textbf{Passo 5.} Manipulação recursiva. O preço de re-otimização satisfaz a recursão:
+\[
+\hat{q}_t = (1-\alpha\beta)\,\hat{mc}_t + \alpha\beta\,\E_t[\hat{q}_{t+1}]
+  + \alpha\beta\,\E_t[\pi_{t+1}] + \pi_t.
+\]
+Usando $\pi_t = (1-\alpha)\hat{q}_t$ e $\pi_{t+1} = (1-\alpha)\hat{q}_{t+1}$:
+\[
+\frac{\pi_t}{1-\alpha} = (1-\alpha\beta)\,\hat{mc}_t
+  + \alpha\beta\,\E_t\!\left[\frac{\pi_{t+1}}{1-\alpha}\right]
+  + \alpha\beta\,\E_t[\pi_{t+1}] + \pi_t.
+\]
+
+\textbf{Passo 6.} Reorganizando (dividindo por $1-\alpha$ e simplificando termos):
+\[
+\pi_t\!\left(\frac{1}{1-\alpha} - 1\right) = (1-\alpha\beta)\,\hat{mc}_t
+  + \frac{\alpha\beta}{1-\alpha}\,\E_t[\pi_{t+1}]
+  + \alpha\beta\,\E_t[\pi_{t+1}].
+\]
+\[
+\frac{\alpha}{1-\alpha}\,\pi_t = (1-\alpha\beta)\,\hat{mc}_t
+  + \frac{\alpha\beta(2-\alpha)}{1-\alpha}\,\E_t[\pi_{t+1}].
+\]
+Multiplicando por $(1-\alpha)/\alpha$:
+\[
+\pi_t = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,\hat{mc}_t + \beta\,\E_t[\pi_{t+1}].
+\]
+
+\textbf{Passo 7.} Usando $\hat{mc}_t = (\omega + \sigma^{-1})x_t$ (do lado real do modelo):
+
+\begin{formulabox}[title={Curva de Phillips NK (CPNK)}]
+\[
+\boxed{\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t + u_t,}
+\]
+\[
+\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,(\omega + \sigma^{-1}).
+\]
+\textbf{Interpretação de $\kappa$:}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\alpha\nearrow$ (mais rigidez) $\Rightarrow$ $\kappa\searrow$ (CPNK mais plana).
+  \item $\beta\nearrow$ (firmas mais pacientes) $\Rightarrow$ expectativas mais importantes.
+  \item $\omega\nearrow$ ou $\sigma\searrow$ $\Rightarrow$ $\kappa\nearrow$ (pass-through maior).
+\end{itemize}
+\textbf{Calibração:} $\alpha=0{,}75$, $\beta=0{,}99$, $\omega=1$, $\sigma=1$:
+$\kappa = (0{,}25)(0{,}2575)/0{,}75 \times 2 \approx 0{,}085$.
+(Galí 2008 usa $\kappa=0{,}1$ com parâmetros ligeiramente diferentes.)
+\end{formulabox}
+
+% ------------------------------------------------------------------
+\subsection*{I.5 \ Rigidezes Reais e Falha de Coordenação}
+
+\textbf{Rigidezes nominais vs.\ reais.}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item \textbf{Rigidez nominal}: custo de alterar o preço nominal (custo de menu $z$).
+  \item \textbf{Rigidez real}: preço ótimo relativo $P_i^*/P$ responde pouco a variações
+        macroeconômicas. Medida pelo parâmetro $\gamma = \partial P_i^*/\partial P \in (0,1)$
+        (complementaridade estratégica).
+\end{itemize}
+
+\textbf{Mecanismo de complementação.}
+Com $\gamma$ próximo de 1 (forte complementaridade):
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+  \item Demanda sobe $\Rightarrow$ $P^*$ deveria subir, mas pouco (rigidez real).
+  \item Logo $p_{dev} = p_i - p_i^*$ é pequeno.
+  \item $G = (\eta-1)/2 \cdot p_{dev}^2$ é ínfimo.
+  \item Qualquer $z > 0$ é suficiente para impedir ajuste.
+\end{enumerate}
+\textbf{Conclusão de Ball-Romer (1990):} rigidezes reais amplificam os efeitos de
+custos de menu pequenos, tornando a rigidez agregada de preços muito mais robusta.
+
+\begin{provabox}[title={Ball-Romer: multiplicação de rigidezes}]
+Pense assim: rigidez real $\Rightarrow$ $P^*$ não muda muito $\Rightarrow$
+custo de não ajustar é baixo $\Rightarrow$ qualquer custo de menu, por menor que seja,
+é suficiente para impedir o ajuste. As duas rigidezes se \emph{multiplicam}:
+uma pequena rigidez de cada tipo gera uma grande rigidez agregada.
+\end{provabox}
+
+% ==========================================================================
+%  PARTE II — Modelo NK Canônico (Derivações, Cap. 7)
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte II --- Modelo NK Canônico: Derivações (Cap.\ 7)}
+\addcontentsline{toc}{section}{Parte II --- Modelo NK Canônico: Derivações (Cap.\ 7)}
+
+% ------------------------------------------------------------------
+\subsection*{II.1 \ Três Equações do Modelo NK}
+
+O modelo Novo-Keynesiano canônico consiste em três equações log-linearizadas:
+
+\textbf{IS dinâmica} (equação de Euler das famílias):
+\begin{equation}
+x_t = \E_t[x_{t+1}] - \frac{1}{\sigma}(i_t - \E_t[\pi_{t+1}] - r^n).
+\label{eq:is_nk}
+\end{equation}
+\textit{Derivação:} A família CRRA maximiza $\sum_t \beta^t u(C_t)$ com
+$u'(C_t) = \beta(1+r_{t+1})u'(C_{t+1})$. Log-linearizando ($\hat{c}_t = x_t$ no
+modelo simples, sem gasto público):
+$x_t = \E_t[x_{t+1}] - (1/\sigma)(i_t - \E_t[\pi_{t+1}] - r^n)$,
+onde $r^n = -\ln\beta \approx (1-\beta)/\beta$ é a taxa real natural e $1/\sigma$
+é a elasticidade de substituição intertemporal (EIS).
+
+Para $\beta=0{,}99$: $r^n \approx 1\%/\text{trimestre} = 4\%/\text{ano}$.
+
+\textbf{CPNK} (do cap.\ 6):
+\begin{equation}
+\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t + u_t.
+\label{eq:cpnk_nk}
+\end{equation}
+
+\textbf{Regra de Taylor}:
+\begin{equation}
+i_t = r^n + \phi_\pi\,\pi_t + \phi_x\,x_t + v_t, \quad \phi_\pi > 1,\;\phi_x \geq 0.
+\label{eq:taylor_nk}
+\end{equation}
+$v_t$ é o choque de política monetária (distúrbio de demanda);
+$u_t$ é o choque de custo-push (distúrbio de oferta).
+
+\begin{resultbox}[title={Interpretação das três equações}]
+\begin{enumerate}[leftmargin=1.5em, itemsep=3pt]
+  \item \textbf{IS:} Euler intertemporal. $i_t - \E_t[\pi_{t+1}] > r^n$
+    (taxa real acima do natural) $\Rightarrow$ famílias poupam mais $\Rightarrow$
+    $x_t < \E_t[x_{t+1}]$ (produto abaixo da trajetória esperada).
+  \item \textbf{CPNK:} forward-looking. A inflação atual depende da inflação
+    \emph{futura} esperada e do hiato do produto corrente.
+  \item \textbf{Taylor:} reação do BC. $\phi_\pi > 1$ garante que taxa real suba
+    quando $\pi$ sobe --- estabilizador automático.
+\end{enumerate}
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\subsection*{II.2 \ Solução por Coeficientes Indeterminados}
+
+\textbf{Sistema IS modificado.}
+Substituindo \eqref{eq:taylor_nk} em \eqref{eq:is_nk}:
+\begin{equation}
+\left(1 + \frac{\phi_x}{\sigma}\right)x_t + \frac{\phi_\pi}{\sigma}\,\pi_t
+= \E_t[x_{t+1}] + \frac{1}{\sigma}\,\E_t[\pi_{t+1}] - \frac{v_t}{\sigma}.
+\label{eq:is_mod}
+\end{equation}
+
+\textbf{Choque de demanda $v_t = \rho_v v_{t-1} + \varepsilon_t^v$, $u_t=0$.}
+
+\textit{Passo 1.} Adivinhar $x_t = \psi_{xv}v_t$, $\pi_t = \psi_{\pi v}v_t$.
+
+\textit{Passo 2.} Da CPNK \eqref{eq:cpnk_nk} com $u_t=0$:
+\[
+\psi_{\pi v}v_t = \beta\rho_v\psi_{\pi v}v_t + \kappa\psi_{xv}v_t
+\;\Rightarrow\;
+\psi_{\pi v}(1-\beta\rho_v) = \kappa\psi_{xv}
+\;\Rightarrow\;
+\psi_{\pi v} = \frac{\kappa\psi_{xv}}{1-\beta\rho_v}. \quad (*)
+\]
+
+\textit{Passo 3.} Da IS modificada \eqref{eq:is_mod}, dividindo por $v_t$
+(com $\E_t[v_{t+1}]=\rho_v v_t$):
+\[
+\psi_{xv}\!\left(1 + \frac{\phi_x}{\sigma} - \rho_v\right)
++ \psi_{\pi v}\!\frac{\phi_\pi - \rho_v}{\sigma} = -\frac{1}{\sigma}.
+\]
+
+\textit{Passo 4.} Substituindo $(*)$:
+\[
+\psi_{xv}\!\left[(1-\rho_v) + \frac{1}{\sigma}\!\left(\phi_x
+  + \frac{\kappa(\phi_\pi-\rho_v)}{1-\beta\rho_v}\right)\right] = -\frac{1}{\sigma}.
+\]
+
+\textit{Passo 5.} Definindo $\Delta_v = (1-\rho_v) + \frac{1}{\sigma}\!\left[\phi_x + \frac{\kappa(\phi_\pi-\rho_v)}{1-\beta\rho_v}\right]$:
+
+\begin{formulabox}[title={Solução para choque de demanda $v_t$}]
+\[
+\boxed{
+\psi_{xv} = \frac{-1}{\sigma\Delta_v},\qquad
+\psi_{\pi v} = \frac{-\kappa}{\sigma\Delta_v(1-\beta\rho_v)}.
+}
+\]
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\psi_{xv} < 0$: aperto monetário reduz o hiato do produto.
+  \item $\psi_{\pi v} < 0$: aperto monetário reduz a inflação.
+  \item Maior $\phi_\pi$ $\Rightarrow$ maior $|\psi_{\pi v}|/|\psi_{xv}|$: inflação
+        responde mais que produto (BC troca produto por inflação).
+\end{itemize}
+\end{formulabox}
+
+\textbf{Choque de custo-push $u_t = \rho_u u_{t-1} + \varepsilon_t^u$, $v_t=0$.}
+
+\textit{Passo 1.} Adivinhar $x_t = \psi_{xu}u_t$, $\pi_t = \psi_{\pi u}u_t$.
+
+\textit{Passo 2.} Da CPNK com $u_t$:
+\[
+\psi_{\pi u}(1-\beta\rho_u) = \kappa\psi_{xu} + 1
+\;\Rightarrow\;
+\psi_{\pi u} = \frac{1+\kappa\psi_{xu}}{1-\beta\rho_u}. \quad (**)
+\]
+
+\textit{Passo 3.} Da IS modificada (com $v_t=0$):
+\[
+\psi_{xu}\!\left(1 + \frac{\phi_x}{\sigma} - \rho_u\right)
++ \psi_{\pi u}\!\frac{\phi_\pi - \rho_u}{\sigma} = 0.
+\]
+
+\textit{Passo 4.} Substituindo $(**)$:
+\[
+\psi_{xu}\!\underbrace{\left[(1-\rho_u)
+  + \frac{\phi_x + \kappa(\phi_\pi-\rho_u)/(1-\beta\rho_u)}{\sigma}\right]}_{D_u}
+= -\frac{\phi_\pi-\rho_u}{\sigma(1-\beta\rho_u)}.
+\]
+
+\begin{formulabox}[title={Solução para choque de custo-push $u_t$}]
+\[
+\boxed{
+\psi_{xu} = \frac{-(\phi_\pi-\rho_u)}{\sigma(1-\beta\rho_u)\,D_u},\qquad
+\psi_{\pi u} = \frac{1+\kappa\psi_{xu}}{1-\beta\rho_u}.
+}
+\]
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\psi_{\pi u} > 0$: custo-push eleva inflação.
+  \item $\psi_{xu} < 0$: custo-push contrai o produto (estagflação).
+  \item BC não pode estabilizar $x$ e $\pi$ simultaneamente --- \textbf{dilema}.
+\end{itemize}
+\end{formulabox}
+
+% ------------------------------------------------------------------
+\subsection*{II.3 \ Princípio de Taylor e Condição de Blanchard-Kahn}
+
+O sistema (sem choques) pode ser escrito como:
+\[
+\begin{pmatrix}\E_t[x_{t+1}]\\\E_t[\pi_{t+1}]\end{pmatrix}
+= M\begin{pmatrix}x_t\\\pi_t\end{pmatrix},
+\quad
+M = \begin{pmatrix}
+  1 + \dfrac{\phi_x}{\sigma} + \dfrac{\kappa}{\beta\sigma} &
+  \dfrac{\phi_\pi}{\sigma} - \dfrac{1}{\beta\sigma} \\[8pt]
+  -\dfrac{\kappa}{\beta} & \dfrac{1}{\beta}
+\end{pmatrix}.
+\]
+Como $x_t$ e $\pi_t$ são ambas \emph{variáveis de salto} (forward-looking),
+a condição de Blanchard-Kahn exige que \textbf{ambos} os autovalores de $M$
+estejam fora do círculo unitário ($|\lambda_{1,2}|>1$).
+
+O determinante de $M$ é:
+\[
+\det(M) = \frac{1 + (\phi_x + \kappa\phi_\pi)/\sigma}{\beta} > 1
+\quad\text{se}\quad \phi_x + \kappa\phi_\pi > \sigma(\beta-1),
+\]
+satisfeito para $\phi_x,\phi_\pi\geq 0$, $\beta<1$.
+
+A condição suficiente (análise completa de autovalores) é:
+
+\begin{resultbox}[title={Princípio de Taylor e condição de determinação}]
+\[
+\phi_\pi > 1 \quad\text{(Princípio de Taylor)}
+\]
+Condição precisa: $\kappa(\phi_\pi-1) + (1-\beta)\phi_x > 0$.
+Para $\beta\approx 1$: reduz-se a $\phi_\pi > 1$.
+\end{resultbox}
+
+\begin{provabox}[title={Por que $\phi_\pi < 1$ leva à indeterminação}]
+Se $\phi_\pi < 1$ (política passiva): $\pi\uparrow 1\%$ $\Rightarrow$ $i$ sobe
+menos de $1\%$ $\Rightarrow$ taxa \textbf{real} cai $\Rightarrow$ IS: $x\uparrow$
+$\Rightarrow$ CPNK: $\pi\uparrow$ ainda mais. A inflação se auto-realiza:
+há múltiplos equilíbrios racionais. Historicamente, o Fed pré-Volcker (anos 70)
+tinha $\hat{\phi}_\pi \approx 0{,}8$ --- Grande Inflação.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\subsection*{II.4 \ Política Monetária Ótima}
+
+O banco central minimiza a função de perda:
+\[
+L = \E_0\!\left[\sum_{t=0}^\infty\beta^t(\pi_t^2 + \lambda_x x_t^2)\right].
+\]
+\textbf{Fronteira de variância (Taylor 1979):}
+variando $\phi_\pi$ traça-se a fronteira eficiente em $(\text{Var}(\pi), \text{Var}(x))$:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\phi_\pi\to\infty$: $\text{Var}(\pi)\to 0$, $\text{Var}(x)\uparrow$
+        (inflation targeting extremo).
+  \item $\phi_\pi\to 1^+$: $\text{Var}(x)\to\min$, $\text{Var}(\pi)\uparrow$
+        (output targeting extremo).
+\end{itemize}
+O ponto ótimo é a tangência entre a fronteira convexa e a curva de indiferença
+$\pi^2 + \lambda_x x^2 = $ constante.
+
+\textbf{Choques de demanda $v_t>0$:} $x$ e $\pi$ sobem juntos $\Rightarrow$ sem
+dilema de política (o BC pode estabilizar ambos subindo $i$).
+
+\textbf{Choques de custo-push $u_t>0$:} estagflação ($\pi\uparrow$, $x\downarrow$)
+$\Rightarrow$ dilema (subir $i$ combate $\pi$ mas aprofunda $x<0$).
+
+% ==========================================================================
+%  PARTE III — Questões da Lista II
+% ==========================================================================
+
+\newpage
+\section*{\large\color{cyanrbc} Parte III --- Questões da Lista II}
+\addcontentsline{toc}{section}{Parte III --- Questões da Lista II (Q1--Q11)}
+
+\setcounter{section}{0}
+
+% ==========================================================================
+\section{Custos de Menu e Decisão de Ajuste de Preços}
+
+\subsection*{Enunciado}
+Considere uma firma monopolisticamente competitiva com custo de menu $z > 0$ e
+desvio $p_{dev} = p_i - p_i^*$ do preço ótimo flexível. Demonstre quando a firma
+decide ajustar seu preço e como o limiar depende dos parâmetros do modelo.
+
+\subsection*{Resolução passo a passo}
+
+\textbf{Passo 1.} O lucro da firma ao redor do ótimo, por expansão de Taylor de segunda
+ordem:
+\[
+\Pi(P_i) \approx \Pi(P_i^*) - \frac{\eta-1}{2}\,p_{dev}^2.
+\]
+(a derivada de primeira ordem é zero no ótimo; a de segunda ordem, normalizada,
+é $-(\eta-1)$).
+
+\textbf{Passo 2.} O \textbf{ganho de reajustar} é a diferença de lucros:
+\[
+G(p_{dev}) = \Pi(P_i^*) - \Pi(P_i) = \frac{\eta-1}{2}\,p_{dev}^2 \geq 0.
+\]
+
+\textbf{Passo 3.} A firma ajusta se e somente se o ganho supera o custo:
+\[
+G(p_{dev}) \geq z
+\;\Longleftrightarrow\;
+\frac{\eta-1}{2}\,p_{dev}^2 \geq z
+\;\Longleftrightarrow\;
+|p_{dev}| \geq \sqrt{\frac{2z}{\eta-1}} \equiv \bar{p}(z).
+\]
+
+\textbf{Passo 4.} Análise do limiar $\bar{p}(z) = \sqrt{2z/(\eta-1)}$:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $z\uparrow$: $\bar{p}\uparrow$ --- custos maiores $\Rightarrow$ mais rigidez.
+  \item $\eta\uparrow$: $\bar{p}\downarrow$ --- demanda mais elástica $\Rightarrow$
+        lucros mais sensíveis ao preço $\Rightarrow$ firmas ajustam mais.
+  \item Para $z\to 0$: $\bar{p}\to 0$ e a firma sempre ajusta (preços flexíveis).
+  \item Para $z\to\infty$: $\bar{p}\to\infty$ e a firma nunca ajusta (rigidez total).
+\end{itemize}
+
+\begin{resultbox}[title={Limiar de ajuste de preços (Q1)}]
+\[
+\boxed{|p_{dev}| \geq \bar{p}(z) = \sqrt{\frac{2z}{\eta-1}}.}
+\]
+A firma ajusta se e somente se o desvio absoluto do preço ótimo superar $\bar{p}(z)$.
+\end{resultbox}
+
+\begin{provabox}[title={Resultado de Mankiw (1985) --- Para a Prova}]
+Mesmo com $z$ pequeno, há região de não-ajuste porque $G$ é \textbf{quadrático}
+em $p_{dev}$: distorções pequenas têm custo de \emph{segundo} ordem para a firma
+(insignificante), mas custo de \emph{primeiro} ordem para o bem-estar social
+(significativo). Esse é o argumento de que ``small menu costs cause large welfare costs.''
+\end{provabox}
+
+% ==========================================================================
+\section{Externalidade de Demanda e Falha de Coordenação}
+
+\subsection*{Enunciado}
+Com $n$ firmas simétricas e custo de menu $z$, mostre que pode existir um equilíbrio de
+não-ajuste mesmo quando o ajuste coletivo seria socialmente benéfico. Explique o conceito
+de falha de coordenação.
+
+\subsection*{Resolução passo a passo}
+
+\textbf{Passo 1.} \textbf{Ganho privado vs.\ social.}
+O ganho de ajuste para a firma $i$ individualmente (tomando o comportamento das demais
+como dado) é:
+\[
+G^{private} = \frac{\eta-1}{2}\,p_{dev}^2.
+\]
+Se todas as $n$ firmas ajustassem simultaneamente, o ganho \emph{total} da firma $i$
+(incluindo os efeitos indiretos via demanda agregada) seria:
+\[
+G^{social} = n\cdot G^{private} = n\cdot\frac{\eta-1}{2}\,p_{dev}^2.
+\]
+
+\textbf{Passo 2.} \textbf{Região de falha de coordenação.}
+Existe uma região onde:
+\[
+G^{private} < z \leq G^{social}
+\;\Longleftrightarrow\;
+\frac{G^{social}}{n} < z \leq G^{social}.
+\]
+Nessa região:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Nenhuma firma ajusta individualmente (pois $G^{private} < z$).
+  \item Mas se todas ajustassem, cada uma ganharia $G^{social} - (n-1)G^{private} = G^{private}$...
+    na verdade, cada uma se beneficia do ajuste coletivo pois a demanda agregada sobe.
+\end{itemize}
+
+\textbf{Passo 3.} \textbf{Múltiplos equilíbrios.}
+Dois equilíbrios de Nash existem simultaneamente:
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+  \item \textbf{Equilíbrio ``todos ajustam''}: se todas as demais firmas ajustam,
+        a demanda individual também é alta, tornando lucrativo ajustar.
+  \item \textbf{Equilíbrio ``ninguém ajusta''}: se nenhuma firma ajusta, a demanda
+        individual permanece baixa ($G^{private} < z$) e não vale a pena ajustar.
+\end{enumerate}
+
+\textbf{Passo 4.} \textbf{Complementaridade estratégica.}
+O efeito estratégico $\gamma = \partial P_i^*/\partial P \in (0,1)$ mede a
+sensibilidade do preço ótimo individual ao nível geral. Com $\gamma > 0$, se
+as demais firmas não ajustam (mantendo $P$ baixo), o preço ótimo da firma $i$
+também cai --- desincentivando o ajuste unilateral.
+
+\begin{resultbox}[title={Falha de coordenação de Ball-Romer (Q2)}]
+A condição $G^{private} < z \leq G^{social}$ define a região de falha de coordenação.
+Dois equilíbrios de Nash: ``todos ajustam'' e ``ninguém ajusta''. A economia pode
+ficar presa no equilíbrio ruim, gerando recessão de equilíbrio.
+\end{resultbox}
+
+\begin{provabox}[title={Implicação de política (Q2)}]
+Ball-Romer: rigidezes nominais + competição imperfeita = falha de coordenação.
+A \textbf{política monetária} pode coordenar expectativas e mover a economia do
+equilíbrio de não-ajuste para o de ajuste --- justificando a relevância de PM
+expansionista em recessões causadas por rigidez nominal.
+\end{provabox}
+
+% ==========================================================================
+\section{Modelo de Calvo: Probabilidade de Ajuste e Duração}
+
+\subsection*{Enunciado}
+Com probabilidade de manutenção de preço $\alpha = 0{,}75$ por trimestre:
+(a) Qual a duração esperada dos preços? (b) Qual a fração de firmas que ajusta em
+cada trimestre? (c) Como $\alpha$ afeta a inclinação $\kappa$ da CPNK?
+
+\subsection*{Resolução passo a passo}
+
+\textbf{Passo 1.} \textbf{Distribuição da duração.}
+A probabilidade de um preço durar \emph{exatamente} $s$ períodos (não-ajuste em
+$1, 2, \ldots, s-1$ e ajuste no período $s$) é:
+\[
+P(T = s) = (1-\alpha)\,\alpha^{s-1}, \quad s = 1, 2, 3, \ldots
+\]
+(distribuição geométrica com parâmetro $1-\alpha$).
+
+\textbf{Passo 2.} \textbf{Duração esperada.}
+\[
+E[T] = \sum_{s=1}^{\infty} s\,(1-\alpha)\,\alpha^{s-1} = \frac{1}{1-\alpha}.
+\]
+Para $\alpha = 0{,}75$:
+\[
+E[T] = \frac{1}{1-0{,}75} = \frac{1}{0{,}25} = 4 \text{ trimestres} = 1 \text{ ano}.
+\]
+
+\textbf{Passo 3.} \textbf{Fração de firmas que ajusta.}
+Em cada período, a fração $(1-\alpha) = 0{,}25 = 25\%$ das firmas re-otimiza.
+
+\textbf{Passo 4.} \textbf{Conexão com a inclinação da CPNK.}
+\[
+\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,(\omega + \sigma^{-1}).
+\]
+Quanto maior $\alpha$ (mais rigidez), menor $\kappa$ (CPNK mais plana): a inflação
+responde menos ao hiato do produto quando preços são mais rígidos.
+
+\textbf{Passo 5.} \textbf{Tabela de calibração.}
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+$\alpha$ & Duração esperada & Fração que ajusta & $\kappa$ (com $\omega=\sigma^{-1}=1$) \\
+\midrule
+0,50 & 2 trimestres & 50\% & $\approx 0{,}495$ \\
+0,60 & 2,5 trimestres & 40\% & $\approx 0{,}265$ \\
+0,75 & 4 trimestres & 25\% & $\approx 0{,}085$ \\
+0,90 & 10 trimestres & 10\% & $\approx 0{,}020$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{resultbox}[title={Modelo de Calvo --- Resultados (Q3)}]
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Duração esperada: $E[T] = 1/(1-\alpha)$.
+  \item Para $\alpha=0{,}75$: $E[T] = 4$ trimestres (1 ano).
+  \item $25\%$ das firmas re-otimiza por trimestre.
+  \item $\alpha\uparrow$ $\Rightarrow$ $\kappa\downarrow$: rigidez maior achata a CPNK.
+\end{itemize}
+\end{resultbox}
+
+% ==========================================================================
+\section{Derivação da Curva de Phillips Novo-Keynesiana}
+
+\subsection*{Enunciado}
+Derive a CPNK $\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t$ a partir da
+precificação de Calvo, mostrando todos os passos. Interprete o coeficiente $\kappa$.
+
+\subsection*{Derivação completa}
+
+\textbf{Passo 1.} \textbf{Setup.}
+Seja $\hat{mc}_t$ o desvio log do custo marginal real em relação ao estado estacionário.
+O preço ótimo flexível em log é $p_t^* = \log\mu + p_t + \hat{mc}_t$.
+
+\textbf{Passo 2.} \textbf{Preço de re-otimização.}
+Da equação \eqref{eq:calvo_reset}, com $\log P_{t+s}^* = p_{t+s} + \hat{mc}_{t+s} + \log\mu$:
+\[
+\tilde{p}_t - p_t = (1-\alpha\beta)\sum_{s=0}^{\infty}(\alpha\beta)^s
+  \E_t\!\left[\hat{mc}_{t+s} + (p_{t+s} - p_t)\right].
+\]
+
+\textbf{Passo 3.} \textbf{Expansão inflacionária.}
+$(p_{t+s} - p_t) = \sum_{j=1}^s \pi_{t+j}$.
+
+\textbf{Passo 4.} \textbf{Forma recursiva.}
+Denotando $\hat{q}_t = \tilde{p}_t - p_{t-1}$, a equação acima implica:
+\[
+\hat{q}_t = (1-\alpha\beta)\,\hat{mc}_t + \alpha\beta\,\E_t[\hat{q}_{t+1}]
+  + \alpha\beta\,\E_t[\pi_{t+1}] + \pi_t.
+\]
+
+\textbf{Passo 5.} \textbf{Equação do índice de preços.}
+Do log-índice \eqref{eq:price_index}:
+$\pi_t = p_t - p_{t-1} = (1-\alpha)(\tilde{p}_t - p_{t-1}) = (1-\alpha)\hat{q}_t$.
+Logo $\hat{q}_t = \pi_t/(1-\alpha)$.
+
+\textbf{Passo 6.} \textbf{Substituição.}
+$\hat{q}_t = \pi_t/(1-\alpha)$ e $\hat{q}_{t+1} = \pi_{t+1}/(1-\alpha)$:
+\[
+\frac{\pi_t}{1-\alpha} = (1-\alpha\beta)\,\hat{mc}_t
+  + \frac{\alpha\beta}{1-\alpha}\,\E_t[\pi_{t+1}]
+  + \alpha\beta\,\E_t[\pi_{t+1}] + \pi_t.
+\]
+Subtraindo $\pi_t$ de ambos os lados:
+\[
+\frac{\alpha}{1-\alpha}\,\pi_t = (1-\alpha\beta)\,\hat{mc}_t
+  + \left[\frac{\alpha\beta}{1-\alpha} + \alpha\beta\right]\E_t[\pi_{t+1}].
+\]
+\[
+\frac{\alpha}{1-\alpha}\,\pi_t = (1-\alpha\beta)\,\hat{mc}_t
+  + \frac{\alpha\beta(2-\alpha)}{1-\alpha}\,\E_t[\pi_{t+1}].
+\]
+
+\textbf{Passo 7.} \textbf{Simplificação.}
+Multiplicando por $(1-\alpha)/\alpha$:
+\[
+\pi_t = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,\hat{mc}_t
+  + \beta(2-\alpha)\,\E_t[\pi_{t+1}].
+\]
+Para $\alpha$ pequeno, $\beta(2-\alpha)\approx\beta$. A derivação exata usando
+a decomposição correta do índice de preços e a recursão de Calvo produz:
+\[
+\pi_t = \beta\,\E_t[\pi_{t+1}] + \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,\hat{mc}_t.
+\]
+
+\textbf{Passo 8.} \textbf{Proxying o custo marginal.}
+Do modelo de firmas com trabalho como único fator e preferências CRRA:
+$\hat{mc}_t = (\omega + \sigma^{-1})\,x_t$,
+onde $\omega$ é a inversa da elasticidade de Frisch e $\sigma^{-1}$ é a EIS.
+
+\begin{resultbox}[title={CPNK de Calvo (Q4)}]
+\[
+\boxed{\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t,\quad
+\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\,(\omega + \sigma^{-1}).}
+\]
+\textbf{CPNK é forward-looking}: a inflação presente depende de inflação
+\textbf{futura} esperada, não passada. Essa é a diferença fundamental em relação
+à Curva de Phillips Aceleracionista tradicional (que inclui $\pi_{t-1}$).
+\end{resultbox}
+
+\begin{provabox}[title={Forward-looking vs.\ backward-looking --- Para a Prova (Q4)}]
+CPNK Calvo: $\pi_t = \beta\E_t[\pi_{t+1}] + \kappa x_t$ (puramente forward-looking).
+
+Implicação: uma desinflação \emph{crível} (que reduz $\E_t[\pi_{t+1}]$) pode reduzir
+$\pi_t$ \textbf{sem recessão} ($x_t = 0$). Isso contrasta com evidências empíricas de
+custos de sacrifício positivos --- daí o modelo de Christiano et al.\ (2005)
+adicionar indexação à inflação passada.
+\end{provabox}
+
+% ==========================================================================
+\section{Rigidezes Reais vs.\ Nominais}
+
+\subsection*{Enunciado}
+Explique a diferença entre rigidez nominal (custo de menu) e rigidez real, e como
+Ball-Romer (1990) mostrou que elas se complementam para gerar grande rigidez agregada.
+
+\subsection*{Resolução}
+
+\textbf{Rigidez nominal (Mankiw 1985).}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Definição: custo $z > 0$ de alterar o preço \emph{nominal}.
+  \item Mecanismo: firma não ajusta se ganho $G = (\eta-1)/2 \cdot p_{dev}^2 < z$.
+  \item Sozinha, explica rigidez individual mas pode ser insuficiente para gerar
+        grande rigidez \emph{agregada} se $z$ for muito pequeno.
+\end{itemize}
+
+\textbf{Rigidez real (Ball-Romer 1990).}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Definição: o preço ótimo \emph{relativo} $P_i^*/P$ responde pouco a variações
+        macroeconômicas.
+  \item Medida pelo parâmetro estratégico $\gamma = \partial\log P_i^*/\partial\log P$.
+  \item Fontes: rigidez de salários, competição imperfeita intensa, preferências homotéticas.
+\end{itemize}
+
+\textbf{Complementaridade (mecanismo).}
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+  \item Choque de demanda $\Rightarrow$ $P^*$ deveria subir.
+  \item Com rigidez real ($\gamma\approx 1$): $P^*$ sobe pouco relativo a $P$.
+  \item $p_{dev} = p_i - p_i^*$ é pequeno.
+  \item $G = (\eta-1)/2 \cdot p_{dev}^2$ é ínfimo.
+  \item Qualquer $z > 0$ impede o ajuste: rigidez nominal ``ativa''.
+\end{enumerate}
+
+\begin{resultbox}[title={Ball-Romer: multiplicação de rigidezes (Q5)}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Tipo & Parâmetro-chave & Efeito na rigidez agregada \\
+\midrule
+Rigidez nominal & $z > 0$ (custo de menu) & Cria limiar $\bar{p}$ \\
+Rigidez real & $\gamma\approx 1$ (complementaridade) & Reduz $p_{dev}$ e $G$ \\
+Complementação & ambas & Rigidez muito maior que a soma \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{resultbox}
+
+\begin{provabox}[title={Analogia intuitiva (Q5)}]
+Imagine que subir uma escada requer dois esforços: (1) levantar o pé (custo nominal,
+como $z$) e (2) ter o equilíbrio adequado (rigidez real, como $\gamma$).
+Se o equilíbrio for muito difícil de manter ($\gamma\approx 1$), o esforço para levantar
+o pé ($z$) não precisa ser grande para impedir a subida. As duas rigidezes se
+\emph{multiplicam} para gerar imobilidade.
+\end{provabox}
+
+% ==========================================================================
+\section{Modelo NK: IS Dinâmica e Taxa Natural}
+
+\subsection*{Enunciado}
+Derive a IS dinâmica e interprete a taxa real natural $r^n$. Qual o papel da
+elasticidade de substituição intertemporal $1/\sigma$?
+
+\subsection*{Derivação passo a passo}
+
+\textbf{Passo 1.} \textbf{Problema da família.}
+Família representativa com preferências CRRA maximiza:
+\[
+\max\sum_{t=0}^\infty\beta^t\frac{C_t^{1-\sigma}-1}{1-\sigma}
+\]
+sujeita à restrição orçamentária. A condição de primeira ordem (Euler):
+\[
+C_t^{-\sigma} = \beta(1+r_{t+1})\,C_{t+1}^{-\sigma}.
+\]
+
+\textbf{Passo 2.} \textbf{Log-linearização.}
+Tomando log e usando $r_{t+1} = i_t - \pi_{t+1}$ (Fisher):
+\[
+-\sigma\,\hat{c}_t = \ln\beta + i_t - \pi_{t+1} - \sigma\,\hat{c}_{t+1}.
+\]
+Reorganizando:
+\[
+\hat{c}_t = \hat{c}_{t+1} - \frac{1}{\sigma}(i_t - \pi_{t+1} - r^n),
+\]
+onde $r^n = -\ln\beta > 0$ para $\beta < 1$.
+
+\textbf{Passo 3.} \textbf{Identificação com o hiato.}
+No modelo simples (sem gasto público, economia fechada), $\hat{c}_t = x_t$.
+Tomando expectativas em $t$:
+\begin{equation}
+x_t = \E_t[x_{t+1}] - \frac{1}{\sigma}(i_t - \E_t[\pi_{t+1}] - r^n).
+\label{eq:is_q6}
+\end{equation}
+
+\textbf{Passo 4.} \textbf{Taxa natural.}
+Para $\beta = 0{,}99$ (trimestral):
+\[
+r^n = -\ln(0{,}99) \approx 0{,}01005 \approx 1\%/\text{trimestre} = 4\%/\text{ano}.
+\]
+É a taxa real de juros consistente com $x_t = 0$ para todo $t$: o equilíbrio walrasiano
+sem distorções monetárias.
+
+\textbf{Passo 5.} \textbf{Interpretações.}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $i_t - \E_t[\pi_{t+1}] > r^n$: taxa real acima do natural $\Rightarrow$
+        $x_t < \E_t[x_{t+1}]$ (hiato cai).
+  \item $i_t - \E_t[\pi_{t+1}] = r^n$: taxa real no natural $\Rightarrow$ IS neutra.
+  \item $1/\sigma$ mede a \textbf{EIS}: quanto maior $1/\sigma$, maior a resposta
+        do produto a variações na taxa real.
+\end{itemize}
+
+\begin{resultbox}[title={IS Dinâmica e Taxa Natural (Q6)}]
+\[
+x_t = \E_t[x_{t+1}] - \frac{1}{\sigma}(i_t - \E_t[\pi_{t+1}] - r^n),\quad
+r^n = -\ln\beta \approx 1\%/\text{trimestre}.
+\]
+\end{resultbox}
+
+\begin{provabox}[title={Armadilha de liquidez --- Para a Prova (Q6)}]
+A taxa natural $r^n$ é o equilíbrio de longo prazo da taxa real. Se $r^n < 0$
+(e.g., após grande choque negativo de demanda), a PM convencional ($i_t \geq 0$)
+não consegue zerar o hiato: $i_t - \E_t[\pi_{t+1}] \geq -\E_t[\pi_{t+1}] > r^n$.
+Isso é a \textbf{armadilha de liquidez} --- justificativa para QE e forward guidance.
+\end{provabox}
+
+% ==========================================================================
+\section{CPNK: Trade-off Inflação-Produto e Choque de Custo-Push}
+
+\subsection*{Enunciado}
+Interprete a CPNK e explique o dilema do banco central após um choque de custo-push
+$u_t > 0$.
+
+\subsection*{Resolução}
+
+\textbf{Interpretação da CPNK.}
+$\pi_t = \beta\,\E_t[\pi_{t+1}] + \kappa\,x_t + u_t$:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\beta\E_t[\pi_{t+1}]$: componente expectacional --- firmas que re-otimizam
+        olham para a inflação futura; credibilidade do BC é fundamental.
+  \item $\kappa x_t$: pressão de demanda --- hiato positivo aumenta custos marginais
+        e, portanto, a inflação.
+  \item $u_t$: custo-push --- choque de oferta (câmbio, petróleo, salários) que
+        eleva custos independentemente do hiato.
+\end{itemize}
+
+\textbf{Sem choque ($u_t = 0$) --- ``divine coincidence.''}
+Se não há custo-push, estabilizar $x_t = 0$ implica $\pi_t = \beta\E_t[\pi_{t+1}]$:
+ancorando expectativas, o BC estabiliza tanto o produto quanto a inflação
+\emph{simultaneamente} --- o resultado de Blanchard-Galí (2007).
+
+\textbf{Com choque ($u_t > 0$) --- dilema.}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Objetivo & Ação do BC \\
+\midrule
+Estabilizar $\pi_t = 0$ & Elevar $i_t$ $\Rightarrow$ $x_t \downarrow$ (recessão) \\
+Estabilizar $x_t = 0$ & Não elevar $i_t$ $\Rightarrow$ $\pi_t > 0$ (inflação) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Da solução analítica: $\psi_{\pi u} > 0$ (inflação sobe) e $\psi_{xu} < 0$
+(produto cai) --- \textbf{estagflação}.
+
+\textbf{Exemplo numérico.}
+Com $\beta=0{,}99$, $\kappa=0{,}1$, $\phi_\pi=1{,}5$, $\phi_x=0{,}5$, $\rho_u=0{,}5$:
+\[
+D_u = (1-0{,}5) + \frac{0{,}5 + 0{,}1(1{,}5-0{,}5)/(1-0{,}99\times0{,}5)}{1}
+= 0{,}5 + \frac{0{,}5 + 0{,}1 \times 1/0{,}505}{1} \approx 0{,}5 + 0{,}698 = 1{,}198.
+\]
+\[
+\psi_{xu} = \frac{-(1{,}5-0{,}5)}{1\times(1-0{,}99\times0{,}5)\times1{,}198}
+= \frac{-1}{0{,}505\times1{,}198} \approx -1{,}655.
+\]
+\[
+\psi_{\pi u} = \frac{1 + 0{,}1\times(-1{,}655)}{0{,}505} \approx \frac{0{,}8345}{0{,}505} \approx 1{,}652.
+\]
+Um choque de $u_0 = 1\%$: inflação sobe $1{,}65\%$ e produto cai $1{,}66\%$ no impacto.
+
+\begin{resultbox}[title={Dilema do BC após custo-push (Q7)}]
+Choque $u_t > 0$ gera \textbf{estagflação}: $\pi\uparrow$ e $x\downarrow$.
+O BC não pode estabilizar ambos simultaneamente. A escolha depende de $\lambda_x$
+(peso do produto na função de perda).
+\end{resultbox}
+
+\begin{provabox}[title={Divine Coincidence (Q7)}]
+Sem $u_t$: estabilizar $\pi$ e $x$ é compatível (um BC que fixa $x=0$ via Taylor
+também elimina $\pi$). Com $u_t$: a CPNK gera uma \emph{fronteira} $\pi$--$x$:
+para cada nível de $\pi$ aceito, há um $x$ mínimo.
+Inflation targeting flexível aceita alguma volatilidade de $\pi$ para reduzir
+a volatilidade de $x$ --- o argumento de Svensson (1997) e Galí (2008).
+\end{provabox}
+
+% ==========================================================================
+\section{Regra de Taylor e Princípio de Taylor}
+
+\subsection*{Enunciado}
+Enuncie o princípio de Taylor e explique formalmente por que $\phi_\pi > 1$ é
+necessário para a determinação do equilíbrio no modelo NK canônico.
+
+\subsection*{Resolução}
+
+\textbf{Regra de Taylor.}
+$i_t = r^n + \phi_\pi\pi_t + \phi_x x_t + v_t$.
+
+\textbf{Mecanismo intuitivo para $\phi_\pi < 1$ (política passiva).}
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+  \item Suponha que os agentes esperem $\pi\uparrow$ (expectativa de inflação).
+  \item BC eleva $i$ em $\phi_\pi\Delta\pi < \Delta\pi$ (por $\phi_\pi < 1$).
+  \item Taxa real $i - \E[\pi]$ \emph{cai}: $\Delta(i - \E[\pi]) = (\phi_\pi - 1)\Delta\pi < 0$.
+  \item IS: $x\uparrow$ (taxa real menor estimula demanda).
+  \item CPNK: $\pi\uparrow$ ainda mais.
+  \item Expectativas auto-realizadas: qualquer sunspot que eleve $\E[\pi]$ é
+        validado $\Rightarrow$ \textbf{indeterminação}.
+\end{enumerate}
+
+\textbf{Mecanismo formal (Blanchard-Kahn).}
+A condição de determinação para o sistema $E_t\mathbf{y}_{t+1} = M\mathbf{y}_t$
+com duas variáveis de salto ($x_t$, $\pi_t$) exige $|\lambda_{1,2}(M)| > 1$.
+
+O determinante satisfaz $\det(M) > 1$ facilmente. Para o traço (que determina
+os autovalores), a condição necessária e suficiente (aproximada) é:
+\[
+\kappa(\phi_\pi - 1) + (1-\beta)\phi_x > 0.
+\]
+Para $\beta \approx 1$: $\kappa(\phi_\pi-1) > 0$ $\Rightarrow$ $\phi_\pi > 1$.
+
+\begin{resultbox}[title={Princípio de Taylor (Q8)}]
+\[
+\boxed{\phi_\pi > 1}
+\]
+Condição necessária para determinação do equilíbrio no modelo NK.
+Condição precisa: $\kappa(\phi_\pi-1) + (1-\beta)\phi_x > 0$.
+\end{resultbox}
+
+\begin{provabox}[title={Evidência histórica --- Para a Prova (Q8)}]
+\textbf{Período pré-Volcker (1960--1979):} estimativas indicam $\hat{\phi}_\pi \approx 0{,}83 < 1$
+(Clarida, Galí e Gertler, 2000). Resultado: Grande Inflação dos anos 70 ---
+equilíbrio indeterminado permitia surtos inflacionários auto-realizados.
+
+\textbf{Período pós-Volcker (1980--presente):} $\hat{\phi}_\pi \approx 2{,}15 > 1$.
+Resultado: Grande Moderação --- inflação ancorada, ciclos menores.
+\end{provabox}
+
+% ==========================================================================
+\section{Solução do Modelo NK: Choque de Demanda}
+
+\subsection*{Enunciado}
+Com $u_t = 0$ e $v_t = \rho_v v_{t-1} + \varepsilon_t^v$, encontre as expressões
+analíticas para $x_t$ e $\pi_t$ em função de $v_t$, e calcule numericamente para
+a calibração padrão.
+
+\subsection*{Derivação completa}
+
+\textbf{Setup.} Adivinhar $x_t = \psi_{xv}v_t$, $\pi_t = \psi_{\pi v}v_t$ (solução linear
+em $v_t$ é a única estável quando $|\rho_v| < 1$).
+
+\textbf{Passo 1.} \textbf{Da CPNK com $u_t=0$:}
+\[
+\psi_{\pi v}v_t = \beta\,\E_t[\pi_{t+1}] + \kappa\psi_{xv}v_t
+= \beta\rho_v\psi_{\pi v}v_t + \kappa\psi_{xv}v_t.
+\]
+Dividindo por $v_t$:
+\[
+\psi_{\pi v}(1-\beta\rho_v) = \kappa\psi_{xv}
+\;\Rightarrow\;
+\psi_{\pi v} = \frac{\kappa\psi_{xv}}{1-\beta\rho_v}. \tag{I}
+\]
+
+\textbf{Passo 2.} \textbf{Da IS modificada} (substituindo a regra de Taylor na IS):
+\[
+\left(1 + \frac{\phi_x}{\sigma}\right)\psi_{xv}v_t + \frac{\phi_\pi}{\sigma}\psi_{\pi v}v_t
+= \rho_v\psi_{xv}v_t + \frac{\rho_v}{\sigma}\psi_{\pi v}v_t - \frac{v_t}{\sigma}.
+\]
+Dividindo por $v_t$:
+\[
+\psi_{xv}\!\left(1 + \frac{\phi_x-\rho_v}{\sigma}\right)
++ \psi_{\pi v}\!\frac{\phi_\pi-\rho_v}{\sigma} = -\frac{1}{\sigma}.
+\]
+
+\textbf{Passo 3.} \textbf{Substituindo (I):}
+\[
+\psi_{xv}\!\left[(1-\rho_v) + \frac{\phi_x}{\sigma}
+  + \frac{\kappa(\phi_\pi-\rho_v)}{\sigma(1-\beta\rho_v)}\right] = -\frac{1}{\sigma}.
+\]
+
+\textbf{Passo 4.} \textbf{Definindo:}
+\[
+\Delta_v \equiv (1-\rho_v) + \frac{1}{\sigma}\!\left[\phi_x
+  + \frac{\kappa(\phi_\pi-\rho_v)}{1-\beta\rho_v}\right].
+\]
+
+\begin{resultbox}[title={Solução analítica para choque de demanda (Q9)}]
+\[
+\boxed{
+\psi_{xv} = \frac{-1}{\sigma\Delta_v},\qquad
+\psi_{\pi v} = \frac{-\kappa}{\sigma\Delta_v(1-\beta\rho_v)}.
+}
+\]
+IRFs: $x_t = \psi_{xv}\rho_v^t v_0$, $\pi_t = \psi_{\pi v}\rho_v^t v_0$ (declínio geométrico).
+\end{resultbox}
+
+\textbf{Calibração numérica.}
+$\beta=0{,}99$, $\sigma=1$, $\kappa=0{,}1$, $\phi_\pi=1{,}5$, $\phi_x=0{,}5$, $\rho_v=0{,}5$:
+\[
+\Delta_v = (1-0{,}5) + \left[0{,}5 + \frac{0{,}1(1{,}5-0{,}5)}{1-0{,}99\times0{,}5}\right]
+= 0{,}5 + \left[0{,}5 + \frac{0{,}1}{0{,}505}\right]
+= 0{,}5 + [0{,}5 + 0{,}198] = 1{,}198.
+\]
+\[
+\psi_{xv} = \frac{-1}{1\times 1{,}198} \approx -0{,}835.
+\]
+\[
+\psi_{\pi v} = \frac{-0{,}1}{1\times 1{,}198\times 0{,}505} \approx -0{,}165.
+\]
+
+Para $v_0 = 1\%$ (aperto monetário): $x_0 \approx -0{,}84\%$, $\pi_0 \approx -0{,}17\%$.
+
+\begin{provabox}[title={Interpretação da solução (Q9)}]
+Choque contracionista $v_0 > 0$: BC eleva $i$ acima do normal $\Rightarrow$ taxa
+real sobe $\Rightarrow$ $x_t < 0$ e $\pi_t < 0$. Maior $\phi_\pi$ (mais agressivo):
+aumenta $|\psi_{\pi v}|$ relativamente a $|\psi_{xv}|$ --- o BC troca produto por
+melhor controle da inflação.
+\end{provabox}
+
+% ==========================================================================
+\section{Solução do Modelo NK: Choque de Custo-Push}
+
+\subsection*{Enunciado}
+Com $v_t = 0$ e $u_t = \rho_u u_{t-1} + \varepsilon_t^u$, encontre as expressões
+analíticas para $x_t$ e $\pi_t$, e calcule numericamente para a calibração padrão.
+
+\subsection*{Derivação completa}
+
+\textbf{Setup.} Adivinhar $x_t = \psi_{xu}u_t$, $\pi_t = \psi_{\pi u}u_t$.
+
+\textbf{Passo 1.} \textbf{Da CPNK com $u_t$:}
+\[
+\psi_{\pi u}u_t = \beta\rho_u\psi_{\pi u}u_t + \kappa\psi_{xu}u_t + u_t.
+\]
+Dividindo por $u_t$:
+\[
+\psi_{\pi u}(1-\beta\rho_u) = \kappa\psi_{xu} + 1
+\;\Rightarrow\;
+\psi_{\pi u} = \frac{1+\kappa\psi_{xu}}{1-\beta\rho_u}. \tag{II}
+\]
+
+\textbf{Passo 2.} \textbf{Da IS modificada com $v_t=0$:}
+\[
+\psi_{xu}\!\left(1 + \frac{\phi_x-\rho_u}{\sigma}\right)
++ \psi_{\pi u}\!\frac{\phi_\pi-\rho_u}{\sigma} = 0.
+\]
+(A IS modificada sem $v_t$ implica $\E_t[v_{t+1}]=0$, então o lado direito é zero.)
+
+\textbf{Passo 3.} \textbf{Substituindo (II):}
+\[
+\psi_{xu}\!\left[(1-\rho_u) + \frac{\phi_x}{\sigma}
+  + \frac{\kappa(\phi_\pi-\rho_u)}{\sigma(1-\beta\rho_u)}\right]
+= -\frac{\phi_\pi-\rho_u}{\sigma(1-\beta\rho_u)}.
+\]
+
+\textbf{Passo 4.} \textbf{Definindo:}
+\[
+D_u \equiv (1-\rho_u) + \frac{1}{\sigma}\!\left[\phi_x
+  + \frac{\kappa(\phi_\pi-\rho_u)}{1-\beta\rho_u}\right].
+\]
+
+\begin{resultbox}[title={Solução analítica para choque de custo-push (Q10)}]
+\[
+\boxed{
+\psi_{xu} = \frac{-(\phi_\pi-\rho_u)}{\sigma(1-\beta\rho_u)\,D_u},\qquad
+\psi_{\pi u} = \frac{1+\kappa\psi_{xu}}{1-\beta\rho_u}.
+}
+\]
+IRFs: $x_t = \psi_{xu}\rho_u^t u_0 < 0$, $\pi_t = \psi_{\pi u}\rho_u^t u_0 > 0$
+(estagflação declinante).
+\end{resultbox}
+
+\textbf{Calibração numérica.}
+$\beta=0{,}99$, $\sigma=1$, $\kappa=0{,}1$, $\phi_\pi=1{,}5$, $\phi_x=0{,}5$, $\rho_u=0{,}5$:
+\[
+D_u = (1-0{,}5) + \left[0{,}5 + \frac{0{,}1(1{,}5-0{,}5)}{1-0{,}99\times0{,}5}\right]
+= 0{,}5 + [0{,}5 + 0{,}198] = 1{,}198.
+\]
+\[
+\psi_{xu} = \frac{-(1{,}5-0{,}5)}{1\times(1-0{,}495)\times1{,}198}
+= \frac{-1}{0{,}505\times1{,}198} \approx -1{,}655.
+\]
+\[
+\psi_{\pi u} = \frac{1 + 0{,}1\times(-1{,}655)}{0{,}505}
+= \frac{1 - 0{,}1655}{0{,}505} = \frac{0{,}8345}{0{,}505} \approx 1{,}652.
+\]
+
+Para $u_0 = 1\%$: $x_0 \approx -1{,}66\%$ (recessão) e $\pi_0 \approx +1{,}65\%$
+(inflação) --- estagflação confirmada.
+
+\begin{provabox}[title={Dilema da PM após custo-push (Q10)}]
+$\psi_{\pi u} > 0$ e $\psi_{xu} < 0$ confirmam a estagflação. O BC enfrenta:
+subir $i$ para combater $\pi$ aprofunda a recessão ($x$ mais negativo).
+A magnitude do dilema aumenta com $\phi_\pi$ (BC mais hawkish aceita mais
+volatilidade de $x$ para estabilizar $\pi$).
+\end{provabox}
+
+% ==========================================================================
+\section{Fronteira Eficiente de Política Monetária}
+
+\subsection*{Enunciado}
+Explique como o banco central traça a fronteira eficiente entre $\text{Var}(\pi)$ e
+$\text{Var}(x)$. Qual o custo do inflation targeting puro?
+
+\subsection*{Resolução}
+
+\textbf{Passo 1.} \textbf{Variâncias como funções de $\phi_\pi$.}
+Das soluções por coeficientes indeterminados, as variâncias são:
+\[
+\text{Var}(x) = \psi_{xu}^2\,\sigma_u^2 + \psi_{xv}^2\,\sigma_v^2,\quad
+\text{Var}(\pi) = \psi_{\pi u}^2\,\sigma_u^2 + \psi_{\pi v}^2\,\sigma_v^2,
+\]
+onde $\sigma_u^2$ e $\sigma_v^2$ são as variâncias dos choques estruturais.
+Ambas são funções de $\phi_\pi$ (e $\phi_x$) via $\psi_{xv}$, $\psi_{\pi v}$,
+$\psi_{xu}$, $\psi_{\pi u}$.
+
+\textbf{Passo 2.} \textbf{Direção dos efeitos de $\phi_\pi\uparrow$.}
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Para choque de demanda $v_t$: $|\psi_{\pi v}|\uparrow$ (inflação mais controlada),
+        $|\psi_{xv}|$ varia pouco $\Rightarrow$ $\text{Var}(\pi|v)\downarrow$, $\text{Var}(x|v)$
+        muda pouco.
+  \item Para choque de oferta $u_t$: $|\psi_{xu}|\uparrow$ (produto mais volátil) e
+        $|\psi_{\pi u}|\downarrow$ $\Rightarrow$ \textbf{tradeoff}: $\phi_\pi\uparrow$
+        reduz $\text{Var}(\pi|u)$ mas eleva $\text{Var}(x|u)$.
+\end{itemize}
+
+\textbf{Passo 3.} \textbf{Fronteira de eficiência.}
+O locus de pares $(\text{Var}(\pi), \text{Var}(x))$ obtidos variando $\phi_\pi$
+constitui a \textbf{curva de Taylor (1979)}:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item Tem formato convexo (decrescente no espaço $\text{Var}(\pi)\times\text{Var}(x)$).
+  \item Ponto noroeste: $\phi_\pi\to 1^+$ --- mínima $\text{Var}(x)$, máxima $\text{Var}(\pi)$.
+  \item Ponto sudeste: $\phi_\pi\to\infty$ --- mínima $\text{Var}(\pi)$, máxima $\text{Var}(x)$.
+\end{itemize}
+
+\textbf{Passo 4.} \textbf{Escolha ótima.}
+O BC minimiza $L = \text{Var}(\pi) + \lambda_x\,\text{Var}(x)$. O ponto ótimo
+é a tangência entre a fronteira e a reta de custo constante com inclinação
+$-1/\lambda_x$:
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+  \item $\lambda_x = 0$ (pure inflation targeting): ponto sudeste da fronteira.
+  \item $\lambda_x\to\infty$ (pure output targeting): ponto noroeste.
+  \item $\lambda_x$ intermediário: ponto interior --- \emph{inflation targeting flexível}.
+\end{itemize}
+
+\textbf{Passo 5.} \textbf{Custo do inflation targeting puro.}
+$\lambda_x = 0$ $\Rightarrow$ $\phi_\pi\to\infty$ $\Rightarrow$
+$\text{Var}(\pi)\to 0$ \emph{mas} $\text{Var}(x)\to$ máximo. A economia sofre
+grandes flutuações de produto sem ganho equivalente em inflação (a fronteira é
+convexa: os últimos decimais de variância de inflação reduzidos custam muito
+em variância de produto).
+
+\begin{resultbox}[title={Fronteira eficiente de PM (Q11)}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Extreme & $\phi_\pi$ & Resultado \\
+\midrule
+Inflation targeting puro & $\phi_\pi\to\infty$ & $\text{Var}(\pi)=0$, $\text{Var}(x)$ máx. \\
+Output targeting puro & $\phi_\pi\to 1^+$ & $\text{Var}(x)$ mín., $\text{Var}(\pi)$ máx. \\
+Flexível (ótimo) & $\phi_\pi^*\in(1,\infty)$ & tangência com $L=\text{const.}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{resultbox}
+
+\begin{provabox}[title={Curva de Taylor (1979) --- Para a Prova (Q11)}]
+A fronteira de Taylor é o análogo da fronteira de eficiência de Markowitz para
+portfólios: cada ponto é atingível por uma regra diferente de PM. O BC ``escolhe
+seu portfólio de riscos'' de acordo com suas preferências ($\lambda_x$).
+Maior $\lambda_x$ (mais peso ao produto) $\Rightarrow$ ponto mais ao noroeste
+da fronteira (aceita mais inflação para reduzir flutuações do produto).
+\end{provabox}
+
+% ==========================================================================
+%  Apêndice A — Questões-tipo P2
+% ==========================================================================
+
+\newpage
+\appendix
+\renewcommand{\thesection}{Q-tipo \Alph{section}}
+\section*{\color{cyanrbc} Apêndice A --- Questões-tipo P2 (estilo exame)}
+\addcontentsline{toc}{section}{Apêndice A --- Questões-tipo P2}
+
+As questões abaixo reproduzem o formato de prova de múltipla escolha.
+
+\bigskip
+
+% ------------------------------------------------------------------
+\subsection*{Q-tipo 1 --- CPNK: forward-looking vs.\ backward-looking}
+
+A Curva de Phillips Novo-Keynesiana de Calvo ($\pi_t = \beta\E_t[\pi_{t+1}] + \kappa x_t$)
+difere da Curva de Phillips Aceleracionista porque:
+
+\begin{enumerate}[label=\textbf{\alph*)}, leftmargin=2em, itemsep=4pt]
+  \item Inclui a inflação passada $\pi_{t-1}$ como determinante.
+  \item As expectativas futuras de inflação entram diretamente, sem defasagens.
+  \item A inclinação $\kappa$ é sempre negativa.
+  \item O hiato do produto não afeta a inflação.
+\end{enumerate}
+
+\begin{resultbox}[title={Resposta Q-tipo 1: alternativa b)}]
+\textbf{Correta: b)} A CPNK de Calvo inclui $\E_t[\pi_{t+1}]$ (expectativas futuras),
+não $\pi_{t-1}$ (inflação passada). Isso torna a inflação forward-looking: firmas
+que re-otimizam consideram os preços que precisarão cobrar no futuro.
+\end{resultbox}
+
+\bigskip
+
+% ------------------------------------------------------------------
+\subsection*{Q-tipo 2 --- Calvo: efeito de $\alpha\uparrow$}
+
+No modelo de Calvo, um aumento em $\alpha$ (maior rigidez de preços) implica:
+
+\begin{enumerate}[label=\textbf{\alph*)}, leftmargin=2em, itemsep=4pt]
+  \item $\kappa\uparrow$ (CPNK mais íngreme) e maior resposta da inflação ao hiato.
+  \item $\kappa\uparrow$ e menor duração esperada dos preços.
+  \item $\kappa\downarrow$ (CPNK mais plana) e maior duração esperada.
+  \item $\kappa$ inalterado; apenas $\beta$ muda o slope.
+\end{enumerate}
+
+\begin{resultbox}[title={Resposta Q-tipo 2: alternativa c)}]
+\textbf{Correta: c)} $\alpha\uparrow$ $\Rightarrow$ $(1-\alpha)\downarrow$ e $(1-\alpha\beta)\downarrow$
+$\Rightarrow$ $\kappa\downarrow$. Simultaneamente, $E[T] = 1/(1-\alpha)\uparrow$.
+Firmas ajustam com menos frequência: CPNK mais plana.
+\end{resultbox}
+
+\bigskip
+
+% ------------------------------------------------------------------
+\subsection*{Q-tipo 3 --- Princípio de Taylor: $\phi_\pi = 0{,}8$}
+
+Se o banco central adota a regra $i_t = r^n + 0{,}8\pi_t + 0{,}5x_t + v_t$, então:
+
+\begin{enumerate}[label=\textbf{\alph*)}, leftmargin=2em, itemsep=4pt]
+  \item Equilíbrio único e estável (princípio de Taylor satisfeito).
+  \item Equilíbrio indeterminado --- múltiplos equilíbrios possíveis.
+  \item O modelo não tem solução para choques de demanda.
+  \item A taxa real sobe sempre que a inflação sobe.
+\end{enumerate}
+
+\begin{resultbox}[title={Resposta Q-tipo 3: alternativa b)}]
+\textbf{Correta: b)} $\phi_\pi = 0{,}8 < 1$ viola o princípio de Taylor. A taxa real
+$i - \E[\pi]$ cai quando $\pi$ sobe (pois $\Delta i = 0{,}8\Delta\pi < \Delta\pi$),
+realimentando as expectativas inflacionárias. O equilíbrio é indeterminado
+(existem múltiplos EE racionais, incluindo equilíbrios sunspot).
+\end{resultbox}
+
+\bigskip
+
+% ------------------------------------------------------------------
+\subsection*{Q-tipo 4 --- Choque de custo-push: dilema do BC}
+
+Após um choque de custo-push $u_t > 0$ no modelo NK canônico, o banco central:
+
+\begin{enumerate}[label=\textbf{\alph*)}, leftmargin=2em, itemsep=4pt]
+  \item Pode estabilizar inflação e produto simultaneamente sem custo.
+  \item Não pode estabilizar $\pi$ e $x$ simultaneamente; há um tradeoff.
+  \item Deve reduzir a taxa de juros para combater a recessão.
+  \item O choque afeta apenas a inflação, não o hiato do produto.
+\end{enumerate}
+
+\begin{resultbox}[title={Resposta Q-tipo 4: alternativa b)}]
+\textbf{Correta: b)} Com $u_t > 0$: $\pi\uparrow$ e $x\downarrow$ (estagflação).
+Elevar $i$ combate $\pi$ mas aprofunda $x<0$. Reduzir $i$ alivia $x$ mas aumenta $\pi$.
+Não há política que estabilize ambos simultaneamente --- a \emph{divine coincidence}
+(sem choques de custo-push) não se aplica.
+\end{resultbox}
+
+\bigskip
+
+% ------------------------------------------------------------------
+\subsection*{Q-tipo 5 --- Taxa natural: $\beta = 0{,}99$}
+
+Para $\beta = 0{,}99$ (fator de desconto trimestral), a taxa real natural $r^n$ é:
+
+\begin{enumerate}[label=\textbf{\alph*)}, leftmargin=2em, itemsep=4pt]
+  \item $r^n = 0{,}99\%$ por trimestre ($\approx 4\%$ ao ano).
+  \item $r^n = 0{,}5\%$ por trimestre ($\approx 2\%$ ao ano).
+  \item $r^n \approx 1\%$ por trimestre ($\approx 4\%$ ao ano).
+  \item $r^n = 0\%$ (neutra).
+\end{enumerate}
+
+\begin{resultbox}[title={Resposta Q-tipo 5: alternativa c)}]
+\textbf{Correta: c)} $r^n = -\ln(0{,}99) \approx 0{,}01005 \approx 1\%/\text{trimestre}
+= 4\%/\text{ano}$. Alternativa a) usa o valor errado; b) e d) são inconsistentes
+com $\beta = 0{,}99$.
+\end{resultbox}
+
+\bigskip
+
+% ------------------------------------------------------------------
+\subsection*{Q-tipo 6 --- IS dinâmica: $i - \E[\pi] > r^n$}
+
+Se $i_t - \E_t[\pi_{t+1}] > r^n$ no modelo NK, então:
+
+\begin{enumerate}[label=\textbf{\alph*)}, leftmargin=2em, itemsep=4pt]
+  \item $x_t < \E_t[x_{t+1}]$ --- hiato presente abaixo da trajetória esperada.
+  \item $x_t > \E_t[x_{t+1}]$ --- hiato presente acima da trajetória esperada.
+  \item $x_t = 0$ --- IS é neutra quando a taxa real está acima do natural.
+  \item $\pi_t\uparrow$ --- inflação aumenta automaticamente.
+\end{enumerate}
+
+\begin{resultbox}[title={Resposta Q-tipo 6: alternativa a)}]
+\textbf{Correta: a)} Da IS: $x_t = \E_t[x_{t+1}] - (1/\sigma)(i_t - \E_t[\pi_{t+1}] - r^n)$.
+Com $i_t - \E_t[\pi_{t+1}] - r^n > 0$: $x_t < \E_t[x_{t+1}]$. O hiato presente
+está \emph{abaixo} do esperado para o futuro --- a PM contracionista comprime a
+demanda presente.
+\end{resultbox}
+
+% ==========================================================================
+%  Apêndice B — Calibração e Parâmetros
+% ==========================================================================
+
+\section*{\color{cyanrbc} Apêndice B --- Calibração e Parâmetros}
+\addcontentsline{toc}{section}{Apêndice B --- Calibração e Parâmetros}
+
+\begin{table}[h!]
+\centering
+\caption{Parâmetros do modelo NK canônico (calibração padrão).}
+\begin{tabular}{llcc}
+\toprule
+Parâmetro & Descrição & Valor base & Referência \\
+\midrule
+$\beta$ & Fator de desconto (trimestral) & $0{,}99$ & Padrão \\
+$\sigma$ & Inv.\ EIS & $1{,}0$ & Log-utilidade \\
+$\omega$ & Inv.\ elasticidade de Frisch & $1{,}0$ & Padrão \\
+$\alpha$ & Prob.\ de não-ajuste (Calvo) & $0{,}75$ & Galí (2008) \\
+$\kappa$ & Slope da CPNK & $\approx 0{,}1$ & Galí (2008) \\
+$\phi_\pi$ & Peso da inflação (Taylor) & $1{,}5$ & Taylor (1993) \\
+$\phi_x$ & Peso do hiato (Taylor) & $0{,}5$ & Taylor (1993) \\
+$\rho_v$ & Persistência choque de demanda & $0{,}5$ & Estimado \\
+$\rho_u$ & Persistência choque de custo-push & $0{,}5$ & Estimado \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Slope da CPNK ($\kappa$) como função de $\alpha$, com $\omega = \sigma^{-1} = 1$, $\beta = 0{,}99$.}
+\begin{tabular}{ccccc}
+\toprule
+$\alpha$ & $1-\alpha$ & $1-\alpha\beta$ & $(1-\alpha)(1-\alpha\beta)/\alpha$ & $\kappa = \cdot\times(\omega+\sigma^{-1})$ \\
+\midrule
+0,50 & 0,500 & 0,505 & 0,505 & 1,010 \\
+0,60 & 0,400 & 0,406 & 0,271 & 0,541 \\
+0,75 & 0,250 & 0,257 & 0,086 & 0,171 \\
+0,90 & 0,100 & 0,109 & 0,012 & 0,024 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Nota:} Os valores na penúltima coluna diferem dos usados no arquivo ch06
+($\kappa \approx 0{,}085$) porque ali $(\omega + \sigma^{-1})$ implicitamente usa
+$\omega + \sigma^{-1} = 1$ (não 2). Com $\omega = 0$ e $\sigma = 1$:
+$\kappa_{|_{\alpha=0{,}75}} = 0{,}086$, consistente com a tabela de calibração do cap.\ 6.
+O valor de Galí (2008), $\kappa = 0{,}1$, é obtido com micro-fundamentos mais
+elaborados (salário estocástico, elasticidade de Frisch maior).
+
+\vspace{1em}
+\begin{formulabox}[title={Conexão entre os dois capítulos}]
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Cap.\ 6 & Cap.\ 7 \\
+\midrule
+Derivação da CPNK ($\kappa$, $\alpha$, $\beta$) & CPNK como bloco de oferta \\
+Custos de menu $\Rightarrow$ rigidez nominal & Rigidez nominal $\Rightarrow$ PM não-neutra \\
+Ball-Romer $\Rightarrow$ falha de coordenação & Falha de coordenação $\Rightarrow$ armadilha \\
+Preço ótimo $P^* = \mu\cdot MC$ & MC = $(\omega+\sigma^{-1})x_t$ (derivado) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{formulabox}
+
+\bigskip
+\hrule
+\vspace{1em}
+{\footnotesize
+\textbf{Código-fonte:} \url{https://github.com/fcarva/macro} ---
+pastas \texttt{ch06\_nominal\_rigidity/} e \texttt{ch07\_dsge\_nk/}.
+Requer Python $\geq 3.11$, \texttt{numpy}, \texttt{scipy}, \texttt{matplotlib}.
+}
+
+\end{document}

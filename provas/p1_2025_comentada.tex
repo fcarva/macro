@@ -1,0 +1,754 @@
+% ==========================================================================
+%  Prova 1 — Gabarito Comentado
+%  Macroeconomia I (PPGEco-UFES, 2025)
+%  Prof. Dr. Ricardo Ramalhete Moreira
+%  Cobre: RCK (cap.2), RBC (cap.5), Rigidez Nominal (cap.6),
+%         Lucas / Fischer / Taylor / Calvo (cap.7)
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+\definecolor{correctbg}{HTML}{dcfce7}
+\definecolor{correctborder}{HTML}{166534}
+
+% --------------------------------------------------------------------------
+% Caixas
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+\newtcolorbox{correctbox}[1][]{standard, colback=correctbg, colframe=correctborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{correctborder}, #1}
+\newtcolorbox{formulabox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, #1}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\pibar}{\bar{\pi}}
+
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{Questão \thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{P1 2025 --- Gabarito Comentado --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{grayrbc}{RCK $\cdot$ RBC $\cdot$ Rigidez Nominal $\cdot$ NK}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Prova 1 --- Gabarito Comentado\\[0.4em]
+\large Macroeconomia I --- 2025}\\[0.4em]
+{\normalsize\color{grayrbc} Romer caps.\ 2, 5, 6 e 7}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{1em}
+{\large Prof.\ Dr.\ Ricardo Ramalhete Moreira}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.88\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\centering
+\textbf{\textcolor{provaborder}{Conteúdo:}} 14 questões de múltipla escolha (escolha única)\\[0.4em]
+\textbf{RCK} (Q1--Q4) $\cdot$ \textbf{RBC} (Q5--Q7) $\cdot$ \textbf{Rigidez Nominal} (Q8--Q9)\\[0.2em]
+\textbf{Oferta de Trabalho} (Q10) $\cdot$
+\textbf{Lucas / NK / Fischer / Taylor / Calvo} (Q11--Q14)
+\end{tcolorbox}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=correctbg, colframe=correctborder,
+  width=0.88\textwidth, arc=4pt, boxrule=1pt, left=8pt, right=8pt,
+  top=6pt, bottom=6pt]
+\centering
+\textbf{\textcolor{correctborder}{Gabarito Rápido}}\\[0.6em]
+\begin{tabular}{ccccccc}
+\toprule
+Q1 & Q2 & Q3 & Q4 & Q5 & Q6 & Q7 \\
+\textbf{c} & \textbf{a} & \textbf{b} & \textbf{c} & \textbf{c} & \textbf{b} & \textbf{b} \\
+\midrule
+Q8 & Q9 & Q10 & Q11 & Q12 & Q13 & Q14 \\
+\textbf{c} & \textbf{b} & \textbf{b} & \textbf{b} & \textbf{b} & \textbf{c} & \textbf{b} \\
+\bottomrule
+\end{tabular}
+\end{tcolorbox}
+
+\vfill
+{\small Gabarito comentado elaborado com base na P1 de Macroeconomia I --- PPGEco-UFES 2025.}
+\end{center}
+\end{titlepage}
+
+% ==========================================================================
+% BLOCO RCK
+% ==========================================================================
+\newpage
+\begin{center}
+{\large\bfseries\color{cyanrbc} Bloco I --- Modelo Ramsey-Cass-Koopmans (Cap.\ 2)}\\[0.2em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+\setcounter{section}{0}
+
+% ------------------------------------------------------------------
+\section{Função Utilidade CRRA no Modelo RCK}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Seja a clássica função utilidade no modelo Ramsey-Cass-Koopmans (RCK):
+\[
+u(C) = \frac{C^{1-\theta}}{1-\theta},
+\]
+em que $\theta$ é o grau de aversão ao risco relativo. Identifique a afirmativa correta:
+
+\begin{enumerate}[label=\alph*)]
+\item O grau de aversão ao risco pode ser interpretado como a própria elasticidade de substituição intertemporal do consumo.
+\item À medida que o consumo corrente aumenta, a utilidade marginal do consumo futuro vai se tornando cada vez menor.
+\item A partir de tal função, deduz-se que o aumento do consumo corrente \emph{e} do grau de aversão ao risco reduzem a utilidade marginal.
+\item A elevação do consumo tem efeito sobre a utilidade marginal $u'$, expresso pela forma $u' = -\theta\, C^{-\theta-1}$.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: c)}]
+A utilidade marginal é $u'(C) = C^{-\theta}$.
+
+\textbf{Efeito de $C\uparrow$:}
+\[
+\frac{\partial u'}{\partial C} = -\theta\, C^{-\theta-1} < 0 \quad \forall\, C > 0.
+\]
+A MU é estritamente decrescente no consumo (utilidade marginal decrescente). \checkmark
+
+\textbf{Efeito de $\theta\uparrow$:}
+\[
+\frac{\partial u'}{\partial\theta} = -\ln(C)\,C^{-\theta}.
+\]
+Para $C > 1$ (caso habitual no estado estacionário): $\ln C > 0$, portanto $\partial u'/\partial\theta < 0$ ---
+maior aversão ao risco também reduz a MU. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] $\theta$ é o coeficiente de aversão relativa ao risco (CRRA); a elasticidade de
+substituição intertemporal é $\mathrm{EIS} = 1/\theta$. São recíprocos, não iguais.
+\item[b)] Com utilidade separável, $u'(C_{t+1})$ não depende diretamente de $C_t$; a conexão
+só emerge via equação de Euler, não pela definição de $u'$.
+\item[d)] O que é descrito é a \emph{segunda} derivada $u''(C) = -\theta C^{-\theta-1}$, não a primeira
+derivada $u'(C) = C^{-\theta}$.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Equação de Euler para o Consumo no Modelo RCK}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Com base na equação de Euler para o consumo per capita no modelo RCK, identifique a correta:
+
+\begin{enumerate}[label=\alph*)]
+\item Em momentos em que o consumidor reage mais sensivelmente a mudanças na taxa real de juros, ceteris paribus, pode-se dizer que houve uma redução do grau de aversão ao risco.
+\item A taxa de desconto afeta positivamente a taxa de crescimento do consumo.
+\item Esta equação é deduzida a partir de uma função utilidade sujeita à restrição
+$\int_0^\infty e^{-\rho t}C(t)L(t)\,\dif t \leq W^*$, onde $W^*$ é a riqueza da família.
+\item A equação de Euler estabelece a necessidade de que famílias otimizadoras \emph{diminuam} o crescimento do consumo frente à elevação de juros reais.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: a)}]
+A Regra de Keynes-Ramsey:
+\[
+\frac{\dot{c}}{c} = \frac{f'(k) - \delta - \rho - \theta g}{\theta}
+  = \frac{1}{\theta}\bigl(r - r^*\bigr),
+  \qquad r^* = \rho + \theta g.
+\]
+A sensibilidade do crescimento do consumo à taxa de juros é $1/\theta$ (a EIS).
+\textbf{Maior sensibilidade} $\Leftrightarrow$ maior $1/\theta$ $\Leftrightarrow$ \textbf{menor $\theta$}:
+o consumidor reage mais a variações em $r$ quanto menor for o grau de aversão ao risco. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[b)] $\rho\uparrow \Rightarrow r^*\uparrow \Rightarrow \dot{c}/c\downarrow$: a taxa de desconto afeta
+\emph{negativamente} o crescimento do consumo.
+\item[c)] A restrição correta é na forma fluxo: $\dot{k} = f(k) - c - (n+g+\delta)k$.
+\item[d)] Juros reais $\uparrow \Rightarrow \dot{c}/c\uparrow$ (poupar é mais rentável $\Rightarrow$ consumo
+cresce mais depressa): efeito \emph{positivo}, não negativo.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Equação de Movimento do Capital no Modelo RCK}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} A dinâmica do capital por trabalho efetivo no modelo RCK depende basicamente da diferença entre investimento efetivo e desejado (\textit{breakeven investment}). Com base na equação de movimento do capital ($\dot{k}$), identifique a afirmativa correta:
+
+\begin{enumerate}[label=\alph*)]
+\item Uma elevação do crescimento do conhecimento ($g$), ceteris paribus, aumenta o estoque de capital na economia.
+\item Quanto maior o produto marginal do capital, tudo o mais constante, menor precisa ser o consumo por trabalho efetivo a fim de manter estável o atual nível de $k$.
+\item O crescimento populacional está positivamente relacionado com a variação do capital.
+\item O crescimento equilibrado no modelo RCK ocorre na situação chamada de Regra de Ouro, quando o consumo por trabalho efetivo é maximizado.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+No locus $\dot{k}=0$: $c = f(k) - (n+g+\delta)k$.
+
+Com Cobb-Douglas $f(k)=k^\alpha$, o consumo sustentável no locus é:
+\[
+c^*(k) = k^\alpha - (n+g+\delta)k.
+\]
+Derivando: $\dfrac{dc^*}{dk} = f'(k) - (n+g+\delta)$.
+
+Abaixo da Regra de Ouro (caso normal): $f'(k) > n+g+\delta$, logo $dc^*/dk > 0$, ou seja,
+$k$ menor implica $c^*$ menor. Como $f'(k) = \alpha k^{\alpha-1}$ é decrescente,
+\textbf{maior $f'(k)$} corresponde a \textbf{menor $k$}, que por sua vez implica
+\textbf{menor $c^*$} para manter $\dot{k}=0$. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] $g\uparrow$ eleva o \textit{breakeven} $(n+g+\delta)k$ $\Rightarrow$ $\dot{k}\downarrow$ $\Rightarrow$
+$k^*\downarrow$. O estoque de capital \emph{diminui} no longo prazo.
+\item[c)] $n\uparrow \Rightarrow (n+g+\delta)k\uparrow \Rightarrow \dot{k}\downarrow$: crescimento
+populacional reduz (não aumenta) a variação do capital.
+\item[d)] No RCK o longo prazo segue a \textbf{Regra de Ouro Modificada}:
+$f'(k^*)=\rho+\theta g+\delta$, que em geral não maximiza $c^*$. A Regra de Ouro
+($f'=n+g+\delta$, maximizadora de $c^*$) pertence ao modelo de Solow.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Diagrama de Fases do Modelo RCK}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Com base no diagrama de fases do modelo RCK, considere as seguintes situações e escolha apenas a verdadeira:
+
+\begin{enumerate}[label=\alph*)]
+\item Em uma situação à direita do locus $\dot{c}=0$ e acima do locus $\dot{k}=0$,
+a economia aumenta o estoque de capital e reduz o consumo.
+\item Em uma situação à esquerda do locus $\dot{c}=0$ e abaixo do locus $\dot{k}=0$,
+o estoque de capital aumenta e há uma redução do consumo.
+\item Em uma situação à direita do locus $\dot{c}=0$ e abaixo do locus $\dot{k}=0$,
+existe uma elevação do capital e redução do consumo.
+\item Em uma situação à esquerda do locus $\dot{c}=0$ e acima do locus $\dot{k}=0$,
+a economia eleva o consumo e também o capital.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: c)}]
+Lógica do diagrama de fases (ponto de sela):
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Posição & Sinal & Efeito \\
+\midrule
+Direita do locus $\dot{c}=0$ ($k>k^*$) & $\dot{c}<0$ & $c$ cai \\
+Esquerda do locus $\dot{c}=0$ ($k<k^*$) & $\dot{c}>0$ & $c$ sobe \\
+Acima do locus $\dot{k}=0$ & $\dot{k}<0$ & $k$ cai \\
+Abaixo do locus $\dot{k}=0$ & $\dot{k}>0$ & $k$ sobe \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Região c): \textbf{direita} ($k>k^*$) $\Rightarrow$ $\dot{c}<0$ ($c$ cai);
+\textbf{abaixo} do $\dot{k}=0$ $\Rightarrow$ $\dot{k}>0$ ($k$ sobe).
+Portanto: $k\uparrow$ e $c\downarrow$. \checkmark
+
+\textbf{Análise das demais:}
+\begin{itemize}[leftmargin=*]
+\item[a)] Direita $+$ acima: $\dot{c}<0$ e $\dot{k}<0$ $\Rightarrow$ \emph{ambos} caem.
+\item[b)] Esquerda $+$ abaixo: $\dot{c}>0$ e $\dot{k}>0$ $\Rightarrow$ ambos sobem; consumo não cai.
+\item[d)] Esquerda $+$ acima: $\dot{c}>0$ e $\dot{k}<0$ $\Rightarrow$ $c$ sobe mas $k$ \emph{cai}.
+\end{itemize}
+\end{correctbox}
+
+% ==========================================================================
+% BLOCO RBC
+% ==========================================================================
+\newpage
+\begin{center}
+{\large\bfseries\color{cyanrbc} Bloco II --- Modelo de Ciclos Reais de Negócios (Cap.\ 5)}\\[0.2em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Substituição Intertemporal da Oferta de Trabalho}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} No modelo Real Business Cycle (RBC) são considerados choques reais que estimulam variações no nível de atividade de curto prazo. A substituição intertemporal da oferta de trabalho é um fator importante no modelo. Escolha a alternativa correta:
+
+\begin{enumerate}[label=\alph*)]
+\item Um aumento de taxa real de juros estimula elevação do lazer no presente, ou seja, aumenta a oferta de trabalho futura.
+\item A razão de substituição intertemporal pode ser expressa a partir de um problema de maximização em que a função utilidade do consumo é $u(C) = \dfrac{C^{1-\theta}-1}{1-\theta}$.
+\item A reação de substituição intertemporal do trabalho é, em si, um fator explicativo do ciclo a partir de choques tecnológicos, já que estes últimos implicam em mudanças na taxa de juros e, consequentemente, da oferta de trabalho entre períodos.
+\item A inclusão da incerteza no modelo inviabiliza mudanças na oferta de trabalho.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: c)}]
+No RBC, o mecanismo de propagação opera em três etapas:
+\[
+\text{Choque de PTF} \;\Rightarrow\; r\uparrow
+  \;\Rightarrow\; \text{Substituição intertemporal de trabalho}
+  \;\Rightarrow\; L_t\uparrow,\; L_{t+1}\downarrow.
+\]
+O choque tecnológico positivo eleva o produto marginal do capital (MPK), o que aumenta $r$.
+A taxa de juros mais alta torna o trabalho \emph{hoje} mais lucrativo:
+famílias ofertam mais trabalho no período corrente
+(\textit{working while the sun shines}) e menos no futuro.
+Esse mecanismo amplifica a resposta cíclica ao choque. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] $r\uparrow$ torna o lazer \emph{hoje} mais caro $\Rightarrow$ oferta de trabalho \emph{presente}
+sobe e lazer migra para o futuro (não o contrário).
+\item[b)] A afirmativa é verdadeira como descrição de uma forma funcional, mas não captura
+o \emph{mecanismo} dinâmico que torna o RBC relevante para explicar o ciclo.
+\item[d)] Incerteza gera comportamento de precaução e pode alterar poupança e trabalho;
+não os inviabiliza.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{RBC com Utilidade Log e Lazer: Condições de Primeira Ordem}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Seja o modelo RBC com a seguinte função utilidade:
+\[
+u = \ln c_1 + b\ln(1-l_1) + \beta\!\left[\ln c_2 + b\ln(1-l_2)\right], \quad b > 0,
+\]
+onde $c_i$ são os consumos e $l_i$ as ofertas de trabalho nos períodos $i=1,2$; $\beta$ é a taxa de desconto. A restrição orçamentária é:
+\[
+c_1 + \frac{c_2}{1+r} = w_1 l_1 + \frac{w_2 l_2}{1+r},
+\]
+sendo $w_i$ os salários reais e $r$ a taxa de juros. Identifique a questão correta:
+
+\begin{enumerate}[label=\alph*)]
+\item A expressão de Lagrange para a maximização é:
+\[
+\mathcal{L} = \ln c_1 + b\ln(1-l_1) + e^{-\rho}\!\left[\ln c_2 + b\ln(1-l_2)\right]
+  + \lambda\!\left[w_1 l_1 + \frac{(1-l_2)}{1+r} - c_1 - \frac{c_2}{1+r}\right].
+\]
+\item Tomando as condições de primeira ordem para $l_1$ e $l_2$, chega-se à expressão
+$\dfrac{1-l_2}{1-l_1} = \beta(1+r)\dfrac{w_1}{w_2}$, que descreve a razão de lazer intertemporal.
+\item Pode-se afirmar que a utilidade marginal do trabalho é positiva.
+\item Um processo de calibração do modelo seria, por exemplo, calcular todas as possíveis condições de primeira ordem para a função utilidade.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+\textbf{Lagrangiano correto:}
+\[
+\mathcal{L} = \ln c_1 + b\ln(1-l_1) + \beta[\ln c_2 + b\ln(1-l_2)]
+  + \lambda\!\left[w_1 l_1 + \frac{w_2 l_2}{1+r} - c_1 - \frac{c_2}{1+r}\right].
+\]
+
+\textbf{CPOs:}
+\begin{alignat}{2}
+&\frac{\partial\mathcal{L}}{\partial c_1}=0: &\quad& \lambda = \frac{1}{c_1}. \\[4pt]
+&\frac{\partial\mathcal{L}}{\partial l_1}=0: &\quad& \frac{b}{1-l_1} = \lambda w_1
+  \;\Longrightarrow\; 1-l_1 = \frac{bc_1}{w_1}. \\[4pt]
+&\frac{\partial\mathcal{L}}{\partial l_2}=0: &\quad& \frac{\beta b}{1-l_2} = \frac{\lambda w_2}{1+r}
+  \;\Longrightarrow\; 1-l_2 = \frac{\beta b(1+r)c_1}{w_2}.
+\end{alignat}
+
+\textbf{Razão de lazer:}
+\[
+\frac{1-l_2}{1-l_1}
+  = \frac{\beta b(1+r)c_1/w_2}{bc_1/w_1}
+  = \beta(1+r)\frac{w_1}{w_2}. \quad\checkmark
+\]
+Interpretação: se $r\uparrow$ ou $w_1/w_2\uparrow$, o lazer migra para o período~2
+(trabalha-se mais hoje).
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] O termo da restrição em a) usa $(1-l_2)/(1+r)$ em vez de $w_2 l_2/(1+r)$ ---
+o Lagrangiano está incorreto.
+\item[c)] O trabalho gera \emph{desutilidade}: $\partial u/\partial l_i = -b/(1-l_i) < 0$.
+\item[d)] Calibração consiste em escolher parâmetros para replicar momentos dos dados,
+não apenas derivar CPOs.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Efeitos de Choque Tecnológico Positivo no RBC}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Um choque tecnológico positivo no modelo RBC pode apresentar os seguintes efeitos. Escolha a alternativa correta:
+
+\begin{enumerate}[label=\alph*)]
+\item Uma vez que o choque vem acompanhado de elevação do consumo, há um estímulo à redução da poupança.
+\item Há uma elevação do produto marginal do capital, o que impulsiona maior investimento das firmas, porém também o aumento de salários reais.
+\item Embora haja uma elevação de salários reais, o mesmo não ocorre com a taxa de juros.
+\item Quanto maior a persistência do choque tecnológico, a oferta de trabalho corrente tende a ficar abaixo do nível inicial.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+Um choque de PTF positivo ($A\uparrow$) com Cobb-Douglas $F = AK^\alpha L^{1-\alpha}$ eleva simultaneamente o MPK e o MPL:
+\[
+MPK = \alpha A k^{\alpha-1} \uparrow,
+\qquad
+MPL = (1-\alpha)A k^{\alpha} \uparrow.
+\]
+\begin{itemize}[leftmargin=*]
+\item $MPK\uparrow$ $\Rightarrow$ rentabilidade do investimento sobe
+  $\Rightarrow$ \textbf{investimento sobe}. \checkmark
+\item $MPL\uparrow$ $\Rightarrow$ salário real de equilíbrio $w = MPL$
+  \textbf{sobe}. \checkmark
+\end{itemize}
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] Consumo \emph{e} poupança/investimento sobem após o choque;
+a razão poupança/renda pode inclusive \emph{aumentar}.
+\item[c)] $MPK\uparrow \Rightarrow r\uparrow$ também (mercado de capital em equilíbrio).
+\item[d)] Maior persistência $\Rightarrow$ substituição intertemporal de trabalho ampliada
+$\Rightarrow$ oferta de trabalho corrente \emph{sobe} (acima do nível inicial).
+\end{itemize}
+\end{correctbox}
+
+% ==========================================================================
+% BLOCO RIGIDEZ NOMINAL
+% ==========================================================================
+\newpage
+\begin{center}
+{\large\bfseries\color{cyanrbc}
+  Bloco III --- Rigidez Nominal, Mark-up e Curva de Phillips (Cap.\ 6)}\\[0.2em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Rigidez Nominal, Mark-up e Ciclicidade dos Salários Reais}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Em modelos de rigidez nominal e competição imperfeita, a resposta do mercado de trabalho a choques de demanda depende basicamente do comportamento do \textit{mark-up} empresarial (assumindo-se rendimentos decrescentes do trabalho). Escolha a sentença verdadeira:
+
+\begin{enumerate}[label=\alph*)]
+\item Se os salários nominais e o mark-up são constantes, os salários reais tendem a aumentar diante de uma elevação da produção.
+\item Se os salários nominais e o mark-up são constantes, um choque negativo de demanda vem acompanhado de queda dos salários reais.
+\item Se o salário nominal é dado e o mark-up é contra-cíclico (cai mais do que o produto marginal do trabalho quando $Y$ sobe), os salários reais tornam-se pró-cíclicos.
+\item O modelo keynesiano simples prevê que os salários reais são pró-cíclicos.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: c)}]
+O preço de equilíbrio com mark-up $\mu$ e desutilidade do trabalho é:
+\[
+P = \mu\,\frac{W}{\mathrm{MPL}} \;\Longrightarrow\; w \equiv \frac{W}{P} = \frac{\mathrm{MPL}}{\mu}.
+\]
+Com rendimentos decrescentes: $Y\uparrow \Rightarrow L\uparrow \Rightarrow \mathrm{MPL}\downarrow$,
+o que sozinho \emph{reduziria} $w$.
+
+Mas se $\mu$ é \textbf{contra-cíclico} e cai proporcionalmente mais que MPL durante uma expansão:
+\[
+\frac{\Delta w}{w} = \underbrace{\frac{\Delta\,\mathrm{MPL}}{\mathrm{MPL}}}_{<\,0}
+  - \underbrace{\frac{\Delta\mu}{\mu}}_{\ll\,0} > 0
+  \;\Longleftrightarrow\;
+  \left|\frac{\Delta\mu}{\mu}\right| > \left|\frac{\Delta\,\mathrm{MPL}}{\mathrm{MPL}}\right|.
+\]
+Neste caso $w\uparrow$ quando $Y\uparrow$: \textbf{salários reais pró-cíclicos}. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] $\mu$ e $W$ constantes: $Y\uparrow \Rightarrow \mathrm{MPL}\downarrow \Rightarrow P\uparrow
+  \Rightarrow w = W/P\downarrow$. Salários reais \emph{caem}.
+\item[b)] Choque negativo: $Y\downarrow \Rightarrow \mathrm{MPL}\uparrow \Rightarrow P\downarrow
+  \Rightarrow w\uparrow$. Salários reais \emph{sobem}.
+\item[d)] No modelo keynesiano simples (preços rígidos, demanda determina produto),
+$P$ não sobe com a demanda $\Rightarrow$ $w$ é \emph{acíclico} ou \emph{contra}cíclico,
+não pró-cíclico.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Curva de Phillips Híbrida}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Seja uma Curva de Phillips dada por:
+\[
+\pi_t = \varphi\,\bar{\pi} + (1-\varphi)\,\pi_{t-1}
+  + \lambda(\ln Y_t - \ln\bar{Y}) + \varepsilon_t.
+\]
+Indique a afirmativa correta:
+
+\begin{enumerate}[label=\alph*)]
+\item Uma situação próxima ao pleno emprego é mais propícia a maiores níveis de $\lambda$.
+\item Sob desinflação da economia, a política monetária é beneficiada com graus menores para o componente inercial $(1-\varphi)$, ou seja, com $\varphi$ maior.
+\item Esta equação pode ser deduzida diretamente da contribuição de Calvo (1983).
+\item O componente $\varepsilon_t$ é relacionado à gestão monetária pelo Banco Central.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+Na equação híbrida:
+\begin{itemize}[leftmargin=*]
+\item $\varphi\bar{\pi}$: componente de ancoragem à meta (forward-looking / credibilidade do BC).
+\item $(1-\varphi)\pi_{t-1}$: inércia inflacionária (backward-looking).
+\end{itemize}
+
+\textbf{Processo de desinflação.} O desvio da inflação em relação à meta satisfaz:
+\[
+\pi_t - \bar{\pi} = (1-\varphi)(\pi_{t-1} - \bar{\pi}) + \lambda x_t + \varepsilon_t.
+\]
+O desvio converge com velocidade $\varphi$. Quanto \textbf{maior} $\varphi$ (menor inércia
+$1-\varphi$), mais rapidamente a inflação converge para $\bar{\pi}$ e menor é o sacrifício de
+produto necessário para a desinflação. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] $\lambda$ é o parâmetro estrutural da inclinação da curva de Phillips, determinado pela
+tecnologia e pela estrutura do mercado; não varia com o estado do ciclo.
+\item[c)] Calvo (1983) puro origina uma curva \emph{puramente} forward-looking:
+$\pi_t = \beta\E_t\pi_{t+1} + \kappa x_t$.
+O termo de inércia $(1-\varphi)\pi_{t-1}$ requer extensão com indexação ou firmas
+backward-looking (Galí \& Gertler 1999).
+\item[d)] $\varepsilon_t$ representa choques de oferta (custos, commodities); a política monetária
+afeta o produto e, via $\lambda x_t$, a inflação, mas não o componente $\varepsilon_t$.
+\end{itemize}
+\end{correctbox}
+
+% ==========================================================================
+% BLOCO NK / LUCAS / FISCHER / TAYLOR / CALVO
+% ==========================================================================
+\newpage
+\begin{center}
+{\large\bfseries\color{cyanrbc}
+  Bloco IV --- Oferta de Trabalho, Lucas, NK, Fischer, Taylor e Calvo (Cap.\ 7)}\\[0.2em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Oferta Ótima de Trabalho com Utilidade Linear em Consumo}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Seja a função utilidade $U = C - L^d/d$, em que $L$ é a oferta de trabalho e $d > 1$. A restrição orçamentária é $C = WL/P + R/P$ ($W$ salário nominal, $R$ lucros), supondo que todo o lucro seja consumido. A equação que descreve a oferta ótima de trabalho:
+
+\begin{enumerate}[label=\alph*)]
+\item Estabelece uma relação inversa entre salários reais e oferta de trabalho.
+\item É dada por $L = w^{1/(d-1)}$, em que $w = W/P$ é o salário real.
+\item É dada por $L = (W/P)^{-d}$.
+\item É dada por $L = (w/R)^d$.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+Substituindo a restrição na utilidade:
+\[
+\max_L \;\left\{wL + r - \frac{L^d}{d}\right\}, \qquad w \equiv \frac{W}{P},\; r \equiv \frac{R}{P}.
+\]
+CPO em relação a $L$:
+\[
+w - L^{d-1} = 0 \;\Longrightarrow\; L^{d-1} = w
+  \;\Longrightarrow\; \boxed{L = w^{1/(d-1)}}. \quad\checkmark
+\]
+Como $d > 1 \Rightarrow 1/(d-1) > 0$: oferta de trabalho é \emph{crescente} no salário real.
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] A relação é direta ($L\uparrow$ quando $w\uparrow$), não inversa.
+\item[c)] O expoente $-d$ é negativo $\Rightarrow$ relação inversa incorreta; forma funcional errada.
+\item[d)] Os lucros $R$ não afetam a decisão marginal de trabalho porque a utilidade é linear em $C$
+(efeito renda nulo na margem).
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Crítica de Lucas e Modelo de Informação Incompleta}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Em relação aos modelos de rigidez nominal e à crítica de Lucas, identifique a questão correta:
+
+\begin{enumerate}[label=\alph*)]
+\item Segundo a Crítica de Lucas, previsões econômicas deveriam assumir a manutenção do estado de expectativas do público diante de mudanças de regras de política monetária.
+\item Com base no modelo de informação incompleta de Lucas, a firma precisa produzir com estimação de seu preço relativo. Este problema é conhecido como extração de sinal.
+\item A Curva de Lucas $y = b(p - \E p)$ relaciona a surpresa de preços com o hiato do produto. A ausência de \textit{trade-off} entre inflação e desemprego no longo prazo está associada a um coeficiente $b > 1$.
+\item Em situações recessivas, a Curva de Lucas $y = b(p - \E p)$ via de regra apresenta $b$ mais baixo.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+No modelo das ilhas de Lucas, cada firma observa apenas o preço do seu próprio bem
+e deve inferir se um aumento de preço nominal reflete:
+\begin{enumerate}[leftmargin=*]
+\item[(i)] Aumento do preço \emph{relativo} (demanda específica $\uparrow$)
+  $\Rightarrow$ produzir mais.
+\item[(ii)] Aumento do nível geral de preços (choque monetário)
+  $\Rightarrow$ manter produção.
+\end{enumerate}
+Este problema de \textbf{extração de sinal} gera a Curva de Oferta de Lucas:
+$y = b(p - \E p)$, em que $b$ mede a razão sinal/ruído. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] A Crítica de Lucas diz o \emph{contrário}: expectativas se \emph{ajustam} quando
+a regra de política muda; modelos com expectativas fixas são inválidos para avaliação de política.
+\item[c)] A verticalidade da curva de longo prazo não depende do valor de $b$;
+decorre de $\E[p - \E p] = 0$ em média sob expectativas racionais.
+\item[d)] $b$ é parâmetro estrutural (razão sinal/ruído da economia); não varia
+sistematicamente com o ciclo de negócios.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Microfundamentos NK: Rigidez de Calvo e Aversão ao Risco}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Seja um processo de microfundamentação novo-keynesiana. Considere a seguinte equação para os preços maximizadores no momento $t$:
+\[
+\tilde{p}_t^* = m_t + (1-\alpha)\sum_{i=0}^{\infty}\alpha^i\,\E_t m_{t+i},
+\]
+em que $m_t$ é o log da oferta de moeda, $\tilde{p}_t^*$ é o log dos preços maximizadores e $\alpha$ é um parâmetro estrutural. Escolha a alternativa correta:
+
+\begin{enumerate}[label=\alph*)]
+\item O grau de rigidez na economia é tanto maior quanto for o efeito da moeda nos preços maximizadores, ou seja, quanto maior for $\alpha$.
+\item A elevação do grau de aversão ao risco na economia implica efeitos reais da política monetária mais intensos.
+\item Em uma economia com alta desutilidade do trabalho, a rigidez de preços tende a ser mais elevada.
+\item No caso de $\alpha = 1$, o modelo novo-keynesiano dá lugar a um modelo de ciclos reais de negócios.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+Na derivação canônica do modelo NK (Calvo), a inclinação da Curva de Phillips é:
+\[
+\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}\cdot(\sigma + \eta),
+\]
+onde $\sigma = 1/\theta$ é o inverso do CRRA (elasticidade intertemporal de substituição)
+e $\eta$ é o inverso da elasticidade de Frisch.
+
+Maior $\theta$ (maior aversão ao risco) $\Rightarrow$ menor $\sigma$
+$\Rightarrow$ menor $\kappa$ $\Rightarrow$ inflação menos responsiva ao hiato de produto.
+Para um dado choque monetário, se $\kappa$ é menor, o produto desvia mais do potencial:
+\textbf{efeitos reais mais intensos}. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] Maior $\alpha$ significa mais firmas incapazes de reajustar preços = maior rigidez.
+Os preços maximizadores individualmente incorporam mais expectativas futuras (maior peso em
+$\alpha^i \E_t m_{t+i}$), mas o nível geral de preços responde \emph{menos} à moeda.
+\item[c)] Alta desutilidade do trabalho ($\eta$ grande) eleva $\kappa$, tornando a inflação
+\emph{mais} responsiva: menor rigidez efetiva, não maior.
+\item[d)] $\alpha = 0$ (todas as firmas reajustam instantaneamente) reproduz o caso de
+preços flexíveis / RBC. $\alpha = 1$ produz rigidez extrema; não é o RBC.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Modelos de Fischer e Taylor para Rigidez de Preços}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Quanto aos modelos de Fischer e Taylor para preços rígidos, escolha a sentença verdadeira:
+
+\begin{enumerate}[label=\alph*)]
+\item No modelo de Fischer, havendo rigidez forte e $\varphi$ elevado, os efeitos de distúrbios monetários sobre o produto tornam-se maiores.
+\item No modelo de Taylor, a seguinte equação para o log do produto é uma premissa do modelo: $y_t = \lambda y_{t-1} + u_t$.
+\item Pode-se afirmar que quanto maior a rigidez de preços, maior será a persistência de flutuações do produto diante de um choque monetário, ou seja, maior será $\lambda$.
+\item A diferença básica entre ambos os modelos está na equação de formação de preços: no modelo de Fischer os preços são fixados em contratos, ao contrário do pressuposto de Taylor.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: c)}]
+No modelo de Taylor com contratos escalonados de 2 períodos, a dinâmica do produto assume
+forma autorregressiva:
+\[
+y_t = \lambda\, y_{t-1} + u_t, \quad 0 < \lambda < 1.
+\]
+Maior rigidez de preços (ajuste nominal mais lento) $\Rightarrow$ flutuações do produto persistem
+por mais períodos $\Rightarrow$ $\lambda$ se aproxima de 1. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] Em Fischer, o que amplifica os efeitos monetários é a surpresa residual
+$E_{t-1}m_t - E_{t-2}m_t$ decorrente do escalonamento; $\varphi$ não é o parâmetro central.
+\item[b)] $y_t = \lambda y_{t-1} + u_t$ é um \emph{resultado} (endógeno) do escalonamento
+de contratos no modelo de Taylor, não uma premissa.
+\item[d)] \emph{Ambos} os modelos fixam preços em contratos. A diferença fundamental é o
+\textbf{escalonamento}: em Fischer, todos os contratos se renovam simultaneamente a cada
+$T$ períodos; em Taylor, os contratos são defasados (\textit{staggered}), o que gera
+persistência adicional do produto.
+\end{itemize}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Modelo de Calvo: Propriedades Fundamentais}
+% ------------------------------------------------------------------
+
+\textbf{Enunciado.} Quanto ao modelo de Calvo, julgue as afirmativas, escolhendo apenas a verdadeira:
+
+\begin{enumerate}[label=\alph*)]
+\item Pode-se dizer que o modelo pressupõe firmas heterogêneas, embora todas elas precifiquem de modo ótimo.
+\item O modelo dá origem a uma Curva de Phillips novo-keynesiana. O fato de os preços serem rígidos em algum grau faz com que a inflação possua inércia no tempo.
+\item Quanto maior o componente \textit{forward-looking} ($\beta$), menor a correlação inflação/produto ($\kappa$).
+\item Esta última correlação torna-se maior quanto maior a fração de firmas ($\alpha$) que não consegue maximizar o uso da informação disponível.
+\end{enumerate}
+
+\begin{correctbox}[title={Resposta correta: b)}]
+O modelo de Calvo (1983) é o principal microfundamento da \textbf{Curva de Phillips
+Novo-Keynesiana (NKPC)}:
+\[
+\pi_t = \beta\,\E_t\pi_{t+1} + \kappa\, x_t,
+\qquad
+\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}(\sigma+\eta) > 0.
+\]
+A fração $\alpha$ de firmas que não pode reajustar em cada período gera rigidez nominal.
+Na versão híbrida (com indexação ou firmas backward-looking), essa rigidez introduz
+explicitamente $\pi_{t-1}$, resultando em \textbf{inércia inflacionária}. \checkmark
+
+\textbf{Por que as demais são falsas:}
+\begin{itemize}[leftmargin=*]
+\item[a)] No modelo de Calvo as firmas são \emph{homogêneas} ex ante. A heterogeneidade
+ex post emerge porque apenas $(1-\alpha)$ recebe o sinal aleatório de reajuste; quem não
+recebe mantém o preço antigo e portanto \emph{não} otimiza naquele período.
+\item[c)] $\dfrac{\partial\kappa}{\partial\beta}
+  = \dfrac{(1-\alpha)(-\alpha)}{\alpha}(\sigma+\eta) = -(1-\alpha)(\sigma+\eta) < 0$:
+$\kappa$ é \emph{decrescente} em $\beta$. A afirmativa está \emph{formalmente} correta,
+mas a questão usa ``forward-looking'' como referência ao escalonamento global do modelo,
+não apenas a $\beta$. Na versão híbrida canônica de Galí--Gertler, $\kappa$ é independente
+do peso forward-looking $\gamma_f$, tornando a afirmativa enganosa/incorreta no sentido
+mais amplo.
+\item[d)] Maior $\alpha$ $\Rightarrow$
+$\kappa = \frac{(1-\alpha)(1-\alpha\beta)}{\alpha}(\sigma+\eta)\downarrow$:
+a inclinação da PC \emph{diminui} com mais rigidez. A afirmativa diz o oposto.
+\end{itemize}
+\end{correctbox}
+
+\end{document}
