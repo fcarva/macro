@@ -1,0 +1,476 @@
+% ==========================================================================
+%  Guia Focado P1 2026 — Macroeconomia I
+%  PPGEco-UFES · Prof. Dr. Ricardo Ramalhete Moreira
+%  Baseado na P1 2025 (14 questões): tópicos, fórmulas e armadilhas
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+
+% --- Cores ---
+\definecolor{azul}{HTML}{1e3a5f}
+\definecolor{ciano}{HTML}{3b9dbd}
+\definecolor{laranja}{HTML}{d97b39}
+\definecolor{vermelho}{HTML}{991b1b}
+\definecolor{cinza}{HTML}{6b7280}
+\definecolor{verdebg}{HTML}{f0fdf4}
+\definecolor{verdeborda}{HTML}{166534}
+\definecolor{amarelobg}{HTML}{fffbeb}
+\definecolor{amareloborda}{HTML}{92400e}
+\definecolor{vermelhabg}{HTML}{fff1f2}
+\definecolor{vermelhoborda}{HTML}{881337}
+\definecolor{azulbg}{HTML}{eff6ff}
+\definecolor{azulborda}{HTML}{1e40af}
+
+% --- Caixas ---
+\newtcolorbox{fatorbox}[1][]{standard, colback=verdebg, colframe=verdeborda,
+  boxrule=0.8pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{verdeborda}, #1}
+
+\newtcolorbox{provabox}[1][]{standard, colback=amarelobg, colframe=amareloborda,
+  boxrule=1pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{amareloborda}, #1}
+
+\newtcolorbox{armbox}[1][]{standard, colback=vermelhabg, colframe=vermelhoborda,
+  boxrule=1pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{vermelhoborda}, #1}
+
+\newtcolorbox{formulabox}[1][]{standard, colback=azulbg, colframe=azulborda,
+  boxrule=0.8pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{azulborda}, #1}
+
+% --- Títulos ---
+\titleformat{\section}{\large\bfseries\color{azul}}{}{0em}{\thesection\quad}[\vspace{-0.2em}\rule{\linewidth}{0.5pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{ciano}}{}{0em}{\thesubsection\quad}
+\titleformat{\subsubsection}{\normalsize\itshape\color{cinza}}{}{0em}{}
+
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+\onehalfspacing
+
+% --- Cabeçalho ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{cinza}{Guia Focado P1 2026 --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{cinza}{10 tópicos essenciais · baseado na P1 2025}}
+\cfoot{\thepage}
+
+% ==========================================================================
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Guia Focado --- P1 Macroeconomia I 2026}\\[0.4em]
+  {\large\color{cinza} PPGEco-UFES · Prof.\ Dr.\ Ricardo Ramalhete Moreira}\\[0.3em]
+  {\normalsize\color{laranja}\bfseries 10 Tópicos Inegociáveis · Fórmulas · Armadilhas da Prova}
+\end{center}
+
+\vspace{0.3em}
+\begin{provabox}[title={Metodologia: como este guia foi construído}]
+A P1 de 11/06/2025 (14 questões de múltipla escolha) foi cruzada com as Listas~I e~II de 2026. Os mesmos tópicos aparecem em ambos os materiais. Este guia cobre exatamente o que o professor testou, com as \textbf{fórmulas que precisam sair de memória}, os \textbf{sinais de cada parâmetro} e as \textbf{pegadinhas recorrentes}.
+\end{provabox}
+
+\tableofcontents
+\newpage
+
+% ==========================================================================
+\section{Utilidade CRRA e o Parâmetro $\theta$ (Q1/Q2 P1-2025; Lista~I Q2)}
+
+A função utilidade instantânea do modelo RCK é
+\[
+  u\!\left(C(t)\right) = \frac{C(t)^{1-\theta}-1}{1-\theta},
+\]
+onde $\theta > 0$ é o grau de \textbf{aversão relativa ao risco} (também chamado de coeficiente de Arrow-Pratt relativo).
+
+\begin{formulabox}[title={Fatos que precisam sair de cor}]
+\begin{enumerate}[leftmargin=*,label=\textbf{\arabic*.}]
+  \item $u'(C) = C^{-\theta}$\quad (utilidade marginal sempre positiva)
+  \item $u''(C) = -\theta C^{-\theta-1} < 0$\quad (utilidade marginal decrescente)
+  \item \textbf{Elasticidade de substituição intertemporal:}\; $\sigma = \dfrac{1}{\theta}$
+  \item $\theta\uparrow$ $\Rightarrow$ $\sigma\downarrow$ $\Rightarrow$ consumidor menos responsivo a mudanças na taxa de juros
+  \item Aumento de $C$ \textbf{e} aumento de $\theta$ ambos \emph{reduzem} $u'(C)$: $\dfrac{\partial u'}{\partial C} < 0$ e $\dfrac{\partial u'}{\partial\theta} = -C^{-\theta}\ln C < 0$ (para $C>1$)
+\end{enumerate}
+\end{formulabox}
+
+\begin{armbox}[title={Armadilhas recorrentes (Q1/Q2 P1-2025)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``$\theta$ é a própria elasticidade de substituição intertemporal.'' \\ Certo: $\theta$ é o \emph{inverso} da EIS. Se $\theta=2$, a EIS $= 0{,}5$.
+  \item \textbf{FALSO:} ``A taxa de desconto $\rho$ afeta positivamente a taxa de crescimento do consumo.'' \\ Certo: na equação de Euler $\dot C/C = (r-\rho)/\theta$, $\rho$ aparece com sinal \emph{negativo} — uma $\rho$ maior \emph{reduz} o crescimento do consumo.
+  \item \textbf{FALSO:} ``$u' = \theta C^{-\theta}$''. A derivada correta é $u' = C^{-\theta}$ (sem o $\theta$ multiplicando).
+\end{itemize}
+\end{armbox}
+
+% --------------------------------------------------------------------------
+\subsection{Equação de Euler}
+
+A condição de otimalidade do consumidor RCK — derivada do Lagrangiano ou Hamiltoniano — é:
+\[
+  \boxed{\frac{\dot C}{C} = \frac{r - \rho}{\theta}}
+\]
+
+\begin{fatorbox}[title={Interpretação dos parâmetros}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Choque & Direção & Mecanismo \\
+\midrule
+$r\uparrow$ & $\dot C/C\uparrow$ & Juros maiores tornam poupança mais atrativa \\
+$\rho\uparrow$ & $\dot C/C\downarrow$ & Maior impaciência desloca consumo para o presente \\
+$\theta\uparrow$ & $|\dot C/C|\downarrow$ & Maior aversão ao risco suaviza o perfil de consumo \\
+\bottomrule
+\end{tabular}
+\end{center}
+``Em momentos em que o consumidor reage \emph{mais} sensivelmente a mudanças em $r$, houve uma \textbf{redução} de $\theta$'' (Q2, gabarito correto).
+\end{fatorbox}
+
+% ==========================================================================
+\section{Diagrama de Fase RCK: Quadrantes (Q3/Q4 P1-2025; Lista~I Q3)}
+
+As duas equações de movimento do modelo RCK são:
+\[
+  \dot k = f(k) - c - (n+g+\delta)k \qquad (\text{acumulação de capital})
+\]
+\[
+  \dot c = \frac{c}{\theta}\!\left[f'(k) - \delta - \rho - \theta g\right] \qquad (\text{Euler em termos de }k)
+\]
+
+\begin{formulabox}[title={Os dois loci e seus sinais}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Locus $\dot c = 0$:} $f'(k^*) = \delta + \rho + \theta g$. Linha vertical em $k^*$.
+    \begin{itemize}
+      \item À \emph{esquerda} ($k < k^*$): $f'(k) > \delta+\rho+\theta g$ $\Rightarrow$ $\dot c > 0$ (consumo sobe).
+      \item À \emph{direita} ($k > k^*$): $f'(k) < \delta+\rho+\theta g$ $\Rightarrow$ $\dot c < 0$ (consumo cai).
+    \end{itemize}
+  \item \textbf{Locus $\dot k = 0$:} $c^* = f(k) - (n+g+\delta)k$. Curva côncava.
+    \begin{itemize}
+      \item \emph{Acima} da curva ($c > c^*$): consumo alto demais $\Rightarrow$ $\dot k < 0$ (capital cai).
+      \item \emph{Abaixo} da curva ($c < c^*$): poupança alta $\Rightarrow$ $\dot k > 0$ (capital sobe).
+    \end{itemize}
+\end{itemize}
+\end{formulabox}
+
+\begin{fatorbox}[title={Mapa dos quatro quadrantes}]
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Posição & $\dot c$ & $\dot k$ \\
+\midrule
+Esquerda de $\dot c=0$ \textbf{e} acima de $\dot k=0$ & $>0$ (sobe) & $<0$ (cai) \\
+Esquerda de $\dot c=0$ \textbf{e} abaixo de $\dot k=0$ & $>0$ (sobe) & $>0$ (sobe) \\
+Direita de $\dot c=0$ \textbf{e} acima de $\dot k=0$ & $<0$ (cai) & $<0$ (cai) \\
+\textbf{Direita de $\dot c=0$ e abaixo de $\dot k=0$} & $<0$ (cai) & $>0$ (sobe) \\
+\bottomrule
+\end{tabular}
+\end{center}
+A última linha foi a resposta correta da Q4 P1-2025: ``capital sobe e consumo cai.''
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha recorrente (Q3/Q4)}]
+\begin{itemize}[leftmargin=*]
+  \item ``O crescimento equilibrado ocorre na regra de ouro'' — \textbf{FALSO}. O equilíbrio de longo prazo do RCK satisfaz $f'(k^*) = \delta+\rho+\theta g$, \emph{não} a regra de ouro $f'(k^{RO}) = \delta+n+g$. A regra de ouro maximiza consumo no estado estacionário; o RCK maximiza utilidade descontada, que em geral leva a $k^* < k^{RO}$.
+  \item ``O crescimento populacional está positivamente relacionado com a variação do capital'' — \textbf{FALSO}. $n$ aparece como $-nk$ em $\dot k$, ou seja, maior $n$ \emph{reduz} $\dot k$.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Choque Tecnológico no RBC — Os Três Canais (Q7 P1-2025; Lista~I Q8)}
+
+Um choque tecnológico positivo $A\uparrow$ eleva a produtividade total dos fatores. O professor exige exatamente três canais:
+
+\begin{fatorbox}[title={Os três efeitos de um choque tecnológico positivo}]
+\begin{enumerate}[leftmargin=*, label=\textbf{\Alph*.}]
+  \item \textbf{Efeito riqueza:} $A\uparrow$ $\Rightarrow$ $Y\uparrow$ $\Rightarrow$ famílias se sentem mais ricas $\Rightarrow$ $C\uparrow$ e $L\downarrow$ (mais lazer). Tende a \emph{reduzir} a oferta de trabalho.
+  \item \textbf{Efeito substituição intertemporal:} A taxa de retorno do capital sobe ($f'(K)\uparrow$) $\Rightarrow$ investir hoje é mais lucrativo $\Rightarrow$ $I\uparrow$. Também estimula \emph{oferta de trabalho corrente} (trabalhar mais hoje quando salários/retornos são altos).
+  \item \textbf{Efeito produtividade do trabalho:} $w\uparrow$ $\Rightarrow$ mão de obra mais cara relativa ao lazer $\Rightarrow$ $L\uparrow$. Compensa parcialmente o efeito riqueza.
+\end{enumerate}
+O efeito líquido sobre $L$ é \textbf{ambíguo}, mas $Y$, $I$ e $w$ sobem inequivocamente.
+\end{fatorbox}
+
+\begin{formulabox}[title={Resultado-chave: $f'(K)\uparrow$ implica $I\uparrow$ e $w\uparrow$}]
+No modelo RBC com função $F(K,L)$ Cobb-Douglas: $\text{PMgL} = (1-\alpha)AK^\alpha L^{-\alpha}$ e $\text{PMgK} = \alpha AK^{\alpha-1}L^{1-\alpha}$. Choque $A\uparrow$ eleva \emph{ambos} simultaneamente.
+\end{formulabox}
+
+\begin{armbox}[title={Armadilhas (Q7)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``Choque tecnológico positivo estimula redução da poupança.'' \\ Certo: $I\uparrow$ implica \emph{aumento} da poupança/investimento.
+  \item \textbf{FALSO:} ``Embora haja elevação de salários reais, o mesmo não ocorre com a taxa de juros.'' \\ Certo: $f'(K)\uparrow$ significa taxa de retorno do capital também sobe.
+  \item \textbf{FALSO:} ``Maior persistência do choque $\Rightarrow$ oferta de trabalho fica abaixo do nível inicial por mais tempo.'' \\ Certo: maior persistência \emph{amplifica} o efeito substituição intertemporal, mantendo oferta de trabalho \emph{acima} do nível inicial por mais tempo.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Mark-up e Salário Real Pró-cíclico (Q8 P1-2025; Lista~II Q8)}
+
+Em modelos de rigidez nominal com competição imperfeita, a relação de precificação é:
+\[
+  P = \mu \cdot \frac{W}{f'(L)} \quad\Longleftrightarrow\quad \frac{W}{P} = \frac{f'(L)}{\mu},
+\]
+onde $\mu > 1$ é o \emph{mark-up} e $f'(L) = \text{PMgL}$ (supondo rendimentos decrescentes do trabalho).
+
+\begin{fatorbox}[title={Condição para salário real pró-cíclico}]
+Se o salário nominal $W$ é dado (contrato, rigidez) e o mark-up $\mu$ é \textbf{contra-cíclico} ($\mu\downarrow$ quando $Y\uparrow$), então:
+\[
+  Y\uparrow \;\Rightarrow\; \mu\downarrow \;\Rightarrow\; \frac{W}{P} = \frac{f'(L)}{\mu}\uparrow \quad \text{(salário real sobe junto com o produto)}
+\]
+Isso torna o salário real \textbf{pró-cíclico}, compatível com evidências empíricas. \\
+\textbf{Este foi o gabarito correto da Q8 P1-2025 (alternativa c).}
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilhas (Q8)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``Se salários nominais e mark-up são constantes, um choque negativo de demanda reduz salários reais.'' \\ Certo: se ambos são constantes, $W/P$ não muda — não há variação no salário real.
+  \item \textbf{FALSO:} ``O modelo keynesiano simples prevê salários reais pró-cíclicos.'' \\ O keynesiano simples (IS-LM clássico) usa salários flexíveis e não gera essa previsão de forma direta; é a introdução do mark-up contra-cíclico que produz pró-ciclicalidade.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Modelos de Lucas: Extração de Sinal e Crítica (Q11 P1-2025; Lista~II Q5--Q7)}
+
+\subsection{Informação Incompleta e Extração de Sinal}
+
+No modelo de informação incompleta de Lucas, a firma $i$ observa apenas seu próprio preço $p_i$ e precisa inferir se o aumento de preço é \textbf{real} (específico ao setor) ou \textbf{nominal} (geral). O problema de sinal:
+\[
+  E[r_i \mid p_i] = \frac{\text{Var}(r_i)}{\text{Var}(r_i)+\text{Var}(\epsilon)}\cdot p_i,
+\]
+onde $r_i$ é o preço relativo e $\epsilon$ é o ruído (variação no nível geral de preços). A firma responde à estimação do preço relativo com base nos preços observados e no ``ruído'' do nível geral.
+
+\begin{fatorbox}[title={Curva de Lucas (oferta agregada de Lucas)}]
+\[
+  y = b(p - E[p]),
+\]
+onde $b > 0$ relaciona a \emph{surpresa de preços} ao hiato do produto. No longo prazo, $p = E[p]$ $\Rightarrow$ $y = 0$ (sem trade-off entre inflação e desemprego).
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilhas (Q11)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``A ausência de trade-off entre inflação e desemprego no longo prazo está associada a $b > 1$.'' \\ Certo: a ausência de trade-off \emph{no longo prazo} independe do valor de $b$; decorre de $p = E[p]$ por expectativas racionais, não de $b$ ser grande ou pequeno.
+  \item \textbf{FALSO (crítica de Lucas):} ``Previsões econômicas deveriam assumir a \emph{manutenção} do estado de expectativas do público diante de mudanças de regra de política monetária.'' \\ Certo: a crítica afirma exatamente o oposto — os parâmetros de modelos estimados mudam quando a regra muda, pois as expectativas \emph{se adaptam} ao novo regime.
+  \item Em situações recessivas, $b$ pode ser interpretado como endógeno à credibilidade da política — mas o professor não exige isso; basta saber a forma da curva.
+\end{itemize}
+\end{armbox}
+
+\subsection{Crítica de Lucas}
+
+Relações econométricas estimadas sob um determinado regime de política incorporam as expectativas formadas sob aquele regime. Quando a regra de política muda, os agentes reveem suas expectativas e os coeficientes estimados se alteram — tornando as previsões baseadas no modelo antigo inválidas.
+
+% ==========================================================================
+\section{Modelos de Fischer e Taylor (Q13 P1-2025; Lista~II Q8)}
+
+\subsection{Fischer (contratos escalonados, dois períodos)}
+
+Os preços são fixados em \emph{contratos de dois períodos}, formados com base em expectativas defasadas. A equação central para o produto:
+\[
+  y_t = \frac{1}{1+\phi}\!\left[E_{t-1}m_t - E_{t-2}m_t\right] + \left[m_t - E_{t-1}m_t\right],
+\]
+onde $\phi = \theta + \gamma - 1$ é o parâmetro de rigidez real. O primeiro termo capta a revisão de expectativas entre $t-2$ e $t-1$; o segundo, a surpresa monetária pura.
+
+\subsection{Taylor (staggering forward-looking)}
+
+Os contratos têm duração de dois períodos mas os agentes olham para frente. A equação do produto:
+\[
+  y_t = \lambda y_{t-1} + \frac{1+\lambda}{2}\,u_t, \qquad \lambda = \frac{1-\phi}{1+\phi}.
+\]
+
+\begin{fatorbox}[title={Papel de $\phi$ nos dois modelos}]
+\begin{itemize}[leftmargin=*]
+  \item $\phi\uparrow$ $\Rightarrow$ maior rigidez real $\Rightarrow$ menor multiplicador monetário no Fischer.
+  \item $\phi\uparrow$ $\Rightarrow$ $\lambda\downarrow$ $\Rightarrow$ \emph{menor} persistência das flutuações no Taylor.
+  \item $\phi = 0$ $\Rightarrow$ $\lambda = 1$ (raiz unitária: flutuações altamente persistentes).
+\end{itemize}
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha clássica (Q13)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``A diferença básica entre Fischer e Taylor está na equação de formação de preços. No Fischer os preços são fixados em contratos, ao contrário do pressuposto de Taylor.'' \\ \textbf{Certo:} \emph{Ambos} fixam preços em contratos. A diferença está no \emph{timing das expectativas}: Fischer usa expectativas defasadas ($E_{t-2}$); Taylor usa expectativas racionais forward-looking.
+  \item \textbf{FALSO (Fischer):} ``Rigidez forte ($\phi$ elevado) aumenta o efeito de distúrbios monetários sobre o produto.'' \\ Certo: $\phi\uparrow$ $\Rightarrow$ multiplicador $1/(1+\phi)\downarrow$ $\Rightarrow$ efeito \emph{menor}.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Modelo de Calvo: $\alpha$, $\theta$ e a Inclinação $\kappa$ (Q14 P1-2025; Lista~II Q9)}
+
+No modelo de Calvo, a fração $\alpha$ das firmas \textbf{não consegue reajustar} preços em cada período (rigidez exógena). A curva de Phillips Novo-Keynesiana resultante é:
+\[
+  \pi_t = \kappa y_t + \beta E_t \pi_{t+1},
+\]
+com a inclinação
+\[
+  \boxed{\kappa = \frac{\alpha[1-(1-\alpha)\beta]\phi}{1-\alpha}},
+\]
+onde $\phi = \theta + \gamma - 1$, $\theta$ é a aversão ao risco e $\gamma$ é a elasticidade da desutilidade do trabalho.
+
+\begin{fatorbox}[title={Efeito de cada parâmetro em $\kappa$}]
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Parâmetro & Direção & Mecanismo \\
+\midrule
+$\alpha\uparrow$ (mais firmas presas) & $\kappa\downarrow$ & Mais rigidez $\Rightarrow$ curva mais plana \\
+$\phi\uparrow$ ($\theta\uparrow$ ou $\gamma\uparrow$) & $\kappa\uparrow$ & Maior custo marginal $\Rightarrow$ curva mais inclinada \\
+$\beta\uparrow$ & $\kappa\uparrow$ (pequeno efeito) & Mais peso no futuro \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilhas (Q14)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``O modelo pressupõe firmas heterogêneas.'' \\ Certo: todas as firmas são \emph{idênticas ex ante}; a heterogeneidade nos preços surge apenas porque algumas conseguiram reajustar e outras não.
+  \item \textbf{FALSO:} ``Quanto maior o componente forward-looking, menor a correlação inflação/produto ($\kappa$).'' \\ Certo: $\beta\uparrow$ não reduz $\kappa$ diretamente; são parâmetros distintos. A correlação $\kappa$ depende de $\alpha$ e $\phi$.
+  \item \textbf{VERDADEIRO (gabarito Q14):} ``A correlação $\kappa$ torna-se maior quanto maior a fração $\alpha$ que \emph{não} consegue maximizar'' — \textbf{ATENÇÃO}: isso depende da \emph{definição} de $\alpha$ usada pelo professor. Na formulação acima ($\alpha$ = fração que não reajusta), $\alpha\uparrow$ $\Rightarrow$ $\kappa\downarrow$. Verifique se o professor define $\alpha$ como fração que SIM reajusta, o que invertertia a relação.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Microfundamentação NK: Preço Ótimo $p^* = \phi m + (1-\phi)p$ (Q12 P1-2025)}
+
+A equação do preço maximizador a nível da firma, sob premissas novo-keynesianas, é:
+\[
+  p_t^* = \phi m_t + (1-\phi) p_t,
+\]
+onde $\phi \in (0,1]$ é um parâmetro estrutural derivado da maximização das famílias, $m_t$ é o log da oferta de moeda e $p_t$ é o log do nível geral de preços.
+
+\begin{fatorbox}[title={Interpretação de $\phi$ — casos extremos}]
+\begin{itemize}[leftmargin=*]
+  \item $\phi = 1$: $p_t^* = m_t$ $\Rightarrow$ preço ótimo acompanha perfeitamente a moeda $\Rightarrow$ \textbf{preços totalmente flexíveis} $\Rightarrow$ modelo RBC (sem efeitos reais da política monetária).
+  \item $\phi \to 0$: $p_t^* \approx p_t$ $\Rightarrow$ firma apenas replica o nível geral de preços $\Rightarrow$ \textbf{rigidez máxima} $\Rightarrow$ efeitos reais da moeda mais intensos.
+  \item Grau de rigidez: \emph{inversamente} relacionado a $\phi$. Maior $\phi$ $\Rightarrow$ menos rigidez, não mais.
+\end{itemize}
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha direta (Q12 — resposta correta = d)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``O grau de rigidez é tanto maior quanto maior for $\phi$.'' \\ Certo: relação \emph{inversa}. Maior $\phi$ $\Rightarrow$ preços mais sensíveis à moeda $\Rightarrow$ \emph{menor} rigidez.
+  \item \textbf{VERDADEIRO (gabarito):} ``$\phi = 1$ $\Rightarrow$ modelo novo-keynesiano colapsa para RBC.''
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Curva de Phillips Híbrida (Q9 P1-2025; Lista~II Q10)}
+
+A especificação híbrida CEE (Christiano, Eichenbaum e Evans 2005):
+\[
+  \pi_t = \gamma \pi_{t-1} + (1-\gamma) E_t\pi_{t+1} + \chi y_t + \varepsilon_t^s,
+\]
+onde $\gamma \in [0,1]$ é o peso do componente backward-looking (indexação), $1-\gamma$ é o peso forward-looking e $\chi > 0$ é a sensibilidade ao hiato do produto.
+
+\begin{fatorbox}[title={Condição para razão de sacrifício positiva}]
+A \textbf{razão de sacrifício} mede a perda de produto necessária para reduzir a inflação em 1 p.p. permanentemente.
+\begin{itemize}[leftmargin=*]
+  \item $\gamma > 1/2$: componente inercial domina $\Rightarrow$ desinflação \textbf{exige} queda do produto $\Rightarrow$ razão de sacrifício \emph{positiva}.
+  \item $\gamma < 1/2$: expectativas forward-looking dominam $\Rightarrow$ desinflação com menor (ou nenhum) custo real.
+  \item $\gamma = 0$ (Calvo puro): desinflação crível pode ser \emph{sem custo}.
+\end{itemize}
+\end{fatorbox}
+
+\begin{fatorbox}[title={Papel de $\lambda$ na Curva de Phillips geral}]
+Na forma $\pi_t = \phi\pi_t^e + (1-\phi)\pi_{t-1} + \lambda(\ln Y - \ln\bar Y) + \varepsilon_t^s$, o coeficiente $\lambda$ mede a sensibilidade da inflação ao hiato. Próximo ao pleno emprego, a economica opera em região de maior inclinação da curva de oferta, o que tende a ampliar a resposta da inflação a variações no produto, ou seja, $\lambda$ \emph{efetivo} maior.
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilhas (Q9)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``Sob desinflação, a política monetária é beneficiada com $\phi$ menor.'' \\ Certo: $\phi$ menor significa mais inércia forward-looking, o que pode facilitar desinflação crível, mas $\phi$ menor aqui equivale a $\gamma$ menor — a afirmação confunde a notação.
+  \item \textbf{FALSO:} ``Esta equação pode ser deduzida de Calvo (1983).'' \\ Certo: a híbrida com $\gamma > 0$ vem de CEE (2005) ou Gali-Gertler (1999), não de Calvo puro.
+  \item \textbf{FALSO:} ``O componente $\varepsilon_t^s$ está relacionado à gestão monetária pelo Banco Central.'' \\ Certo: $\varepsilon_t^s$ é um \emph{choque de oferta} (supply shock), não um instrumento de política.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Oferta de Trabalho da Firma: $U = C - \tfrac{1}{d}L^d$ (Q10 P1-2025; Lista~II Q2)}
+
+A função utilidade estática é $U = C - \dfrac{1}{d}L^d$, com restrição orçamentária $C = \dfrac{WL + R}{P}$, onde $W$ é o salário nominal, $R$ os lucros e $P$ o nível geral de preços.
+
+\begin{formulabox}[title={Derivação da oferta de trabalho (Q10, gabarito = b)}]
+Substituindo $C$ na utilidade:
+\[
+  U = \frac{WL+R}{P} - \frac{1}{d}L^d
+\]
+Condição de primeira ordem em $L$:
+\[
+  \frac{\partial U}{\partial L} = \frac{W}{P} - L^{d-1} = 0 \;\Rightarrow\; L^{d-1} = \frac{W}{P} \;\Rightarrow\; \boxed{L^* = \left(\frac{W}{P}\right)^{1/(d-1)}}
+\]
+\end{formulabox}
+
+\begin{fatorbox}[title={Interpretação}]
+\begin{itemize}[leftmargin=*]
+  \item Relação \textbf{positiva} entre salário real e oferta de trabalho (efeito substituição domina).
+  \item $d > 1$ garante $1/(d-1) > 0$: $W/P\uparrow$ $\Rightarrow$ $L^*\uparrow$.
+  \item Utilidade marginal do trabalho: $\partial U/\partial L = W/P - L^{d-1}$. No ótimo, é zero, \textbf{não positiva}.
+\end{itemize}
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilhas (Q10)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``Estabelece relação inversa entre salários reais e oferta de trabalho.'' \\ Certo: a relação é \emph{direta} (positiva) nesta formulação.
+  \item \textbf{FALSO:} ``Pode-se afirmar que a utilidade marginal do trabalho é positiva.'' \\ Certo: no ótimo, a condição de primeira ordem iguala a zero. O trabalho em si gera desutilidade ($-L^d/d$), mas o efeito indireto via renda é positivo. No equilíbrio, os efeitos se cancelam.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Razão de Lazer no RBC de Dois Períodos (Q5/Q6 P1-2025; Lista~I Q6--Q7)}
+
+Na versão de dois períodos do RBC com $u = \ln c_1 + b\ln(1-\tau_1) + e^{-p}[\ln c_2 + b\ln(1-\tau_2)]$, a restrição é $c_1 + c_2/(1+r) = w_1\tau_1 + w_2\tau_2/(1+r)$.
+
+\begin{formulabox}[title={Razão de lazer entre períodos}]
+Tomando as CPOs para $\tau_1$ e $\tau_2$:
+\[
+  \frac{b}{1-\tau_1} = \lambda w_1 \qquad\text{e}\qquad \frac{e^{-p}b}{1-\tau_2} = \frac{\lambda w_2}{1+r}
+\]
+Dividindo a primeira pela segunda:
+\[
+  \boxed{\frac{1-\tau_1}{1-\tau_2} = \frac{1}{e^{-p}(1+r)}\cdot\frac{w_2}{w_1}}
+\]
+Esta é a \textbf{razão de lazer} entre os dois períodos (Q6 P1-2025, gabarito correto = b).
+\end{formulabox}
+
+\begin{fatorbox}[title={Substituição intertemporal da oferta de trabalho (Q5)}]
+Um aumento da taxa real de juros $r\uparrow$ torna o trabalho hoje mais atraente relativamente ao amanhã: o lado direito sobe, portanto $(1-\tau_1)/(1-\tau_2)\uparrow$, ou seja, o lazer no período~1 \emph{aumenta} relativamente ao lazer no período~2.
+
+\textbf{Equivalente:} trabalho no período~1 \emph{cai} e trabalho no período~2 \emph{sobe} (deslocamento para o futuro). Isso é a \emph{substituição intertemporal da oferta de trabalho}, mecanismo central nos choques do RBC.
+
+``A reação de substituição intertemporal do trabalho é um fator explicativo do ciclo a partir de choques tecnológicos, já que estes implicam mudanças na taxa de juros'' — \textbf{VERDADEIRO} (Q5 P1-2025, gabarito = c).
+\end{fatorbox}
+
+% ==========================================================================
+\section*{Quadro-Resumo Final: O Que Sair de Cor}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{3.2cm} p{5.2cm} p{5.2cm}}
+\toprule
+\textbf{Tópico} & \textbf{Fórmula central} & \textbf{Armadilha principal} \\
+\midrule
+CRRA e $\theta$ & $u'= C^{-\theta}$; EIS $= 1/\theta$ & $\theta$ NÃO é a EIS \\
+Euler & $\dot C/C = (r-\rho)/\theta$ & $\rho\uparrow \Rightarrow \dot C/C\downarrow$ \\
+Fase RCK & Direita de $\dot c=0$: $\dot c<0$; abaixo de $\dot k=0$: $\dot k>0$ & Não confundir os dois loci \\
+Choque RBC & 3 canais: riqueza, sub. intertemp., produtividade & Persistência $\uparrow$ $\Rightarrow$ oferta $L$ acima (não abaixo) \\
+Mark-up & $W/P = f'(L)/\mu$; $\mu$ contra-cíclico $\Rightarrow$ $W/P$ pró-cíclico & Mark-up constante $\Rightarrow$ salário real constante \\
+Lucas & $y=b(p-E[p])$; crítica: parâm.\ mudam com o regime & Ausência trade-off LP: decorre de $p=E[p]$, não de $b$ \\
+Fischer vs.\ Taylor & Fischer: contratos+exp.\ defasadas; Taylor: staggered+forward & Ambos têm contratos; diferença é no timing \\
+Calvo $\kappa$ & $\kappa = \alpha[1-(1-\alpha)\beta]\phi/(1-\alpha)$ & $\alpha\uparrow \Rightarrow \kappa\downarrow$ (mais rigidez, curva mais plana) \\
+$p^*=\phi m+(1-\phi)p$ & $\phi=1 \Rightarrow$ RBC; $\phi\uparrow \Rightarrow$ menos rigidez & Rigidez é inversa de $\phi$ \\
+Phillips híbrida & $\pi_t = \gamma\pi_{t-1}+(1-\gamma)E_t\pi_{t+1}+\chi y_t$ & $\gamma>1/2 \Rightarrow$ sacrifício $>0$; $\varepsilon^s$ é choque de oferta \\
+Oferta de $L$ & $L^*=(W/P)^{1/(d-1)}$ & Relação positiva; $\partial U/\partial L=0$ no ótimo \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
