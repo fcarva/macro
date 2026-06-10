@@ -1,0 +1,285 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{remark}{rgb}{0.12,0.37,0.55}
+
+\newtheorem{theorem}{Proposição}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+
+\title{\textbf{Capítulo 9 --- Investimento}\\[4pt]
+       {\large $q$ de Tobin, Custos de Ajustamento e o Diagrama de Fases $(K,q)$}\\[2pt]
+       {\normalsize PPGEco-CCJE-UFES · Macroeconomia I · Romer (2019) Cap.\ 9}}
+\author{Projeto de Estudo --- \textit{macro-romer}}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ============================================================
+\section{O problema da firma com custos de ajustamento}
+% ============================================================
+
+A firma escolhe a trajetória de investimento $\{I_t\}$ para maximizar o
+valor presente do fluxo de lucros líquidos:
+\begin{equation}\label{eq:firm_value}
+  V(K_0) = \max_{\{I_t\}} \int_0^\infty e^{-rt}
+    \Bigl[\pi(K_t) - I_t - C(I_t, K_t)\Bigr]\,\dd t,
+\end{equation}
+sujeito à acumulação de capital
+\begin{equation}\label{eq:capital_accumulation}
+  \dot K_t = I_t - \delta K_t, \qquad K_0 \text{ dado},
+\end{equation}
+onde $\pi(K)$ é o lucro variável (receita menos custos variáveis,
+líquida do pagamento ao capital) e $C(I,K)$ é o \textbf{custo de
+ajustamento}, convexo em $I$:
+\begin{equation}\label{eq:adjustment_cost}
+  C(I,K) = \frac{a}{2}\left(\frac{I}{K}\right)^2 K, \qquad a > 0.
+\end{equation}
+
+A convexidade de $C$ captura a ideia de que instalar capital
+"rapidamente demais" é desproporcionalmente custoso (perturbação da
+produção, tempo de instalação, etc.), gerando \textbf{investimento
+suave} ao longo do tempo.
+
+% ============================================================
+\section{Hamiltoniano e condições de primeira ordem}
+% ============================================================
+
+O Hamiltoniano em valor presente é
+\begin{equation}\label{eq:hamiltonian}
+  \mathcal{H} = \pi(K) - I - C(I,K) + q\,(I - \delta K),
+\end{equation}
+onde $q$ é a variável de coestado --- o \textbf{valor sombra} de uma
+unidade adicional de capital instalado ("$q$ marginal de Tobin").
+
+\subsection{CPO em relação a $I$}
+
+\[
+  \frac{\partial \mathcal{H}}{\partial I} = -1 - C_I(I,K) + q = 0
+  \;\Longrightarrow\; C_I(I,K) = q - 1.
+\]
+Com $C(I,K)=\tfrac{a}{2}(I/K)^2 K$, temos $C_I = a(I/K)$, logo:
+\begin{equation}\label{eq:foc_investment}
+  \boxed{\frac{I}{K} = \frac{q-1}{a}.}
+\end{equation}
+
+\textbf{Interpretação:} a firma investe mais quando $q>1$ (uma unidade
+de capital instalado vale mais do que seu custo de reposição de \$1) e
+desinveste ($I<0$, abstraindo irreversibilidades) quando $q<1$. A
+sensibilidade do investimento a $q$ é $1/a$: custos de ajustamento
+maiores ($a$ grande) tornam o investimento menos sensível a $q$.
+
+\subsection{Equação de coestado}
+
+A equação de Euler para $q$ é
+\[
+  \dot q = rq - \frac{\partial \mathcal{H}}{\partial K}
+         = rq - \bigl[\pi'(K) - C_K(I,K) - q\delta\bigr].
+\]
+Calculando $C_K = -\tfrac{a}{2}(I/K)^2$ e usando \eqref{eq:foc_investment},
+$(I/K)^2 = (q-1)^2/a^2$, logo $C_K = -(q-1)^2/(2a)$. Substituindo:
+\begin{equation}\label{eq:q_dot}
+  \boxed{\dot q = (r+\delta)\,q - \pi'(K) - \frac{(q-1)^2}{2a}.}
+\end{equation}
+
+A equação de acumulação \eqref{eq:capital_accumulation}, usando
+\eqref{eq:foc_investment}, torna-se:
+\begin{equation}\label{eq:k_dot}
+  \boxed{\dot K = K\left(\frac{q-1}{a} - \delta\right).}
+\end{equation}
+
+As equações \eqref{eq:k_dot}--\eqref{eq:q_dot} formam um sistema
+dinâmico em $(K,q)$, implementado em \texttt{TobinQModel}.
+
+% ============================================================
+\section{Estado estacionário}
+% ============================================================
+
+\subsection{$\dot K=0$}
+
+De \eqref{eq:k_dot}, $\dot K=0$ (com $K>0$) requer $\tfrac{q-1}{a}=\delta$,
+i.e.
+\begin{equation}\label{eq:q_star}
+  \boxed{q^* = 1 + a\delta.}
+\end{equation}
+Note que $q^*$ \textbf{não depende de $K$}: a isóclina $\dot K=0$ é uma
+\textbf{linha horizontal} no diagrama $(K,q)$.
+
+\subsection{$\dot q=0$}
+
+Substituindo $q=q^*$ em \eqref{eq:q_dot} com $\dot q=0$:
+\[
+  (r+\delta)q^* - \pi'(K^*) - \frac{(q^*-1)^2}{2a} = 0.
+\]
+Como $(q^*-1)^2/(2a) = (a\delta)^2/(2a) = a\delta^2/2$, obtemos
+\begin{equation}\label{eq:pi_prime_star}
+  \pi'(K^*) = (r+\delta)q^* - \frac{a\delta^2}{2}.
+\end{equation}
+Com $\pi'(K) = \alpha A K^{\alpha-1}$ (produto marginal do capital sob
+Cobb-Douglas), o estado estacionário é:
+\begin{equation}\label{eq:k_star}
+  \boxed{K^* = \left(\frac{\alpha A}{(r+\delta)q^* - a\delta^2/2}\right)^{1/(1-\alpha)}.}
+\end{equation}
+
+% ============================================================
+\section{Diagrama de fases e trajetória de sela}
+% ============================================================
+
+\subsection{Inclinação das isóclinas}
+
+A isóclina $\dot K=0$ é horizontal ($q=q^*$ para todo $K$). A isóclina
+$\dot q=0$ resolve a quadrática \eqref{eq:q_dot} para $q$ dado $K$; como
+$\pi'(K)$ é decrescente em $K$ (concavidade da produção), $\dot q=0$ é
+\textbf{decrescente} em $K$: capital mais abundante reduz o produto
+marginal, exigindo $q$ menor para manter $\dot q=0$.
+
+\subsection{Linearização e o ponto de sela}
+
+A matriz Jacobiana do sistema \eqref{eq:k_dot}--\eqref{eq:q_dot} avaliada
+em $(K^*,q^*)$ é
+\begin{equation}\label{eq:jacobian}
+  J = \begin{pmatrix}
+    \dfrac{\partial \dot K}{\partial K} & \dfrac{\partial \dot K}{\partial q} \\[8pt]
+    \dfrac{\partial \dot q}{\partial K} & \dfrac{\partial \dot q}{\partial q}
+  \end{pmatrix}_{(K^*,q^*)}
+  = \begin{pmatrix}
+    0 & K^*/a \\
+    -\pi''(K^*) & r
+  \end{pmatrix}.
+\end{equation}
+O traço é $\mathrm{tr}(J) = r > 0$. Como $\pi''(K^*)<0$ (retornos
+marginais decrescentes), o determinante é
+\[
+  \det(J) = J_{11}J_{22}-J_{12}J_{21}
+  = 0 - \frac{K^*}{a}\bigl(-\pi''(K^*)\bigr)
+  = \frac{K^*}{a}\,\pi''(K^*) < 0.
+\]
+
+Como $\det(J)<0$, os dois autovalores de $J$ têm sinais opostos: o
+sistema é um \textbf{ponto de sela}. Existe uma única trajetória
+(\textbf{a trajetória de sela}) que converge a $(K^*,q^*)$; ela é a
+única trajetória economicamente relevante, pois $K$ é uma variável de
+estado (predeterminada) e $q$ é uma variável de salto.
+
+% ============================================================
+\section{O teorema de Hayashi}
+% ============================================================
+
+\begin{theorem}[Hayashi, 1982]
+Sob retornos constantes de escala em $\pi(K)$ e $C(I,K)$, e concorrência
+perfeita, a função-valor da firma é \textbf{linear} em $K$:
+\[
+  V(K) = q\,K,
+\]
+de modo que o $q$ \textbf{marginal} (a coestado, $q=\partial V/\partial K$)
+é igual ao $q$ \textbf{médio} (\emph{average $q$}, $V(K)/K$).
+\end{theorem}
+
+\textbf{Importância prática:} o $q$ marginal não é diretamente
+observável, mas o $q$ médio pode ser aproximado por dados de mercado:
+\[
+  q_{\text{médio}} \approx
+  \frac{\text{valor de mercado da firma (dívida + patrimônio)}}{\text{custo de reposição do capital}}.
+\]
+O teorema de Hayashi justifica o uso de $Q$ de Tobin observável (médio)
+como medida do incentivo ao investimento \eqref{eq:foc_investment}, e é
+verificado em \texttt{AdjustmentCostFirm.hayashi\_holds}.
+
+\paragraph{Limitações.} Em mercados imperfeitos, com poder de mercado
+(retornos crescentes/markups) ou restrições de crédito, $q$ médio $\neq$
+$q$ marginal, e a relação linear $I/K=(q-1)/a$ perde poder explicativo
+empírico --- uma das razões pelas quais regressões de investimento sobre
+$Q$ de Tobin tipicamente têm $R^2$ baixo.
+
+% ============================================================
+\section{Funções de resposta ao impulso}
+% ============================================================
+
+\subsection{Choque permanente de produtividade ($A \uparrow$)}
+
+Por \eqref{eq:q_star}, $q^*=1+a\delta$ \textbf{não depende} de $A$: o
+nível de longo prazo de $q$ é o mesmo. Mas $K^*$ \eqref{eq:k_star} é
+crescente em $A$. No momento do choque:
+\begin{itemize}
+  \item $K_0$ permanece no nível antigo (capital é predeterminado).
+  \item $q$ \textbf{salta para cima} no impacto, posicionando-se sobre a
+    nova trajetória de sela (associada ao novo $K^{*\prime}>K^*$).
+  \item $I/K = (q-1)/a > \delta$: investimento líquido positivo.
+  \item $K$ cresce gradualmente até $K^{*\prime}$, enquanto $q$ cai de
+    volta a $q^*$.
+\end{itemize}
+
+\subsection{Choque permanente de juros ($r \uparrow$)}
+
+De \eqref{eq:k_star}, $K^*$ é \textbf{decrescente} em $r$ (maior custo de
+oportunidade do capital). No impacto:
+\begin{itemize}
+  \item $q$ \textbf{cai} (o valor presente dos lucros futuros do capital
+    diminui com $r$ maior).
+  \item $I/K = (q-1)/a < \delta$: desinvestimento líquido.
+  \item $K$ declina gradualmente até o novo $K^{*\prime}<K^*$.
+\end{itemize}
+
+% ============================================================
+\section{Incerteza, irreversibilidade e opções reais (nota breve)}
+% ============================================================
+
+O modelo acima assume que o investimento é \textbf{reversível} (a firma
+pode "desinstalar" capital, $I<0$, ao mesmo custo). Na prática, grande
+parte do investimento é \textbf{irreversível} (capital específico à
+firma não tem mercado de revenda líquido). Sob incerteza sobre $\pi(K)$
+futuro, a opção de \emph{esperar} para investir tem valor --- o
+"valor da opção real" de adiar. Isso implica:
+\begin{itemize}
+  \item A firma só investe quando $q$ excede um limiar
+    $q^{**} > 1$ (não basta $q>1$): existe uma \textbf{banda de inação}.
+  \item Maior incerteza (maior $\sigma$ dos choques a $\pi(K)$) eleva
+    $q^{**}$, reduzindo o investimento agregado mesmo com $\E[q]$
+    inalterado --- um canal adicional pelo qual incerteza deprime
+    investimento (Bernanke 1983; Dixit-Pindyck 1994).
+\end{itemize}
+Esse refinamento não é implementado numericamente neste módulo, mas é
+uma extensão natural do modelo $(K,q)$.
+
+% ============================================================
+\section{Síntese}
+% ============================================================
+
+\begin{table}[h!]
+  \centering
+  \caption{Investimento com custos de ajustamento --- resumo}
+  \begin{tabular}{lll}
+    \toprule
+    Conceito & Equação chave & Interpretação \\
+    \midrule
+    FOC investimento & $I/K=(q-1)/a$ & Investimento responde a $q$ com inclinação $1/a$ \\
+    Coestado & $\dot q=(r+\delta)q-\pi'(K)-\frac{(q-1)^2}{2a}$ & Arbitragem: retorno de manter capital \\
+    $\dot K=0$ & $q^*=1+a\delta$ & Horizontal; independe de $K$ \\
+    $\dot q=0$ & $\pi'(K^*)=(r+\delta)q^*-\frac{a\delta^2}{2}$ & Decrescente em $K$ \\
+    Dinâmica & $\det(J)<0$ & Ponto de sela; única trajetória estável \\
+    Hayashi & $q_{\text{médio}}=q_{\text{marginal}}$ & Sob CRS + concorrência perfeita \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent O modelo $(K,q)$ é o análogo, do lado da firma, ao modelo
+$(k,c)$ de Ramsey-Cass-Koopmans do Capítulo~2: ambos são sistemas
+dinâmicos de duas equações com uma variável de estado (predeterminada)
+e uma variável de salto, cuja solução economicamente relevante é a
+\textbf{trajetória de sela} --- a única que não diverge.
+
+\end{document}

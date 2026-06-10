@@ -10,6 +10,11 @@ O repositorio esta organizado por capitulo. Hoje, os capitulos efetivamente impl
 - Capitulo 1: Solow
 - Capitulo 2: Ramsey-Cass-Koopmans (RCK)
 - Capitulo 2: notas teoricas do modelo de Diamond
+- Capitulo 5: Real Business Cycles (RBC)
+- Capitulo 6: Rigidez Nominal (Calvo, custo de menu)
+- Capitulo 7: DSGE Novo-Keynesiano
+- Capitulo 8: Consumo (PIH, Hall, Campbell-Mankiw, buffer-stock)
+- Capitulo 9: Investimento (q de Tobin, custos de ajustamento)
 
 ## Inicio rapido
 
@@ -20,6 +25,10 @@ python ch01_solow/ch01_solow_plots.py
 python ch01_solow/ch01_solow_empirics.py
 python ch02_rck_diamond/ch02_rck_plots.py
 python ch02_rck_diamond/ch02_rck_empirics.py
+python ch08_consumption/ch08_consumption_plots.py
+python ch08_consumption/ch08_consumption_empirics.py
+python ch09_investment/ch09_investment_plots.py
+python ch09_investment/ch09_investment_empirics.py
 python -m unittest discover -s tests
 ```
 
@@ -75,6 +84,26 @@ Capitulo 2, RCK e Diamond:
 - [Figuras](./ch02_rck_diamond/figures/)
 - [Outputs empiricos](./ch02_rck_diamond/empirical_outputs/)
 
+Capitulo 8, Consumo:
+
+- [Modelo](./ch08_consumption/ch08_consumption.py)
+- [Plots](./ch08_consumption/ch08_consumption_plots.py)
+- [Empiria](./ch08_consumption/ch08_consumption_empirics.py)
+- [Notas em LaTeX](./ch08_consumption/notes/ch08_consumption_derivations.tex)
+- [Notas em PDF](./ch08_consumption/ch08_consumption_derivations.pdf)
+- [Figuras](./ch08_consumption/figures/)
+- [Outputs empiricos](./ch08_consumption/empirical_outputs/)
+
+Capitulo 9, Investimento:
+
+- [Modelo](./ch09_investment/ch09_investment.py)
+- [Plots](./ch09_investment/ch09_investment_plots.py)
+- [Empiria](./ch09_investment/ch09_investment_empirics.py)
+- [Notas em LaTeX](./ch09_investment/notes/ch09_investment_derivations.tex)
+- [Notas em PDF](./ch09_investment/ch09_investment_derivations.pdf)
+- [Figuras](./ch09_investment/figures/)
+- [Outputs empiricos](./ch09_investment/empirical_outputs/)
+
 Guia transversal de estudo:
 
 - [Fonte LaTeX do guia](./notes/guia_derivacoes_ch01_ch02.tex)
@@ -84,6 +113,8 @@ Testes:
 
 - [Testes do Solow](./tests/test_solow.py)
 - [Testes do RCK](./tests/test_rck.py)
+- [Testes do Consumo](./tests/test_consumption.py)
+- [Testes do Investimento](./tests/test_investment.py)
 - [Helpers empiricos](./tests/test_empirical_helpers.py)
 
 ## Estrutura do repositorio

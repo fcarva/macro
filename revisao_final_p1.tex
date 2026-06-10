@@ -1,0 +1,302 @@
+% ======================================================================
+%  REVISÃO FINAL P1 — Erros óbvios que o professor usa como armadilha
+%  Leia isso 30 minutos antes da prova. Nada mais.
+% ======================================================================
+\documentclass[10pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage[top=1.5cm, bottom=1.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{setspace}
+
+\definecolor{vermelho}{HTML}{991b1b}
+\definecolor{verde}{HTML}{166534}
+\definecolor{azul}{HTML}{1e3a5f}
+\definecolor{laranja}{HTML}{92400e}
+\definecolor{cinza}{HTML}{374151}
+
+\newtcolorbox{errobox}[1]{standard, colback=white, colframe=vermelho,
+  boxrule=1pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{vermelho}, title={#1}}
+
+\newtcolorbox{certobox}[1]{standard, colback=white, colframe=verde,
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{verde}, title={#1}}
+
+\newtcolorbox{formulabox}{standard, colback=white, colframe=azul,
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{nosep, leftmargin=*, label=\textbf{--}}
+\setlist[enumerate]{nosep, leftmargin=*, label=\textbf{\arabic*.}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries\color{azul} REVISÃO FINAL P1 — MACROECONOMIA I}\\
+{\small\color{cinza} Apenas erros óbvios e armadilhas confirmadas da P1 2025}
+\end{center}
+
+\vspace{0.3em}
+\begin{multicols}{2}
+
+% =====================================================================
+\textbf{\color{azul}\large 1. CRRA e $\theta$}
+
+\begin{errobox}{FALSO — o professor usou isso na P1 2025 Q1}
+``$\theta$ é a elasticidade de substituição intertemporal.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$\theta$ é o inverso da EIS:\quad $\displaystyle\text{EIS} = \frac{1}{\theta}$\\
+$\theta\uparrow$ $\Rightarrow$ consumidor \emph{menos} responsivo a $r$.
+\end{certobox}
+
+\begin{errobox}{FALSO — P1 2025 Q1}
+``$u' = \theta C^{-\theta}$''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$u' = C^{-\theta}$ \quad(sem o $\theta$ multiplicando)
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 2. Equação de Euler}
+
+\begin{formulabox}
+\[\frac{\dot C}{C} = \frac{r - \rho}{\theta}\]
+\end{formulabox}
+
+\begin{errobox}{FALSO — P1 2025 Q2}
+``A taxa de desconto $\rho$ afeta \emph{positivamente} a taxa de crescimento do consumo.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$\rho$ tem sinal negativo: $\rho\uparrow$ \emph{reduz} $\dot C/C$.\\
+Mais impaciência → consumir hoje, crescer menos.
+\end{certobox}
+
+\begin{errobox}{FALSO}
+``A equação de Euler implica que famílias \emph{diminuem} o crescimento do consumo frente a elevação de juros.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$r\uparrow$ $\Rightarrow$ $\dot C/C\uparrow$ — juros maiores estimulam poupança e crescimento do consumo.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 3. Diagrama de Fase RCK}
+
+\begin{certobox}{Quadrantes — decorar}
+\begin{tabular}{lcc}
+\toprule
+Posição & $\dot c$ & $\dot k$ \\
+\midrule
+Esq.$\dot c$, Acima $\dot k$ & $+$ & $-$ \\
+Esq.$\dot c$, Abaixo $\dot k$ & $+$ & $+$ \\
+Dir.$\dot c$, Acima $\dot k$ & $-$ & $-$ \\
+\textbf{Dir.$\dot c$, Abaixo $\dot k$} & $-$ & $+$ \\
+\bottomrule
+\end{tabular}\\
+\small A última linha = gabarito Q4 P1-2025.
+\end{certobox}
+
+\begin{errobox}{FALSO}
+``O crescimento equilibrado do RCK ocorre na Regra de Ouro.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+RCK: $f'(k^*) = \delta+\rho+\theta g$ \quad(não é Regra de Ouro)\\
+RO: $f'(k^{RO}) = \delta+n+g$ \quad(maximiza consumo no SS)\\
+Em geral $k^* < k^{RO}$.
+\end{certobox}
+
+\begin{errobox}{FALSO}
+``O crescimento populacional está \emph{positivamente} relacionado com a variação do capital.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$\dot k = f(k)-c-(n+g+\delta)k$: $n$ aparece com sinal negativo.
+\end{certobox}
+
+\columnbreak
+% =====================================================================
+\textbf{\color{azul}\large 4. Choque Tecnológico RBC}
+
+\begin{certobox}{Os 3 canais (Lista I Q8, Q7 P1-2025)}
+\textbf{A.} Efeito riqueza: $C\uparrow$, $L\downarrow$\\
+\textbf{B.} Sub.\ intertemporal: $I\uparrow$, $L$ corrente $\uparrow$\\
+\textbf{C.} Produtividade: $w\uparrow$ $\Rightarrow$ $L\uparrow$
+\end{certobox}
+
+\begin{errobox}{FALSO — P1 2025 Q7}
+``Choque positivo estimula \emph{redução} da poupança.''\\
+``Choque positivo: salários sobem mas taxa de juros \emph{não} sobe.''\\
+``Maior persistência → oferta de $L$ fica \emph{abaixo} do nível inicial.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$I\uparrow$ = poupança sobe.\\
+$f'(K)\uparrow$ = taxa de retorno do capital também sobe.\\
+Maior persistência → efeito sub.\ intertemporal mais forte → $L$ corrente \emph{acima} do nível inicial.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 5. Mark-up e Salário Real}
+
+\begin{formulabox}
+$P = \mu \cdot W/f'(L)$ \quad$\Rightarrow$\quad $W/P = f'(L)/\mu$
+\end{formulabox}
+
+\begin{certobox}{Gabarito Q8 P1-2025}
+Mark-up contra-cíclico ($\mu\downarrow$ quando $Y\uparrow$) + $W$ fixo\\
+$\Rightarrow$ $W/P\uparrow$ quando $Y\uparrow$ = salário real \textbf{pró-cíclico}.
+\end{certobox}
+
+\begin{errobox}{FALSO}
+``Se $W$ e $\mu$ são constantes, choque negativo de demanda \emph{reduz} salário real.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Se ambos constantes → $W/P$ não muda. Ponto.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 6. Lucas: Sinal e Crítica}
+
+\begin{errobox}{FALSO — P1 2025 Q11}
+``Crítica de Lucas: previsões devem assumir \emph{manutenção} do estado de expectativas diante de mudança de regime.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+A crítica diz o oposto: quando a regra muda, os agentes \emph{revisam} expectativas e os parâmetros estimados se alteram. Modelo antigo fica inválido.
+\end{certobox}
+
+\begin{errobox}{FALSO — P1 2025 Q11}
+``Ausência de trade-off LP está associada a $b > 1$.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Decorre de $p = E[p]$ no LP — independe do valor de $b$.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 7. Fischer vs.\ Taylor}
+
+\begin{errobox}{FALSO — P1 2025 Q13}
+``A diferença básica está na formação de preços: Fischer usa contratos, Taylor não.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+\emph{Ambos} usam contratos escalonados. Diferença = timing:\\
+Fischer: expectativas \textbf{defasadas} ($E_{t-2}$, $E_{t-1}$)\\
+Taylor: expectativas \textbf{forward-looking} racionais
+\end{certobox}
+
+\begin{errobox}{FALSO — P1 2025 Q13}
+``Fischer com $\phi$ elevado: efeitos monetários sobre $Y$ \emph{maiores}.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Multiplicador $= 1/(1+\phi)$: $\phi\uparrow$ $\Rightarrow$ multiplicador \emph{menor}.\\
+Taylor: $\lambda = (1-\phi)/(1+\phi)$: $\phi\uparrow$ $\Rightarrow$ $\lambda\downarrow$ (menos persistência).
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 8. Calvo: $\alpha$, $\kappa$, $\phi$}
+
+\begin{formulabox}
+$\kappa = \dfrac{\alpha[1-(1-\alpha)\beta]\phi}{1-\alpha}$ \qquad $\phi = \theta+\gamma-1$
+\end{formulabox}
+
+\begin{errobox}{ATENÇÃO — inversão clássica}
+$\alpha\uparrow$ (mais firmas presas) $\Rightarrow$ $\kappa\downarrow$ (curva mais plana)\\
+Plana = inflação surda ao hiato = sacrifício alto na desinflação.
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO — $\phi\uparrow$}
+$\phi\uparrow$ $\Rightarrow$ custo marginal mais sensível ao hiato $\Rightarrow$ $\kappa\uparrow$\\
+Firmas que reajustam pedem preços muito maiores $\Rightarrow$ inflação reage mais.
+\end{certobox}
+
+\begin{errobox}{FALSO — P1 2025 Q14}
+``Calvo pressupõe firmas \emph{heterogêneas}.''\\
+``Calvo tem componente backward-looking.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Firmas idênticas ex ante; heterogeneidade só em quem conseguiu reajustar.\\
+Backward-looking = CEE (2005), \emph{não} Calvo puro.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 9. $p^* = \phi m + (1-\phi)p$ e Phillips Híbrida}
+
+\begin{errobox}{FALSO — P1 2025 Q12}
+``Maior $\phi$ $\Rightarrow$ maior rigidez.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO — gabarito = d}
+$\phi\uparrow$ $\Rightarrow$ \emph{menos} rigidez. $\phi=1$ $\Rightarrow$ preços totalmente flexíveis = RBC.
+\end{certobox}
+
+\begin{errobox}{FALSO — P1 2025 Q9}
+``$\varepsilon_t^s$ é relacionado à gestão monetária do BC.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$\varepsilon_t^s$ = choque de \emph{oferta} (supply shock). Nada a ver com política monetária.
+\end{certobox}
+
+\begin{certobox}{Phillips Híbrida — condição-chave}
+$\pi_t = \gamma\pi_{t-1} + (1-\gamma)E_t\pi_{t+1} + \chi y_t$\\
+$\gamma > 1/2$ $\Rightarrow$ inércia domina $\Rightarrow$ razão de sacrifício \textbf{positiva}\\
+$\gamma < 1/2$ $\Rightarrow$ forward-looking domina $\Rightarrow$ desinflação mais barata
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 10. Oferta de Trabalho: $U = C - \frac{1}{d}L^d$}
+
+\begin{formulabox}
+CPO: $W/P - L^{d-1} = 0$ $\Rightarrow$ $L^* = (W/P)^{1/(d-1)}$
+\end{formulabox}
+
+\begin{errobox}{FALSO — P1 2025 Q10}
+``Relação \emph{inversa} entre salário real e oferta de trabalho.''\\
+``Utilidade marginal do trabalho é \emph{positiva}.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Relação \emph{positiva}: $W/P\uparrow$ $\Rightarrow$ $L^*\uparrow$.\\
+No ótimo, $\partial U/\partial L = 0$ (se fosse positiva, valeria trabalhar mais).
+\end{certobox}
+
+\end{multicols}
+
+\vspace{0.5em}
+\begin{tcolorbox}[standard, colback=white, colframe=azul, boxrule=1.2pt,
+  arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt]
+\textbf{\color{azul} Regra de ouro antes de marcar:} Se a alternativa tem uma relação positiva onde você esperaria negativa (ou vice-versa), ou inverte o papel de um parâmetro, provavelmente é a armadilha. O professor usa \emph{sempre} o mesmo padrão: inversão de sinal, confusão de parâmetros ($\theta$ vs EIS; $\alpha$ vs $\kappa$; $\phi$ vs rigidez) e afirmativas com ``aumenta'' onde o correto é ``diminui''.
+\end{tcolorbox}
+
+\end{document}

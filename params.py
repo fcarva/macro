@@ -55,6 +55,29 @@ NR = {
     "omega": 1.0,
 }
 
+CONSUMPTION = {
+    "beta": 0.96,
+    "r": 0.03,
+    "rho_y": 0.90,
+    "sigma_y": 0.10,
+    "y_bar": 1.0,
+    "theta": 2.0,
+    "lambda_rt": 0.5,
+    "y_low": 0.7,
+    "y_high": 1.3,
+    "prob_stay": 0.90,
+    "a_max": 10.0,
+    "n_grid": 60,
+}
+
+INVESTMENT = {
+    "r": 0.04,
+    "delta": 0.06,
+    "a": 2.0,
+    "alpha": 0.33,
+    "tfp": 1.0,
+}
+
 BRASIL = {
     "alpha": 0.40,
     "s": 0.18,

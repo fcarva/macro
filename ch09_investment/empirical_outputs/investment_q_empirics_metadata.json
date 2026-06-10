@@ -1,0 +1,10 @@
+{
+  "title": "Tobin's q vs investment rate",
+  "model_params": {
+    "a": 2.0,
+    "delta": 0.06
+  },
+  "is_synthetic": true,
+  "n_obs": 150,
+  "source": "synthetic"
+}
