@@ -1,0 +1,10 @@
+{
+  "title": "Campbell-Mankiw empirical test \u2014 Brazil IBGE data",
+  "model_params": {
+    "lambda_calibrated": 0.5,
+    "sigma_y": 0.1
+  },
+  "data_available": false,
+  "estimated": {},
+  "source": "IBGE SIDRA tabela 1846 (series 93404, 90707)"
+}

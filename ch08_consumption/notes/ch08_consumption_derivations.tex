@@ -1,0 +1,282 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\geometry{margin=2.5cm}
+
+\definecolor{remark}{rgb}{0.12,0.37,0.55}
+
+\newtheorem{theorem}{Proposição}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dd}{\mathrm{d}}
+
+\title{\textbf{Capítulo 8 --- Consumo}\\[4pt]
+       {\large Renda Permanente, Passeio Aleatório e Poupança Precaucional}\\[2pt]
+       {\normalsize PPGEco-CCJE-UFES · Macroeconomia I · Romer (2019) Cap.\ 8}}
+\author{Projeto de Estudo --- \textit{macro-romer}}
+\date{2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\bigskip
+
+% ============================================================
+\section{O problema intertemporal do consumidor}
+% ============================================================
+
+Um consumidor escolhe $\{c_t\}_{t=0}^{\infty}$ para maximizar a utilidade
+esperada descontada
+\begin{equation}\label{eq:objective}
+  \E_0 \sum_{t=0}^{\infty} \beta^t\, u(c_t), \qquad \beta = \frac{1}{1+\rho},
+\end{equation}
+sujeito à restrição orçamentária dinâmica
+\begin{equation}\label{eq:budget}
+  a_{t+1} = (1+r)(a_t + y_t - c_t),
+\end{equation}
+onde $a_t$ são ativos no início do período, $y_t$ é a renda (do trabalho)
+e $r$ é a taxa real de juros (constante).
+
+\paragraph{Restrição orçamentária intertemporal.}
+Iterando \eqref{eq:budget} para a frente e impondo a condição de
+não-Ponzi $\lim_{T\to\infty} a_T/(1+r)^T = 0$, obtém-se
+\begin{equation}\label{eq:lifetime_budget}
+  \sum_{t=0}^{\infty} \frac{c_t}{(1+r)^t}
+  = (1+r)a_0 + \sum_{t=0}^{\infty} \frac{y_t}{(1+r)^t}
+  \;\equiv\; (1+r)a_0 + h_0,
+\end{equation}
+onde $h_0$ é a \emph{riqueza humana} --- o valor presente do fluxo de
+renda do trabalho.
+
+% ============================================================
+\section{Hipótese da Renda Permanente (PIH)}
+% ============================================================
+
+\subsection{Caso determinístico: consumo como anuidade}
+
+Suponha $\beta(1+r) = 1$ e utilidade não necessariamente quadrática, mas
+com renda perfeitamente prevista $\{y_t\}$. A condição de primeira ordem
+(Euler) é
+\[
+  u'(c_t) = \beta(1+r)\,u'(c_{t+1}) = u'(c_{t+1})
+  \;\Longrightarrow\; c_t = c_{t+1} = c \;\;\forall t.
+\]
+Substituindo $c_t \equiv c$ em \eqref{eq:lifetime_budget} e usando
+$\sum_t (1+r)^{-t} = (1+r)/r$:
+\begin{equation}\label{eq:pih_consumption}
+  \boxed{c = \frac{r}{1+r}\Bigl[(1+r)a_0 + h_0\Bigr]
+         = r\,a_0 + \frac{r}{1+r}\,h_0.}
+\end{equation}
+
+O consumo é a \textbf{anuidade} da riqueza total (financeira + humana):
+o agente ``consome os juros'' da sua riqueza completa. Choques
+\emph{transitórios} a $y_t$ alteram $h_0$ pouco (são divididos pelo
+fator $(1+r)^t$ e, além disso, por toda a vida útil), de modo que $c$
+responde pouco --- esta é a \textbf{suavização do consumo}.
+
+\subsection{Implementação: \texttt{PermanentIncomeModel}}
+
+No código (\texttt{ch08\_consumption.py}), a renda segue um AR(1) em
+torno da média $\bar y$:
+\[
+  y_t - \bar y = \rho_y\,(y_{t-1} - \bar y) + \varepsilon_t,
+  \qquad \varepsilon_t \sim N(0,\sigma_y^2).
+\]
+A riqueza humana de um desvio AR(1) tem solução fechada:
+\[
+  h_t = \frac{(1+r)\bar y}{r}
+        + \frac{y_t - \bar y}{1 - \dfrac{\rho_y}{1+r}},
+\]
+pois $\E_t[y_{t+j} - \bar y] = \rho_y^j (y_t - \bar y)$ e
+$\sum_{j\ge 0} \bigl(\rho_y/(1+r)\bigr)^j = \bigl(1-\rho_y/(1+r)\bigr)^{-1}$.
+O consumo segue então de \eqref{eq:pih_consumption} com $h_0 \to h_t$.
+A função \texttt{simulate} acumula $a_{t+1}=(1+r)(a_t+y_t-c_t)$ e
+\texttt{random\_walk\_test} verifica que $\Delta c_t$ não é
+autocorrelacionado.
+
+% ============================================================
+\section{Hall (1978): o consumo como passeio aleatório}
+% ============================================================
+
+\subsection{Utilidade quadrática}
+
+Hall (1978) assume utilidade quadrática
+\[
+  u(c) = c - \frac{b}{2}c^2, \qquad u'(c) = 1 - bc,
+\]
+linear na utilidade marginal. A equação de Euler é
+\[
+  u'(c_t) = \beta(1+r)\,\E_t[u'(c_{t+1})].
+\]
+Sob a hipótese central $\beta(1+r) = 1$:
+\[
+  1 - bc_t = \E_t[1 - bc_{t+1}] = 1 - b\,\E_t[c_{t+1}]
+  \;\Longrightarrow\;
+  \boxed{c_t = \E_t[c_{t+1}].}
+\]
+
+\subsection{Consumo é uma martingala}
+
+Definindo $c_{t+1} = c_t + \varepsilon_{t+1}$ com
+$\E_t[\varepsilon_{t+1}] = 0$, o resultado de Hall implica que
+\textbf{nenhuma informação disponível em $t$} --- exceto $c_t$ ---
+ajuda a prever $c_{t+1}$. Em particular, variáveis defasadas como
+$y_{t-1}, a_{t-1}$ não devem ter poder preditivo sobre $\Delta c_t$
+condicional em $c_{t-1}$.
+
+\paragraph{Implicações testáveis:}
+\begin{itemize}
+  \item $\mathrm{Cov}(\Delta c_t, \Delta c_{t-1}) = 0$ (sem autocorrelação).
+  \item $\mathrm{Cov}(\Delta c_t, I_{t-1}) = 0$ para qualquer informação
+    $I_{t-1}$ disponível em $t-1$.
+  \item Variações de política fiscal \emph{antecipadas} não devem afetar
+    $\Delta c_t$ no momento em que ocorrem (apenas no anúncio).
+\end{itemize}
+
+No código, \texttt{HallRandomWalk.test\_martingale\_property} faz Monte
+Carlo de $\E[\Delta c_t]\approx 0$, e \texttt{euler\_holds} verifica
+$\beta(1+r)=1$.
+
+% ============================================================
+\section{Sensibilidade excessiva e o modelo de Campbell-Mankiw}
+% ============================================================
+
+\subsection{A evidência de ``sensibilidade excessiva''}
+
+Diversos estudos empíricos (Flavin 1981; Campbell e Mankiw 1989) rejeitam
+a previsão de Hall: $\Delta c_t$ \textbf{é} correlacionado com
+$\Delta y_t$ contemporâneo (e até com $y_{t-1}$). O consumo ``reage demais''
+a mudanças de renda corrente.
+
+\subsection{O modelo de duas populações}
+
+Campbell e Mankiw (1989) propõem que uma fração $\lambda \in [0,1]$ da
+população consome simplesmente sua renda corrente (``rule of thumb'',
+sem acesso a crédito ou sem otimização intertemporal), enquanto a fração
+$1-\lambda$ segue Hall:
+\[
+  c_t^{\text{RT}} = y_t
+  \qquad\Longrightarrow\qquad \Delta c_t^{\text{RT}} = \Delta y_t,
+\]
+\[
+  c_t^{\text{PIH}} \;\Longrightarrow\; \Delta c_t^{\text{PIH}} = \varepsilon_t,
+  \quad \E_{t-1}[\varepsilon_t] = 0.
+\]
+Agregando,
+\begin{equation}\label{eq:campbell_mankiw}
+  \boxed{\Delta c_t = \lambda\,\Delta y_t + (1-\lambda)\,\varepsilon_t.}
+\end{equation}
+
+\paragraph{Interpretação de $\lambda$:}
+\begin{itemize}
+  \item $\lambda = 0$: PIH/Hall pura --- nenhuma sensibilidade excessiva.
+  \item $\lambda = 1$: toda a população é ``mão-à-boca'' (hand-to-mouth);
+    o consumo agregado replica a renda agregada.
+  \item Estimativas empíricas tipicamente situam $\lambda \in [0{,}2, 0{,}5]$
+    para economias desenvolvidas, e valores mais altos em economias com
+    mercados de crédito menos profundos (como o Brasil).
+\end{itemize}
+
+A regressão \eqref{eq:campbell_mankiw} é estimada por OLS em
+\texttt{CampbellMankiw.estimate\_lambda} e aplicada a dados brasileiros
+(consumo das famílias e PIB, IBGE/SIDRA tabela 1846) em
+\texttt{ch08\_consumption\_empirics.py}.
+
+% ============================================================
+\section{Poupança precaucional e o modelo buffer-stock}
+% ============================================================
+
+\subsection{Prudência: $u'''(c) > 0$}
+
+Com incerteza sobre a renda futura, a equação de Euler geral é
+\[
+  u'(c_t) = \beta(1+r)\,\E_t[u'(c_{t+1})].
+\]
+Por Jensen, se $u'$ é \textbf{convexa} ($u'''>0$, ``prudência'' no sentido
+de Kimball 1990), então
+\[
+  \E_t[u'(c_{t+1})] > u'(\E_t[c_{t+1}]),
+\]
+de modo que, para satisfazer a Euler, o consumidor escolhe $c_t$ menor
+(poupa mais) do que escolheria sob certeza. Esse é o motivo
+\textbf{precaucional} para poupar: a incerteza por si só eleva a
+poupança, mesmo mantendo $\E_t[y_{t+1}]$ constante. A utilidade CRRA
+$u(c)=c^{1-\theta}/(1-\theta)$ tem $u'''(c) = \theta(\theta+1)c^{-\theta-2}>0$
+para $\theta>0$, portanto é prudente.
+
+\subsection{Restrição de crédito e o problema com VFI}
+
+O modelo \texttt{BufferStockModel} resolve, por iteração da função-valor
+em uma grade de ativos $a \in [0, a_{\max}]$ e dois estados de renda
+$y \in \{y_{\text{baixo}}, y_{\text{alto}}\}$ (cadeia de Markov com
+persistência $\pi$):
+\begin{equation}\label{eq:bellman}
+  V(a,y) = \max_{0 \,\le\, a' \,\le\, m(a,y)}
+    \Bigl\{u\bigl(m(a,y) - a'\bigr) + \beta\,\E\bigl[V(a',y')\mid y\bigr]\Bigr\},
+\end{equation}
+onde $m(a,y) = (1+r)a + y$ é a ``liquidez na mão'' (cash-on-hand) e a
+restrição $a' \ge 0$ impede empréstimos (sem crédito ao consumidor).
+
+\paragraph{Condição de impaciência.}
+Para que exista um ``alvo'' de riqueza estacionário (e o agente não
+acumule ativos indefinidamente), é necessário $\beta(1+r) < 1$: o agente
+é suficientemente impaciente para que, na ausência de incerteza, ele
+desejaria \emph{des}-acumular ativos. A incerteza de renda, porém, gera
+um motivo precaucional que compensa essa impaciência perto de $a=0$,
+produzindo um \textbf{estoque-tampão} (buffer stock) de ativos ao redor
+do qual a riqueza flutua estacionariamente.
+
+\subsection{Função-política}
+
+A solução numérica gera $c^*(a,y)$, que satisfaz:
+\begin{itemize}
+  \item $c^*(a,y) \le m(a,y)$ (consumo nunca excede os recursos);
+  \item $c^*(a,y)$ é crescente em $a$ e em $y$;
+  \item para $a$ próximo de $0$, $c^*(a,y) < m(a,y)$ estritamente
+    (poupança precaucional positiva mesmo perto da restrição).
+\end{itemize}
+
+A simulação de painel (\texttt{simulate\_panel}) gera uma distribuição
+ergódica de ativos entre famílias, ilustrando a heterogeneidade gerada
+puramente por choques idiossincráticos de renda.
+
+% ============================================================
+\section{Síntese}
+% ============================================================
+
+\begin{table}[h!]
+  \centering
+  \caption{Modelos de consumo --- resumo}
+  \begin{tabular}{lll}
+    \toprule
+    Modelo & Hipótese chave & Implicação testável \\
+    \midrule
+    PIH (Friedman) & $\beta(1+r)=1$, certeza equiv. &
+      $c$ = anuidade da riqueza total; choques transitórios $\to$ $c$ quase fixo \\
+    Hall (1978) & Utilidade quadrática + $\beta(1+r)=1$ &
+      $c_t = \E_t[c_{t+1}]$: $\Delta c_t$ imprevisível \\
+    Campbell-Mankiw & Fração $\lambda$ ``mão-à-boca'' &
+      $\Delta c_t = \lambda \Delta y_t + (1-\lambda)\varepsilon_t$, $\lambda>0$ \\
+    Buffer-stock & $\beta(1+r)<1$ + $u'''>0$ + $a'\ge 0$ &
+      Poupança precaucional; distribuição ergódica de riqueza \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent A trajetória teórica do capítulo --- de Friedman a Hall, e
+de Hall às suas rejeições empíricas (Campbell-Mankiw, buffer-stock) ---
+espelha a trajetória de Fisher a Calvo no Capítulo~7: um modelo de
+referência elegante (PIH/Hall, Calvo-básico) é progressivamente
+enriquecido com fricções realistas (restrição de crédito, prudência,
+heterogeneidade) que melhoram o ajuste aos dados sem descartar a
+intuição original.
+
+\end{document}
