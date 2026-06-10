@@ -1,0 +1,356 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black]{hyperref}
+
+\geometry{margin=2.6cm}
+
+\newcommand{\E}{\mathbb{E}}
+
+\definecolor{destaque}{rgb}{0.55,0.27,0.07}
+\newcommand{\ideia}[1]{\textcolor{destaque}{\textbf{#1}}}
+
+\title{\textbf{Guia Dissertativo --- Consumo e Investimento}\\[4pt]
+       {\large A narrativa dos Capítulos 8 e 9 de Romer para a aula de hoje}\\[2pt]
+       {\normalsize PPGEco-CCJE-UFES · Macroeconomia I · Romer (2019), Caps.\ 8--9}}
+\author{Projeto de Estudo --- \textit{macro-romer}}
+\date{Junho de 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Como ler este guia}
+
+Diferente dos guias anteriores, focados em fórmulas e armadilhas de prova,
+este é um guia de \emph{narrativa}: o objetivo é que você chegue à aula
+sabendo \emph{qual história} cada capítulo conta, por que cada modelo
+existe, o que ele responde e onde ele falha. As fórmulas aparecem, mas
+sempre a serviço do argumento. Se o professor pular de um tópico a outro,
+você saberá em que ponto da história está.
+
+A tese central que conecta os dois capítulos é uma só: \ideia{tanto o
+consumo quanto o investimento são decisões intertemporais regidas por
+expectativas sobre o futuro, não por variáveis correntes}. O consumo
+responde à renda \emph{permanente}, não à renda corrente; o investimento
+responde ao valor \emph{presente dos lucros futuros} (capturado em $q$),
+não ao lucro corrente. Em ambos os casos, a teoria elegante de referência
+é depois confrontada com fricções --- restrição de crédito no consumo,
+custos de ajustamento e irreversibilidade no investimento --- e é nesse
+confronto que mora a parte interessante.
+
+% ============================================================
+\section{Capítulo 8: Consumo --- da função keynesiana a Hall e além}
+% ============================================================
+
+\subsection{O ponto de partida: o que está errado com a função consumo keynesiana}
+
+A função consumo do modelo keynesiano elementar, $C = a + bY$ com
+propensão marginal $b$ estável, foi um sucesso de curto prazo e um
+fracasso de longo prazo. Nos dados de séries temporais longas, a razão
+consumo/renda é aproximadamente constante (a poupança não cresce sem
+limite com a renda, como a função previa); nos dados de corte transversal,
+famílias de renda alta poupam proporcionalmente mais. Essa tensão ---
+conhecida desde Kuznets --- é o problema que Friedman e Modigliani
+resolveram nos anos 1950, e a solução de ambos tem a mesma essência:
+\ideia{o consumo não responde à renda do momento, mas a uma noção de
+renda de longo prazo} --- a ``renda permanente'' de Friedman, os
+``recursos do ciclo de vida'' de Modigliani.
+
+A formalização moderna parte do problema intertemporal: o consumidor
+maximiza $\E_0 \sum_t \beta^t u(c_t)$ sujeito à restrição orçamentária
+ao longo da vida. O resultado central, sob $\beta(1+r)=1$, é que o
+consumo ótimo é a \emph{anuidade} da riqueza total:
+\[
+  c = \frac{r}{1+r}\Bigl[(1+r)a_0 + h_0\Bigr],
+\]
+onde $h_0$ é a riqueza humana --- o valor presente de toda a renda
+futura do trabalho. Leia essa equação como uma frase: \emph{``consuma os
+juros da sua riqueza completa, financeira e humana''}. Daqui sai
+imediatamente a distinção que organiza todo o capítulo: um choque
+\ideia{transitório} de renda mal altera $h_0$ (é um período entre
+muitos), então o consumo quase não se move e quase tudo é poupado; um
+choque \ideia{permanente} desloca $h_0$ proporcionalmente, e o consumo
+acompanha quase um-para-um. Se o professor perguntar ``qual a propensão
+marginal a consumir?'', a resposta correta da PIH é: \emph{depende ---
+perto de $r/(1+r)$ (quase zero) para choques transitórios, perto de 1
+para choques permanentes}.
+
+\subsection{Hall (1978): a reviravolta metodológica}
+
+Até Hall, a PIH era testada estimando funções consumo estruturais. Hall
+inverteu a lógica com um movimento que se tornou padrão na
+macroeconomia pós-Lucas: em vez de estimar a função, derivar uma
+\emph{implicação testável} diretamente da condição de primeira ordem.
+Com utilidade quadrática (utilidade marginal linear) e $\beta(1+r)=1$,
+a equação de Euler $u'(c_t) = \beta(1+r)\E_t[u'(c_{t+1})]$ colapsa em
+\[
+  c_t = \E_t[c_{t+1}],
+\]
+ou seja, \ideia{o consumo segue um passeio aleatório}: a melhor previsão
+do consumo de amanhã é o consumo de hoje. O conteúdo empírico disso é
+devastadoramente simples --- \emph{nenhuma} variável conhecida em $t$
+(renda passada, riqueza passada, juros passados) deve ajudar a prever a
+\emph{variação} do consumo. Toda a informação relevante já foi usada
+quando o consumidor escolheu $c_t$.
+
+Vale a pena guardar a intuição em uma frase: sob a PIH com expectativas
+racionais, \emph{o consumo só muda quando chega notícia nova}. Mudanças
+antecipadas de renda (um aumento salarial já anunciado, uma restituição
+de imposto já conhecida) não devem mover o consumo \emph{no momento em
+que o dinheiro entra} --- deveriam tê-lo movido no momento do anúncio.
+Esse é o teste que a literatura subsequente aplicou repetidamente, e é
+aqui que a teoria começa a ranger.
+
+\subsection{A rejeição empírica: sensibilidade excessiva e Campbell-Mankiw}
+
+Os dados rejeitam Hall de forma sistemática, e em uma direção específica:
+o consumo responde \emph{demais} à renda corrente --- a chamada
+\ideia{sensibilidade excessiva} (Flavin, 1981). Campbell e Mankiw (1989)
+deram a essa rejeição uma forma estrutural elegante: suponha que uma
+fração $\lambda$ da renda agregada vá para famílias que simplesmente
+consomem o que ganham (``regra de bolso'', mão-à-boca), enquanto a
+fração $1-\lambda$ pertence a otimizadores à la Hall. O consumo agregado
+então satisfaz
+\[
+  \Delta c_t = \lambda\,\Delta y_t + (1-\lambda)\,\varepsilon_t,
+\]
+e $\lambda$ vira um parâmetro estimável por regressão (com instrumentos,
+pois $\Delta y_t$ é correlacionado com $\varepsilon_t$). As estimativas
+clássicas para os EUA giram em torno de $\lambda \approx 0{,}5$: metade
+da renda nas mãos de quem não suaviza nada. Para o Brasil, com mercados
+de crédito mais rasos, espera-se $\lambda$ ainda maior --- é exatamente
+esse o exercício do módulo \texttt{ch08\_consumption\_empirics.py}, que
+roda a regressão de Campbell-Mankiw com dados trimestrais do IBGE.
+
+O ponto dissertativo a levar para a aula: a rejeição de Hall \emph{não}
+derruba a lógica intertemporal; ela diz que uma parte relevante da
+população está \emph{impedida} de agir intertemporalmente (restrição de
+liquidez) ou escolhe não fazê-lo. A teoria sobrevive como descrição de
+\emph{parte} da economia.
+
+\subsection{Poupança precaucional: quando a incerteza por si só faz poupar}
+
+A segunda emenda importante à PIH vem de relaxar a utilidade quadrática.
+Utilidade quadrática implica ``equivalência de certeza'': só a média da
+renda futura importa, a variância é irrelevante. Isso é uma propriedade
+artificial. Com utilidade mais realista --- CRRA, por exemplo --- a
+utilidade marginal é \emph{convexa} ($u''' > 0$), e a desigualdade de
+Jensen faz com que incerteza sobre $c_{t+1}$ \emph{eleve}
+$\E_t[u'(c_{t+1})]$. Para restaurar a equação de Euler, o consumidor
+reduz $c_t$: \ideia{poupa mais hoje simplesmente porque o futuro é
+incerto}. Esse é o motivo precaucional, e $u'''>0$ tem nome próprio ---
+``prudência'' (Kimball, 1990).
+
+O modelo \emph{buffer-stock} (Deaton, Carroll) junta as duas fricções:
+prudência \emph{mais} restrição de crédito ($a' \geq 0$, ninguém pode
+ficar devedor) \emph{mais} impaciência ($\beta(1+r)<1$). O resultado é
+um comportamento qualitativamente novo: a família mantém um
+\emph{estoque-tampão} de riqueza --- nem acumula sem limite (é
+impaciente), nem zera os ativos (tem medo do choque ruim com a
+restrição ativa). A riqueza flutua em torno de um alvo. No código, isso
+é resolvido por iteração da função-valor (\texttt{BufferStockModel}), e
+a figura da função-política $c^*(a,y)$ mostra o ponto-chave: perto de
+$a=0$, o consumo fica estritamente abaixo dos recursos disponíveis ---
+a poupança precaucional em ação.
+
+Esse modelo é o microfundamento dos modelos HANK (Heterogeneous Agent
+New Keynesian) atuais. Se a aula tocar em política fiscal, a conexão é
+direta: \ideia{em um mundo buffer-stock, transferências para famílias
+com pouca riqueza têm propensão marginal a consumir alta}, exatamente
+o contrário do que diz a equivalência ricardiana com agente
+representativo.
+
+\subsection{Síntese do capítulo em um parágrafo}
+
+Se for preciso resumir o Capítulo 8 em uma fala: \emph{a teoria do
+consumo moderna nasce da observação de que a renda corrente é um mau
+preditor do consumo; Friedman a substitui pela renda permanente; Hall
+extrai disso a implicação radical de que o consumo é imprevisível; os
+dados rejeitam essa implicação na direção de sensibilidade excessiva;
+e a literatura responde com duas fricções --- restrição de liquidez
+(Campbell-Mankiw) e prudência sob incerteza (buffer-stock) --- que
+preservam o núcleo intertemporal da teoria enquanto a reconciliam com
+os dados}.
+
+% ============================================================
+\section{Capítulo 9: Investimento --- o $q$ de Tobin como ponte entre
+mercados financeiros e economia real}
+% ============================================================
+
+\subsection{O problema: por que o investimento não é instantâneo}
+
+Comece pelo cenário sem fricções: se o capital pode ser comprado e
+instalado sem custo, a firma iguala o produto marginal do capital ao seu
+custo de uso ($r+\delta$) \emph{a cada instante}, e o estoque de capital
+salta imediatamente para o nível desejado. Nesse mundo, ``investimento''
+nem é uma variável interessante --- é só a derivada de uma trajetória
+que se ajusta na hora. O problema é que isso contradiz tudo o que se
+observa: o investimento agregado é suave, persistente e
+\emph{extremamente} volátil em relação ao produto, mas não infinitamente
+volátil.
+
+A saída de Romer (seguindo Abel, Hayashi, Summers) é introduzir
+\ideia{custos de ajustamento convexos}: instalar capital rápido demais
+custa desproporcionalmente caro,
+\[
+  C(I,K) = \frac{a}{2}\left(\frac{I}{K}\right)^2 K.
+\]
+A convexidade é a hipótese de conteúdo: ela pune a \emph{velocidade} do
+ajuste, não o seu nível, e por isso a firma escolhe espalhar o
+investimento no tempo. Todo o resto do capítulo é consequência dessa
+escolha de forma funcional.
+
+\subsection{$q$: o preço-sombra que resume o futuro inteiro}
+
+O problema da firma é dinâmico, e a ferramenta é o Hamiltoniano. A
+variável de coestado associada à acumulação de capital, $q$, tem uma
+interpretação que vale a pena enunciar com cuidado na aula: \ideia{$q$ é
+o valor, em unidades de produto hoje, de ter uma unidade adicional de
+capital já instalada} --- o valor presente de todos os lucros marginais
+futuros que essa unidade vai gerar, líquido de depreciação. A condição
+de primeira ordem do investimento é de uma limpeza notável:
+\[
+  \frac{I}{K} = \frac{q-1}{a}.
+\]
+Leia-a como arbitragem: o custo marginal de instalar ($1$ de compra mais
+$a \cdot I/K$ de ajustamento) deve igualar o benefício marginal ($q$).
+Se $q>1$, uma unidade instalada vale mais do que custa repor --- invista;
+se $q<1$, desinvista. E a sensibilidade do investimento a $q$ é $1/a$:
+\emph{quanto maiores os custos de ajustamento, mais lenta a resposta}.
+Toda a informação sobre o futuro --- produtividade esperada, juros,
+demanda --- entra na decisão de investir \emph{exclusivamente} através
+de $q$. Essa é a afirmação forte da teoria, e é ela que se testa
+empiricamente.
+
+\subsection{O diagrama de fases $(K,q)$: a mecânica da sela}
+
+A dinâmica do sistema é dada por duas equações: a acumulação
+$\dot K = K[(q-1)/a - \delta]$ e a equação de não-arbitragem do coestado
+$\dot q = (r+\delta)q - \pi'(K) - (q-1)^2/2a$. O diagrama de fases
+resultante merece atenção porque suas isóclinas têm formas
+características que caem em prova e em arguição oral:
+
+A isóclina $\dot K = 0$ é uma \ideia{reta horizontal} em
+$q^* = 1+a\delta$ --- o $q$ de longo prazo não depende de $K$, apenas
+dos custos de ajustamento e da depreciação (com $\delta>0$, é preciso
+$q$ ligeiramente acima de 1 para induzir o investimento de reposição).
+A isóclina $\dot q = 0$ é \ideia{decrescente em $K$}, porque capital
+abundante deprime o produto marginal. O cruzamento é um \ideia{ponto de
+sela} --- o determinante da Jacobiana é negativo, um autovalor estável e
+um instável --- e a lógica de seleção de equilíbrio é idêntica à do
+Ramsey do Capítulo 2: $K$ é estado (predeterminado, não salta), $q$ é
+preço (salta livremente), e a única trajetória que não explode é a
+\emph{trajetória de sela}. Quando chega notícia nova, \ideia{$q$ salta
+na hora do anúncio; $K$ se move só gradualmente depois}.
+
+Os dois experimentos canônicos (implementados como IRFs em
+\texttt{TobinQModel.irf}) ilustram isso. Um choque permanente de
+produtividade: $q$ salta para cima no impacto, o investimento sobe, e
+$K$ converge devagar ao novo nível mais alto --- mas note o detalhe fino,
+$q^*$ de longo prazo \emph{não muda} (volta a $1+a\delta$), porque no
+estado estacionário o capital já se expandiu até dissipar o lucro
+marginal extra. Um aumento permanente de juros: $q$ \emph{cai} no
+impacto (lucros futuros valem menos descontados a uma taxa maior), o
+investimento fica abaixo da reposição e $K$ declina até um novo
+estacionário menor. Esse é o canal pelo qual \emph{política monetária
+afeta investimento na teoria $q$}: juros mexem no preço dos ativos, e o
+preço dos ativos mexe no investimento.
+
+\subsection{Hayashi: por que tudo isso é mensurável}
+
+Há um problema aparentemente fatal: o $q$ da teoria é \emph{marginal} ---
+o valor de uma unidade \emph{adicional} de capital --- e isso ninguém
+observa. O que se observa nos mercados é o $q$ \emph{médio}: valor de
+mercado da firma dividido pelo custo de reposição do capital. O teorema
+de Hayashi (1982) é a ponte: \ideia{sob retornos constantes de escala e
+concorrência perfeita, $q$ marginal $=$ $q$ médio}, porque a função-valor
+da firma é linear em $K$. É esse teorema que autoriza usar dados de bolsa
+para testar a teoria do investimento.
+
+E aqui está o gancho crítico para discussão em aula: empiricamente, as
+regressões de $I/K$ sobre $q$ médio têm desempenho fraco --- coeficientes
+pequenos (implicando custos de ajustamento implausivelmente altos) e
+$R^2$ baixos, com fluxo de caixa corrente entrando significativo onde
+não deveria. As leituras possíveis espelham o Capítulo 8: ou as hipóteses
+de Hayashi falham (poder de mercado, retornos não constantes, e então
+$q$ médio não mede $q$ marginal), ou há \emph{restrições financeiras} ---
+firmas que investem quando têm caixa porque não conseguem captar, o
+análogo corporativo das famílias mão-à-boca de Campbell-Mankiw. Essa
+simetria entre os dois capítulos é um ótimo ponto para levantar em
+discussão.
+
+\subsection{Irreversibilidade e opções reais: a fronteira do capítulo}
+
+O modelo base assume investimento reversível --- a firma pode
+``desinstalar'' capital ao mesmo custo. Na realidade, a maior parte do
+capital é específica e não tem mercado de revenda: o investimento é
+\ideia{irreversível}. Sob incerteza, isso muda qualitativamente a regra
+de decisão: investir hoje mata a \emph{opção de esperar} por mais
+informação, e essa opção tem valor. A consequência é que não basta
+$q>1$; é preciso $q$ acima de um limiar estritamente maior que 1, e
+surge uma \emph{banda de inação}. Mais importante para o debate de
+política: \ideia{um aumento de incerteza, mesmo sem mudar nenhuma média,
+deprime o investimento agregado} --- as firmas ficam paradas esperando.
+É a formalização (Bernanke, 1983; Dixit-Pindyck, 1994) da intuição de
+que ``incerteza paralisa o investimento'', e conecta o capítulo
+diretamente com a literatura empírica sobre choques de incerteza
+(Bloom, 2009).
+
+\subsection{Síntese do capítulo em um parágrafo}
+
+Em uma fala: \emph{sem fricções, o investimento seria um salto
+instantâneo e a teoria seria vazia; custos de ajustamento convexos
+tornam o problema dinâmico e fazem nascer $q$, o preço-sombra que
+condensa todo o futuro da firma em um número; a dinâmica $(K,q)$ é uma
+sela onde o preço salta e o estoque se arrasta; Hayashi torna $q$
+observável; e o fraco desempenho empírico da teoria aponta para as
+mesmas fricções financeiras que aparecem no consumo --- além da
+irreversibilidade, que transforma cada decisão de investir no exercício
+de uma opção}.
+
+% ============================================================
+\section{A costura final: o que os dois capítulos dizem juntos}
+% ============================================================
+
+Os Capítulos 8 e 9 são as duas metades microfundamentadas da demanda
+agregada --- exatamente as peças que a IS dinâmica do modelo NK
+(Capítulo 7) usa em forma reduzida. A equação de Euler do consumo que
+você estudou em Hall \emph{é} a IS dinâmica antes da log-linearização;
+o canal de $q$ \emph{é} como a política monetária move o investimento
+no mundo real. Há três paralelos que valem a pena ter na ponta da língua:
+
+\ideia{Primeiro}, em ambos os capítulos a variável de decisão responde
+a um valor presente, e portanto a \emph{notícias}: consumo salta quando
+chega informação sobre renda futura; $q$ (e com ele o investimento)
+salta quando chega informação sobre lucros futuros. Antecipado não move
+nada; surpresa move tudo.
+
+\ideia{Segundo}, em ambos a teoria pura de referência é rejeitada na
+mesma direção --- sensibilidade excessiva a variáveis \emph{correntes}
+(renda corrente no consumo, fluxo de caixa no investimento) --- e a
+explicação unificadora é a mesma: \emph{fricções financeiras}. Famílias
+sem acesso a crédito e firmas sem acesso a capital são o mesmo fenômeno
+em mercados diferentes, e é isso que o Capítulo 10 (mercados financeiros
+e crises) vai sistematizar.
+
+\ideia{Terceiro}, a estrutura matemática é a mesma do Ramsey: um sistema
+$2\times 2$ com uma variável de estado e uma variável de salto, ponto de
+sela, e a trajetória estável como único equilíbrio. Quem domina o
+diagrama $(k,c)$ do Capítulo 2 lê o diagrama $(K,q)$ do Capítulo 9 sem
+esforço --- mudam os rótulos, não a lógica.
+
+\bigskip
+\noindent\textbf{Material de apoio no repositório:} os modelos estão
+implementados em \texttt{ch08\_consumption/} e \texttt{ch09\_investment/},
+com as derivações completas nos PDFs de notas de cada módulo, as figuras
+canônicas (suavização do consumo, passeio aleatório de Hall, política
+buffer-stock, diagrama de fases $(K,q)$, IRFs e a reta $I/K$ vs.\ $q$)
+em \texttt{figures/}, e os exercícios empíricos (Campbell-Mankiw com
+dados do IBGE; scatter $q \times I/K$) nos módulos de empiria.
+
+\end{document}
