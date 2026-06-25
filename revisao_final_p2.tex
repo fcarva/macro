@@ -1,0 +1,305 @@
+% ======================================================================
+%  REVISÃO FINAL P2 — Erros óbvios que o professor usa como armadilha
+%  Leia isso 30 minutos antes da prova. Nada mais.
+% ======================================================================
+\documentclass[10pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage[top=1.5cm, bottom=1.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{setspace}
+
+\definecolor{vermelho}{HTML}{991b1b}
+\definecolor{verde}{HTML}{166534}
+\definecolor{azul}{HTML}{1e3a5f}
+\definecolor{laranja}{HTML}{92400e}
+\definecolor{cinza}{HTML}{374151}
+
+\newtcolorbox{errobox}[1]{standard, colback=white, colframe=vermelho,
+  boxrule=1pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{vermelho}, title={#1}}
+
+\newtcolorbox{certobox}[1]{standard, colback=white, colframe=verde,
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{verde}, title={#1}}
+
+\newtcolorbox{formulabox}{standard, colback=white, colframe=azul,
+  boxrule=0.8pt, arc=2pt, left=6pt, right=6pt, top=4pt, bottom=4pt}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\setlist[itemize]{nosep, leftmargin=*, label=\textbf{--}}
+\setlist[enumerate]{nosep, leftmargin=*, label=\textbf{\arabic*.}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{center}
+{\large\bfseries\color{azul} REVISÃO FINAL P2 --- MACROECONOMIA I}\\
+{\small\color{cinza} Consumo, Investimento, Política Monetária e Fiscal --- peso na Lista 2026 e na P2 2021}
+\end{center}
+
+\vspace{0.3em}
+\begin{multicols}{2}
+
+% =====================================================================
+\textbf{\color{azul}\large 1. PIH de Friedman}
+
+\begin{formulabox}
+\[C = \frac{r}{1+r}\bigl[(1+r)A_0 + H_0\bigr]\]
+\end{formulabox}
+
+\begin{errobox}{FALSO --- P2 2021 Q1-i}
+``O viés de atenuação na regressão $\Delta c$ sobre $\Delta y$ é \emph{maior}
+quando a variância da renda \emph{permanente} domina.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+O viés é \emph{maior} quando a variância \emph{transitória} domina --- é
+exatamente o ruído transitório que é mal medido pela renda corrente.
+\end{certobox}
+
+\begin{errobox}{FALSO}
+``Choque transitório e permanente afetam o consumo da mesma forma.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Transitório: PMC $\approx r/(1+r)$ (quase 0). Permanente: PMC $\approx 1$.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 2. Hall (1978): Passeio Aleatório}
+
+\begin{formulabox}
+\[C_t = E_t[C_{t+1}]\]
+\end{formulabox}
+
+\begin{errobox}{FALSO --- P2 2021 Q1-iii}
+``Correlação entre $r$ e $\Delta c$ implica \emph{abandonar} a PIH.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+É o \emph{contrário}: a correlação $r$--$\Delta c$ é \textbf{implicação} da
+otimização sob PIH (equação de Euler), não evidência contra ela.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 3. Campbell-Mankiw (1989)}
+
+\begin{formulabox}
+\[\Delta c_t = \lambda \Delta y_t + (1-\lambda)\varepsilon_t\]
+\end{formulabox}
+
+\begin{errobox}{FALSO --- P2 2021 Q1-ii}
+``Qualquer $\lambda>0$ já configura rejeição plena da PIH.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO --- gabarito}
+Rejeição \textbf{completa} exige $\lambda\to1$. $\lambda\approx0{,}5$ (EUA) é
+rejeição \emph{parcial}: metade mão-à-boca, metade otimizador puro.
+\end{certobox}
+
+\begin{certobox}{Por que $r$ explica pouco $\Delta c$ (Lista Q2)}
+(i) Restrição de liquidez; (ii) agregação heterogênea cancela efeitos;
+(iii) $r$ esperado é mal medido; (iv) baixa variância amostral de $r$.
+\end{certobox}
+
+\columnbreak
+% =====================================================================
+\textbf{\color{azul}\large 4. Poupança Precaucional}
+
+\begin{formulabox}
+\[E_t[g_c] \approx \frac{r-\rho}{\theta} + \frac{\theta}{2}\mathrm{Var}_t(g_c)\]
+\end{formulabox}
+
+\begin{errobox}{FALSO --- P2 2021 Q1-iv}
+``$E[g^c] \approx \tfrac{1}{2}(\theta+1)\mathrm{Var}(g^c)$''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+O coeficiente correto (Taylor de 2ª ordem da Euler com CRRA) é
+$\boldsymbol{\theta/2}$, não $(\theta+1)/2$. $u'''>0$ = prudência.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 5. $q$ de Tobin: CPO}
+
+\begin{formulabox}
+\[\frac{I}{K} = \frac{q-1}{a}\]
+\end{formulabox}
+
+\begin{errobox}{FALSO --- P2 2021 Q2-i}
+``A firma investe até o valor do capital \emph{superar} o custo de aquisição.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+A CPO \textbf{iguala} custo marginal e $q$; não é um excedente permanente.
+\end{certobox}
+
+\begin{errobox}{FALSO --- P2 2021 Q2-iii}
+``Choque transitório de produto tem efeito \emph{nulo} sobre $I$.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Efeito \textbf{pequeno}, não nulo --- mesmo paralelo da PIH (transitório
+pesa pouco no VP, mas pesa).
+\end{certobox}
+
+\begin{certobox}{Acelerador (slide Aula 11)}
+$I$ reage à \emph{variação recente} do produto, não ao nível alto sustentado.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 6. Diagrama de Fase $(K,q)$}
+
+\begin{certobox}{Quadrantes --- decorar}
+\begin{tabular}{lcc}
+\toprule
+Posição & $\dot K$ & $\dot q$ \\
+\midrule
+\textbf{Acima $\dot K{=}0$, esq.\ $\dot q{=}0$} & $+$ & $-$ \\
+Acima $\dot K{=}0$, dir.\ $\dot q{=}0$ & $+$ & $+$ \\
+Abaixo $\dot K{=}0$, esq.\ $\dot q{=}0$ & $-$ & $-$ \\
+\textbf{Abaixo $\dot K{=}0$, dir.\ $\dot q{=}0$} & $-$ & $+$ \\
+\bottomrule
+\end{tabular}\\
+\small Linhas em destaque = onde mora a sela (Lista Q5).
+\end{certobox}
+
+\begin{errobox}{FALSO --- P2 2021 Q2-ii}
+``A região abaixo de $\dot K=0$ e à direita de $\dot q=0$ é sempre de
+divergência crescente.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Esse quadrante \textbf{contém a trajetória de sela} (para $K>K^*$). Só os
+pontos \emph{fora} da sela, dentro do quadrante, divergem.
+\end{certobox}
+
+\begin{certobox}{Convenção de $\delta$}
+Sem depreciação (slides): $q^*=1$. Com depreciação (modelo completo):
+$q^*=1+a\delta$. Mesma lógica, leia o enunciado.
+\end{certobox}
+
+\columnbreak
+% =====================================================================
+\textbf{\color{azul}\large 7. Clarida \textit{et al.} (2000)}
+
+\begin{formulabox}
+\[i_t^{*} = r^{*}+\pi^{*}+\beta(E_t\pi_{t+1}-\pi^{*})+\gamma E_t x_{t+1}\]
+\end{formulabox}
+
+\begin{errobox}{FALSO}
+``Qualquer $\beta>0$ garante estabilidade da inflação.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO --- Princípio de Taylor}
+É preciso $\boldsymbol{\beta>1}$ (juro \emph{real} sobe com $\pi$); com
+$\beta\le1$, há indeterminação/inflação não-ancorada.
+\end{certobox}
+
+\begin{certobox}{Correlação $M$--$\pi$ de LP (Lista Q6-ii)}
+É identidade de longo prazo (neutralidade da moeda); sob regra de juros, $M$
+é \emph{endógena} --- a causalidade corre de $\pi$ esperada para $M$, não
+o contrário.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 8. Mercado Monetário e Fisher (P2 2021 Q3)}
+
+\begin{formulabox}
+$M/P = L(Y,i)$ \qquad $i = r+\pi^e$
+\end{formulabox}
+
+\begin{errobox}{FALSO --- Q3-i}
+``Preços altos resultam de $M\uparrow$, $i\uparrow$ \emph{e} $Y\uparrow$.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$Y\uparrow$ eleva a demanda por moeda e por isso \textbf{reduz} $P$ (dado
+$M$) --- sinal oposto ao afirmado.
+\end{certobox}
+
+\begin{errobox}{FALSO --- Q3-iii}
+``Estrutura a termo: $i_n = n\cdot i_1$.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+$i_n \approx \dfrac{1}{n}\sum_s E_t[i_{1,t+s}]$ --- é \emph{média}, não
+múltiplo linear.
+\end{certobox}
+
+\begin{certobox}{CERTO --- Q3-ii (gabarito)}
+Com preços flexíveis, queda permanente de $\dot M/M$ anunciada causa salto
+discreto de $P$ e $\pi^e$ no anúncio (Cagan/Fisher), e $M/P$ sobe no LP.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 9. Restrição Orçamentária do Governo}
+
+\begin{formulabox}
+\[B_0 = \sum_{t=0}^{\infty}\frac{T_t-G_t}{(1+r)^t} \quad\text{(sem Ponzi)}\]
+\end{formulabox}
+
+\begin{errobox}{FALSO}
+``Solvência depende só do superávit primário \emph{corrente}.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Depende do valor presente \emph{esperado} de toda a trajetória futura de
+$T-G$ --- expectativas fiscais são centrais, não o número de hoje.
+\end{certobox}
+
+\vspace{0.5em}
+% =====================================================================
+\textbf{\color{azul}\large 10. Equivalência Ricardiana}
+
+\begin{formulabox}
+\[\sum_t \frac{C_t}{(1+r)^t} = A_0-B_0+\sum_t\frac{Y_t-G_t}{(1+r)^t}\]
+\end{formulabox}
+
+\begin{errobox}{FALSO}
+``Financiar gasto via dívida ou via imposto sempre dá no mesmo, em qualquer
+economia.''
+\end{errobox}
+\vspace{0.3em}
+\begin{certobox}{CERTO}
+Só vale sob: sem restrição de crédito, horizonte infinito/bequest (Barro),
+sem tributo distorcivo, expectativas fiscais críveis. Quebra qualquer uma
+$\Rightarrow$ a equivalência falha.
+\end{certobox}
+
+\end{multicols}
+
+\vspace{0.5em}
+\begin{tcolorbox}[standard, colback=white, colframe=azul, boxrule=1.2pt,
+  arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt]
+\textbf{\color{azul} Regra de ouro antes de marcar:} o professor planta
+armadilhas com palavras \emph{absolutas} (``nulo'', ``sempre'', ``supera'',
+``garantida'') onde o correto é \emph{nuance} (``pequeno'', ``quase'',
+``iguala'', ``apenas na sela''). Outro padrão recorrente é a
+\textbf{inversão de sinal/direção} (atenuação maior no transitório, não no
+permanente; $Y\uparrow$ reduz $P$, não aumenta; correlação $r$--$\Delta c$ é
+\emph{a favor} da PIH, não contra) e o \textbf{coeficiente errado} em
+fórmula memorizada ($\theta/2$, não $(\theta+1)/2$). Antes de marcar,
+pergunte: essa afirmação usa um absoluto, inverte um sinal, ou troca um
+coeficiente?
+\end{tcolorbox}
+
+\end{document}

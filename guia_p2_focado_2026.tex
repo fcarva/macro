@@ -1,0 +1,664 @@
+% ==========================================================================
+%  Guia Focado P2 2026 — Macroeconomia I
+%  PPGEco-UFES · Prof. Dr. Ricardo Ramalhete Moreira
+%  Peso principal: Lista (Consumo, Investimento, Política Monetária e
+%  Política Fiscal, 2026). Cruzado com a P2 2021 (gabarito de colega) e
+%  as derivações dos módulos ch08/ch09 do repositório.
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{setspace}
+
+% --- Cores ---
+\definecolor{azul}{HTML}{1e3a5f}
+\definecolor{ciano}{HTML}{3b9dbd}
+\definecolor{laranja}{HTML}{d97b39}
+\definecolor{vermelho}{HTML}{991b1b}
+\definecolor{cinza}{HTML}{6b7280}
+\definecolor{verdebg}{HTML}{f0fdf4}
+\definecolor{verdeborda}{HTML}{166534}
+\definecolor{amarelobg}{HTML}{fffbeb}
+\definecolor{amareloborda}{HTML}{92400e}
+\definecolor{vermelhabg}{HTML}{fff1f2}
+\definecolor{vermelhoborda}{HTML}{881337}
+\definecolor{azulbg}{HTML}{eff6ff}
+\definecolor{azulborda}{HTML}{1e40af}
+
+% --- Caixas ---
+\newtcolorbox{fatorbox}[1][]{standard, colback=verdebg, colframe=verdeborda,
+  boxrule=0.8pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{verdeborda}, #1}
+
+\newtcolorbox{provabox}[1][]{standard, colback=amarelobg, colframe=amareloborda,
+  boxrule=1pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{amareloborda}, #1}
+
+\newtcolorbox{armbox}[1][]{standard, colback=vermelhabg, colframe=vermelhoborda,
+  boxrule=1pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{vermelhoborda}, #1}
+
+\newtcolorbox{formulabox}[1][]{standard, colback=azulbg, colframe=azulborda,
+  boxrule=0.8pt, arc=3pt, left=8pt, right=8pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small\color{azulborda}, #1}
+
+% --- Títulos ---
+\titleformat{\section}{\large\bfseries\color{azul}}{}{0em}{\thesection\quad}[\vspace{-0.2em}\rule{\linewidth}{0.5pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{ciano}}{}{0em}{\thesubsection\quad}
+\titleformat{\subsubsection}{\normalsize\itshape\color{cinza}}{}{0em}{}
+
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+\onehalfspacing
+
+% --- Cabeçalho ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{cinza}{Guia Focado P2 2026 --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{cinza}{10 tópicos · peso na Lista 2026}}
+\cfoot{\thepage}
+
+% ==========================================================================
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries\color{azul} Guia Focado --- P2 Macroeconomia I 2026}\\[0.4em]
+  {\large\color{cinza} PPGEco-UFES · Prof.\ Dr.\ Ricardo Ramalhete Moreira}\\[0.3em]
+  {\normalsize\color{laranja}\bfseries Consumo · Investimento · Política Monetária · Política Fiscal}
+\end{center}
+
+\vspace{0.3em}
+\begin{provabox}[title={Metodologia: como este guia foi construído}]
+O \textbf{peso principal} deste guia é a Lista ``Consumo, Investimento, Política
+Monetária e Política Fiscal'' (2026, 8 questões) --- cada seção abaixo é
+organizada em torno de uma questão da Lista, na ordem em que aparecem. Esse
+material foi cruzado com a P2 de 17/12/2021 (3 blocos de julgamento + 2
+dissertativas a escolher) e com o gabarito de uma colega que fez aquela prova,
+o que permite calibrar \textbf{o nível de detalhe esperado nas respostas} e
+identificar as \textbf{armadilhas recorrentes} do professor nos itens de
+julgamento. Os Capítulos 8 e 9 (Consumo e Investimento) têm modelos completos
+implementados no repositório (\texttt{ch08\_consumption/}, \texttt{ch09\_investment/});
+Política Monetária (regra de Clarida, mercado monetário) e Política Fiscal
+(restrição intertemporal do governo, Equivalência Ricardiana) são tratadas aqui
+de forma puramente analítica, pois ainda não têm módulo de código no
+repositório.
+\end{provabox}
+
+\tableofcontents
+\newpage
+
+% ==========================================================================
+\section{PIH e o Lagrangiano de Friedman (Lista Q1a)}
+
+A Lista pede explicitamente a solução do Lagrangiano
+\[
+  L = \sum_{t=0}^{T} u(C_t) + \lambda\Bigl(A_0 + \sum_{t=0}^{T} Y_t - \sum_{t=0}^{T} C_t\Bigr).
+\]
+
+\begin{formulabox}[title={CPO e a anuidade da riqueza total}]
+A condição de primeira ordem em $C_t$ é $u'(C_t) = \lambda$ para todo $t$ ---
+ou seja, a utilidade marginal do consumo é \textbf{constante ao longo do
+tempo} (sob $\beta(1+r)=1$). Com utilidade quadrática ou no caso
+determinístico, isso implica $C_t = C$ constante, e a restrição orçamentária
+$\sum_t C_t \le A_0+\sum_t Y_t$ dá
+\[
+  \boxed{C = \frac{r}{1+r}\Bigl[(1+r)A_0 + H_0\Bigr]}, \qquad
+  H_0 = \sum_{t=0}^{T} \frac{Y_t}{(1+r)^t},
+\]
+onde $H_0$ é a \textbf{riqueza humana} (valor presente da renda futura do
+trabalho). O consumidor consome a \emph{anuidade} de sua riqueza completa.
+\end{formulabox}
+
+\begin{fatorbox}[title={a) Diferença em relação à hipótese keynesiana}]
+Keynes (1936): $C = a + bY$, com $b$ propensão marginal estável e
+\textbf{renda corrente} $Y_t$ como argumento. Friedman: o argumento correto
+não é $Y_t$, mas $A_0+\sum Y_t$ --- a riqueza total. Dois choques de mesma
+magnitude em $Y_t$ têm efeitos completamente diferentes sobre $C_t$
+dependendo de quanto alteram $H_0$.
+\end{fatorbox}
+
+\begin{fatorbox}[title={b) Relação com Hall (1978)}]
+Hall deriva da mesma CPO ($u'(C_t)=\lambda$, constante) a equação de Euler
+$u'(C_t) = \beta(1+r)E_t[u'(C_{t+1})]$. Sob $\beta(1+r)=1$ e utilidade
+quadrática, isso colapsa em $C_t = E_t[C_{t+1}]$: o consumo é um
+\textbf{passeio aleatório}. A PIH de Friedman é a base estática (riqueza
+determina o nível de $C$); Hall extrai a implicação \emph{dinâmica}
+(apenas notícias sobre a riqueza movem $C$).
+\end{fatorbox}
+
+\begin{fatorbox}[title={c) Relação com Campbell-Mankiw (1989)}]
+Campbell-Mankiw testam a previsibilidade de $\Delta C_t$ que Hall proíbe.
+Encontram que uma fração $\lambda\approx 0{,}5$ do consumo agregado responde
+à renda corrente (no padrão keynesiano), e $1-\lambda$ aos otimizadores PIH.
+A PIH de Friedman \emph{sobrevive} como descrição da parcela $1-\lambda$ da
+economia --- não é derrubada, é \textbf{parcial}.
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha (P2-2021 Q1-i)}]
+\textbf{FALSO:} ``regressões do consumo sobre a renda disponível tendem a
+ser viesadas, \emph{especialmente quando a variância da renda permanente
+domina} a variância da renda transitória.'' \\
+\textbf{CERTO:} é o oposto. O viés de atenuação (erro de medida clássico)
+na regressão $C$ sobre $Y$ tem magnitude
+$\mathrm{plim}\,\hat b = b\cdot \dfrac{\mathrm{Var}(Y_p)}{\mathrm{Var}(Y_p)+\mathrm{Var}(Y_t)}$.
+Quanto \emph{maior} a variância da renda \textbf{transitória} relativa à
+permanente, \emph{maior} o viés (estimativa mais distante de $b$). Quando a
+variância permanente domina, o viés é \emph{pequeno}.
+\end{armbox}
+
+% ==========================================================================
+\section{Hall (1978) e o Passeio Aleatório (Lista Q1b)}
+
+\begin{formulabox}[title={A equação de Euler sob utilidade quadrática}]
+\[
+  u'(C_t) = \beta(1+r)\,E_t[u'(C_{t+1})] \;\xrightarrow{\;u'\text{ linear},\;\beta(1+r)=1\;}\;
+  \boxed{C_t = E_t[C_{t+1}]}
+\]
+\end{formulabox}
+
+\begin{fatorbox}[title={O conteúdo empírico (testável)}]
+Nenhuma variável conhecida em $t$ --- renda passada, riqueza passada, juros
+passados --- deve ajudar a prever a \emph{variação} $\Delta C_{t+1}$. Toda a
+informação relevante já foi usada na escolha de $C_t$. Mudanças
+\textbf{antecipadas} de renda (aumento salarial já anunciado, restituição de
+imposto já conhecida) não devem mover o consumo no momento em que o dinheiro
+\emph{entra} --- deveriam tê-lo movido no momento do \emph{anúncio}.
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha (P2-2021 Q1-iii)}]
+\textbf{FALSO:} ``a correlação entre taxas reais de juros e crescimento do
+consumo, em modelos de maximização das famílias, implica o abandono da
+hipótese da renda permanente.'' \\
+\textbf{CERTO:} é exatamente o contrário --- a equação de Euler generalizada
+($\Delta\ln C_{t+1}\approx (r-\rho)/\theta$) \emph{prevê} essa correlação. Ela
+é uma \textbf{implicação} de modelos de maximização sob a PIH, não uma
+evidência contra ela.
+\end{armbox}
+
+% ==========================================================================
+\section{Campbell-Mankiw (1989): Sensibilidade Excessiva e a Fraqueza do Juro Real (Lista Q1c; Q2)}
+
+\begin{formulabox}[title={A regressão de Campbell-Mankiw}]
+\[
+  \Delta C_t = \lambda\,\Delta Y_t + (1-\lambda)\,\varepsilon_t,
+\]
+estimada por variáveis instrumentais (pois $\Delta Y_t$ é correlacionado com
+o termo de erro). $\lambda$ é a fração da renda agregada que vai para
+consumidores ``mão-à-boca''. Estimativas clássicas para os EUA:
+$\lambda\approx 0{,}5$.
+\end{formulabox}
+
+\begin{armbox}[title={Armadilha de interpretação (P2-2021 Q1-ii)}]
+\textbf{VERDADEIRO (item correto da P2-2021):} ``a rejeição da hipótese da
+renda permanente requer encontrar valores convergentes com $\lambda=1$.''\\
+A leitura correta: $\lambda=0$ = PIH pura de Hall sobrevive integralmente;
+$\lambda=1$ = rejeição \emph{completa} (toda a população é keynesiana
+simples); $0<\lambda<1$ = modelo híbrido, a leitura padrão dos dados. Não
+confundir com ``qualquer $\lambda>0$ já rejeita Hall'' --- tecnicamente
+verdade para a versão \emph{estrita} de Hall, mas o enunciado pede o ponto em
+que a PIH é \emph{integralmente} abandonada.
+\end{armbox}
+
+\begin{fatorbox}[title={Q2: por que o juro real tem baixo poder explicativo sobre $\Delta C$?}]
+Hansen-Singleton (1983), Hall (1988b) e Campbell-Mankiw (1989) encontram
+coeficientes pequenos e pouco significativos de $\Delta C$ sobre $r$, apesar
+de a teoria prever $\Delta\ln C_{t+1}\approx(r-\rho)/\theta$. A literatura
+explica essa fragilidade por:
+\begin{enumerate}[leftmargin=*,label=\textbf{\roman*.}]
+  \item \textbf{Restrição de liquidez:} a mesma fração $\lambda$ de
+    consumidores mão-à-boca que rejeita Hall \emph{não responde} ao juro
+    real --- ela não suaviza consumo, então não há margem intertemporal
+    para reagir a $r$.
+  \item \textbf{Agregação:} a equação de Euler é não linear em $C$ individual;
+    agregar consumidores heterogêneos introduz termos de variância
+    (precaução) e erro de agregação que diluem a relação $r$--$\Delta C$.
+  \item \textbf{Medida do juro \emph{esperado}:} a teoria usa o juro real
+    \emph{esperado} $E_t[r_{t+1}]$, não o realizado; erros de mensuração da
+    inflação esperada introduzem ruído que atenua o coeficiente estimado
+    (erro de medida $\Rightarrow$ viés de atenuação, mesmo mecanismo da
+    Q1-i).
+  \item \textbf{Baixa variação de $r$ na amostra:} séries de juro real têm
+    variância pequena relativamente ao ruído de $\Delta C$, reduzindo a
+    potência estatística do teste mesmo quando a teoria está correta.
+\end{enumerate}
+\end{fatorbox}
+
+% ==========================================================================
+\section{Poupança Precaucional: Prudência e o Puzzle (Lista Q3)}
+
+\begin{formulabox}[title={Prudência: $u'''>0$}]
+Com utilidade CRRA, $u'''(c)=\theta(\theta+1)c^{-\theta-2}>0$. Pela
+desigualdade de Jensen, incerteza sobre $C_{t+1}$ eleva
+$E_t[u'(C_{t+1})]$ acima de $u'(E_t[C_{t+1}])$; para restaurar a Euler, o
+consumidor reduz $C_t$. Esse é o motivo \textbf{precaucional}
+(``prudência'', Kimball 1990).
+\end{formulabox}
+
+\begin{formulabox}[title={Aproximação de segunda ordem (forma correta)}]
+Expandindo a equação de Euler sob CRRA e log-normalidade do crescimento do
+consumo $g_c=\ln(C_{t+1}/C_t)$:
+\[
+  \boxed{E_t[g_c] \approx \frac{r-\rho}{\theta} + \frac{\theta}{2}\,\mathrm{Var}_t(g_c)}
+\]
+O termo precaucional tem coeficiente $\theta/2$ --- \emph{não} $(\theta+1)/2$.
+Quanto maior $\theta$ (mais prudência) ou maior a variância do crescimento do
+consumo, maior o crescimento \emph{esperado} do consumo (i.e., mais poupança
+hoje).
+\end{formulabox}
+
+\begin{armbox}[title={Armadilha (P2-2021 Q1-iv): coeficiente errado}]
+\textbf{FALSO:} ``$E[g^c]\simeq\tfrac{1}{2}(\theta+1)\mathrm{Var}(g^c)$.'' \\
+\textbf{CERTO:} o coeficiente correto do termo de variância é $\theta/2$
+(não $(\theta+1)/2$), e falta o termo $(r-\rho)/\theta$. Esse é o tipo de
+erro que o professor introduz deliberadamente em fórmulas memorizadas ---
+\textbf{decore a fórmula completa, não só o ``formato''.}
+\end{armbox}
+
+\begin{provabox}[title={O puzzle e a reconciliação (pergunta dissertativa em aberto)}]
+\textbf{O puzzle:} a poupança precaucional pura (sob mercados de crédito
+perfeitos) é \emph{pequena} para níveis plausíveis de incerteza de renda e
+aversão ao risco --- não explica o nível elevado de riqueza/poupança das
+famílias observado nos dados, nem o padrão de acumulação concentrado perto da
+restrição de crédito. \\
+\textbf{A reconciliação:} o modelo \textbf{buffer-stock} (Deaton, Carroll)
+combina prudência \emph{com} restrição de crédito ($a'\ge 0$) \emph{e}
+impaciência ($\beta(1+r)<1$). O resultado é um \textbf{estoque-tampão}: a
+família não acumula sem limite (impaciência) nem zera os ativos (medo do
+choque ruim com a restrição ativa); a riqueza flutua em torno de um alvo.
+Implementado em \texttt{BufferStockModel} (\texttt{ch08\_consumption.py}):
+a função-política $c^*(a,y)$ fica estritamente abaixo dos recursos
+disponíveis perto de $a=0$ --- a poupança precaucional em ação. Esse
+microfundamento é a base dos modelos HANK: transferências para famílias
+pouco-ricas têm PMC alta, ao contrário da equivalência ricardiana com agente
+representativo (ver Seção~10).
+\end{provabox}
+
+% ==========================================================================
+\section{q de Tobin: Produto Esperado e Juros Esperados (Lista Q4)}
+
+\begin{formulabox}[title={A condição de primeira ordem}]
+Com custo de ajustamento $C(I,K)=\tfrac{a}{2}(I/K)^2K$, a CPO da firma é
+\[
+  \boxed{\frac{I}{K} = \frac{q-1}{a}},
+\]
+onde $q$ é o valor presente de todos os lucros marginais futuros de uma
+unidade adicional de capital instalado, líquido de depreciação.
+\end{formulabox}
+
+\begin{fatorbox}[title={a) Como o produto esperado afeta o investimento}]
+Um aumento esperado e permanente do produto (ou da produtividade $A$) eleva
+o produto marginal do capital $\pi'(K)$ em todo o futuro $\Rightarrow$ eleva
+o valor presente desses lucros $\Rightarrow$ $q$ \textbf{sobe no impacto}
+(salta, pois é variável de salto) $\Rightarrow$ $I/K=(q-1)/a$ sobe
+$\Rightarrow$ investimento líquido positivo até $K$ convergir ao novo $K^*$
+maior. No estado estacionário, $q^*=1+a\delta$ \textbf{não muda} --- o
+capital se expande até dissipar o lucro marginal extra.
+\end{fatorbox}
+
+\begin{fatorbox}[title={b) Como o juro esperado afeta o investimento}]
+Um aumento esperado e permanente da taxa de juros $r$ reduz o valor presente
+dos lucros futuros (desconto maior) $\Rightarrow$ $q$ \textbf{cai no
+impacto} $\Rightarrow$ $I/K<\delta$: desinvestimento líquido $\Rightarrow$
+$K$ declina gradualmente até um novo $K^*$ menor. Esse é o canal pelo qual
+\textbf{política monetária afeta o investimento} na teoria $q$: juros movem
+o preço dos ativos de capital, e o preço dos ativos move o investimento.
+\end{fatorbox}
+
+\begin{fatorbox}[title={O acelerador (slide do Prof. Ramalhete, Aula 11)}]
+Um corolário direto de (a): ``investimento é maior quando o produto
+\emph{acabou de subir} do que quando o produto está alto há muito tempo.''
+Um aumento \emph{recente} ainda não foi acomodado por capital novo, então
+$\pi'(K)$ e $q$ seguem elevados; um produto que já está alto há tempo já
+atraiu capital suficiente para dissipar o excesso de $q$. Esse efeito da
+\emph{variação} (não do nível) do produto sobre o investimento chama-se
+\textbf{acelerador} --- e é o análogo, no investimento, da distinção entre
+choque transitório e permanente no consumo (Seção~1).
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha (P2-2021 Q2-i): ``supera'' não é a CPO}]
+\textbf{FALSO:} ``a firma investe até o ponto em que o valor do capital
+\emph{supera} o custo de sua aquisição.'' \\
+\textbf{CERTO:} a CPO \emph{iguala} o custo marginal de instalar (compra +
+ajustamento) ao benefício marginal $q$. A firma investe \emph{enquanto}
+$q>1$, mas o ajuste convexo dos custos marginais faz o sistema convergir
+para $q=1$ no longo prazo de reposição ($q^*=1+a\delta$, próximo de 1) ---
+não para uma situação permanente de valor excedendo custo.
+\end{armbox}
+
+\begin{armbox}[title={Armadilha (P2-2021 Q2-iii): choque transitório não é ``efeito nulo''}]
+\textbf{FALSO:} ``uma redução transitória do produto possui efeito
+\emph{nulo} sobre o investimento.'' \\
+\textbf{CERTO:} o paralelo é exatamente o da PIH (Seção~1): um choque
+transitório de lucro altera $q$ \emph{muito pouco} (é só um período entre
+muitos no valor presente), então o efeito sobre $I/K$ é \textbf{pequeno,
+não exatamente zero}. Afirmações com ``nulo'', ``nenhum'' ou ``sempre'' são
+a marca registrada de uma armadilha quando a resposta correta é
+``pequeno''/``quase''.
+\end{armbox}
+
+% ==========================================================================
+\section{Diagrama de Fase $(K,q)$: Convergência por Quadrante (Lista Q5)}
+
+\begin{formulabox}[title={As duas isóclinas}]
+\[
+  \dot K=0: \quad q^*=1+a\delta \;\text{(reta horizontal)} \qquad\qquad
+  \dot q=0: \quad \pi'(K) = (r+\delta)q - \frac{(q-1)^2}{2a} \;\text{(decrescente em $K$)}
+\]
+\end{formulabox}
+
+\begin{fatorbox}[title={Mapa dos quatro quadrantes}]
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Posição & $\dot K$ & $\dot q$ \\
+\midrule
+\textbf{Acima de $\dot K=0$ e à esquerda de $\dot q=0$} & $>0$ (K sobe) & $<0$ (q cai) \\
+Acima de $\dot K=0$ e à direita de $\dot q=0$ & $>0$ (K sobe) & $>0$ (q sobe) \\
+Abaixo de $\dot K=0$ e à esquerda de $\dot q=0$ & $<0$ (K cai) & $<0$ (q cai) \\
+\textbf{Abaixo de $\dot K=0$ e à direita de $\dot q=0$} & $<0$ (K cai) & $>0$ (q sobe) \\
+\bottomrule
+\end{tabular}
+\end{center}
+As duas linhas em destaque (canto superior-esquerdo e inferior-direito) são
+as que contêm a \textbf{trajetória de sela} perto do estado estacionário ---
+a inclinação local da sela é negativa ($dq/dK<0$), de modo que $K$ baixo
+combina com $q$ alto (e vice-versa) exatamente nessas duas regiões.
+
+\smallskip
+\noindent\textit{Atenção à convenção de $\delta$:} os slides do professor
+(Aula 11) usam o caso-base \textbf{sem depreciação} ($\delta=0$), onde
+$\dot q=rq-\pi(K)$ e a isóclina $\dot K=0$ fica exatamente em $q^*=1$. Com
+depreciação ($\delta>0$, como no modelo completo desta apostila e em
+\texttt{TobinQModel}), a reposição do capital depreciado exige $q$
+ligeiramente acima de 1, daí $q^*=1+a\delta$. As duas versões são o mesmo
+modelo; a prova pode usar qualquer uma --- identifique pelo enunciado se
+$\delta$ aparece.
+\end{fatorbox}
+
+\begin{provabox}[title={Resposta ao enunciado da Lista Q5}]
+A Lista pede o caso: combinação $(K,q)$ \textbf{acima do locus $\dot K=0$ e à
+esquerda do locus $\dot q=0$}. Pelo mapa acima: $\dot K>0$ (capital
+acumulando) e $\dot q<0$ (q caindo). \textbf{Dinâmica:} o investimento líquido
+é positivo ($q>q^*\Rightarrow I/K>\delta$), o capital cresce; ao crescer,
+$\pi'(K)$ cai (retornos decrescentes), o que --- pela equação de
+não-arbitragem de $q$ --- empurra $q$ para baixo. \textbf{Convergência:} esta
+é exatamente a configuração de uma economia com capital abaixo do alvo de
+longo prazo após um choque positivo de produtividade (Seção~5) --- \emph{se}
+o par $(K,q)$ estiver sobre a trajetória de sela específica daquele $K$,
+\textbf{converge} monotonicamente a $(K^*,q^*)$: $K\uparrow$ até $K^*$ enquanto
+$q\downarrow$ até $q^*$. Fora da sela exata (mesma direção qualitativa, mas
+fora da única combinação $q_0$ consistente), a trajetória \textbf{diverge} no
+longo prazo --- é a propriedade definidora de um ponto de sela: apenas a
+variedade estável unidimensional converge.
+\end{provabox}
+
+\begin{armbox}[title={Armadilha (P2-2021 Q2-ii): a região oposta não é ``divergência garantida''}]
+O enunciado de 2021 testava a região espelhada (abaixo de $\dot K=0$ e à
+direita de $\dot q=0$: $K$ caindo, $q$ subindo) e afirmava que ela é ``uma
+região de divergência crescente''. \textbf{FALSO} como afirmação geral: essa
+região também \textbf{contém a trajetória de sela} (para $K>K^*$, a sela
+exige $q<q^*$, exatamente esse quadrante). A trajetória de sela
+\emph{converge}; é só a generalidade dos pontos \emph{fora} dela, dentro do
+mesmo quadrante, que diverge. Generalizar ``quadrante = sempre diverge'' é o
+erro; o correto é distinguir a trajetória de sela (única, convergente) dos
+demais pontos do quadrante (instáveis).
+\end{armbox}
+
+% ==========================================================================
+\section{Política Monetária: a Regra Forward-Looking de Clarida \textit{et al.} (2000) (Lista Q6)}
+
+\begin{formulabox}[title={Formulação da regra}]
+\[
+  \boxed{i_t^{*} = r^{*} + \pi^{*} + \beta\bigl(E_t[\pi_{t+1}] - \pi^{*}\bigr) + \gamma\, E_t[x_{t+1}]}
+  \qquad\text{(com suavização: } i_t=\rho i_{t-1}+(1-\rho)i_t^*\text{)}
+\]
+\end{formulabox}
+
+\begin{fatorbox}[title={i) Interpretação dos parâmetros estruturais}]
+\begin{itemize}[leftmargin=*]
+  \item $r^{*}$: taxa real de juros de equilíbrio (de longo prazo);
+  \item $\pi^{*}$: meta de inflação (a âncora nominal da regra);
+  \item $\beta$: resposta ao \emph{desvio da inflação esperada} em relação à
+    meta --- o parâmetro central. $\beta>1$ é o \textbf{Princípio de
+    Taylor}: o juro \emph{nominal} deve subir \emph{mais que
+    proporcionalmente} à inflação esperada, de modo que o juro \textbf{real}
+    esperado também suba quando a inflação sobe;
+  \item $\gamma$: resposta ao hiato do produto esperado;
+  \item $\rho$: suavização (a regra ajusta o juro gradualmente, não de uma vez).
+\end{itemize}
+\end{fatorbox}
+
+\begin{fatorbox}[title={ii) Correlação moeda--inflação de longo prazo e o papel de $\beta>1$}]
+A teoria quantitativa clássica implica, no estado estacionário,
+$\mu \approx \pi + g$ (crescimento da moeda = inflação + crescimento real):
+o fato estilizado de correlação positiva entre crescimento monetário médio e
+inflação média é uma \textbf{identidade de longo prazo}. Sob uma regra de
+juros à la Clarida, a moeda é \textbf{endógena} (o Banco Central acomoda
+passivamente a demanda por moeda ao fixar $i_t$): a causalidade não vem mais
+de ``moeda determina inflação'' no curto prazo, mas a identidade de longo
+prazo permanece válida --- o crescimento monetário de equilíbrio se ajusta
+para \emph{validar} $\pi^{*}$.
+\par\smallskip
+\textbf{Condição paramétrica para baixa e estável inflação:} $\beta>1$
+(Princípio de Taylor). Sob a Curva de Phillips Novo-Keynesiana,
+$\beta>1$ garante \textbf{unicidade} do equilíbrio racional estável
+(determinação): qualquer alta autorrealizável de expectativas de inflação é
+combatida por uma alta \emph{mais que proporcional} do juro real, eliminando
+o incentivo a validar a expectativa. Com $\beta\le 1$ (regra ``passiva''),
+o sistema é \textbf{indeterminado}: equilíbrios de \emph{sunspot} com
+inflação instável e autorrealizável tornam-se possíveis, mesmo sem mudança
+nos fundamentos.
+\end{fatorbox}
+
+\begin{armbox}[title={Armadilha conceitual}]
+\textbf{FALSO:} ``sob uma regra de juros, o crescimento da moeda deixa de
+estar relacionado à inflação no longo prazo.'' \\
+\textbf{CERTO:} a relação de longo prazo (identidade da teoria quantitativa)
+\emph{permanece}; o que muda é a \textbf{direção da causalidade no curto
+prazo} --- a moeda passa a ser endógena/acomodativa, e é o $\beta>1$ da regra
+de juros (não o controle direto da moeda) que ancora as expectativas e
+garante baixa inflação.
+\end{armbox}
+
+% ==========================================================================
+\section{Apêndice: Mercado Monetário, Equação de Fisher e Estrutura a Termo}
+
+\begin{provabox}[title={Por que este apêndice, se não está na Lista 2026?}]
+Não é uma questão explícita da Lista 2026, mas \textbf{caiu inteiro} na P2 de
+2021 (item de julgamento + dissertativa 4c) e é parte do mesmo bloco
+``Política Monetária''. Vale revisar rapidamente os três conceitos --- são
+baratos de decorar e historicamente testados.
+\end{provabox}
+
+\begin{formulabox}[title={Equilíbrio do mercado monetário e equação de Fisher}]
+\[
+  \frac{M}{P} = L(Y,i), \qquad i = r + \pi^{e}.
+\]
+$L$ é crescente em $Y$ (demanda transacional) e decrescente em $i$ (custo de
+oportunidade de reter moeda).
+\end{formulabox}
+
+\begin{fatorbox}[title={Efeitos de uma expansão monetária: curto vs.\ longo prazo}]
+\textbf{Curto prazo} (preços rígidos): $M\uparrow \Rightarrow M/P\uparrow$
+(estoque real de moeda sobe) $\Rightarrow$ para reequilibrar o mercado
+monetário, $i$ \textbf{cai} (\emph{efeito liquidez}) $\Rightarrow$ via Fisher,
+$r$ também cai no curto prazo $\Rightarrow$ efeitos reais positivos sobre a
+atividade. \\
+\textbf{Longo prazo} (preços flexíveis): os agentes revisam a inflação
+esperada para cima; o \emph{efeito Fisher} domina --- $i$ sobe de volta
+(acompanhando $\pi^e$ maior), $r$ retorna ao nível natural, e o benefício
+real da expansão é \textbf{transitório}; o efeito permanente é uma inflação
+mais alta.
+\end{fatorbox}
+
+\begin{formulabox}[title={Estrutura a termo (hipótese das expectativas)}]
+\[
+  \boxed{i_n \approx \frac{1}{n}\sum_{s=0}^{n-1} E_t[i_{1,t+s}]} \qquad(+ \text{possível prêmio a termo})
+\]
+\end{formulabox}
+
+\begin{armbox}[title={Armadilhas (P2-2021 Q3)}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{FALSO:} ``$i_n = n\cdot i_1$''. A taxa de $n$ períodos é a
+    \emph{média} das taxas curtas esperadas, não $n$ vezes a taxa de 1 ano.
+  \item \textbf{FALSO:} ``uma alta de preços decorre de altas em moeda,
+    juros \emph{e} produto real.'' Pelo equilíbrio $M/P=L(Y,i)$: $Y\uparrow$
+    \emph{eleva} a demanda por moeda e, para $M$ dado, \textbf{reduz} $P$
+    (efeito contrário ao afirmado).
+  \item \textbf{VERDADEIRO (gabarito):} sob plena flexibilidade de preços,
+    uma queda \emph{permanente} da taxa de crescimento da moeda gera queda
+    \textbf{descontínua} (salto) dos preços, da inflação esperada e do juro
+    no momento do anúncio, com aumento do estoque real de moeda no longo
+    prazo.
+  \item \textbf{FALSO:} ``a alta de juros de curto prazo no aumento da
+    moeda vem acompanhada de alta do prêmio a termo.'' A hipótese das
+    expectativas pura não deriva variações do prêmio a termo a partir da
+    regra de crescimento monetário --- é uma afirmação não sustentada pelo
+    arcabouço básico.
+\end{itemize}
+\end{armbox}
+
+% ==========================================================================
+\section{Restrição Orçamentária Intertemporal do Governo e Solvência Fiscal (Lista Q7)}
+
+\begin{formulabox}[title={A restrição em tempo discreto e sua forma resolvida}]
+\[
+  B_t = (1+r)B_{t-1} + G_t - T_t.
+\]
+Resolvendo para frente e impondo a \textbf{condição de não-Ponzi}
+($\lim_{t\to\infty} B_t/(1+r)^t = 0$):
+\[
+  \boxed{B_0 = \sum_{t=0}^{\infty} \frac{T_t - G_t}{(1+r)^t}}
+\]
+A dívida inicial deve ser integralmente coberta pelo \textbf{valor presente
+dos superávits primários} futuros.
+\end{formulabox}
+
+\begin{fatorbox}[title={Implicação canônica para regras de superávit primário}]
+Regras de responsabilidade fiscal (metas de superávit primário, tetos de
+gasto) existem precisamente para \textbf{garantir} que a trajetória futura de
+$(T_t-G_t)$ seja suficiente para cobrir $B_0$ a uma taxa de desconto $r$.
+Quanto maior $B_0/Y$ (dívida/PIB inicial), maior o superávit primário médio
+necessário --- ou maior o crescimento $g$ relativo a $r$ (se $r<g$, a
+dinâmica de rolagem de dívida sem superávit primário positivo ainda pode ser
+sustentável; se $r>g$, superávits primários positivos são \textbf{necessários}).
+\end{fatorbox}
+
+\begin{provabox}[title={Papel das expectativas fiscais para a solvência}]
+A condição de solvência é sobre o valor presente \emph{esperado} dos
+superávits --- não apenas sobre os superávits realizados até hoje. Se os
+mercados \textbf{duvidam} da capacidade/vontade política de gerar os
+superávits primários futuros necessários (expectativas fiscais negativas), o
+prêmio de risco soberano sobe, elevando $r$ na própria fórmula --- o que
+\emph{piora} ainda mais a razão dívida sustentável, podendo gerar uma
+dinâmica \textbf{autorrealizável} de insolvência (análoga, em espírito, à
+indeterminação da Seção~7 quando $\beta\le 1$): a crença de insolvência eleva
+o custo de financiamento, o que de fato aproxima a insolvência. Por isso a
+\textbf{credibilidade} do compromisso fiscal --- não apenas o número do
+superávit em um ano --- é a variável-chave.
+\end{provabox}
+
+% ==========================================================================
+\section{Equivalência Ricardiana (Lista Q8)}
+
+\begin{formulabox}[title={Derivação a partir das duas restrições intertemporais}]
+\textbf{Família (PIH, Seção~1):}
+\[
+  \sum_t \frac{C_t}{(1+r)^t} = A_0 + \sum_t \frac{Y_t - T_t}{(1+r)^t}.
+\]
+\textbf{Governo (Seção~9):}
+\[
+  B_0 + \sum_t \frac{G_t}{(1+r)^t} = \sum_t \frac{T_t}{(1+r)^t}.
+\]
+Substituindo o valor presente de $T_t$ da segunda na primeira:
+\[
+  \sum_t \frac{C_t}{(1+r)^t} = A_0 - B_0 + \sum_t \frac{Y_t - G_t}{(1+r)^t}.
+\]
+\end{formulabox}
+
+\begin{fatorbox}[title={O resultado: irrelevância do \emph{timing} dos tributos}]
+O valor presente do consumo da família depende apenas de $A_0-B_0$ (riqueza
+líquida do setor privado, já contando a dívida pública que terá de ser paga
+por impostos futuros) e do valor presente de $Y_t-G_t$ --- \textbf{nunca}
+da trajetória particular de $T_t$, apenas do seu \emph{valor presente}.
+Reduzir $T_t$ hoje financiando com dívida ($B\uparrow$) sem alterar $G_t$
+exige, pela restrição do governo, elevar $T_{t+s}$ no futuro em valor
+presente equivalente. Famílias racionais e forward-looking (PIH) percebem
+que sua riqueza líquida não mudou e \textbf{não alteram} $C_t$: a forma de
+financiamento do gasto público --- tributos hoje ou dívida hoje (tributos
+amanhã) --- é \textbf{irrelevante} para a atividade econômica.
+\end{fatorbox}
+
+\begin{armbox}[title={Premissas necessárias --- onde a Equivalência Ricardiana quebra}]
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Mercados de crédito perfeitos:} se uma fração $\lambda$ das
+    famílias é restrita ao crédito (Campbell-Mankiw, Seção~3), um corte de
+    impostos hoje financiado por dívida \emph{aumenta} o consumo dessa
+    fração --- a Equivalência \textbf{falha} exatamente na mesma fricção que
+    quebra Hall.
+  \item \textbf{Horizonte infinito ou herança operativa (Barro 1974):} sem
+    isso, gerações futuras que pagarão os impostos mais altos podem ser
+    \emph{diferentes} das gerações que se beneficiam do corte hoje (ver
+    Diamond OLG, Capítulo 2) --- riqueza intergeracional não compensa.
+  \item \textbf{Tributos não distorcivos (lump-sum):} impostos distorcivos
+    (sobre trabalho/capital) têm efeitos reais via incentivos, independente
+    da equivalência de valor presente.
+  \item \textbf{Expectativas fiscais críveis} (Seção~9): a família precisa
+    \emph{de fato} antecipar a alta futura de impostos; se acredita (mesmo
+    erroneamente) que o ajuste cairá sobre outra geração, o resultado muda.
+\end{itemize}
+\end{armbox}
+
+\begin{provabox}[title={A costura: Equivalência Ricardiana é a PIH aplicada ao setor público}]
+A lógica é \emph{idêntica} à da Seção~1: assim como a família olha para sua
+riqueza total (não a renda corrente), a família \textbf{racional} olha para
+a carga tributária de \emph{valor presente} do governo (não o tributo
+corrente). É o mesmo argumento de ``o que importa é o valor presente, não o
+timing'' que organiza os Capítulos~8 e~9 inteiros (consumo responde à renda
+permanente, não à renda corrente; investimento responde a $q$, valor
+presente dos lucros, não ao lucro corrente). Se a dissertativa pedir para
+\textbf{conectar} os capítulos, esta é a frase-chave.
+\end{provabox}
+
+% ==========================================================================
+\section*{Quadro-Resumo Final: O Que Sair de Cor}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{3.0cm} p{5.6cm} p{5.6cm}}
+\toprule
+\textbf{Tópico} & \textbf{Fórmula central} & \textbf{Armadilha principal} \\
+\midrule
+PIH/Friedman & $C=\dfrac{r}{1+r}[(1+r)A_0+H_0]$ & Viés de atenuação é \emph{maior} quando variância transitória domina (não a permanente) \\
+Hall & $C_t=E_t[C_{t+1}]$ & Correlação $r$--$\Delta C$ é \emph{implicação} da PIH, não evidência contra \\
+Campbell-Mankiw & $\Delta C_t=\lambda\Delta Y_t+(1-\lambda)\varepsilon_t$ & Rejeição \emph{completa} exige $\lambda\to1$; $\lambda\approx0{,}5$ é rejeição \emph{parcial} \\
+Precaução & $E[g_c]\approx\frac{r-\rho}{\theta}+\frac{\theta}{2}\mathrm{Var}(g_c)$ & Coeficiente é $\theta/2$, não $(\theta+1)/2$ \\
+$q$ de Tobin & $I/K=(q-1)/a$ & CPO \emph{iguala} custo e benefício; choque transitório tem efeito \emph{pequeno}, não nulo \\
+Fase $(K,q)$ & $\dot K=0$: $q^*=1+a\delta$ (horizontal) & Quadrante ``divergente'' contém a sela; só fora dela diverge \\
+Clarida & $i_t^*=r^*+\pi^*+\beta(E_t\pi_{t+1}-\pi^*)+\gamma E_t x_{t+1}$ & $\beta>1$ (Princípio de Taylor) ancora expectativas; $\beta\le1\Rightarrow$ indeterminação \\
+Fisher/term.\ a termo & $i=r+\pi^e$; $i_n\approx\frac1n\sum E_t[i_{1,t+s}]$ & $i_n\neq n\cdot i_1$; $Y\uparrow$ \emph{reduz} $P$ via $M/P=L(Y,i)$ \\
+Governo intertemporal & $B_0=\sum (T_t-G_t)/(1+r)^t$ & Solvência é sobre VP \emph{esperado}, sensível a expectativas fiscais \\
+Equivalência Ricardiana & VP$(C)$ depende de $A_0-B_0$, não de $T_t$ corrente & Quebra com restrição de crédito, horizonte finito, tributo distorcivo \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
