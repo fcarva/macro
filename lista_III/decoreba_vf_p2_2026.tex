@@ -1,0 +1,659 @@
+% ==========================================================================
+%  Decoreba V/F — P2 2026 (guia de memorização de emergência)
+%  Macroeconomia I (PPGEco-UFES, 2026)
+%  Para gravar: gabaritos literais, armadilhas, gatilhos, pares, autores,
+%  números e drill de 54 afirmativas relâmpago.
+%  Fontes: P2 2021, P2 2024 (chave oficial), Lista 3 2026 (chave oficial),
+%          slides das Aulas 10-13.
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.2cm, bottom=2.2cm, left=2.4cm, right=2.4cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tikz}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+\definecolor{correctbg}{HTML}{dcfce7}
+\definecolor{correctborder}{HTML}{166534}
+\definecolor{redf}{HTML}{b91c1c}
+\definecolor{redbg}{HTML}{fee2e2}
+
+% --------------------------------------------------------------------------
+% Caixas
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+\newtcolorbox{correctbox}[1][]{standard, colback=correctbg, colframe=correctborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{correctborder}, breakable, #1}
+\newtcolorbox{falsebox}[1][]{standard, colback=redbg!50, colframe=redf!80,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{redf}, breakable, #1}
+
+% --------------------------------------------------------------------------
+% Comandos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\VAR}{\mathrm{VAR}}
+\newcommand{\Vok}{\textbf{\textcolor{greenbox}{V}}}
+\newcommand{\Fno}{\textbf{\textcolor{redf}{F}}}
+\newcommand{\mata}[1]{\textcolor{redf}{\underline{\textbf{#1}}}}
+
+\setlength{\parskip}{0.45\baselineskip}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{\thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Decoreba V/F --- P2 2026 --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{grayrbc}{ler $\cdot$ falar alto $\cdot$ repetir}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa compacta
+% --------------------------------------------------------------------------
+\begin{center}
+\vspace*{0.2cm}
+\rule{\linewidth}{1.2pt}\\[0.6em]
+{\LARGE\bfseries\color{cyanrbc} Decoreba V/F --- Prova 2}\\[0.3em]
+{\large Macroeconomia I --- PPGEco-UFES 2026}\\[0.3em]
+{\normalsize\color{grayrbc} Guia de memorização de emergência
+(caps.\ 8 $\cdot$ 9 $\cdot$ 11 $\cdot$ 12)}\\[0.5em]
+\rule{\linewidth}{1.2pt}
+\end{center}
+
+\begin{provabox}[title={Modo de usar (sem tempo para teoria)}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.1em, topsep=0.2em]
+\item Grave as \textbf{7 frases de ouro} (§1) --- elas \emph{foram} gabarito
+oficial e tendem a voltar;
+\item Grave os \textbf{falsos clássicos} (§2) pela \mata{palavra que mata};
+\item Decore a tabela de \textbf{gatilhos} (§3) e os \textbf{pares} (§4);
+\item Faça o \textbf{drill de 54} (§8) marcando V/F com a mão --- 3 rodadas;
+\item 10 minutos antes da prova: releia só §1, §3 e o quadro final (§9).
+\end{enumerate}
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{As 7 frases de ouro (foram gabarito --- decore como VERDADEIRAS)}
+% ------------------------------------------------------------------
+
+\begin{correctbox}[title={Se aparecer parecido com isto, é V}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.35em]
+\item \textbf{[Consumo]} ``A rejeição \emph{plena} da hipótese do passeio
+aleatório requer encontrar valores convergentes com $\lambda = 1$.''
+\hfill{\footnotesize (P2 2021 e P2 2024, Q1)}
+\item \textbf{[Consumo/Fiscal]} ``A restrição orçamentária das famílias, com
+presença do governo, \emph{não} sofre influência das proporções de $T$ e $D$.''
+\hfill{\footnotesize (P2 2024, Q2)}
+\item \textbf{[Investimento]} ``$K$ da indústria muito baixo $+$ $q$ também
+muito reduzido $\Rightarrow$ \emph{queda adicional} do $q$.''
+[$\dot q = rq - \pi(K) < 0$]
+\hfill{\footnotesize (P2 2021 Q2 e P2 2024 Q3)}
+\item \textbf{[Investimento]} ``Mais importante que o juro real \emph{de hoje}
+é a expectativa de $r$ \emph{para o longo prazo}, no que respeita ao $q$.''
+\hfill{\footnotesize (P2 2024, Q4)}
+\item \textbf{[Moeda]} ``Preços flexíveis $+$ redução permanente do
+crescimento da moeda $\Rightarrow$ queda \emph{descontínua} de $P$, de
+$\pi^e$ e de $i$, com \emph{aumento} de $M/P$ no longo prazo.''
+\hfill{\footnotesize (P2 2021, Q3)}
+\item \textbf{[Fiscal]} ``Satisfeita a restrição do governo, substituir
+financiamento via tributos por mais dívida \emph{não} impacta o consumidor.''
+\hfill{\footnotesize (P2 2024, Q5)}
+\item \textbf{[Fiscal]} ``Os superávits primários \emph{corrente e futuros
+esperados} precisam cobrir a dívida pública atual em termos reais.''
+\hfill{\footnotesize (P2 2024, Q6)}
+\end{enumerate}
+\end{correctbox}
+
+% ------------------------------------------------------------------
+\section{Falsos clássicos (decore a palavra que mata)}
+% ------------------------------------------------------------------
+
+\begin{falsebox}[title={Se aparecer parecido com isto, é F --- o erro está sublinhado}]
+\textbf{Consumo}
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em, topsep=0.2em]
+\item ``Em amostras \mata{longas}, a variância da renda \mata{transitória}
+domina'' --- é o contrário: amostra longa $\Rightarrow$ domina a
+\emph{permanente} (e $\hat b \to 1$).
+\item ``Correlação juros--consumo implica o \mata{abandono} da hipótese da
+renda permanente'' --- a equação de Euler é \emph{extensão} dela, não
+abandono.
+\item ``Poupança precaucional ajuda a entender a \mata{elevada} poupança das
+famílias'' --- o fato estilizado é poupança \emph{baixa} (puzzle; Carroll).
+\item ``Variação do consumo \mata{inversamente} relacionada à taxa real de
+juros'' --- é \emph{positiva} (Euler).
+\item ``Há \mata{grande} impacto dos juros reais sobre o consumo'' --- o
+impacto empírico é \emph{fraco} ($\theta$ alto).
+\item ``Maior aversão ao risco $\Rightarrow$ \mata{maior} eficácia dos juros
+sobre o consumo'' --- maior $\theta$ $\Rightarrow$ \emph{menor} sensibilidade
+($1/\theta$).
+\end{enumerate}
+\textbf{Investimento}
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em, topsep=0.2em]
+\setcounter{enumi}{6}
+\item ``A firma investe até o valor do capital \mata{superar} o custo de
+aquisição'' --- no ótimo \emph{iguala}: $1 + C'(I) = q$.
+\item ``Abaixo de $\dot K=0$ e à direita de $\dot q=0$ é região de
+\mata{divergência} crescente'' --- ali passa o braço \emph{convergente} da
+trajetória de sela.
+\item ``Redução transitória do produto tem efeito \mata{nulo} sobre o
+investimento'' --- efeito \emph{menor}, nunca nulo.
+\item ``Valor da empresa \mata{positivamente} relacionado ao $K$ da
+indústria'' / ``$\dot q = 0$ \mata{positivamente} inclinada'' --- $\pi'(K)<0$:
+relação e inclinação \emph{negativas}.
+\item ``Inflação esperada acima da meta $\Rightarrow$ \mata{maior} $q$'' ---
+Banco Central sobe o juro real ($\phi_\pi>1$) $\Rightarrow$ $q$ \emph{cai}.
+\end{enumerate}
+\textbf{Moeda}
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em, topsep=0.2em]
+\setcounter{enumi}{11}
+\item ``Preços sobem com variações positivas na moeda, nos juros e no
+\mata{produto}'' --- produto entra \emph{negativo} ($L_Y>0$ eleva demanda por
+moeda e derruba $P$).
+\item ``Arbitragem: $i^n$ igual a \mata{$n$ vezes $i^1$}'' --- $i^n$ é a
+\emph{média} das taxas curtas esperadas $+$ prêmio a termo.
+\item ``Efeito liquidez: expansão monetária \mata{eleva} as taxas curtas'' ---
+\emph{reduz} as curtas (e tende a subir as \emph{longas}).
+\item ``Com $\phi_\pi < 1$ a inflação converge, só que \mata{devagar}'' ---
+não converge: fica \emph{persistente} e as expectativas \emph{desancoram}.
+\end{enumerate}
+\textbf{Fiscal}
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em, topsep=0.2em]
+\setcounter{enumi}{15}
+\item ``Solvência avaliada pelos resultados fiscais \mata{correntes}'' ---
+vale o fluxo \emph{projetado} (expectativas, anúncios, credibilidade).
+\item ``B com pior saldo corrente é \mata{necessariamente} mais arriscado''
+--- expectativas de fluxos futuros podem inverter a comparação.
+\item ``Avaliação fiscal \mata{não sofre qualquer influência} da inflação''
+--- sofre; o item generaliza demais.
+\item ``Redução de alíquotas $\Rightarrow$ \mata{aumento do consumo} e
+estímulo real'' --- equivalência ricardiana: a renda extra é \emph{poupada}.
+\item ``Gastos públicos \mata{não} têm impacto direto na restrição das
+famílias'' --- têm: após substituir, $-\int e^{-R}G$ entra na restrição.
+\item ``São os \mata{tributos} que afetam a acumulação de capital'' --- são os
+\emph{gastos} ($I = Y - C - G$).
+\item ``Alesina--Perotti: ajustes via \mata{tributos} são os duradouros e
+expansionistas'' --- são os via \emph{cortes de gastos} (emprego público e
+transferências).
+\item ``Calvo/Cole--Kehoe: dívida alta $\Rightarrow$ retorno requerido
+\mata{menor}'' --- \emph{maior} (e default mais provável; crise
+autorrealizável).
+\end{enumerate}
+\end{falsebox}
+
+% ------------------------------------------------------------------
+\section{Gatilhos de marcação (regras de bolso)}
+% ------------------------------------------------------------------
+
+\begin{resultbox}[title={Palavra no item $\Rightarrow$ chute educado (e a exceção)}]
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{4.6cm} c p{8.6cm}}
+\toprule
+\textbf{Se o item diz\ldots} & \textbf{Chute} & \textbf{Por quê / exceção} \\
+\midrule
+``supera'' / ``excede'' (no ótimo) & \Fno & condição de ótimo é
+\emph{igualdade} ($1{+}C'(I){=}q$) \\
+``efeito nulo'' (choque transitório) & \Fno & efeito é \emph{menor}, nunca
+nulo \\
+``necessariamente'' & \Fno & generalização; expectativas podem inverter \\
+``abandono da teoria'' & \Fno & extensões não são abandono \\
+``elevada poupança das famílias'' & \Fno & fato estilizado: poupam
+\emph{pouco} \\
+``grande impacto dos juros no consumo'' & \Fno & impacto empírico é
+\emph{fraco} \\
+``não sofre qualquer influência'' & \Fno & \textbf{exceto} se for sobre $T$ e
+$D$ na restrição das famílias (ricardiana) --- aí é \Vok \\
+``backward-looking'' (Clarida) & \Fno & a regra é \emph{forward-looking}
+(expectativas) \\
+``positivamente inclinada'' ($\dot q=0$) & \Fno & $\pi'(K)<0$: inclinação
+\emph{negativa} \\
+``$i^n = n\,i^1$'' & \Fno & é \emph{média} $+$ prêmio a termo \\
+``média das taxas curtas esperadas'' & \Vok & estrutura a termo correta \\
+``iguala'' (custo vs.\ valor no ótimo) & \Vok & é a condição de otimalidade \\
+``queda adicional do $q$'' ($K$ e $q$ baixos) & \Vok & $\dot q = rq -
+\pi(K) < 0$ \\
+``juros de longo prazo importam para o $q$'' & \Vok & $r$ é a taxa de
+desconto dos fluxos \\
+\bottomrule
+\end{tabular}
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\section{Pares que o professor troca (decore os dois lados)}
+% ------------------------------------------------------------------
+
+\begin{resultbox}[title={Conceito certo $\times$ troca falsa}]
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{p{6.6cm} p{6.9cm}}
+\toprule
+\textbf{Certo} & \textbf{Troca que vira F} \\
+\midrule
+$\theta$ = aversão ao risco; EIS $= 1/\theta$ &
+dizer que $\theta$ \emph{é} a EIS \\
+$(\theta + 1)$ = \emph{prudência} relativa &
+chamar $(\theta+1)$ de aversão ao risco \\
+transitório: impacto $1/T$ no consumo &
+dizer que transitório desloca 1-para-1 \\
+permanente: impacto $\approx 1$ &
+dizer que permanente tem impacto $1/T$ \\
+amostra curta: $\hat b \ll 1$ (transitória pesa) &
+inverter qual variância domina \\
+amostra longa: $\hat b \to 1$ (permanente domina) &
+--- \\
+$\lambda \approx 0{,}5$, significativo = híbrido &
+dizer que acharam $\lambda = 1$ \\
+Hall: informação \emph{já incorporada} &
+dizer que famílias \emph{ignoram} informação \\
+Campbell--Mankiw: \emph{IV} (endogeneidade) &
+dizer que foi \emph{MQO} \\
+$r > \rho \Rightarrow$ consumo \emph{cresce} &
+inverter para decrescer \\
+$\dot K = 0$: reta em $q = 1$ &
+dizer $q = 0$ ou ``cresce à taxa $r$'' \\
+$\dot q = 0$: $q = \pi(K)/r$, \emph{decrescente} &
+inclinação positiva \\
+NO e SE do diagrama: \emph{sela} (converge) &
+chamar de divergência \\
+NE e SO: divergem &
+--- \\
+Fisher: $i = r + \pi^e$ (nominal carrega $\pi^e$) &
+escrever $r = i + \pi^e$ \\
+efeito liquidez: \emph{curtas caem} &
+dizer que curtas sobem \\
+longas \emph{sobem} (expectativas de curtas) &
+atribuir ao prêmio a termo \\
+Taylor: $\phi_\pi > 1 \Rightarrow$ \emph{real} sobe &
+aplicar o ``mais que proporcional'' ao real \\
+médio prazo: $i = r^n + \pi^*$ ($5{+}3{=}8\%$) &
+escrever $i = r^n - \pi^*$ \\
+solvência: fluxos \emph{esperados} a VP &
+avaliar só o corrente \\
+ricardiana: \emph{G} importa; $T$/$D$ somem &
+dizer que tributos movem capital \\
+Alesina--Perotti: corte de \emph{gastos} expande &
+dizer que é o aumento de tributos \\
+\bottomrule
+\end{tabular}
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\section{Quem fez o quê (autores caem nos itens!)}
+% ------------------------------------------------------------------
+
+\begin{resultbox}[title={Nome $\to$ uma linha}]
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{p{5.2cm} p{8.3cm}}
+\toprule
+Keynes (1936) & consumo $=$ função da renda disponível corrente \\
+Modigliani--Brumberg (1954) & ciclo de vida (com Friedman: renda permanente) \\
+Friedman (1957) & renda permanente; Keynes vira caso particular \\
+Hall (1978) & passeio aleatório: $C_t = C_{t-1} + e_t$ \\
+Hansen--Singleton (1983); Hall (1988b) & juros reais explicam pouco o
+consumo \\
+Campbell--Mankiw (1989) & teste IV; $\lambda \approx 0{,}5$; explicação
+híbrida \\
+Carroll (1992, 1997) & desconto alto anula o motivo precaucional \\
+Zeldes (1989) & restrição de liquidez \emph{futura} já reduz consumo \\
+Gross--Souleles (2002) & evidência de restrições de crédito \\
+Tobin (1969) & $q$: valor de mercado do capital \\
+Taylor (1993) & regra original; princípio $\phi_\pi > 1$ \\
+Clarida--Galí--Gertler (2000) & regra \emph{forward-looking} \\
+Feldstein (1997) & inflação distorce tributos (regressiva, alimentos) \\
+Bénabou (1992); Tommasi (1994) & inflação reduz eficiência \\
+Modigliani--Cohn (1979); Hall (1984) & agentes erram contas com inflação \\
+Giavazzi--Pagano (1990) & Dinamarca/Irlanda: contração fiscal expansionista \\
+Alesina--Perotti (1997) & composição do ajuste: gastos $>$ tributos \\
+Bertola--Drazen (1993); Perotti (1999) & renda futura esperada $\to$ consumo
+e investimento \\
+Calvo (1988); Cole--Kehoe (2000) & crises de dívida autorrealizáveis \\
+\bottomrule
+\end{tabular}
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\section{Fórmulas faladas (leia em voz alta 3 vezes)}
+% ------------------------------------------------------------------
+
+\begin{resultbox}[title={Fórmula $+$ leitura $+$ o sinal que importa}]
+\begin{itemize}[leftmargin=1.4em, itemsep=0.4em]
+\item $C_t = \frac{1}{T}\bigl(A_0 + \sum_\tau Y_\tau\bigr)$ ---
+``consumo é \emph{um sobre T} da riqueza mais a soma das rendas'':
+transitório mexe $1/T$; permanente mexe $\approx 1$.
+\item $\hat b = \frac{\VAR(Y^P)}{\VAR(Y^P) + \VAR(Y^T)}$ ---
+``permanente em cima, tudo embaixo'': quem domina o numerador manda o
+coeficiente para 1.
+\item $C_t = C_{t-1} + e_t$ --- ``consumo de hoje é o de ontem mais
+surpresa'': só \emph{informação nova} move.
+\item $\Delta C_t = \lambda\,\Delta Y_t + (1-\lambda)e_t$ ---
+``lambda mede os keynesianos'': deu $\approx 0{,}5$, significativo, por IV.
+\item $\frac{C_{t+1}}{C_t} = \bigl(\frac{1+r}{1+\rho}\bigr)^{1/\theta}$ ---
+``juro acima da pressa, consumo em rampa''; expoente $1/\theta$ = EIS
+(sensibilidade).
+\item $\E[g^c] \simeq \frac{1}{2}(\theta+1)\VAR(g^c)$ ---
+``meio, prudência, variância'': mais incerteza $\Rightarrow$ mais poupança
+$\Rightarrow$ consumo cresce \emph{depois}.
+\item $1 + C'(I) = q$ --- ``um mais custo marginal \emph{iguala} q'' (nunca
+``supera'').
+\item $q(t) = \int_0^\infty e^{-rt}\pi(K(t))\,\dif t$ ---
+``q é o VP dos lucros'': sobe com produto esperado, cai com juros (longos) e
+com $K$ da indústria.
+\item $\dot q = rq - \pi(K)$; $\dot q = 0 \Rightarrow q = \pi(K)/r$ ---
+``custo de oportunidade menos lucro'': $K$ e $q$ baixos $\Rightarrow$
+$\dot q < 0$ (q cai mais).
+\item $P = M/L(i,Y)$ --- ``M e i incham P; Y murcha P''.
+\item $i = r + \pi^e$ --- ``o \emph{nominal} carrega a inflação''.
+\item $i_t^n = \frac{1}{n}\sum_{j=0}^{n-1}\E_t\,i^1_{t+j} + \theta_{nt}$ ---
+``longa é média das curtas esperadas mais prêmio''.
+\item $i_t = r^n + \E_t\pi_{t+n} + \phi_\pi(\E_t\pi_{t+n} - \pi^*) +
+\phi_y(\text{hiato esperado})$ --- ``natural, inflação esperada, desvio vezes
+phi-pi, hiato vezes phi-y''; $\phi_\pi > 1$ para o \emph{real} subir.
+\item $\int_0^\infty e^{-R(t)}[T(t)-G(t)]\,\dif t \geq D(0)$ ---
+``superávits a valor presente cobrem a dívida de hoje''.
+\item $\int e^{-R}C \leq K(0) + \int e^{-R}W - \int e^{-R}G$ ---
+``depois da conta, sobram K, salários e \emph{G}: T e D sumiram''
+(equivalência ricardiana).
+\end{itemize}
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\section{O diagrama de fases de bolso (uma figura para gravar)}
+% ------------------------------------------------------------------
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, >=stealth]
+% eixos
+\draw[->] (0,0) -- (9.2,0) node[below] {$K$};
+\draw[->] (0,0) -- (0,5.6) node[left] {$q$};
+% locus Kdot = 0 (q = 1)
+\draw[thick, cyanrbc] (0,2.2) -- (8.8,2.2) node[right, font=\small] {$\dot K = 0$ ($q=1$)};
+% locus qdot = 0 (decrescente)
+\draw[thick, orangerbc] (0.7,5.1) .. controls (3.4,3.0) and (5.4,2.5) .. (8.6,1.1)
+  node[right, font=\small] {$\dot q = 0$};
+% ponto E
+\filldraw (4.55,2.2) circle (2pt) node[above right, font=\small] {$E$};
+% trajetoria de sela
+\draw[dashed, thick, greenbox] (1.3,4.4) .. controls (3.2,3.0) .. (4.55,2.2)
+  .. controls (6.0,1.55) .. (8.2,1.0);
+\node[greenbox, font=\footnotesize, align=center] at (2.15,4.7) {sela\\(converge)};
+\node[greenbox, font=\footnotesize, align=center] at (7.6,0.55) {sela\\(converge)};
+% setas de dinamica por quadrante
+% NO: K up, q down
+\draw[->, thick] (1.7,3.3) -- (2.3,3.3); \draw[->, thick] (1.7,3.3) -- (1.7,2.85);
+\node[font=\footnotesize, align=left] at (1.95,3.75) {NO: $\dot K{>}0$, $\dot q{<}0$};
+% NE: K up, q up (diverge)
+\draw[->, thick] (6.7,3.3) -- (7.3,3.3); \draw[->, thick] (6.7,3.3) -- (6.7,3.75);
+\node[font=\footnotesize, redf, align=left] at (7.15,4.15) {NE: diverge $\nearrow$};
+% SO: K down, q down (diverge)
+\draw[->, thick] (2.0,1.2) -- (1.4,1.2); \draw[->, thick] (2.0,1.2) -- (2.0,0.75);
+\node[font=\footnotesize, redf, align=left] at (2.5,0.5) {SO: diverge $\swarrow$ \ (``$q$ cai mais'')};
+% SE: K down, q up
+\draw[->, thick] (6.9,1.55) -- (6.3,1.55); \draw[->, thick] (6.9,1.55) -- (6.9,2.0);
+\node[font=\footnotesize, align=left] at (6.35,1.1) {SE: $\dot K{<}0$, $\dot q{>}0$};
+\end{tikzpicture}
+\end{center}
+
+\begin{resultbox}[title={Mnemônico do mapa}]
+\textbf{``NO--SE converge, NE--SO explode.''} Acima de $q=1$, $K$ anda para a
+\emph{direita}; abaixo, para a \emph{esquerda}. À direita de $\dot q = 0$, $q$
+sobe; à esquerda, desce. A questão da Lista (Q5) é o quadrante \textbf{NO}:
+$q>1$ ($\dot K > 0$) e pessimismo ($\dot q<0$) $\Rightarrow$ desce pela sela
+até $E$. A frase de ouro n\textsuperscript{o}~3 é o quadrante \textbf{SO}:
+$K$ baixo $+$ $q$ baixo $\Rightarrow$ $q$ cai ainda mais.
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\section{Números e fatos secos (decorar mesmo)}
+% ------------------------------------------------------------------
+
+\begin{resultbox}[title={Cartela de números}]
+\begin{itemize}[leftmargin=1.4em, itemsep=0.15em]
+\item Campbell--Mankiw: dados \textbf{trimestrais}, EUA,
+\textbf{1953--1986}, $\lambda \approx \textbf{0,5}$ (significativo,
+$\ll 1$), método \textbf{IV}.
+\item Correlação consumo $\times$ PIB no Brasil (slides):
+\textbf{0,99} (1996T1--2025T1, SCN/IBGE).
+\item Calibração da regra (linha BCB): $r^n = \textbf{5\%}$;
+$\pi^* = \textbf{3\%}$; $n = \textbf{4 trimestres}$;
+$\phi_\pi = \textbf{1,5}$; $\phi_y = \textbf{0,3}$;
+médio prazo $\Rightarrow i = \textbf{8\%}$.
+\item IRFs em aula: $\phi_\pi = 1{,}5$ derruba a inflação \emph{mais rápido}
+que $\phi_\pi = 0{,}7$ (ao custo de queda maior do produto).
+\item Brasil fiscal (slides, BCB): primário médio $\textbf{-0,34\%}$ do PIB e
+nominal $\approx \textbf{-4,5\%}$ (06/1999--05/2025); dívida bruta:
+$\approx$\textbf{55\%} (2006) $\to$ pico $\approx$\textbf{90\%} (2020) $\to$
+$\approx$\textbf{75\%} (2025).
+\item Contrações expansionistas: \textbf{Dinamarca e Irlanda, anos 1980}
+(Giavazzi--Pagano, 1990).
+\item Inflação $\times$ crescimento monetário: \textbf{97 países,
+1980--2006}, relação clara e forte (Fig.\ 11.1).
+\end{itemize}
+\end{resultbox}
+
+% ------------------------------------------------------------------
+\section{Drill relâmpago: 54 afirmativas (marque V ou F; 3 rodadas)}
+% ------------------------------------------------------------------
+
+Cubra a coluna da direita, julgue, confira. Erro $=$ voltar ao parágrafo
+correspondente nos §§1--7.
+
+\subsection*{Bloco A --- Consumo}
+{\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.5cm} p{9.2cm} c p{3.6cm}}
+\toprule
+& \textbf{Afirmativa} & & \textbf{Porquê} \\
+\midrule
+1 & O consumo de cada período é fração $1/T$ dos recursos de vida inteira. &
+\Vok & solução do Lagrangiano \\
+2 & Um ganho transitório de renda desloca o consumo um-para-um. &
+\Fno & impacto é $1/T$ \\
+3 & Aumento permanente da renda eleva o consumo $\approx$ um-para-um. &
+\Vok & soma $T$ parcelas $1/T$ \\
+4 & Em amostras longas a propensão estimada aproxima-se de 1. &
+\Vok & $\VAR(Y^P)$ domina \\
+5 & Em amostras curtas domina a variância da renda permanente. &
+\Fno & domina a transitória \\
+6 & Hall: consumo imprevisível porque a informação já está toda no consumo
+corrente. & \Vok & $C_t = \E_t[C_{t+1}]$ \\
+7 & Campbell--Mankiw estimaram por MQO. & \Fno & IV (endogeneidade) \\
+8 & $\lambda$ significativo e $\approx 0{,}5$ $\Rightarrow$ explicação
+híbrida. & \Vok & metade regra de bolso \\
+9 & Rejeição plena do passeio aleatório requer $\lambda = 1$. &
+\Vok & frase de ouro 1 \\
+10 & Correlação juros--consumo obriga abandonar a renda permanente. &
+\Fno & Euler é extensão \\
+11 & $r > \rho$ $\Rightarrow$ consumo crescente no tempo. &
+\Vok & Euler \\
+12 & Aversão maior $\Rightarrow$ consumo mais sensível aos juros. &
+\Fno & sensibilidade $= 1/\theta$ \\
+13 & Evidência: juros reais têm forte impacto no consumo. &
+\Fno & impacto fraco ($\theta$ alto) \\
+14 & $(\theta + 1)$ é o coeficiente de prudência relativa. &
+\Vok & não é aversão \\
+15 & Mais incerteza ($\VAR(g^c)\uparrow$) $\Rightarrow$ $\E[g^c]$ maior. &
+\Vok & poupa hoje, cresce depois \\
+16 & O motivo precaucional explica a elevada poupança observada. &
+\Fno & poupam pouco (puzzle) \\
+17 & Carroll: taxa de desconto alta anula o motivo precaucional. &
+\Vok & concilia teoria e fato \\
+18 & Restrição de liquidez só importa se estiver ativa hoje. &
+\Fno & Zeldes: futura já reduz \\
+\bottomrule
+\end{tabular}
+}
+
+\subsection*{Bloco B --- Investimento}
+{\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.5cm} p{9.2cm} c p{3.6cm}}
+\toprule
+19 & No ótimo, $1 + C'(I) = q$. & \Vok & custo iguala valor \\
+20 & A firma investe até o valor do capital superar o custo. &
+\Fno & ``supera'' mata \\
+21 & $\dot K = 0 \iff q = 1$. & \Vok & $f(1) = 0$ \\
+22 & O locus $\dot q = 0$ é positivamente inclinado. &
+\Fno & $\pi'(K) < 0$ \\
+23 & O valor da empresa cresce com o $K$ da indústria. &
+\Fno & $\pi'(K) < 0$ \\
+24 & O $q$ cai quando os juros longos esperados sobem. &
+\Vok & $r$ desconta os fluxos \\
+25 & $K$ muito baixo $+$ $q$ muito baixo $\Rightarrow$ $q$ cai ainda mais. &
+\Vok & frase de ouro 3 \\
+26 & Abaixo de $\dot K{=}0$ e à direita de $\dot q{=}0$: divergência
+crescente. & \Fno & braço da sela (SE) \\
+27 & Acima de $\dot K{=}0$ e à esquerda de $\dot q{=}0$: converge a $E$ pela
+sela. & \Vok & chave da Lista, Q5 (NO) \\
+28 & Choque transitório de produto: efeito nulo no investimento. &
+\Fno & menor, não nulo \\
+29 & Queda permanente de $r$ leva o equilíbrio a um $K$ maior. &
+\Vok & $q$ salta $> 1$ \\
+30 & Investimento é maior quando o produto acabou de subir. &
+\Vok & acelerador \\
+31 & Custos de ajuste são lineares no investimento. &
+\Fno & convexos ($C''>0$) \\
+32 & O investimento (FBCF) é mais volátil que o consumo. &
+\Vok & dados IBGE em aula \\
+\bottomrule
+\end{tabular}
+}
+
+\subsection*{Bloco C --- Inflação e política monetária}
+{\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.5cm} p{9.2cm} c p{3.6cm}}
+\toprule
+33 & $P$ sobe com $M\uparrow$, $i\uparrow$ e $Y\uparrow$. &
+\Fno & $Y$ entra negativo \\
+34 & $i = r + \pi^e$. & \Vok & Fisher \\
+35 & Preços flexíveis: moeda não move $Y$ nem $r$. &
+\Vok & neutralidade \\
+36 & $\Delta M\uparrow$ permanente $\Rightarrow$ $P$ salta e $M/P$ cai. &
+\Vok & Fig.\ 11.2 \\
+37 & Redução permanente de $\Delta M$: $P$, $\pi^e$ e $i$ caem; $M/P$ sobe. &
+\Vok & frase de ouro 5 \\
+38 & Efeito liquidez: expansão monetária eleva juros curtos. &
+\Fno & reduz \\
+39 & Expansão monetária: curtas caem, longas sobem. &
+\Vok & expectativas \\
+40 & $i^n = n \cdot i^1$. & \Fno & média $+$ prêmio \\
+41 & Longas mudam por expectativas de curtas futuras. &
+\Vok & teoria das expectativas \\
+42 & A regra de Clarida et al.\ é backward-looking. &
+\Fno & forward (esperada) \\
+43 & $\phi_\pi > 1$ $\Rightarrow$ o juro real sobe após choque de inflação. &
+\Vok & Princípio de Taylor \\
+44 & Com $\phi_\pi < 1$ a inflação converge, apenas devagar. &
+\Fno & persiste e desancora \\
+45 & No médio prazo, $i = r^n + \pi^*$ ($= 8\%$ na calibração). &
+\Vok & desvios zeram \\
+46 & Inflação alta distorce tributos de forma regressiva (Feldstein). &
+\Vok & custo da inflação \\
+\bottomrule
+\end{tabular}
+}
+
+\subsection*{Bloco D --- Política fiscal}
+{\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{0.5cm} p{9.2cm} c p{3.6cm}}
+\toprule
+47 & Solvência: VP dos superávits primários $\geq D(0)$. &
+\Vok & frase de ouro 7 \\
+48 & Solvência se avalia pelo resultado corrente. &
+\Fno & fluxos esperados \\
+49 & Pior saldo corrente $\Rightarrow$ necessariamente mais arriscado. &
+\Fno & ``necessariamente'' \\
+50 & $T$ e $D$ somem da restrição das famílias; só $G$ importa. &
+\Vok & ricardiana \\
+51 & Corte de tributos, dado $G$: renda extra é poupada. &
+\Vok & tributos futuros virão \\
+52 & A equivalência vale mesmo sem o governo satisfazer sua restrição. &
+\Fno & exige igualdade \\
+53 & Giavazzi--Pagano: Dinamarca/Irlanda tiveram booms via expectativas. &
+\Vok & contração expansionista \\
+54 & Consolidação fiscal é sempre contracionista. &
+\Fno & composição importa \\
+\bottomrule
+\end{tabular}
+}
+
+% ------------------------------------------------------------------
+\section{Os 10 minutos antes da prova (última olhada)}
+% ------------------------------------------------------------------
+
+\begin{provabox}[title={Se só der para lembrar de 10 coisas}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.2em]
+\item Transitório $= 1/T$; permanente $\approx 1$; amostra curta $\hat b \ll
+1$, longa $\hat b \to 1$.
+\item $\lambda$: significativo, $\approx 0{,}5$, por IV; rejeição
+\emph{plena} exigiria $\lambda = 1$ (\Vok\ de ouro).
+\item Juros $\times$ consumo: teoria \emph{positiva}, evidência \emph{fraca},
+culpa do $\theta$ alto (EIS $= 1/\theta$).
+\item Famílias poupam \emph{pouco} (puzzle); Carroll: desconto alto anula o
+precaucional.
+\item Ótimo da firma: $1 + C'(I) = q$ (\emph{iguala}); $\dot K = 0$ em
+$q = 1$; $\dot q = 0$: $q = \pi(K)/r$ decrescente.
+\item $K$ baixo $+$ $q$ baixo $\Rightarrow$ $q$ cai mais (\Vok\ de ouro);
+choque transitório: efeito \emph{menor}, nunca nulo; juros \emph{longos}
+mandam no $q$.
+\item $P = M/L(i,Y)$: $Y$ entra \emph{negativo}; inflação persistente $=$
+moeda; Fisher $i = r + \pi^e$.
+\item Liquidez: curtas \emph{caem}, longas \emph{sobem}; $i^n =$ média das
+curtas esperadas $+$ prêmio.
+\item Clarida \emph{forward-looking}; $\phi_\pi > 1 \Rightarrow$ \emph{real}
+sobe; $\phi_\pi < 1 \Rightarrow$ desancora; médio prazo $i = r^n + \pi^* =
+8\%$.
+\item Fiscal: VP dos superávits $\geq D(0)$ (esperados, não correntes!);
+ricardiana: $T$/$D$ somem, \emph{G} fica; Dinamarca/Irlanda expansionistas;
+dívida alta $\Rightarrow$ retorno requerido \emph{alto}.
+\end{enumerate}
+\end{provabox}
+
+\vfill
+{\small\color{grayrbc} Decoreba V/F --- P2 2026, Macroeconomia I (PPGEco-UFES).
+Todo o conteúdo ancorado nos gabaritos oficiais (P2 2021, P2 2024), na chave
+da Lista 3 2026 e nos slides das Aulas 10--13. Complementa:
+\texttt{lista\_III/guia\_p2\_2026.pdf} (teoria) e
+\texttt{provas/p2\_simulado\_2026.pdf} (simulado). Uso pessoal.}
+
+\end{document}
