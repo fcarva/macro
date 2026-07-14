@@ -1,0 +1,666 @@
+% ==========================================================================
+%  Guia Dissertativo — Prova 2 (2026)
+%  Macroeconomia I (PPGEco-UFES) · Prof. Dr. Ricardo Ramalhete Moreira
+%  O contexto de cada bloco da P2, em prosa acadêmica:
+%  Consumo (cap. 8), Investimento (cap. 9),
+%  Inflação e Política Monetária (cap. 11), Política Fiscal (cap. 12)
+%  Base: Romer (2012), slides das Aulas 10-13, Lista 3 2026 e chave oficial
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% --------------------------------------------------------------------------
+% Cores e caixas
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+
+\newtcolorbox{sintesebox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+\newtcolorbox{contextobox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\VAR}{\mathrm{VAR}}
+
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\Large\bfseries\color{cyanrbc}}{\thesection.}{0.6em}{}[\vspace{-0.3em}\rule{\linewidth}{0.5pt}]
+\titleformat{\subsection}{\large\bfseries\color{grayrbc}}{\thesubsection.}{0.5em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Guia Dissertativo P2 2026 --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{grayrbc}{Romer caps.\ 8 $\cdot$ 9 $\cdot$ 11 $\cdot$ 12}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.5cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Guia Dissertativo --- Prova 2\\[0.4em]
+\large Macroeconomia I --- 2026}\\[0.4em]
+{\normalsize\color{grayrbc} O contexto de cada bloco, em prosa:\\
+Consumo $\cdot$ Investimento $\cdot$ Inflação e Política Monetária $\cdot$ Política Fiscal}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{1.5em}
+{\large Baseado em Romer (2012), caps.\ 8, 9, 11 e 12,\\
+nas Aulas 10--13 e na Lista 3 (2026) com sua chave oficial}
+
+\vspace{2em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.9\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\raggedright
+\textbf{\textcolor{provaborder}{Para que serve este guia.}} Os outros
+materiais da P2 dizem \emph{o que} responder (guia de conteúdo), treinam
+\emph{o formato} (simulado) e ajudam a \emph{gravar} (decoreba). Este aqui
+responde à pergunta que sobra: \emph{por que essas teorias existem e como
+elas se encaixam?} Cada bloco é contado como uma história --- o problema que
+motivou a teoria, a solução proposta, o teste empírico e a ponte para o bloco
+seguinte. É leitura corrida, sem itens para julgar: o objetivo é que, ao
+chegar numa afirmativa de prova, você reconheça \emph{de que capítulo da
+história} ela saiu.
+\end{tcolorbox}
+
+\vfill
+{\small Uso pessoal de estudo. Complementa: \texttt{lista\_III/guia\_p2\_2026.pdf},
+\texttt{provas/p2\_simulado\_2026.pdf} e \texttt{lista\_III/decoreba\_vf\_p2\_2026.pdf}.}
+\end{center}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ==========================================================================
+\section*{Introdução: onde a P2 se encaixa no curso}
+\addcontentsline{toc}{section}{Introdução: onde a P2 se encaixa no curso}
+% ==========================================================================
+
+A primeira prova do curso percorreu os grandes modelos de \emph{equilíbrio
+agregado}: crescimento no longo prazo (Solow, RCK, Diamond), flutuações reais
+(RBC) e os microfundamentos da rigidez nominal (Lucas, Fischer, Taylor,
+Calvo). Nesses modelos, consumo e investimento aparecem como \emph{resultados}
+do equilíbrio geral, e as políticas monetária e fiscal aparecem como choques
+ou parâmetros.
+
+A segunda prova inverte o zoom. Os capítulos 8 e 9 de Romer abrem a caixa dos
+dois grandes componentes privados da demanda agregada e perguntam:
+\emph{de onde vem, afinal, a decisão de consumir e a decisão de investir?} A
+resposta, nos dois casos, tem a mesma espinha dorsal --- um agente otimizador
+que olha para o \textbf{futuro esperado} e traz fluxos a \textbf{valor
+presente}. Os capítulos 11 e 12 fazem a mesma pergunta para o governo:
+\emph{o que a política monetária consegue (e não consegue) fazer com a
+inflação e os juros, e o que a política fiscal consegue (e não consegue)
+fazer com a demanda e a dívida?} De novo, a resposta gira em torno de
+expectativas: inflação \emph{esperada}, superávits \emph{esperados},
+credibilidade.
+
+\begin{contextobox}[title={O fio condutor da P2}]
+Os quatro blocos são variações de um único princípio: \textbf{decisões de
+hoje dependem de fluxos futuros esperados, descontados a valor presente}.
+\begin{itemize}[leftmargin=1.5em, itemsep=0.1em]
+\item Consumo: renda futura esperada (renda permanente);
+\item Investimento: lucros futuros esperados (q de Tobin);
+\item Política monetária: inflação futura esperada (Fisher, estrutura a
+termo, regra forward-looking);
+\item Política fiscal: superávits futuros esperados (solvência, equivalência
+ricardiana).
+\end{itemize}
+Quem entende esse fio consegue deduzir a maior parte das afirmativas da
+prova, mesmo sem tê-las decorado.
+\end{contextobox}
+
+% ==========================================================================
+\section{Bloco I --- Consumo: da regra de bolso keynesiana ao consumidor que olha o futuro (Romer, cap.\ 8)}
+% ==========================================================================
+
+\subsection{O problema: a função consumo de Keynes e suas duas vidas}
+
+A macroeconomia do pós-guerra herdou de Keynes (1936) uma função consumo
+deliberadamente simples: o consumo agregado responde de forma estável à renda
+disponível \emph{corrente}. Essa hipótese era o coração do multiplicador
+keynesiano --- se o consumo responde mecanicamente à renda, todo choque de
+gasto se amplifica --- e funcionava bem como descrição de curto prazo. O
+problema apareceu quando os dados foram olhados em horizontes distintos: em
+séries \emph{curtas} e em cortes de famílias, a propensão a consumir estimada
+é baixa; em séries \emph{longas} e agregadas, aproxima-se de 1. Uma teoria em
+que o consumo é função estável da renda corrente não explica por que a mesma
+regressão dá números tão diferentes conforme a janela de tempo.
+
+\subsection{A solução de Friedman: renda permanente}
+
+Modigliani e Brumberg (1954) e Friedman (1957) resolveram o quebra-cabeça
+mudando a pergunta. O consumidor relevante não olha o contracheque do mês; ele
+maximiza utilidade ao longo da vida, sujeita ao total de recursos que espera
+ter. No caso mais simples --- utilidade aditiva $\sum_t u(C_t)$ com $u'>0$,
+$u''<0$, juros e desconto nulos e restrição
+$\sum_t C_t \leq A_0 + \sum_t Y_t$ --- a condição de primeira ordem do
+Lagrangiano iguala $u'(C_t) = \lambda$ em todos os períodos, e como a utilidade
+marginal é decrescente, o consumo ótimo é \emph{constante}:
+\[
+C_t = \frac{1}{T}\Bigl(A_0 + \sum_{\tau=1}^{T} Y_\tau\Bigr).
+\]
+O lado direito é a \textbf{renda permanente}: a fração $1/T$ dos recursos de
+vida inteira. O que sobra da renda corrente --- a diferença entre ela e a
+permanente --- é \textbf{renda transitória}, e vai para a poupança, não para o
+consumo. Daí as duas implicações que organizam todo o bloco: um ganho
+\emph{transitório} de renda mexe no consumo em apenas $1/T$ (por isso um corte
+de impostos temporário tem pouco efeito); um ganho \emph{permanente} mexe
+praticamente um-para-um. E o padrão temporal da renda, irrelevante para o
+consumo, torna-se o determinante central da \emph{poupança}: o agente poupa
+quando a renda corrente excede a permanente, exatamente para suavizar o
+consumo.
+
+A teoria explica de quebra o paradoxo das regressões. Se o consumo responde à
+renda permanente e a renda corrente é a soma $Y = Y^P + Y^T$, o coeficiente de
+uma regressão de $C$ sobre $Y$ é
+$\hat{b} = \VAR(Y^P)/[\VAR(Y^P) + \VAR(Y^T)]$: perto de 1 quando a variância
+permanente domina (séries longas), bem abaixo de 1 quando a transitória pesa
+(séries curtas). Keynes e Friedman deixam de ser rivais e viram casos do mesmo
+modelo em horizontes diferentes --- e é por isso que a chave da lista trata a
+previsão keynesiana como \emph{caso particular} da renda permanente.
+
+\subsection{Hall: se Friedman está certo, o consumo é imprevisível}
+
+Vinte anos depois, Hall (1978) extraiu da renda permanente uma consequência
+que ninguém tinha notado, incorporando \emph{incerteza} e expectativas
+racionais. Se o consumidor já usa hoje toda a informação disponível para
+estimar sua renda permanente (com utilidade quadrática, o chamado
+``equivalente-certeza''), então o consumo de hoje já embute tudo o que se sabe
+--- e a condição de otimização vira $C_t = \E_t[C_{t+1}]$, ou seja,
+\[
+C_t = C_{t-1} + e_t,
+\]
+um \textbf{passeio aleatório}. As variações do consumo só podem vir de
+\emph{informação nova} sobre a renda permanente, por construção imprevisível.
+O ponto sutil --- cobrado em prova --- é a direção do argumento: o consumo é
+imprevisível \emph{porque} os agentes usam toda a informação, e não porque a
+ignorem. A previsão é radical e testável: nenhuma variável conhecida em $t-1$
+deveria prever a variação do consumo em $t$.
+
+\subsection{Campbell e Mankiw: o teste e o meio-termo}
+
+Campbell e Mankiw (1989) transformaram a previsão de Hall em um teste com
+alternativa explícita: suponha que uma fração $\lambda$ dos consumidores
+simplesmente gasta a renda corrente (``regra de bolso'' keynesiana) e o
+restante $(1-\lambda)$ segue Hall. A regressão
+\[
+C_t - C_{t-1} = \lambda\,(Y_t - Y_{t-1}) + (1-\lambda)\,e_t
+\]
+não pode ser estimada por MQO --- a variação da renda é endógena, correlata ao
+erro ---, então os autores usaram \textbf{variáveis instrumentais}, com dados
+trimestrais americanos de 1953 a 1986. O resultado organizou a literatura:
+$\lambda$ estatisticamente significativo (Hall é rejeitado \emph{em parte}),
+mas bem abaixo de 1, em torno de $0{,}5$ (a rejeição \emph{plena} do passeio
+aleatório exigiria $\lambda = 1$). A leitura da chave oficial é a de uma
+\textbf{explicação híbrida}: metade das famílias à la Keynes, metade à la
+Friedman--Hall. Guarde esse $\lambda$: ele reaparece no Bloco IV, porque
+famílias que gastam a renda corrente são exatamente as que \emph{quebram} a
+equivalência ricardiana.
+
+\subsection{Juros, poupança e a elasticidade que decepciona}
+
+Com taxa de juros positiva, a otimização gera a equação de Euler
+\[
+\frac{C_{t+1}}{C_t} = \left(\frac{1+r}{1+\rho}\right)^{1/\theta}:
+\]
+se $r > \rho$, vale a pena adiar consumo e a trajetória é crescente; se
+$r<\rho$, a impaciência vence e o consumo declina. A sensibilidade dessa
+escolha à taxa de juros é $1/\theta$ --- a elasticidade de substituição
+intertemporal. A teoria prevê, portanto, relação \emph{positiva} entre juros
+reais e crescimento do consumo. A evidência, porém, decepciona: Hansen e
+Singleton (1983), Hall (1988b) e os próprios Campbell e Mankiw encontram
+pouquíssimo poder explicativo dos juros. A conciliação canônica --- e a
+resposta da chave da lista --- não abandona o modelo: atribui o resultado a um
+$\theta$ \emph{alto} (aversão ao risco elevada, EIS baixa). O canal existe,
+mas é fraco porque o consumidor típico não topa realocar consumo no tempo por
+causa de juros.
+
+\subsection{Além da renda permanente: precaução e liquidez}
+
+Dois refinamentos fecham o bloco, ambos motivados por fatos que a HRP pura não
+explica. O primeiro é a \textbf{poupança precaucional}: com utilidade
+não-quadrática (terceira derivada positiva --- \emph{prudência}), incerteza
+importa por si só. A aproximação vista em aula,
+$\E[g^c] \simeq \tfrac{1}{2}(\theta+1)\VAR(g^c)$, diz que mais incerteza sobre
+o crescimento do consumo induz mais poupança hoje e, com ela, crescimento
+esperado maior do consumo amanhã --- o coeficiente $(\theta+1)$ é a prudência
+relativa, não a aversão ao risco. O paradoxo é que o modelo prevê poupança
+alta e \emph{as famílias poupam pouco}: esse é o puzzle, e a saída de Carroll
+(1992, 1997) é combinar o motivo precaucional com uma taxa de desconto
+subjetiva \emph{alta}, que ``age para diminuir a poupança, compensando o
+efeito do motivo precaucional''.
+
+O segundo refinamento são as \textbf{restrições de liquidez}: a HRP supõe que
+a família toma emprestado à mesma taxa a que aplica, mas na prática crédito é
+caro e racionado. Restrições elevam a poupança de duas formas --- quando estão
+ativas, forçam consumo menor; e, como enfatiza Zeldes (1989), mesmo
+\emph{inativas} hoje elas reduzem o consumo corrente se puderem vir a
+prender no futuro (evidência em Gross e Souleles, 2002). Note o padrão: de
+novo, é a \emph{expectativa} (de restrição futura) que move a decisão
+presente.
+
+\begin{sintesebox}[title={Síntese do Bloco I --- a história em cinco frases}]
+Keynes ligou consumo à renda corrente; os dados de longo prazo desmentiram.
+Friedman religou o consumo aos \emph{recursos de vida inteira}, explicando as
+duas propensões com uma única fórmula. Hall levou a lógica ao limite: com
+expectativas racionais, o consumo vira passeio aleatório. Campbell e Mankiw
+mediram o meio-termo: $\lambda \approx 0{,}5$ de regra de bolso, o resto
+otimizador. Juros movem consumo em teoria, pouco na prática ($\theta$ alto);
+e incerteza e crédito caro completam o quadro --- poupança precaucional
+(anulada pela impaciência, diz Carroll) e restrições de liquidez que agem até
+por antecipação.
+\end{sintesebox}
+
+% ==========================================================================
+\section{Bloco II --- Investimento: por que existe uma teoria do $q$ (Romer, cap.\ 9)}
+% ==========================================================================
+
+\subsection{O problema: sem fricção, não há teoria do investimento}
+
+O investimento é o componente mais volátil da demanda agregada --- nos dados
+brasileiros mostrados em aula, a FBCF oscila muito mais que o consumo --- e,
+ao mesmo tempo, é o que liga o curto prazo ao longo prazo, pois acumula o
+capital dos modelos de crescimento da P1. Mas há um problema conceitual logo
+na partida: num mundo sem fricções, em que a firma aluga capital até o produto
+marginal igualar o custo de uso, o \emph{estoque} desejado de capital fica
+bem definido, mas a \emph{taxa} de investimento não --- qualquer diferença
+entre estoque atual e desejado seria fechada instantaneamente, e o
+investimento ``saltaria''. Para existir uma teoria do investimento como fluxo
+suave, é preciso que ajustar o capital seja \emph{custoso}.
+
+\subsection{A solução: custos de ajuste convexos e o valor $q$}
+
+Romer introduz então custos de ajuste convexos --- $C(0)=0$, $C'(0)=0$,
+$C''>0$: instalar capital rápido demais custa mais que proporcionalmente. A
+firma maximiza o valor presente dos lucros,
+\[
+\Pi = \int_{0}^{\infty} e^{-rt}\bigl[\pi(K)\,k - I - C(I)\bigr]\dif t,
+\]
+em que os lucros unitários $\pi(K)$ caem com o capital \emph{da indústria}
+($\pi'<0$: mais oferta derruba o preço relativo do produto). Da condição de
+primeira ordem nasce o objeto central do capítulo:
+\[
+1 + C'(I_t) = q_t,
+\]
+a firma investe até o custo total de adquirir capital --- preço de compra
+(normalizado em 1) \emph{mais} custo marginal de ajuste --- \textbf{igualar} o
+valor de uma unidade adicional de capital, $q$. A palavra importa: igualar,
+nunca ``superar''; se o valor superasse o custo, haveria lucro na margem e a
+firma investiria mais. Agregando, $\dot K = f(q)$ com $f(1)=0$: o capital da
+indústria cresce quando $q>1$, encolhe quando $q<1$.
+
+A intuição de Tobin (1969) é anterior ao formalismo e mais geral: $q$ ---
+o valor de mercado do capital relativo ao seu custo de reposição --- é uma
+\emph{estatística suficiente} para a decisão de investir. Tudo o que importa
+sobre o futuro (demanda, tecnologia, juros, risco) já está precificado em
+\[
+q(t) = \int_{0}^{\infty} e^{-rt}\,\pi(K(t))\,\dif t,
+\]
+o valor presente dos lucros marginais futuros. Daí as três estáticas
+comparativas da chave da lista: $q$ \emph{sobe} com produto esperado maior
+(fluxos de caixa maiores), \emph{cai} com juros esperados maiores (desconto
+maior --- e o que importa é a \emph{estrutura} de juros, em particular os
+longos), e \emph{cai} com o capital da indústria (lucros marginais
+decrescentes).
+
+\subsection{A dinâmica: dois loci e uma sela}
+
+A evolução de $q$ obedece a $\dot q = rq - \pi(K)$ --- o ganho de capital
+necessário para o dono do ativo aceitar carregá-lo deve cobrir a diferença
+entre o custo de oportunidade $rq$ e o dividendo $\pi(K)$. No plano
+$q \times K$, isso desenha o diagrama de fases: o locus $\dot K = 0$ é a reta
+$q=1$; o locus $\dot q = 0$ é a curva decrescente $q = \pi(K)/r$. O equilíbrio
+$E$ é ponto de \textbf{sela}: dado o capital inicial, só um valor de $q$
+coloca a indústria na trajetória convergente; qualquer outro leva a caminhos
+explosivos incompatíveis com otimização. Os quadrantes noroeste e sudeste
+contêm os braços da sela (convergem); nordeste e sudoeste divergem --- é do
+sudoeste que sai o item favorito do professor: com $K$ muito baixo
+($\pi(K)$ alto) e $q$ muito baixo ($rq$ pequeno), $\dot q = rq - \pi(K) < 0$
+e o $q$ \emph{cai ainda mais}. A situação da Q5 da lista é o quadrante
+noroeste: $q>1$ (capital crescendo) com $q$ abaixo do que os lucros correntes
+sugerem (``pessimismo quanto ao futuro'', $\dot q<0$) --- e o vetor resultante
+desce pela sela rumo a $E$.
+
+\subsection{Choques: permanente vs.\ transitório e o acelerador}
+
+O aparato paga dividendos na estática comparativa. Um aumento
+\emph{permanente} do produto desloca o locus $\dot q = 0$ para fora; como o
+capital não salta, quem salta é o $q$ --- e o investimento sobe até que a
+acumulação derrube o preço relativo do produto e os lucros, devolvendo $q$ a
+1 num equilíbrio com mais capital. Um aumento \emph{transitório} produz a
+mesma cena em miniatura: os investidores sabem que os lucros extras duram
+pouco, o salto de $q$ é menor e o efeito sobre o investimento é
+\textbf{menor --- mas nunca nulo} (o valor presente dos lucros muda pouco,
+não zero). Uma queda \emph{permanente} dos juros eleva $q = (1/r)\pi(K)$ para
+cada $K$ (e torna a curva mais inclinada), levando o equilíbrio a um estoque
+de capital maior. E o modelo racionaliza o velho \textbf{acelerador}: o
+investimento é alto quando o produto \emph{acabou de subir} --- não quando
+está alto há muito tempo ---, porque é a subida recente que encontra o capital
+defasado e o $q$ acima de 1.
+
+\begin{sintesebox}[title={Síntese do Bloco II --- a história em quatro frases}]
+Sem custos de ajuste, o investimento saltaria e não haveria o que estudar; com
+custos convexos, investir vira decisão de fluxo. A regra da firma é investir
+até o custo de aquisição \emph{igualar} o valor do capital: $1+C'(I)=q$. O $q$
+de Tobin resume o futuro --- valor presente dos lucros marginais, subindo com
+produto esperado e caindo com juros longos e com o capital da indústria. A
+dinâmica é de sela: $q$ salta, capital ajusta devagar, e choques permanentes
+movem mais que transitórios (que movem pouco, nunca nada).
+\end{sintesebox}
+
+% ==========================================================================
+\section{Bloco III --- Inflação e Política Monetária: da moeda à regra de juros (Romer, cap.\ 11)}
+% ==========================================================================
+
+\subsection{O problema: de onde vem a inflação}
+
+O capítulo abre com a pergunta que organiza tudo: \emph{há um viés
+inflacionário na política monetária?} Antes de responder, é preciso saber o
+que determina o nível de preços. O ponto de partida é o equilíbrio do mercado
+monetário, $M/P = L(i, Y)$ com $L_i<0$ e $L_Y>0$, que invertido dá
+$P = M/L(i,Y)$: os preços sobem com mais moeda, com juros nominais maiores
+(que reduzem a demanda por encaixes) e com produto \emph{menor} (que também a
+reduz --- cuidado com o sinal, que o professor adora inverter). Mas, para a
+inflação de longo prazo, um desses fatores domina os demais: só o
+\textbf{crescimento da oferta monetária} é capaz de gerar aumentos
+\emph{persistentes} de preços --- juros e produto produzem efeitos de nível,
+limitados. A evidência de corte internacional mostrada em aula (97 países,
+1980--2006) exibe relação clara e forte entre crescimento monetário médio e
+inflação média.
+
+\subsection{O longo prazo: Fisher, neutralidade e o salto do nível de preços}
+
+Com preços plenamente flexíveis, a moeda é neutra: produto e juro real ficam
+em $\bar Y$ e $\bar r$, e a identidade de Fisher $i = r + \pi^e$ transfere
+toda a inflação esperada para o juro \emph{nominal} (efeito Fisher). Esse
+arcabouço produz um dos resultados mais elegantes do capítulo: um aumento
+permanente da taxa de \emph{crescimento} da moeda eleva $\pi^e$, eleva $i$,
+reduz a demanda por moeda real --- e, como $M$ não salta, é o \emph{nível de
+preços} que salta para cima no anúncio, com $M/P$ menor dali em diante. O
+espelho exato --- uma \emph{redução} permanente do crescimento monetário, com
+queda descontínua de $P$, de $\pi^e$ e de $i$ e \emph{aumento} do estoque real
+de moeda --- foi gabarito da P2 2021. A lição de contexto: com preços
+flexíveis, desinflar é indolor; todo o custo da desinflação vem da rigidez.
+
+\subsection{O curto prazo: efeito liquidez}
+
+Na prática, o efeito imediato de uma expansão monetária é \emph{reduzir} os
+juros nominais curtos --- o \textbf{efeito liquidez}. Com preços rígidos, mais
+moeda nominal é mais moeda \emph{real}; para o mercado monetário reequilibrar,
+o juro real (e o nominal) cai, e o produto sobe. Se o efeito taxa-real domina
+o efeito inflação-esperada, a taxa nominal cai no curto prazo --- e sobe no
+longo, quando os preços aceleram e $\pi^e$ se ajusta. O contraste entre as
+duas cadeias (curto: $\uparrow M/P$, $\downarrow r$, $\downarrow i$,
+$\uparrow Y$; longo: $\uparrow \pi^e$, $\uparrow i$, $\downarrow M/P$) é o
+mapa mental do bloco: a mesma expansão monetária tem sinais \emph{opostos}
+sobre o juro nominal conforme o horizonte.
+
+\subsection{A estrutura a termo: onde curto e longo prazo se encontram}
+
+Como a política monetária controla juros \emph{curtos}, mas consumo e
+investimento (o $q$ do Bloco II!) respondem a juros \emph{longos}, a ponte
+entre política e economia real é a \textbf{estrutura a termo}. Por
+arbitragem, a taxa de um título de $n$ períodos é a \emph{média} das taxas
+curtas esperadas mais um prêmio:
+\[
+i_t^n = \frac{i_t^1 + \E_t i_{t+1}^1 + \cdots + \E_t i_{t+n-1}^1}{n}
++ \theta_{nt}
+\]
+--- nunca $n$ vezes a taxa curta, como propõe o distrator clássico. Pela
+teoria das expectativas, o que move as taxas longas são as
+\emph{expectativas das curtas futuras}, não o prêmio. Junte isso ao efeito
+liquidez e a conclusão dos slides se monta sozinha: uma expansão monetária
+tende a \emph{derrubar as taxas curtas e subir as longas} --- pois o mercado
+antecipa a inflação futura e os juros que virão com ela. Eis o canal completo:
+política monetária $\to$ expectativas $\to$ juros longos $\to$ $q$ de Tobin
+$\to$ investimento.
+
+\subsection{Por que combater a inflação: os custos}
+
+Se moeda é neutra no longo prazo, por que inflação é um problema? O capítulo
+lista os custos: o esforço de economizar encaixes (``sola de sapato''),
+distorções de preços relativos e má alocação, a distorção do sistema
+tributário --- que Feldstein (1997) mostra ser \emph{regressiva}, pois a
+inflação pesa mais nos alimentos, que pesam mais nos pobres ---, perda de
+eficiência (Bénabou, 1992; Tommasi, 1994), erros de cálculo de famílias e
+firmas em ambiente inflacionário (Modigliani e Cohn, 1979; Hall, 1984) e, por
+fim, a associação entre \emph{nível} e \emph{variância} da inflação: inflação
+alta é inflação volátil, e ambas desestimulam o investimento de longo prazo
+por sinalizarem um governo que funciona mal.
+
+\subsection{A resposta institucional: a regra de Clarida, Galí e Gertler}
+
+O bloco fecha com a resposta moderna à pergunta inicial. Se o viés
+inflacionário nasce de política discricionária, a solução é uma \emph{regra}
+sistemática. Clarida, Galí e Gertler (2000) estimam regras da forma
+\[
+i_t = r^n + \E_t[\pi_{t+n}]
++ \phi_\pi\bigl(\E_t[\pi_{t+n}] - \pi^*\bigr)
++ \phi_y\,\E_t\bigl[\ln Y_{t+n} - \ln Y^n_{t+n}\bigr],
+\]
+uma extensão \emph{forward-looking} da regra de Taylor (1993): o Banco Central
+reage à inflação \emph{esperada} e ao hiato \emph{esperado}, ancorado na taxa
+natural $r^n$ e na meta $\pi^*$. O coração analítico é o \textbf{Princípio de
+Taylor}, $\phi_\pi > 1$: só quando o juro nominal responde \emph{mais que
+proporcionalmente} ao desvio da inflação esperada é que o juro \emph{real}
+sobe após um choque inflacionário ($\Delta r = \Delta i - \Delta\E\pi > 0$),
+contraindo a demanda e devolvendo a inflação à meta --- política
+contracíclica que \emph{ancora} expectativas. Com $\phi_\pi < 1$, o juro real
+não sobe o suficiente, a inflação ganha persistência e as expectativas se
+desancoram --- não é convergência lenta, é não-convergência. No equilíbrio de
+médio prazo, os termos de desvio zeram e $i = r^n + \pi^*$ --- com a
+calibração vista em aula na linha do Banco Central do Brasil ($r^n = 5\%$,
+$\pi^* = 3\%$, $\phi_\pi = 1{,}5$, $\phi_y = 0{,}3$, $n = 4$ trimestres), um
+juro nominal de $8\%$. As funções de resposta a impulso comparadas em aula
+mostram o princípio em ação: com $\phi_\pi = 1{,}5$ a inflação volta à meta
+bem mais rápido do que com $\phi_\pi = 0{,}7$, ao custo de uma queda maior do
+produto no curto prazo.
+
+\begin{sintesebox}[title={Síntese do Bloco III --- a história em cinco frases}]
+Preços vêm do mercado monetário ($P = M/L$), mas inflação \emph{persistente}
+vem de um lugar só: crescimento da moeda. Com preços flexíveis vale Fisher e a
+neutralidade --- mudanças no crescimento monetário fazem o \emph{nível} de
+preços saltar. Com rigidez, aparece o efeito liquidez: expansão derruba juros
+curtos no curto prazo e os sobe no longo. A estrutura a termo (média das
+curtas esperadas $+$ prêmio) transmite tudo isso aos juros longos --- os que
+importam para o $q$ e o investimento. E a regra forward-looking de Clarida,
+Galí e Gertler, com $\phi_\pi > 1$, é o mecanismo institucional que ancora as
+expectativas e mantém a inflação baixa e estável.
+\end{sintesebox}
+
+% ==========================================================================
+\section{Bloco IV --- Déficits e Política Fiscal: a aritmética que as expectativas fecham (Romer, cap.\ 12)}
+% ==========================================================================
+
+\subsection{O problema: déficits persistentes num mundo que envelhece}
+
+O capítulo 12 parte de fatos, não de teoria: em vários países, déficits
+orçamentários grandes tornaram-se \emph{sistemáticos}, interrompidos por
+breves superávits; a demografia --- cada vez mais aposentados por trabalhador
+--- pressiona previdência e saúde para as próximas décadas; e a percepção
+generalizada é de que déficits persistentes reduzem o crescimento e podem
+terminar em crise. O caso brasileiro apresentado em aula dá concretude:
+resultado primário médio de $-0{,}34\%$ do PIB entre 1999 e 2025, déficit
+nominal médio de $4{,}5\%$, e dívida bruta que saiu de $\sim$55\% do PIB em
+2006 para um pico de $\sim$90\% em 2020, rondando 75\% em 2025 --- com a
+pergunta provocativa do professor: \emph{o Brasil tem operado sob um regime
+fiscal sustentável?}
+
+\subsection{A aritmética: restrição orçamentária e solvência}
+
+A âncora analítica é simples e implacável: governos não podem gastar mais que
+arrecadam \emph{para sempre}. Em valor presente,
+\[
+\int_{0}^{\infty} e^{-R(t)}\bigl[T(t) - G(t)\bigr]\dif t \;\geq\; D(0):
+\]
+o fluxo de \textbf{superávits primários} --- correntes \emph{e futuros
+esperados} --- precisa cobrir a dívida inicial. Três consequências de
+contexto. Primeira: solvência não se lê no resultado corrente, que é fração
+minúscula do lado esquerdo; lê-se nos fluxos \emph{projetados} --- por isso
+dois países com a mesma dívida e saldos correntes diferentes não são,
+\emph{necessariamente}, um mais arriscado que o outro. Segunda: se o que vale
+são projeções, então \textbf{anúncios, sinalizações, reputação e
+credibilidade fiscal} são variáveis econômicas de primeira ordem --- eles
+movem as expectativas de superávits futuros que entram na conta dos credores.
+Terceira: há um caso natural para \emph{regras fiscais}, exatamente como no
+bloco anterior havia um caso para regras monetárias --- regras substituem
+discrição para ancorar expectativas.
+
+\subsection{Equivalência ricardiana: o consumidor de Friedman encontra o governo}
+
+A pergunta seguinte é como o \emph{financiamento} do gasto --- tributos hoje
+ou dívida hoje --- afeta a economia. A resposta canônica junta os dois blocos
+iniciais do curso: no RCK com tributos lump-sum, a restrição das famílias é
+\[
+\int_{0}^{\infty} e^{-R(t)} C(t)\,\dif t \leq K(0) + D(0)
++ \int_{0}^{\infty} e^{-R(t)}\bigl[W(t) - T(t)\bigr]\dif t;
+\]
+se o governo satisfaz sua restrição com igualdade, o valor presente dos
+tributos é a dívida inicial mais o valor presente dos gastos --- e,
+substituindo, tanto $D(0)$ quanto a trajetória de $T$ \emph{desaparecem}:
+\[
+\int_{0}^{\infty} e^{-R(t)} C(t)\,\dif t \leq K(0)
++ \int_{0}^{\infty} e^{-R(t)} W(t)\,\dif t
+- \int_{0}^{\infty} e^{-R(t)} G(t)\,\dif t.
+\]
+Só o valor presente dos \textbf{gastos} restringe as famílias. É a
+\textbf{equivalência ricardiana}: dado $G$, trocar tributos por dívida não
+muda consumo nem investimento ($I = Y - C - G$) --- um corte de impostos hoje
+é renda \emph{transitória} que o consumidor de Friedman--Hall, antevendo os
+tributos futuros embutidos na restrição do governo, simplesmente \emph{poupa}.
+Note como o resultado é o Bloco I aplicado: quem entendeu por que renda
+transitória vai para a poupança já sabe por que a equivalência vale. E também
+por que ela \emph{falha na prática}: a fração $\lambda \approx 0{,}5$ de
+Campbell--Mankiw --- famílias que gastam a renda corrente, por regra de bolso
+ou restrição de liquidez --- consome parte do corte de impostos, devolvendo à
+política fiscal um efeito real que o modelo puro nega.
+
+\subsection{Expectativas no limite: contrações expansionistas e crises autorrealizáveis}
+
+Se expectativas fecham a conta fiscal, elas podem produzir resultados que
+parecem paradoxais. \textbf{Contrações fiscais expansionistas}: Giavazzi e
+Pagano (1990) documentam que os pacotes de consolidação da Dinamarca e da
+Irlanda nos anos 1980 foram seguidos de \emph{booms de consumo}, e atribuem o
+resultado a efeitos via expectativas. Os canais, listados em aula, são quatro:
+menos gasto corrente e esperado reduz juros correntes e esperados; menos
+tributos futuros significam menos distorções e mais renda futura (lado da
+oferta); a consolidação reduz a probabilidade percebida de crise; e renda
+futura esperada maior eleva consumo corrente (Bloco I) e investimento via $q$
+(Bloco II) --- Bertola e Drazen (1993), Perotti (1999). Alesina e Perotti
+(1997) acrescentam que a \emph{composição} decide: ajustes baseados em cortes
+de gastos com emprego público e transferências tendem a durar e a expandir;
+ajustes baseados em aumentos de tributos, em geral, não --- os multiplicadores
+fiscais diferem conforme a composição.
+
+No sentido oposto, as mesmas expectativas podem destruir: nos modelos de
+\textbf{crises de dívida} inspirados em Calvo (1988) e Cole e Kehoe (2000), a
+crise é \emph{induzida por expectativas} --- dívida alta leva credores a
+exigir retornos maiores, juros maiores pioram a dinâmica fiscal e reduzem as
+receitas futuras esperadas, o que torna o default mais provável e valida o
+medo inicial. É a profecia autorrealizável fiscal: o mesmo país, com os mesmos
+fundamentos, pode estar num equilíbrio bom ou ruim conforme o que os credores
+\emph{acreditam}.
+
+\begin{sintesebox}[title={Síntese do Bloco IV --- a história em quatro frases}]
+Déficits persistentes e demografia tornam a aritmética fiscal inescapável: em
+valor presente, superávits primários esperados devem cobrir a dívida --- e por
+isso solvência é questão de \emph{expectativas}, não de resultado corrente.
+Dado o gasto, a forma de financiamento é irrelevante (equivalência
+ricardiana): o consumidor otimizador poupa o corte de impostos; a fração
+keynesiana de Campbell--Mankiw é o que devolve efeito real à política fiscal.
+Consolidações podem expandir (Dinamarca/Irlanda), sobretudo cortando gastos
+(Alesina--Perotti), porque melhoram juros, oferta e risco esperados. E a
+mesma força pode condenar: crises de dívida são profecias autorrealizáveis
+--- dívida alta, retorno exigido alto, default provável.
+\end{sintesebox}
+
+% ==========================================================================
+\section{Fecho: o mapa que costura os quatro blocos}
+% ==========================================================================
+
+Releia agora o fio condutor da introdução com os blocos preenchidos. O
+\textbf{consumidor} do cap.\ 8 decide olhando a renda futura esperada; a
+\textbf{firma} do cap.\ 9 decide olhando os lucros futuros esperados,
+resumidos no $q$; o \textbf{Banco Central} do cap.\ 11 só controla o presente
+--- juros curtos ---, mas o que a economia sente são os juros longos, que são
+expectativas de juros curtos futuros; e o \textbf{Tesouro} do cap.\ 12 é
+solvente ou insolvente conforme os superávits que os credores \emph{esperam}
+dele. Em cada bloco, a política econômica eficaz é a que administra
+expectativas: a regra de Clarida com $\phi_\pi>1$ ancora a inflação esperada;
+anúncios fiscais críveis ancoram os superávits esperados; e os dois fracassos
+simétricos --- desancoragem inflacionária com $\phi_\pi<1$, crise de dívida
+autorrealizável com credibilidade perdida --- são o mesmo acidente em moedas
+diferentes.
+
+Para a prova em formato V/F, esse mapa tem uso prático imediato: quase toda
+afirmativa falsa viola o fio condutor de um jeito reconhecível --- troca
+esperado por corrente (solvência ``pelos resultados correntes''), troca o
+horizonte (juros curtos, e não longos, mandando no $q$), inverte a direção da
+expectativa (consumo previsível, famílias que ignoram informação), ou nega o
+valor presente (transitório com efeito de permanente, ou efeito ``nulo'').
+Quando bater a dúvida, pergunte: \emph{esta frase respeita a lógica de valor
+presente e expectativas que costura o curso?} Se não respeita, provavelmente
+é o distrator.
+
+\vspace{1em}
+\begin{contextobox}[title={Trilha final de estudo (ordem sugerida)}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.1em]
+\item Leia este guia de ponta a ponta (uma sentada, $\sim$40 min): é o
+contexto;
+\item Estude \texttt{lista\_III/guia\_p2\_2026.pdf} bloco a bloco: são as
+respostas oficiais;
+\item Faça \texttt{provas/p2\_simulado\_2026.pdf} cronometrado: é o formato;
+\item Nas últimas 48h, rode \texttt{lista\_III/decoreba\_vf\_p2\_2026.pdf}:
+são os reflexos.
+\end{enumerate}
+\end{contextobox}
+
+\vfill
+{\small\color{grayrbc} Guia dissertativo da Prova 2 --- Macroeconomia I,
+PPGEco-UFES 2026. Prosa de contexto baseada em Romer (2012, caps.\ 8, 9, 11 e
+12), nas Aulas 10--13 e na Lista 3 2026 com chave oficial. Uso pessoal.}
+
+\end{document}
