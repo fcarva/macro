@@ -1,0 +1,1095 @@
+% ==========================================================================
+%  Guia de Conteúdo — Prova 2 (2026)
+%  Macroeconomia I (PPGEco-UFES, 2026)
+%  Prof. Dr. Ricardo Ramalhete Moreira
+%  Base: Lista 3 2026 ("lista da Prova 2") + CHAVE oficial de respostas
+%        + slides das Aulas 10-13 (Romer caps. 8, 9, 11 e 12)
+%  Complemento: provas/p2_simulado_2026.pdf (simulado no modelo da P1)
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=3cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% --------------------------------------------------------------------------
+% Cores
+% --------------------------------------------------------------------------
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+\definecolor{correctbg}{HTML}{dcfce7}
+\definecolor{correctborder}{HTML}{166534}
+
+% --------------------------------------------------------------------------
+% Caixas
+% --------------------------------------------------------------------------
+\newtcolorbox{resultbox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1.2pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+\newtcolorbox{correctbox}[1][]{standard, colback=correctbg, colframe=correctborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small\color{correctborder}, breakable, #1}
+\newtcolorbox{formulabox}[1][]{standard, colback=greenbg!30, colframe=greenbox!60,
+  boxrule=0.8pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+
+% --------------------------------------------------------------------------
+% Comandos matemáticos
+% --------------------------------------------------------------------------
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\VAR}{\mathrm{VAR}}
+
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{Tópico \thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{grayrbc}}{}{0em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Guia de Conteúdo P2 2026 --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{grayrbc}{Romer caps.\ 8 $\cdot$ 9 $\cdot$ 11 $\cdot$ 12}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ==========================================================================
+\begin{document}
+% ==========================================================================
+
+% --------------------------------------------------------------------------
+% Capa
+% --------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\vspace*{1.2cm}
+{\Large\bfseries Universidade Federal do Espírito Santo}\\[0.5em]
+{\large Programa de Pós-Graduação em Economia (PPGEco-UFES)}\\[2em]
+
+\rule{\linewidth}{1.2pt}\\[0.8em]
+{\LARGE\bfseries\color{cyanrbc} Guia de Conteúdo --- Prova 2\\[0.4em]
+\large Macroeconomia I --- 2026}\\[0.4em]
+{\normalsize\color{grayrbc} Consumo $\cdot$ Investimento $\cdot$ Inflação e Política Monetária $\cdot$ Política Fiscal}\\[0.8em]
+\rule{\linewidth}{1.2pt}
+
+\vspace{1em}
+{\large Estruturado pela Lista 3 (2026) e sua chave oficial de respostas,\\
+integrado ao conteúdo dos slides das Aulas 10--13}
+
+\vspace{1.5em}
+\begin{tcolorbox}[standard, colback=provabg, colframe=provaborder, width=0.92\textwidth,
+  arc=4pt, boxrule=1.2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\raggedright
+\textbf{\textcolor{provaborder}{Mapa do guia} (15 tópicos, seguindo as 8 questões da lista):}\\[0.4em]
+\textbf{Parte I --- Consumo} (Aula 10; Romer cap.\ 8): Tópicos 1--4
+\hfill $\leftarrow$ Lista Q1, Q2, Q3\\
+\textbf{Parte II --- Investimento} (Aula 11; cap.\ 9): Tópicos 5--7
+\hfill $\leftarrow$ Lista Q4, Q5\\
+\textbf{Parte III --- Inflação e Pol.\ Monetária} (Aula 12; cap.\ 11): Tópicos 8--12
+\hfill $\leftarrow$ Lista Q6\\
+\textbf{Parte IV --- Déficits e Pol.\ Fiscal} (Aula 13; cap.\ 12): Tópicos 13--15
+\hfill $\leftarrow$ Lista Q7, Q8
+\end{tcolorbox}
+
+\vspace{1.2em}
+\begin{tcolorbox}[standard, colback=boxbg, colframe=boxborder, width=0.92\textwidth,
+  arc=4pt, boxrule=1pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\raggedright
+\textbf{Como este guia foi montado:} cada tópico apresenta (i) a teoria tal
+como dada em aula, com as derivações; (ii) a \textbf{resposta oficial da
+chave} da Lista 3, destacada em caixa verde --- é o padrão de resposta que o
+professor considera correto; e (iii) uma caixa laranja \textbf{``Como cai na
+prova''}, com os itens V/F que já caíram na P2 2021 e na P2 2024 sobre aquele
+ponto. A prova será no modelo da P1 (julgar afirmativas, escolha única) ---
+treine com o simulado em \texttt{provas/p2\_simulado\_2026.pdf}.
+\end{tcolorbox}
+
+\vfill
+{\small Fontes: Lista 3 2026 + CHAVE oficial; slides das Aulas 10--13
+(caps.\ 8, 9, 11 e 12 de Romer, 2012); P2 2021 (prova e respostas);
+P2 2024 (chave oficial). Uso pessoal de estudo.}
+\end{center}
+\end{titlepage}
+
+% ==========================================================================
+% PARTE I — CONSUMO
+% ==========================================================================
+\begin{center}
+{\LARGE\bfseries\color{orangerbc} Parte I --- Teoria do Consumo}\\[0.2em]
+{\normalsize\color{grayrbc} Aula 10 $\cdot$ Romer cap.\ 8 $\cdot$ Lista 3: Q1, Q2 e Q3}\\[0.2em]
+\rule{\linewidth}{0.8pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Hipótese da Renda Permanente (Friedman, 1957)}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q1 (caput e item a) --- o problema e sua solução}
+
+O consumidor vive $T$ períodos, com utilidade
+$U = \sum_{t=1}^{T} u(C_t)$, $u'>0$, $u''<0$, taxa de juros nula e restrição
+orçamentária $\sum_{t=1}^{T} C_t \leq A_0 + \sum_{t=1}^{T} Y_t$
+($A_0$ = riqueza inicial). O Lagrangiano é
+\[
+L = \sum_{t=1}^{T} u(C_t)
+  + \lambda\Bigl(A_0 + \sum_{t=1}^{T} Y_t - \sum_{t=1}^{T} C_t\Bigr).
+\]
+A condição de primeira ordem para cada $C_t$ é $u'(C_t) = \lambda$: como
+$\lambda$ é o mesmo em todos os períodos e $u'$ é estritamente decrescente, o
+consumo é \textbf{constante} no tempo ($C_1 = C_2 = \cdots = C_T$).
+Combinando com a restrição ativa:
+
+\begin{formulabox}[title={Função consumo da renda permanente}]
+\[
+C_t = \frac{1}{T}\Bigl(A_0 + \sum_{\tau=1}^{T} Y_\tau\Bigr)
+\qquad\text{para todo } t.
+\]
+O termo entre parênteses são os \emph{recursos de vida inteira}; o consumo de
+cada período é a fração $1/T$ deles (\textbf{suavização do consumo}). O lado
+direito é a \textbf{renda permanente}; a diferença entre renda corrente e
+renda permanente é a \textbf{renda transitória}.
+\end{formulabox}
+
+\begin{correctbox}[title={Chave oficial (Q1a): diferença para a hipótese keynesiana}]
+\emph{``A principal diferença para com a teoria convencional keynesiana está no
+fato de que esta associa de modo estável o consumo familiar à renda disponível
+corrente, omitindo o papel das expectativas do consumidor quanto à trajetória
+futura de sua renda. Já na teoria da renda permanente, o fluxo futuro esperado
+de renda possui peso mais relevante, visto que qualquer incremento na renda
+disponível corrente será ajustado ou diluído, tendo menor impacto à medida que
+o $T$ de avaliação cresce.''}
+
+Em números: um aumento \textbf{transitório} de $Y_1$ tem impacto marginal
+$1/T$ sobre o consumo corrente (efeito decrescente em $T$); um aumento
+\textbf{permanente} (replicado em $Y_2,\dots,Y_T$ na mesma magnitude) soma $T$
+parcelas e eleva o consumo praticamente \textbf{um para um}. Por isso a
+propensão marginal a consumir de curto prazo é \emph{menor} que a keynesiana
+--- e um corte de impostos \emph{temporário} tem pouco efeito sobre o consumo.
+\end{correctbox}
+
+\subsection{Implicações dos slides que completam o quadro}
+
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Poupança}: o padrão temporal da renda é irrelevante para o
+consumo, mas \emph{crítico} para a poupança:
+\[
+S_t = Y_t - C_t
+    = \Bigl(Y_t - \frac{1}{T}\sum_{\tau=1}^{T} Y_\tau\Bigr) - \frac{1}{T}A_0.
+\]
+Poupa-se quando a renda corrente está acima da permanente (o consumidor usa
+poupança e empréstimo para suavizar o consumo).
+\item \textbf{Regressões consumo--renda}: se $C = Y^P$ e $Y = Y^P + Y^T$, o
+coeficiente estimado de uma regressão de $C$ sobre $Y$ é
+\[
+\hat{b} = \frac{\VAR(Y^P)}{\VAR(Y^P) + \VAR(Y^T)}.
+\]
+Amostras \textbf{longas}: variância permanente domina, $\hat{b}$ próximo de 1.
+Amostras \textbf{curtas}: variância transitória pesa mais, $\hat{b}$ bem
+abaixo de 1. Muito do desacordo Keynes--Friedman reflete apenas
+\emph{horizontes de tempo diferentes}.
+\item \textbf{Brasil} (slides): consumo das famílias e PIB caminham juntos no
+longo prazo --- correlação de $0{,}99$ entre os índices reais (SCN/IBGE,
+1996T1--2025T1).
+\end{itemize}
+
+\begin{provabox}[title={Como cai na prova}]
+P2 2021 Q1-i / P2 2024 Q1-i (\textbf{falsos}): itens que trocam qual variância
+domina. Guarde: \emph{amostras longas $\Rightarrow$ $\VAR(Y^P)$ domina
+$\Rightarrow$ propensão estimada perto de 1}; a propensão \emph{baixa} aparece
+no curto prazo, quando domina a variância \emph{transitória}. E o caput da
+P2 2024 Q1-i está certo em chamar a teoria keynesiana de \emph{caso
+particular} da renda permanente --- o erro do item estava na segunda parte.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Passeio Aleatório (Hall, 1978) e o Teste de Campbell e Mankiw (1989)}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q1 (itens b e c) --- incerteza e teste empírico}
+
+Com incerteza sobre a renda, utilidade \textbf{quadrática}
+$\E[U] = \E\bigl[\sum_{t}\bigl(C_t - \tfrac{a}{2}C_t^2\bigr)\bigr]$, $a>0$, e
+juros e desconto nulos, a solução do problema é
+\[
+C_1 = \frac{1}{T}\Bigl(A_0 + \sum_{t=1}^{T}\E_1[Y_t]\Bigr)
+\]
+--- a renda permanente, agora \emph{esperada}. Sob expectativas racionais,
+segue a condição de otimização $C_t = \E_t[C_{t+1}]$.
+
+\begin{correctbox}[title={Chave oficial (Q1b): a lógica de Hall}]
+\emph{``A teoria do passeio aleatório é consistente com a teoria da renda
+permanente. Hall (1978) parte da ideia de que as variações futuras do consumo
+não podem ser previstas a partir de dados correntes, já que estes já foram
+utilizados para a previsão da renda permanente pelos agentes.''}
+\[
+C_t = \E_t[C_{t+1}]
+\quad\Longrightarrow\quad
+C_t = \E_{t-1}[C_t] + e_t
+\quad\Longrightarrow\quad
+\boxed{C_t = C_{t-1} + e_t}
+\]
+\emph{``As variações entre $C_t$ e $C_{t-1}$ só podem ser observadas ex post e
+são determinadas por informação nova em $t$ (a respeito da renda permanente).
+Logo, não haveria forma de prever ex ante, em $t-1$, o nível de consumo efetivo
+em $t$.''}
+
+Atenção ao fundamento: o consumo é imprevisível \textbf{porque toda a
+informação disponível já está incorporada} ao consumo corrente --- não porque
+os agentes ignorem informação.
+\end{correctbox}
+
+\begin{correctbox}[title={Chave oficial (Q1c): o teste de Campbell e Mankiw}]
+Regressão testada, com fração $\lambda$ de famílias ``regra de bolso'':
+\[
+C_t - C_{t-1} = \lambda\,(Y_t - Y_{t-1}) + (1-\lambda)\,e_t.
+\]
+\emph{``Campbell \& Mankiw (1989) testaram a hipótese do passeio aleatório de
+Hall por meio de \textbf{variáveis instrumentais} (IV), desta maneira
+controlando o problema de \textbf{endogeneidade} dos regressores, em particular
+na variável explicativa $(Y_t - Y_{t-1})$.''}
+
+Resultado (dados trimestrais dos EUA, 1953--1986): $\lambda$
+\textbf{estatisticamente significativo, porém bem abaixo de 1}
+($\approx 0{,}5$). Interpretação da chave: \emph{``explicação híbrida do
+consumo''} --- uma fração $\lambda$ das famílias reage de modo estável à renda
+corrente (à la Keynes), enquanto a parcela $(1-\lambda)$ comporta-se conforme
+a renda permanente e o passeio aleatório.
+\end{correctbox}
+
+\begin{provabox}[title={Como cai na prova}]
+Item \textbf{correto} da P2 2021 Q1 e da P2 2024 Q1 (gabaritos oficiais):
+\emph{``a rejeição plena da hipótese do passeio aleatório requer encontrar
+valores convergentes com $\lambda = 1$''} --- \textbf{verdadeiro}, pois
+$\lambda = 1$ significaria que \emph{todas} as famílias seguem a renda
+corrente. Como acharam $\lambda$ significativo mas $\ll 1$, a rejeição foi
+apenas \emph{parcial}. Distrator recorrente (\textbf{falso}): ``a correlação
+entre juros reais e crescimento do consumo implica o \emph{abandono} da
+hipótese da renda permanente'' --- não implica: a equação de Euler é uma
+\emph{extensão} do mesmo arcabouço otimizador.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Juros Reais e Crescimento do Consumo (Equação de Euler)}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q2 (com chave oficial) --- teoria positiva, evidência fraca}
+
+Com taxa de juros não nula, a restrição é em valor presente e a solução do
+problema de otimização gera a equação de Euler:
+
+\begin{formulabox}[title={Equação de Euler (forma da chave)}]
+\[
+\frac{C_{t+1}}{C_t} = \left(\frac{1+r}{1+\rho}\right)^{\frac{1}{\theta}}
+\]
+$r$ = taxa real de juros; $\rho$ = taxa de desconto subjetiva; $\theta$ = grau
+de aversão relativa ao risco; $1/\theta$ = elasticidade de substituição
+intertemporal (EIS).\\[0.3em]
+$r > \rho$ $\Rightarrow$ consumo \emph{crescente} no tempo;\quad
+$r < \rho$ $\Rightarrow$ consumo \emph{decrescente};\quad
+sensibilidade do crescimento do consumo a $r$ dada por $1/\theta$.
+\end{formulabox}
+
+\begin{correctbox}[title={Chave oficial (Q2): como a literatura explica a fragilidade empírica}]
+\emph{``Coeteris paribus, há uma relação teórica positiva entre crescimento do
+consumo e taxa real de juros. Os autores mencionados}
+[Hansen e Singleton, 1983; Hall, 1988b; Campbell e Mankiw, 1989]
+\emph{associam o fato empírico de baixo poder preditivo de juros reais sobre
+$C_{t+1}/C_t$ ao suposto grau elevado de aversão ao risco ($\theta$).''}
+
+Em outras palavras: $\theta$ alto $\Rightarrow$ EIS $=1/\theta$ baixa
+$\Rightarrow$ mesmo grandes variações de $r$ movem pouco a trajetória do
+consumo. A \emph{teoria} não é abandonada; o \emph{parâmetro} é que torna o
+canal fraco.
+\end{correctbox}
+
+\begin{provabox}[title={Como cai na prova}]
+P2 2024 Q2: itens \textbf{falsos} típicos --- (i) ``variação do consumo
+inversamente relacionada a $r$'' (é \emph{positiva}); (ii) ``há grande impacto
+dos juros reais no consumo'' (o fato estilizado é impacto \emph{fraco});
+(iii) ``maior $\rho$ e maior $\theta$ elevam a eficácia dos juros'' (maior
+$\theta$ \emph{reduz} a sensibilidade $1/\theta$). O gabarito oficial daquela
+questão (item iv) era a restrição orçamentária com governo --- ver Tópico 14
+(equivalência ricardiana).
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Poupança Precaucional, o Puzzle e as Restrições de Liquidez}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q3 (com chave oficial) --- incerteza e poupança}
+
+\begin{correctbox}[title={Chave oficial (Q3): motivo precaucional e conciliação com os fatos}]
+\emph{``A poupança precaucional é explicada pela incerteza a respeito do
+crescimento do consumo pelas famílias. (...) Quanto mais elevada a
+variabilidade (especificamente do crescimento do consumo --- $\VAR(g^c)$),
+maior a incerteza quanto ao futuro caminho da utilidade das famílias. E para
+se defenderem disto há um incentivo à poupança pelo motivo de precaução. Desta
+maneira, havendo esta poupança adicional, eleva-se a expectativa de
+crescimento do consumo'':}
+\[
+\E[g^c] \simeq \tfrac{1}{2}\,(\theta + 1)\,\VAR(g^c).
+\]
+\emph{``Observe que há uma diferença entre o crescimento do consumo esperado e
+sua variabilidade. A previsão é de que esta última impacta no primeiro.''}
+
+\textbf{O puzzle}: \emph{``o fato estilizado é de que as famílias poupam
+relativamente pouco, ou abaixo do que o modelo pressupõe. Para Carroll (1992,
+1997), isto seria explicado pela elevada taxa de desconto subjetiva, que
+acabaria anulando o aumento da poupança pelo motivo precaucional.''}
+\end{correctbox}
+
+Nos slides, a mesma expressão aparece como
+$\E[g^c] \simeq \tfrac{1}{2}\,\delta\,\VAR(g^c)$, em que $\delta$ é o
+\textbf{coeficiente de prudência relativa} --- para utilidade CRRA,
+$\delta = \theta + 1$. Prudência ($u''' > 0$) é o que gera o motivo
+precaucional; não confundir com aversão ao risco ($\theta$).
+
+\subsection{Restrições de liquidez (slides da Aula 10)}
+
+A HRP supõe que a família toma emprestado à mesma taxa a que poupa. Na
+prática, as taxas de captação das famílias (cartão, financiamentos) são bem
+maiores, e há limites de crédito. Restrições de liquidez elevam a poupança por
+duas vias:
+\begin{enumerate}[leftmargin=1.6em]
+\item quando a restrição está \textbf{ativa} (\emph{binding}), a família
+consome menos do que gostaria;
+\item \textbf{Zeldes (1989)}: mesmo restrições \emph{não} ativas hoje reduzem
+o consumo corrente, se puderem vir a ser ativas no futuro (evidência em Gross
+e Souleles, 2002).
+\end{enumerate}
+\begin{center}
+$\uparrow$ restrição de liquidez (efetiva \emph{ou esperada}) $\Rightarrow$
+$\downarrow$ consumo.
+\end{center}
+
+\begin{provabox}[title={Como cai na prova}]
+Distrator já usado \emph{duas vezes} (P2 2021 Q1-iv = P2 2024 Q1-iv,
+\textbf{falso}): a expressão da poupança precaucional \emph{``ajuda a entender
+o fato estilizado de uma elevada poupança pelas famílias''}. O fato estilizado
+é o \textbf{oposto} --- poupança \emph{baixa} (por isso é um puzzle, resolvido
+por Carroll via alta taxa de desconto). Se aparecer ``elevada poupança'',
+marque falso sem hesitar.
+\end{provabox}
+
+% ==========================================================================
+% PARTE II — INVESTIMENTO
+% ==========================================================================
+\newpage
+\begin{center}
+{\LARGE\bfseries\color{orangerbc} Parte II --- Teoria do Investimento e $q$ de Tobin}\\[0.2em]
+{\normalsize\color{grayrbc} Aula 11 $\cdot$ Romer cap.\ 9 $\cdot$ Lista 3: Q4 e Q5}\\[0.2em]
+\rule{\linewidth}{0.8pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Custos de Ajuste e a Condição de Otimalidade da Firma}
+% ------------------------------------------------------------------
+
+\subsection{Por que estudar investimento (slides)}
+
+A demanda por investimento importa para o \emph{longo prazo} (junto com a
+poupança, determina quanto do produto é investido --- padrão de vida) e para o
+\emph{curto prazo} (é o componente mais \textbf{volátil} da demanda --- nos
+dados brasileiros dos slides, a FBCF oscila muito mais que o consumo).
+
+\subsection{O modelo com custos de ajuste}
+
+Hipótese-chave: a firma incorre em custos de ajuste \textbf{convexos} do
+estoque de capital, $C(k)$ com $C(0)=0$, $C'(0)=0$ e $C''(\cdot)>0$. Os lucros
+em cada instante são $\pi(K(t))\,k(t) - I(t) - C(I(t))$ --- lucros unitários
+$\pi(\cdot)$ dependem do capital \emph{da indústria} $K$, com $\pi'(K)<0$
+(mais capital agregado $\Rightarrow$ menor preço relativo do produto
+$\Rightarrow$ menores lucros marginais). A firma maximiza o valor presente
+\[
+\Pi = \int_{t=0}^{\infty}
+e^{-rt}\bigl[\pi(K(t))\,k(t) - I(t) - C(I(t))\bigr]\,\dif t.
+\]
+
+\begin{formulabox}[title={Condição de otimalidade e investimento agregado}]
+Sendo $q_t$ o valor marginal (nominal) de uma unidade adicional de capital:
+\[
+1 + C'(I_t) = q_t
+\qquad\Longrightarrow\qquad
+\dot{K}(t) = f\bigl(q(t)\bigr),\ \ f(1) = 0,\ f'(\cdot)>0.
+\]
+Leitura dos slides: \emph{``a firma investe até o ponto em que o custo de
+aquisição do capital (preço de compra --- fixado em 1 --- mais o custo
+marginal de ajuste) \textbf{iguala} o valor do capital ($q_t$)''}.\\[0.3em]
+$q>1$ $\Rightarrow$ investir ($\dot K > 0$);\quad
+$q<1$ $\Rightarrow$ desinvestir ($\dot K < 0$);\quad
+$q=1$ $\Rightarrow$ $\dot K = 0$.
+\end{formulabox}
+
+\begin{provabox}[title={Como cai na prova}]
+Distrator repetido (P2 2021 Q2-i = P2 2024 Q3-i, \textbf{falso}): \emph{``a
+firma investe até o ponto em que o valor do capital \underline{supera} o custo
+de sua aquisição''}. No ótimo há \textbf{igualdade} --- se o valor superasse o
+custo, haveria lucro marginal não explorado. A palavra ``supera'' é o erro.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{O $q$ de Tobin: Determinação, Produto e Juros}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q4 (com chave oficial) --- o que determina o $q$}
+
+\begin{correctbox}[title={Chave oficial (Q4): definição e os dois canais}]
+\emph{``O q de Tobin pode ser representado pela expressão''}
+\[
+q(t) = \int_{t=0}^{\infty} e^{-rt}\,\pi(K(t))\,\dif t,
+\]
+\emph{``sendo $q(t)$ o valor presente dos fluxos futuros de lucros da firma,
+estes sujeitos à evolução do estoque de capital da indústria $K$.''}
+
+\textbf{(a) Variações esperadas do produto}: \emph{``entram no cálculo do valor
+de mercado das empresas por meio de seus impactos nos fluxos esperados de
+lucros e de caixa. Dada a estrutura de juros, quanto maior o crescimento do
+PIB, coeteris paribus, maior tende a ser o q, e logo maior tende a ser o valor
+de mercado das empresas de um país''} --- melhora do retorno esperado e da
+atratividade para investimentos.
+
+\textbf{(b) Variações esperadas dos juros}: \emph{``possuem relação inversa
+para com o q. A taxa real de juros (em particular os juros reais \textbf{de
+longo prazo}) é a taxa de desconto, a taxa que traz os fluxos de caixa
+esperados a valor presente. Logo, uma elevação da estrutura de juros na
+economia, coeteris paribus, reduz o valor de mercado das empresas.''}
+\end{correctbox}
+
+\begin{formulabox}[title={Relação de consistência (locus $\dot q = 0$)}]
+\[
+\dot{q}(t) = r\,q(t) - \pi\bigl(K(t)\bigr)
+\qquad\Longrightarrow\qquad
+\dot q = 0 \iff q = \frac{\pi(K)}{r}.
+\]
+$\dot q$ é a diferença entre o custo de oportunidade do capital ($rq$) e seu
+retorno corrente ($\pi(K)$). Como $\pi'(K)<0$: o \emph{locus} $\dot q = 0$ é
+\textbf{negativamente inclinado} no plano $q \times K$; e uma queda de $r$
+eleva $q$ para cada $K$ e torna a função $q=(1/r)\pi(K)$ \emph{mais
+inclinada}.
+\end{formulabox}
+
+\begin{provabox}[title={Como cai na prova}]
+P2 2024 Q4 (gabarito oficial: \textbf{iii}): \emph{``coeteris paribus, mais
+importante do que os juros reais no momento $t$ é a \textbf{expectativa de $r$
+para o longo prazo}, no que respeita ao q da empresa''} --- verdadeiro, direto
+da chave (o desconto é a curva de juros toda, não a taxa de hoje). Falsos
+típicos da mesma questão: valor da empresa \emph{positivamente} relacionado a
+$K$ (é negativo, $\pi'<0$); \emph{locus} $\dot q=0$ \emph{positivamente}
+inclinado (é negativo); e ``inflação esperada acima da meta $\Rightarrow$
+maior $q$'' (falso: com regra de juros ativa, inflação acima da meta
+$\Rightarrow$ juros reais maiores $\Rightarrow$ $q$ \emph{menor}).
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Diagrama de Fases, Trajetória de Sela e Choques}
+% ------------------------------------------------------------------
+
+\subsection{A dinâmica conjunta de $K$ e $q$}
+
+\begin{resultbox}[title={Os dois loci e as setas de movimento}]
+\textbf{Locus $\dot K = 0$}: reta horizontal em $q = 1$.
+Acima ($q>1$): $K$ cresce ($\rightarrow$); abaixo ($q<1$): $K$ cai
+($\leftarrow$).\\[0.3em]
+\textbf{Locus $\dot q = 0$}: curva $q = \pi(K)/r$, decrescente.
+À \emph{direita} (K grande, $\pi$ pequeno, $rq > \pi(K)$): $\dot q > 0$
+($\uparrow$); à \emph{esquerda}: $\dot q < 0$ ($\downarrow$).\\[0.3em]
+O equilíbrio $E$ (interseção) é um \textbf{ponto de sela}: dado $K$ inicial,
+só há um valor de $q$ --- sobre a \textbf{trajetória de sela}, negativamente
+inclinada --- consistente com a maximização de lucros; qualquer outro $q$
+coloca a indústria em trajetória explosiva.
+\end{resultbox}
+
+\begin{correctbox}[title={Chave oficial (Q5): a situação ``acima de $\dot K=0$ e à esquerda de $\dot q=0$''}]
+\emph{``Na situação proposta, a indústria está na \textbf{região de trajetória
+de sela}.''}
+
+\emph{``Em relação a $K$: seja a equação $\dot K(t) = NC'^{-1}(q-1)$. Uma vez
+que acima de $\dot K = 0$, $q > 1$, então $\dot K(t) > 0$.''} (capital
+crescendo)
+
+\emph{``Em relação a $q$: seja $q = \pi(K)/r$. Uma vez que à esquerda de
+$\dot q = 0$, o $q$ é menor do que o sugerido pelos lucros correntes, há uma
+situação de \textbf{pessimismo quanto ao futuro}, e assim $\dot q < 0$.''}
+($q$ caindo)
+
+\emph{``A resultante dessas forças cria um vetor que leva a indústria rumo ao
+ponto E''} --- ou seja, \textbf{há convergência} ao equilíbrio de longo prazo
+pela trajetória de sela.
+\end{correctbox}
+
+\subsection{Choques (Figuras 9.5--9.7 dos slides)}
+
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Aumento permanente do produto} (Fig.\ 9.5): demanda maior
+$\Rightarrow$ lucros maiores para cada $K$ $\Rightarrow$ o \emph{locus}
+$\dot q = 0$ desloca-se para fora. Como $K$ não se ajusta instantaneamente,
+$q$ \textbf{salta} para a nova trajetória de sela; o investimento sobe; com a
+acumulação, o preço relativo do produto e os lucros declinam até o valor do
+capital voltar ao normal ($q = 1$) no novo $E'$ com $K$ maior.
+\item \textbf{Aumento transitório} (Fig.\ 9.6): investidores sabem que o lucro
+extra dura pouco $\Rightarrow$ o salto de $q$ e o efeito sobre o investimento
+são \textbf{menores} do que no choque permanente --- mas \textbf{não nulos}.
+(A indústria vai a um ponto \emph{abaixo} da nova sela e retorna à antiga.)
+\item \textbf{Queda permanente dos juros} (Fig.\ 9.7): $q = (1/r)\pi(K)$ sobe
+e fica mais inclinada; $q$ salta ($>1$), $\dot K > 0$ temporariamente, e a
+indústria converge ao novo $E'$ com $K$ maior. O $r$ relevante é de
+\textbf{longo prazo}.
+\item \textbf{Acelerador}: \emph{``o investimento é maior quando o produto
+subiu recentemente do que quando está alto há um período prolongado''} --- é a
+\emph{variação} do produto que move o investimento.
+\end{itemize}
+
+\begin{provabox}[title={Como cai na prova}]
+Item \textbf{verdadeiro} nas duas provas (P2 2021 Q2-iv = P2 2024 Q3-iv,
+gabarito oficial): \emph{``pela equação de variação do q de Tobin, uma
+situação de estoque de capital da indústria muito baixo, acompanhada de nível
+também muito reduzido para o q, implica uma \textbf{queda adicional} do
+último''} --- confira: $\dot q = rq - \pi(K)$ com $q$ baixo ($rq$ pequeno) e
+$K$ baixo ($\pi(K)$ grande) dá $\dot q < 0$. É a região divergente
+\emph{abaixo} da trajetória de sela.\\
+Falsos recorrentes: ``região abaixo de $\dot K=0$ e à direita de $\dot q=0$ é
+de divergência crescente'' (contém o braço convergente da sela); ``choque
+transitório tem efeito \emph{nulo}'' (é \emph{menor}, nunca nulo).
+\end{provabox}
+
+% ==========================================================================
+% PARTE III — INFLAÇÃO E POLÍTICA MONETÁRIA
+% ==========================================================================
+\newpage
+\begin{center}
+{\LARGE\bfseries\color{orangerbc} Parte III --- Inflação e Política Monetária}\\[0.2em]
+{\normalsize\color{grayrbc} Aula 12 $\cdot$ Romer cap.\ 11 $\cdot$ Lista 3: Q6}\\[0.2em]
+\rule{\linewidth}{0.8pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Mercado Monetário, Nível de Preços e Identidade de Fisher}
+% ------------------------------------------------------------------
+
+\begin{formulabox}[title={Equações-base (slides, eqs.\ 1--4)}]
+\[
+\frac{M}{P} = L(i, Y),\quad L_i<0,\ L_Y>0
+\qquad\Longrightarrow\qquad
+P = \frac{M}{L(i,Y)}
+\]
+\[
+i = r + \pi^e \ \text{(identidade de Fisher)}
+\qquad\Longrightarrow\qquad
+P = \frac{M}{L(\bar r + \pi^e,\, \bar Y)} \ \text{(preços flexíveis)}
+\]
+\end{formulabox}
+
+Leituras:
+\begin{itemize}[leftmargin=1.4em]
+\item O nível de preços sobe com: $M\uparrow$; $i\uparrow$ (demanda por moeda
+cai); $Y\downarrow$ (demanda por moeda cai). \textbf{O produto entra
+negativamente} --- distrator clássico.
+\item Para a inflação de \emph{longo prazo}, a ênfase recai em um único fator:
+o \textbf{crescimento da oferta monetária} --- nenhum outro fator gera
+aumentos \emph{persistentes} do nível de preços. Evidência (Fig.\ 11.1):
+inflação média $\times$ crescimento monetário médio, 97 países, 1980--2006 ---
+relação clara e forte.
+\item Com preços plenamente flexíveis, moeda não afeta $Y$ nem $r$
+(\textbf{neutralidade}; $\bar Y$, $\bar r$ constantes).
+\end{itemize}
+
+% ------------------------------------------------------------------
+\section{Mudança Permanente no Crescimento da Moeda}
+% ------------------------------------------------------------------
+
+\subsection{Caso 1: preços plenamente flexíveis (longo prazo)}
+
+Aumento permanente do crescimento da moeda em $t_0$:
+\[
+\uparrow \Delta M \;\Rightarrow\; \uparrow \pi^e \;\Rightarrow\; \uparrow i
+\;\Rightarrow\; \downarrow \frac{M}{P}.
+\]
+Como a demanda por moeda real cai \emph{descontinuamente} e $M$ não salta, o
+\textbf{nível de preços $P$ salta para cima} no instante da mudança
+(Fig.\ 11.2). Duas mensagens dos slides:
+\begin{enumerate}[leftmargin=1.6em]
+\item \textbf{Efeito Fisher}: a inflação extra reflete-se um-para-um na taxa
+nominal (a real não muda com preços flexíveis);
+\item Crescimento maior da moeda \emph{nominal} $\Rightarrow$ estoque
+\emph{real} de moeda \textbf{menor} no longo prazo ($P$ passa a crescer mais
+que $M$ na transição).
+\end{enumerate}
+
+O espelho (redução permanente do crescimento da moeda) foi o item
+\textbf{correto} da P2 2021 Q3-ii: queda descontínua de $P$, de $\pi^e$ e de
+$i$, com \emph{aumento} de $M/P$ no longo prazo.
+
+\subsection{Caso 2: flexibilidade incompleta de preços (curto prazo)}
+
+\begin{formulabox}[title={Efeito liquidez vs.\ longo prazo (slides)}]
+\textbf{Curto prazo:}\quad
+$\uparrow \Delta M \Rightarrow \bar P \Rightarrow \uparrow \dfrac{M}{P}
+\Rightarrow \downarrow r,\ \overline{\pi^e}
+\Rightarrow \downarrow i \Rightarrow \uparrow Y$
+\hfill (\emph{efeito liquidez})\\[0.4em]
+\textbf{Longo prazo:}\quad
+$\uparrow \Delta M \Rightarrow \uparrow \Delta P \Rightarrow
+\uparrow \pi^e,\ \bar r \Rightarrow \uparrow i
+\Rightarrow \downarrow \dfrac{M}{P}$
+\end{formulabox}
+
+Com preços rígidos no curto prazo, a expansão monetária eleva o estoque
+\emph{real} de moeda; o reequilíbrio do mercado monetário exige queda da taxa
+real (e nominal) de juros --- se o efeito taxa-real domina o efeito
+inflação-esperada, a taxa nominal \textbf{cai no curto prazo} e \textbf{sobe no
+longo prazo}. O benefício real é transitório; o efeito permanente é inflação
+mais alta (exemplo citado em sala: Argentina).
+
+% ------------------------------------------------------------------
+\section{Estrutura a Termo das Taxas de Juros}
+% ------------------------------------------------------------------
+
+\begin{formulabox}[title={Sem e com incerteza (slides, eqs.\ 5--6)}]
+Sem incerteza (arbitragem pura):
+\[
+i_t^n = \frac{i_t^1 + i_{t+1}^1 + \cdots + i_{t+n-1}^1}{n};
+\]
+com incerteza:
+\[
+i_t^n = \frac{i_t^1 + \E_t i_{t+1}^1 + \cdots + \E_t i_{t+n-1}^1}{n}
+        + \theta_{nt},
+\]
+sendo $\theta_{nt}$ o \textbf{prêmio a termo} por carregar o título longo
+(estratégias com riscos diferentes).
+\end{formulabox}
+
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Teoria das expectativas}: mudanças na estrutura a termo são
+determinadas por mudanças nas \emph{expectativas das taxas curtas futuras}
+(não no prêmio a termo); expectativas tipicamente racionais.
+\item Mesmo com preços não plenamente flexíveis, um aumento permanente do
+crescimento da moeda \emph{acaba} elevando a taxa curta nominal
+permanentemente; logo, para $n$ suficientemente grande, as taxas
+\textbf{longas tendem a subir imediatamente}.
+\item Conclusão dos slides: \emph{``uma expansão monetária tende a
+\textbf{reduzir} as taxas curtas} [efeito liquidez] \emph{mas \textbf{elevar}
+as longas''}.
+\end{itemize}
+
+\begin{provabox}[title={Como cai na prova}]
+Distrator da P2 2021 Q3-iii (\textbf{falso}): arbitragem exigiria
+$i^n = n\,i^1$ --- errado, $i^n$ é \emph{média} das curtas esperadas mais o
+prêmio. E o item iv da mesma prova combinava efeito liquidez com ``alta do
+prêmio a termo'' --- a alta das longas vem das \emph{expectativas} de juros
+curtos futuros maiores (inflação), não de um salto do prêmio.
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Custos da Inflação (Fundamentos Microeconômicos)}
+% ------------------------------------------------------------------
+
+Os seis custos listados nos slides (o objetivo do formulador de política é
+maximizar bem-estar):
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em]
+\item \textbf{Custo de sola de sapato}: inflação alta leva as pessoas a
+gastarem esforço para reduzir encaixes de moeda de alto poder;
+\item \textbf{Distorções de preços relativos} e má alocação de recursos;
+\item \textbf{Distorção do sistema tributário} (Feldstein, 1997): a inflação
+pesa mais nos preços de alimentos, com maior peso no orçamento das famílias de
+baixa renda --- carga tributária mais \emph{regressiva};
+\item \textbf{Perda de eficiência}: modelos formais (Bénabou, 1992; Tommasi,
+1994);
+\item \textbf{Dificuldade de contabilizar a inflação}: famílias e firmas erram
+contas em ambiente inflacionário (Modigliani e Cohn, 1979; Hall, 1984);
+\item \textbf{Relação média--variância}: inflação alta é também inflação
+volátil; volatilidade (ou mesmo o nível alto) desestimula o investimento de
+longo prazo, por sinalizar governo funcionando mal.
+\end{enumerate}
+
+% ------------------------------------------------------------------
+\section{A Regra \emph{Forward-Looking} de Clarida, Galí e Gertler (2000)}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q6 (com chave oficial) --- a novidade de 2026}
+
+Esta questão \textbf{não existia na Lista 3 de 2024}: é o acréscimo de 2026,
+com chave detalhada --- candidata natural a questão inédita da P2.
+
+\begin{correctbox}[title={Chave oficial (Q6-i): formulação e parâmetros}]
+\[
+i_t = r^n + \E_t(\pi_{t+n})
+      + \phi_\pi\bigl[\E_t(\pi_{t+n}) - \pi^*\bigr]
+      + \phi_y\,\E_t\bigl[\ln Y_{t+n} - \ln Y^n_{t+n}\bigr]
+\]
+\emph{``A regra estabelece que a taxa nominal de juros deve reagir às
+expectativas de inflação e ao hiato esperado do produto.''}
+\begin{itemize}[leftmargin=1.5em, itemsep=0.1em]
+\item $i_t$: taxa nominal definida pela autoridade monetária;
+\item $r^n$: taxa real \textbf{natural} (ou neutra) de juros;
+\item $\E_t(\pi_{t+n})$: inflação esperada no horizonte relevante da política;
+\item $\pi^*$: meta de inflação;
+\item $\phi_\pi$: resposta aos desvios da inflação esperada frente à meta;
+\item $\phi_y$: resposta ao hiato esperado do produto;
+\item $\ln Y_{t+n} - \ln Y^n_{t+n}$: hiato esperado do produto.
+\end{itemize}
+É uma extensão da regra de Taylor (1993) com visão \emph{forward-looking} do
+Banco Central. No equilíbrio de médio prazo ($\E_t[\pi_{t+n}]=\pi^*$, hiato
+nulo): $i_t = r^n + \E_t[\pi_{t+n}]$.
+\end{correctbox}
+
+\begin{correctbox}[title={Chave oficial (Q6-ii): Princípio de Taylor e estabilidade da inflação}]
+Fato estilizado: no longo prazo, economias com alto crescimento da oferta
+monetária apresentam alta inflação média. A regra contribui para evitar esse
+resultado ao estabelecer \emph{reação sistemática} a desvios da inflação. A
+condição fundamental é o \textbf{Princípio de Taylor}:
+\[
+\phi_\pi > 1.
+\]
+\emph{``Essa condição implica que a taxa nominal aumenta mais do que
+proporcionalmente a um aumento da inflação esperada''}; como
+\[
+\Delta r_t = \Delta i_t - \Delta \E_t(\pi_{t+n}),
+\]
+\emph{``quando $\phi_\pi > 1$, a taxa \textbf{real} de juros aumenta após um
+choque inflacionário, reduzindo a demanda agregada e contribuindo para a
+convergência da inflação em direção à meta''} --- política
+\textbf{contracíclica} frente a movimentos da inflação esperada.
+
+\emph{``Quando a autoridade monetária reage menos do que proporcionalmente
+($\phi_\pi < 1$), a taxa real pode não se elevar o suficiente para conter as
+pressões inflacionárias. Nessa situação, a inflação tende a tornar-se mais
+\textbf{persistente} e as expectativas podem se \textbf{desancorar}.''}
+
+Conclusão da chave: com $\phi_\pi > 1$, a política monetária ancora
+expectativas, reduz a persistência inflacionária e garante inflação
+\emph{baixa e estável} no longo prazo.
+\end{correctbox}
+
+\begin{resultbox}[title={Calibração citada em aula (linha do BCB, Relatórios Trimestrais)}]
+$r^n = 5{,}0\%$;\quad $\pi^* = 3{,}0\%$;\quad $n = 4$ trimestres;\quad
+$\phi_\pi = 1{,}5$;\quad $\phi_y = 0{,}3$:
+\[
+i_t = 5{,}0 + \E_t(\pi_{t+4})
+      + 1{,}5\,[\E_t(\pi_{t+4}) - 3{,}0]
+      + 0{,}3\,\E_t(\ln Y_{t+4} - \ln Y^n_{t+4}).
+\]
+Nas funções de resposta a impulso mostradas em aula, o cenário $\phi_\pi=1{,}5$
+traz a inflação de volta \emph{mais rápido} que $\phi_\pi=0{,}7$ após um choque
+inflacionário de 1 desvio-padrão --- ao custo de queda maior do produto no
+curto prazo.
+\end{resultbox}
+
+\begin{provabox}[title={Como cai na prova}]
+Prováveis pontos de julgamento V/F: (i) trocar \emph{forward} por
+\emph{backward-looking} (a regra reage a \textbf{expectativas}, não à inflação
+passada); (ii) princípio de Taylor com desigualdade invertida ou aplicado à
+taxa \emph{nominal} (o que sobe mais que proporcionalmente é a nominal, para
+que a \textbf{real} suba); (iii) equilíbrio de médio prazo:
+$i = r^n + \pi^*$ (com a calibração, $8\%$) --- cuidado com sinais; (iv)
+afirmar que $\phi_\pi<1$ só retarda a convergência (falso: gera persistência e
+desancoragem).
+\end{provabox}
+
+% ==========================================================================
+% PARTE IV — POLÍTICA FISCAL
+% ==========================================================================
+\newpage
+\begin{center}
+{\LARGE\bfseries\color{orangerbc} Parte IV --- Déficits Orçamentários e Política Fiscal}\\[0.2em]
+{\normalsize\color{grayrbc} Aula 13 $\cdot$ Romer cap.\ 12 $\cdot$ Lista 3: Q7 e Q8}\\[0.2em]
+\rule{\linewidth}{0.8pt}
+\end{center}
+
+% ------------------------------------------------------------------
+\section{Restrição Orçamentária Intertemporal do Governo e Solvência}
+% ------------------------------------------------------------------
+
+\subsection{Fatos estilizados (slides)}
+
+Vários países mantêm déficits elevados de forma \emph{sistemática}, com breves
+períodos de superávit; o envelhecimento populacional (mais aposentados por
+trabalhador) pressiona previdência e saúde; a percepção é de que déficits
+grandes e persistentes reduzem o crescimento e podem levar a crises.
+\textbf{Brasil} (slides, fonte BCB): resultado primário médio de
+$-0{,}34\%$ do PIB e nominal médio de $-4{,}5\%$ do PIB entre 06/1999 e
+05/2025; dívida bruta do governo geral saiu de $\approx 55\%$ (2006) para picos
+próximos de $90\%$ do PIB (2020), rondando $75\%$ em 2025 --- pergunta do
+professor em aula: \emph{``o Brasil tem operado sob um regime fiscal
+sustentável?''}
+
+\subsection{Lista 3, Q7 (com chave oficial)}
+
+\begin{correctbox}[title={Chave oficial (Q7): a restrição e o papel das expectativas}]
+\emph{``A restrição do governo pode ser entendida como''}
+\[
+(1)\quad \int_{t=0}^{\infty} e^{-R(t)}\,G(t)\,\dif t
+\;\leq\; -D(0) + \int_{t=0}^{\infty} e^{-R(t)}\,T(t)\,\dif t,
+\]
+\emph{``estabelecendo a necessidade de que o somatório dos gastos públicos a
+valor presente seja menor ou igual ao somatório de receitas com arrecadação, a
+valor presente, menos a dívida pública inicial. Isto leva à \textbf{condição de
+solvência} do setor público:''}
+\[
+(2)\quad \int_{t=0}^{\infty} e^{-R(t)}\bigl[T(t) - G(t)\bigr]\,\dif t
+\;\geq\; D(0).
+\]
+\emph{``Em todo momento do tempo, a solvência é avaliada pela capacidade do
+governo gerar fluxos corrente e futuros, a valor presente, suficientes para
+cobrir os passivos e dívidas públicas. Logo, um aumento da dívida pública
+inicial deve ser acompanhado de elevação do fluxo temporal esperado de
+\textbf{superávits primários}.''}
+
+\emph{``As \textbf{expectativas} aqui ganham relevância porque a identificação
+de solvência depende muito mais dos fluxos \emph{projetados} de resultados
+fiscais, em comparação com o resultado fiscal corrente (apenas uma pequena
+fração do lado esquerdo na condição 2). Portanto, \textbf{anúncios de política
+fiscal e sinalizações} por parte das autoridades fiscais têm especial
+importância na avaliação de solvência pelos agentes.''}
+\end{correctbox}
+
+Implicações dos slides: (1) sustentabilidade fiscal depende não só dos
+déficits correntes, mas das \emph{expectativas sobre a política fiscal
+futura}; (2) papel essencial de \emph{expectativas fiscais, reputação e
+credibilidade}. Há um caso para \emph{regras fiscais}: a restrição diz que o
+governo precisa gerar superávits primários grandes o bastante, em valor
+presente, para compensar a dívida inicial.
+
+\begin{provabox}[title={Como cai na prova}]
+P2 2024 Q6 (gabarito oficial: \textbf{iii}): \emph{``os superávits primários
+corrente e futuros esperados precisam cobrir a dívida pública atual em termos
+reais''} --- é a condição (2). Falsos da mesma questão: solvência avaliada
+pelos \emph{resultados correntes} (i); país com pior saldo corrente
+\emph{necessariamente} mais arriscado (ii --- expectativas podem inverter);
+avaliação fiscal imune à dinâmica inflacionária (iv).
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Equivalência Ricardiana}
+% ------------------------------------------------------------------
+
+\subsection{Lista 3, Q8 (com chave oficial) --- derivação completa}
+
+Ponto de partida: modelo \textbf{RCK com tributos lump-sum}. Com impostos, o
+valor presente do consumo não pode exceder a riqueza inicial (capital +
+títulos públicos) mais o valor presente da renda do trabalho \emph{após
+impostos}.
+
+\begin{correctbox}[title={Chave oficial (Q8): passo a passo}]
+\textbf{(1) Restrição das famílias:}
+\[
+\int_{t=0}^{\infty} e^{-R(t)} C(t)\,\dif t
+\;\leq\; K(0) + D(0)
++ \int_{t=0}^{\infty} e^{-R(t)}\bigl[W(t) - T(t)\bigr]\,\dif t
+\]
+(separando: $\dots + \int e^{-R}W\,\dif t - \int e^{-R}T\,\dif t$).
+
+\textbf{(2) Restrição do governo com igualdade:}
+\[
+\int_{t=0}^{\infty} e^{-R(t)} G(t)\,\dif t
+= -D(0) + \int_{t=0}^{\infty} e^{-R(t)} T(t)\,\dif t,
+\]
+que pode ser reescrita como
+\[
+(3)\quad \int_{t=0}^{\infty} e^{-R(t)} T(t)\,\dif t
+= \int_{t=0}^{\infty} e^{-R(t)} G(t)\,\dif t + D(0).
+\]
+
+\textbf{Substituindo (3) em (1):}
+\[
+\boxed{\;\int_{t=0}^{\infty} e^{-R(t)} C(t)\,\dif t
+\;\leq\; K(0)
++ \int_{t=0}^{\infty} e^{-R(t)} W(t)\,\dif t
+- \int_{t=0}^{\infty} e^{-R(t)} G(t)\,\dif t\;}
+\]
+$D(0)$ e a trajetória de $T$ \textbf{desaparecem da restrição}.
+
+\emph{``Portanto, dados os gastos públicos corrente e futuros, a forma de
+financiamento dos mesmos (se via arrecadação T, ou via dívida D) não interfere
+na determinação do consumo intertemporal; e dada a trajetória de longo prazo
+do produto, nem nos investimentos, já que $I(t) = Y(t) - C(t) - G(t)$.
+Portanto, substituir tributos por dívida hoje, ou vice-versa, \textbf{não
+impacta a atividade econômica de curto prazo}.''}
+\end{correctbox}
+
+\begin{resultbox}[title={Implicações (slides) e o mecanismo econômico}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em]
+\item A restrição das famílias é afetada pelo \textbf{valor presente das
+compras do governo}, sem referência à divisão do financiamento entre tributos
+e títulos em cada momento;
+\item São as \textbf{compras do governo}, não os tributos, que afetam a
+acumulação de capital ($I = Y - C - G$);
+\item \textbf{Resultado-chave}: só a \emph{quantidade} de gasto público, não a
+divisão do seu financiamento, afeta a economia.
+\end{enumerate}
+Mecanismo: um corte de tributos hoje, dados os gastos, eleva a dívida; agentes
+racionais internalizam a restrição do governo e sabem que virão maiores
+tributos/superávits no futuro --- a renda disponível extra (transitória, pela
+Parte I deste guia!) é \textbf{poupada}, e o consumo não muda.
+\end{resultbox}
+
+\begin{provabox}[title={Como cai na prova}]
+Já caiu de três formas: P2 2024 Q2-iv (\textbf{verdadeiro}): a restrição das
+famílias \emph{``não sofre influência das proporções de T e D''}; P2 2024
+Q5-iii (\textbf{verdadeiro}, gabarito oficial): satisfeita a restrição do
+governo, \emph{``a substituição de financiamento via tributos por mais dívida
+não possui qualquer impacto sobre o comportamento do consumidor''}; e como
+dissertativa (P2 2021 e 2024). Falsos associados: ``redução de alíquotas
+estimula consumo e ciclo'' (P2 2024 Q5-ii); ``gastos públicos não têm impacto
+direto na restrição das famílias'' (Q5-iv --- têm: $G$ entra com sinal negativo
+após a substituição).
+\end{provabox}
+
+% ------------------------------------------------------------------
+\section{Contrações Fiscais Expansionistas e Crises de Dívida}
+% ------------------------------------------------------------------
+
+\subsection{Conteúdo novo dos slides (Aula 13) --- ainda não cobrado em prova}
+
+\textbf{Contrações fiscais expansionistas} --- às vezes a consolidação fiscal
+\emph{aumenta} a atividade econômica:
+\begin{itemize}[leftmargin=1.4em]
+\item \textbf{Giavazzi e Pagano (1990)}: pacotes de reforma fiscal na
+\textbf{Dinamarca e na Irlanda nos anos 1980} foram seguidos de \emph{booms de
+consumo}; os autores atribuem o resultado a efeitos operando via
+\textbf{expectativas};
+\item \textbf{Alesina e Perotti (1997)}: reduções de déficit vindas de
+\textbf{cortes de emprego público e transferências} são muito mais prováveis
+de serem \emph{mantidas} do que as vindas de aumentos de tributos; e,
+coerentemente com o papel das expectativas, o primeiro tipo é com frequência
+\emph{expansionista}, o segundo usualmente não;
+\item os \textbf{multiplicadores fiscais} diferem entre os dois tipos de
+ajuste.
+\end{itemize}
+
+\textbf{Canais} (slides):
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.1em]
+\item[a)] \emph{Juros}: menos compras do governo reduzem juros correntes;
+expectativa de menos compras futuras reduz as expectativas de juros futuros;
+\item[b)] \emph{Lado da oferta}: menores tributos futuros $\Rightarrow$
+menores distorções (maior competitividade das firmas) $\Rightarrow$ maior
+renda futura;
+\item[c)] \emph{Risco de crise}: a contração reduz a probabilidade percebida
+de crise, elevando as estimativas de renda futura;
+\item[d)] renda futura esperada maior eleva \textbf{consumo corrente e
+investimento} (Bertola e Drazen, 1993; Perotti, 1999; via \emph{q de Tobin} ---
+ponte com a Parte II).
+\end{enumerate}
+
+\textbf{Modelos de crises de dívida} (inspirados em Calvo, 1988; Cole e Kehoe,
+2000) --- crises de dívida são \textbf{crises induzidas por expectativas}:
+\begin{center}
+dívida alta $\rightarrow$ taxa de retorno requerida alta $\rightarrow$\\
+receitas futuras esperadas baixas $\rightarrow$ \emph{default} mais provável,
+\end{center}
+um círculo com potencial autorrealizável: o medo do default eleva os juros
+exigidos, o que piora a dinâmica da dívida e aproxima o próprio default.
+
+\begin{provabox}[title={Como cai na prova}]
+Por ser conteúdo novo, itens plausíveis: inverter Alesina--Perotti (dizer que
+ajustes via \emph{tributos} são os duradouros/expansionistas --- falso);
+inverter o círculo de Calvo/Cole-Kehoe (dívida alta $\rightarrow$ retorno
+requerido \emph{menor} --- falso); ou afirmar que consolidações são
+\emph{sempre} contracionistas (falso: Dinamarca e Irlanda). A âncora
+verdadeira: expectativas no centro dos dois fenômenos.
+\end{provabox}
+
+% ==========================================================================
+% FECHAMENTO
+% ==========================================================================
+\newpage
+\begin{center}
+{\large\bfseries\color{orangerbc} Resumo de véspera --- as equações da P2 em meia página}\\[0.2em]
+\rule{\linewidth}{0.6pt}
+\end{center}
+
+\begin{formulabox}[title={Consumo (cap.\ 8)}]
+$C_t = \frac{1}{T}\bigl(A_0 + \sum_\tau Y_\tau\bigr)$
+\quad$\cdot$\quad
+$\hat b = \frac{\VAR(Y^P)}{\VAR(Y^P)+\VAR(Y^T)}$
+\quad$\cdot$\quad
+$C_t = C_{t-1} + e_t$
+\quad$\cdot$\quad
+$\Delta C_t = \lambda \Delta Y_t + (1-\lambda)e_t$ (IV; $\lambda\approx0{,}5$)
+\quad$\cdot$\quad
+$\frac{C_{t+1}}{C_t} = \bigl(\frac{1+r}{1+\rho}\bigr)^{1/\theta}$
+\quad$\cdot$\quad
+$\E[g^c] \simeq \frac{1}{2}(\theta+1)\VAR(g^c)$
+\end{formulabox}
+
+\begin{formulabox}[title={Investimento (cap.\ 9)}]
+$q(t) = \int_0^\infty e^{-rt}\pi(K(t))\dif t$
+\quad$\cdot$\quad
+$1 + C'(I) = q$
+\quad$\cdot$\quad
+$\dot K = f(q),\ f(1)=0$
+\quad$\cdot$\quad
+$\dot q = rq - \pi(K)$
+\quad$\cdot$\quad
+$\dot q = 0 \Rightarrow q = \pi(K)/r$ ($\pi'<0$: inclinação negativa)
+\end{formulabox}
+
+\begin{formulabox}[title={Inflação e política monetária (cap.\ 11)}]
+$P = M/L(i,Y)$
+\quad$\cdot$\quad
+$i = r + \pi^e$
+\quad$\cdot$\quad
+$i_t^n = \frac{1}{n}\sum_{j=0}^{n-1}\E_t\,i_{t+j}^1 + \theta_{nt}$
+\quad$\cdot$\quad
+$i_t = r^n + \E_t\pi_{t+n} + \phi_\pi(\E_t\pi_{t+n} - \pi^*) + \phi_y\E_t[\ln Y_{t+n} - \ln Y^n_{t+n}]$,
+\ Princípio de Taylor: $\phi_\pi > 1$
+\end{formulabox}
+
+\begin{formulabox}[title={Política fiscal (cap.\ 12)}]
+$\int_0^\infty e^{-R(t)}[T(t)-G(t)]\dif t \geq D(0)$
+\quad$\cdot$\quad
+$\int e^{-R}C \leq K(0) + \int e^{-R}W - \int e^{-R}G$ (equivalência
+ricardiana: $T$, $D$ somem)
+\quad$\cdot$\quad
+$I = Y - C - G$
+\end{formulabox}
+
+\begin{provabox}[title={Roteiro final de estudo}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em]
+\item Releia os 15 tópicos deste guia marcando as caixas verdes (chave
+oficial) --- elas são o padrão de resposta do professor;
+\item Faça o simulado (\texttt{provas/p2\_simulado\_2026.pdf}) cronometrado e
+confira o gabarito comentado;
+\item Na véspera, revise as caixas ``Como cai na prova'' e o resumo de
+equações acima;
+\item Na prova: leia as 4 afirmativas inteiras antes de marcar --- a diferença
+entre V e F costuma ser \emph{uma palavra} (``supera''/``iguala'',
+``nulo''/``menor'', ``corrente''/``esperado'', ``positiva''/``negativa'').
+\end{enumerate}
+\end{provabox}
+
+\vfill
+{\small\color{grayrbc} Guia de conteúdo da Prova 2 --- Macroeconomia I,
+PPGEco-UFES 2026. Elaborado a partir da Lista 3 2026 e sua chave oficial, dos
+slides das Aulas 10--13 e das provas P2 2021 e P2 2024 (chave oficial). Uso
+pessoal.}
+
+\end{document}
