@@ -1,0 +1,220 @@
+% ==========================================================================
+%  Auditoria de Nota — Prova 2 (15/07/2026)
+%  Macroeconomia I (PPGEco-UFES) · Discente: Felipe Carvalho Souza Santos
+%  Conferência questão a questão das respostas assinaladas na prova
+%  (fotos autorizadas pelo professor) contra gabarito reconstruído a partir
+%  de: chave oficial P2 2024, respostas P2 2021, chave oficial da Lista 3
+%  2026 e slides das Aulas 10-13.
+% ==========================================================================
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usepackage{microtype}
+
+\usepackage[top=2.2cm, bottom=2.2cm, left=2.2cm, right=2.2cm, headheight=15pt]{geometry}
+
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\definecolor{cyanrbc}{HTML}{3b9dbd}
+\definecolor{orangerbc}{HTML}{d97b39}
+\definecolor{grayrbc}{HTML}{6b7280}
+\definecolor{greenbox}{HTML}{166534}
+\definecolor{greenbg}{HTML}{dcfce7}
+\definecolor{boxbg}{HTML}{f5f0e8}
+\definecolor{boxborder}{HTML}{3b9dbd}
+\definecolor{provabg}{HTML}{fff7ed}
+\definecolor{provaborder}{HTML}{d97b39}
+\definecolor{redf}{HTML}{b91c1c}
+
+\newtcolorbox{veredictobox}[1][]{standard, colback=greenbg, colframe=greenbox,
+  boxrule=1.2pt, arc=3pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
+  fonttitle=\bfseries\color{greenbox}, breakable, #1}
+\newtcolorbox{notabox}[1][]{standard, colback=boxbg, colframe=boxborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+\newtcolorbox{provabox}[1][]{standard, colback=provabg, colframe=provaborder,
+  boxrule=1pt, arc=3pt, left=6pt, right=6pt, top=4pt, bottom=4pt,
+  fonttitle=\bfseries\small, breakable, #1}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\ok}{\textbf{\textcolor{greenbox}{ACERTO}}}
+\newcommand{\erro}{\textbf{\textcolor{redf}{ERRO}}}
+
+\setlength{\parskip}{0.45\baselineskip}
+\setlength{\parindent}{0pt}
+
+\titleformat{\section}{\large\bfseries\color{cyanrbc}}{\thesection.}{0.5em}{}[\vspace{-0.3em}\rule{\linewidth}{0.4pt}]
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{grayrbc}{Auditoria de Nota --- P2 15/07/2026 --- Macroeconomia I (PPGEco-UFES)}}
+\rhead{\footnotesize\textcolor{grayrbc}{conferência independente}}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+\rule{\linewidth}{1.2pt}\\[0.5em]
+{\LARGE\bfseries\color{cyanrbc} Auditoria de Nota --- Prova 2}\\[0.3em]
+{\large Macroeconomia I --- PPGEco-UFES --- prova de 15/07/2026}\\[0.3em]
+{\normalsize\color{grayrbc} Conferência questão a questão a partir das fotos
+da prova preenchida}\\[0.5em]
+\rule{\linewidth}{1.2pt}
+\end{center}
+
+\begin{veredictobox}[title={RESULTADO AUDITADO}]
+\centering
+{\Large \textbf{Nota estimada na P2: } {\huge 6{,}7}}\quad
+{\large (8 acertos em 12 questões $\times$ 10/12)}\\[0.5em]
+{\large Média final estimada: $(5{,}7 + 6{,}7)/2 = \textbf{6{,}2}$
+\;$\Rightarrow$\; \textbf{APROVADO}}\\[0.3em]
+{\small Meta declarada para a P2: 6{,}3 --- \textbf{superada no cenário-piso}.
+Intervalo auditado: 6{,}7 (piso sólido) a 7{,}5 (teto realista).}
+\end{veredictobox}
+
+\section{Metodologia e fontes}
+
+\textbf{Evidência das respostas do aluno}: 3 fotografias da prova preenchida
+(autorizadas pelo professor), com todas as 12 marcações identificadas por
+ampliação digital --- o padrão de marcação do aluno é consistente (numeral da
+alternativa escolhida circulado; itens rejeitados com $\times$).
+
+\textbf{Gabarito reconstruído} a partir de quatro fontes, em ordem de força:
+(1) \emph{chave oficial da P2 2024} (itens corretos em vermelho) --- 5 questões
+desta prova reutilizam itens literais dela; (2) respostas da P2 2021;
+(3) \emph{chave oficial da Lista 3 2026}; (4) slides das Aulas 10--13.
+Pesos: a prova não exibe pontuação por questão; adotou-se peso uniforme
+($10/12 \approx 0{,}833$ por questão), padrão das provas objetivas do docente.
+
+\section{Conferência questão a questão}
+
+\renewcommand{\arraystretch}{1.35}
+{\small
+\begin{tabular}{c c c c p{8.6cm}}
+\toprule
+\textbf{Q} & \textbf{Aluno} & \textbf{Gabarito} & \textbf{Status} &
+\textbf{Fundamento do gabarito (fonte)} \\
+\midrule
+1 & ii & ii & \ok & A, B, C verdadeiras (Euler; $1/\theta$; evidência fraca);
+D falsa: $\rho$ é parâmetro de preferência, não decorre da restrição nem do
+mercado. \\
+2 & iii & iii & \ok & Item literal do \textbf{gabarito oficial 2024} (Q2-iv):
+restrição das famílias não depende das proporções de T e D. \\
+3 & iii & iii & \ok & Professor inverteu o par de 2021/2024: item i trocou
+$\lambda=1$ (V) por $\lambda=0$ (F); item iii ganhou ``\emph{não} implica
+abandono'' (V). Dupla inversão deliberada e coerente. \\
+4 & iv & iv & \ok & Item literal do \textbf{gabarito oficial 2021 e 2024}:
+$K$ e $q$ muito baixos $\Rightarrow \dot q = rq - \pi(K) < 0$ (queda
+adicional). \\
+5 & iv & iv & \ok & Sinais mecânicos dos quadrantes: acima de $\dot K{=}0$
+$\Rightarrow \Delta K{>}0$; à direita de $\dot q{=}0$
+$\Rightarrow \Delta q{>}0$ (NE). Demais itens contradizem os sinais. \\
+6 & i & i & \ok & Item literal do \textbf{gabarito oficial 2024} (Q4-iii):
+expectativa de $r$ de longo prazo domina o $q$. \\
+7 & iii & iii & \ok & Item literal do \textbf{gabarito oficial 2024} (Q6-iii):
+superávits primários corrente e esperados cobrem $D(0)$. \\
+8 & i & ii & \erro & O item ii é o \textbf{gabarito oficial 2024} (Q5-iii).
+O item i (marcado) usa ``precisa ser \emph{maior}'' (desigualdade estrita)
+--- considerado falso na chave de 2024. \\
+9 & ii & iv & \erro & Item ii afirma que aversão ao risco e taxa de desconto
+``relacionam-se \emph{positivamente} com a renda per capita'' --- falso pela
+regra de ouro modificada ($f'(k^*) = \rho + \theta g$: relação
+\emph{negativa}). Item iv segue a cadeia do curso: piora das projeções de
+inflação $\Rightarrow$ juros reais longos sobem (Princípio de Taylor)
+$\Rightarrow$ $q$ cai $\Rightarrow$ investimento cai. \\
+10 & ii & iv & \erro & Literatura de contrações fiscais expansionistas
+(Giavazzi--Pagano; Alesina--Perotti): consolidação pode vir com produto em
+alta $\Rightarrow$ possibilidade de \emph{multiplicadores negativos} (iv).
+``Multiplicadores positivos'' (ii) contradiz a implicação central. \\
+11 & ii & ii & \ok & A, B, C são a chave oficial da Lista 3 (Q6): $\phi_\pi>1$
+eleva o juro real, contrai demanda, converge inflação; credibilidade reduz o
+custo. D falsa: credibilidade \emph{reduz} persistência. \\
+12 & i & ii & \erro & C é verdadeira pela teoria das expectativas da
+estrutura a termo (mesma lógica da B, aceita pelo aluno): queda das
+expectativas de inflação reduz juros longos sem depender da Selic corrente.
+D falsa pelo ``jamais''. Gabarito provável: A, B e C. \\
+\bottomrule
+\end{tabular}
+}
+
+\section{Cálculo da nota e cenários}
+
+\begin{notabox}[title={Cenário-piso (gabarito auditado): 8/12}]
+\[
+\text{Nota} = 8 \times \frac{10}{12} = 6{,}67 \approx \mathbf{6{,}7}
+\qquad
+\text{Média} = \frac{5{,}7 + 6{,}67}{2} = 6{,}18 \approx \mathbf{6{,}2}
+\]
+Dos 8 acertos, \textbf{4 são itens literais de gabaritos oficiais anteriores}
+(Q2, Q4, Q6, Q7) e os demais são inequívocos (Q1, Q3, Q5, Q11). Não há
+cenário realista abaixo de 8 acertos.
+\end{notabox}
+
+\begin{notabox}[title={Cenários de alta (dependem do gabarito oficial)}]
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{7.6cm} c c c}
+\toprule
+\textbf{Cenário} & \textbf{Acertos} & \textbf{Nota P2} & \textbf{Média} \\
+\midrule
+Piso auditado & 8/12 & 6{,}7 & 6{,}2 \\
+$+$ Q12 (leitura literal de ``independentemente'' na C) & 9/12 & 7{,}5 &
+6{,}6 \\
+$+$ Q9 (se o professor mantiver ii apesar do ``positivamente'') & 9/12 &
+7{,}5 & 6{,}6 \\
+$+$ Q9 e Q12 & 10/12 & 8{,}3 & 7{,}0 \\
+\bottomrule
+\end{tabular}\\[0.4em]
+Q8 e Q10 não têm cenário de alta: em Q8 o item ii é gabarito oficial
+documentado de 2024; em Q10 a implicação da literatura (multiplicadores
+negativos) é inequívoca nos slides.
+\end{notabox}
+
+\section{Observações finais}
+
+\begin{provabox}[title={Recomendações}]
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.2em]
+\item \textbf{Conferir o gabarito oficial} quando divulgado, em especial Q9 e
+Q12 (únicos pontos com margem de divergência --- ambos a favor do aluno);
+\item \textbf{Q9, se dada como ii}: cabe pedido de revisão da redação --- ``ambos
+relacionam-se positivamente com a renda per capita'' contraria
+$f'(k^*)=\rho+\theta g$ (maiores $\theta$ e $\rho$ implicam menores $k^*$ e
+renda de longo prazo), conteúdo do próprio curso (RCK, P1);
+\item \textbf{Q12, se dada como i}: a defesa de C é direta ---
+$i^n_t = \frac{1}{n}\sum_j \E_t\,i^1_{t+j} + \theta_{nt}$: queda das
+expectativas de inflação futura reduz os juros nominais longos sem exigir
+movimento da Selic corrente (mesmo mecanismo da afirmativa B, aceita como
+verdadeira).
+\end{enumerate}
+\end{provabox}
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Nota P1 (registrada) & 5{,}7 \\
+Nota P2 (auditada, piso) & \textbf{6{,}7} \\
+Média final estimada & \textbf{6{,}2} \\
+Situação & \textbf{APROVADO} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vfill
+{\small\color{grayrbc} Auditoria elaborada a partir das fotografias da prova
+preenchida (15/07/2026) e dos materiais oficiais da disciplina. Gabarito
+reconstruído de forma independente --- não substitui o gabarito oficial do
+docente. Uso pessoal.}
+
+\end{document}
